@@ -12,7 +12,10 @@
                 <main>
                     <%@ include file="../base/simple_header.jsp" %>
                     <%-- Main page content--%>
-                    <div class="container-xl px-4 mt-4">
+                    <div class="container-fluid px-4 mt-4">
+                        <%-- 메시지 --%>
+                        <%@ include file="../base/message.jsp" %>
+                        <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
@@ -34,32 +37,22 @@
                                             <table class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>지점명</th>
-                                                        <th>주소</th>
-                                                        <th>전화번호</th>
-                                                        <th>지점 관리자</th>
-                                                        <th>관리</th>
+                                                        <th class="col-2 text-center">지점명</th>
+                                                        <th class="col-5 text-center">주소</th>
+                                                        <th class="col-2 text-center">전화번호</th>
+                                                        <th class="col-2 text-center">지점 관리자</th>
+                                                        <th class="col-1 text-center">관리</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach items="${branches}" var="branch">
                                                         <tr>
-                                                            <td class="align-middle">${branch.branchName}</td>
-                                                            <td class="align-middle">${branch.branchAddress}</td>
-                                                            <td class="align-middle">${branch.branchPhone}</td>
-                                                            <td class="align-middle">
-                                                                <c:if test="${not empty branch.branchManager and branch.branchManager != null}">
-                                                                    <c:forEach items="${branch.branchManager}" var="manager">
-                                                                        <p>${manager.name}(${manager.phone})</p>
-                                                                    </c:forEach>
-                                                                </c:if>
-                                                                <c:if test="${empty branch.branchManager or branch.branchManager == null}">
-                                                                    <span class="btn btn-danger">관리자 없음</span>
-                                                                </c:if>
-                                                            </td>
-                                                            <td class="align-middle">
-                                                                <a href="/branches/${branch.branchId}/update" class="btn btn-primary">수정</a>
-                                                                <button type="button" class="btn btn-danger">삭제</button>
+                                                            <td class="align-middle text-center">${branch.branchName}</td>
+                                                            <td class="align-middle text-center">${branch.branchAddress}</td>
+                                                            <td class="align-middle text-center">${branch.branchPhone}</td>
+                                                            <td class="align-middle text-center"></td>
+                                                            <td class="align-middle text-center">
+                                                                <a href="/branches/${branch.branchId}" class="btn btn-primary btn-sm">보기</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -77,54 +70,5 @@
             </div>
         </div>
         <%@ include file="../base/script.jsp" %>
-        <script>
-            $(document).ready(function() {
-                $("#createForm").validate({
-                    rules: {
-                        branchName: {
-                            required: true,
-                            minlength: 2,
-                            maxlength: 50
-                        },
-                        branchAddress: {
-                            required: true,
-                            minlength: 2,
-                            maxlength: 100
-                        },
-                        branchPhone: {
-                            required: true,
-                            minlength: 2,
-                            maxlength: 20
-                        }
-                    },
-                    messages: {
-                        branchName: {
-                            required: "지점명을 입력해주세요.",
-                            minlength: "지점명은 최소 2자 이상이어야 합니다.",
-                            maxlength: "지점명은 최대 50자 이하여야 합니다."
-                        },
-                        branchAddress: {
-                            required: "주소를 입력해주세요.",
-                            minlength: "주소는 최소 2자 이상이어야 합니다.",
-                            maxlength: "주소는 최대 100자 이하여야 합니다."
-                        },
-                        branchPhone: {
-                            required: "전화번호를 입력해주세요.",
-                            minlength: "전화번호는 최소 2자 이상이어야 합니다.",
-                            maxlength: "전화번호는 최대 20자 이하여야 합니다."
-                        }
-                    },
-                    errorClass: 'is-invalid',
-                    validClass: 'is-valid',
-                    errorPlacement: function(error, element) {
-                        error.addClass('invalid-feedback');
-                        element.closest('.mb-3').append(error);
-                    },
-                    submitHandler: function(form) {
-                        form.submit();
-                    }
-                });
-            });
-        </script>
     </body>
 </html>

@@ -4,6 +4,7 @@
 <mapper namespace="branchMapper">
 
     <resultMap id="branchResultMap" type="kr.seoulfitness.branch.BranchDto">
+        <!-- 지점 정보 -->
         <result property="branchId" column="BRANCH_ID" />
         <result property="branchName" column="BRANCH_NAME" />
         <result property="branchAddress" column="BRANCH_ADDRESS" />
@@ -11,7 +12,12 @@
         <result property="createdAt" column="CREATED_AT" />
         <result property="updatedAt" column="UPDATED_AT" />
         <result property="createdBy" column="CREATED_BY" />
-        <result property="updatedBy" column="UPDATED_BY" />        
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
     </resultMap>
 
     <!-- 지점등록 -->
@@ -37,24 +43,32 @@
     <select id="list" resultMap="branchResultMap">
         <![CDATA[
         SELECT
-            BRANCH_ID,
-            BRANCH_NAME, 
-            BRANCH_ADDRESS, 
-            BRANCH_PHONE, 
-            CREATED_AT,
-            UPDATED_AT,
-            CREATED_BY,
-            UPDATED_BY
+            -- 지점 정보
+            A.BRANCH_ID,
+            A.BRANCH_NAME, 
+            A.BRANCH_ADDRESS, 
+            A.BRANCH_PHONE, 
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
         FROM    
-            BRANCHES
+            BRANCHES A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
         WHERE 1=1
         ]]>
         <if test="keyword != null">
             <![CDATA[
             AND (
-                BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
-                OR BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
-                OR BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                A.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
             )
             ]]>
         </if>
@@ -69,16 +83,24 @@
     <select id="read" resultMap="branchResultMap">
         <![CDATA[
         SELECT
-            BRANCH_ID,
-            BRANCH_NAME, 
-            BRANCH_ADDRESS, 
-            BRANCH_PHONE, 
-            CREATED_AT,
-            UPDATED_AT,
-            CREATED_BY,
-            UPDATED_BY
+            -- 지점 정보
+            A.BRANCH_ID,
+            A.BRANCH_NAME, 
+            A.BRANCH_ADDRESS, 
+            A.BRANCH_PHONE, 
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
         FROM
-            BRANCHES
+            BRANCHES A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
         WHERE
             BRANCH_ID = #{branchId}
         LIMIT 1
@@ -88,14 +110,25 @@
     <!-- 지점 수정 -->
     <update id="update" parameterType="kr.seoulfitness.branch.BranchDto">
         <![CDATA[
-        UPDATE BRANCHES
-        SET
-            BRANCH_NAME = #{branchName},
-            BRANCH_ADDRESS = #{branchAddress},
-            BRANCH_PHONE = #{branchPhone}
-        WHERE
-            BRANCH_ID = #{branchId}
-        LIMIT 1
+        UPDATE BRANCHES SET BRANCH_ID = #{branchId}
+        ]]>
+        <if test="branchName != null">
+            <![CDATA[
+            , BRANCH_NAME = #{branchName}
+            ]]>
+        </if>
+        <if test="branchAddress != null">
+            <![CDATA[
+            , BRANCH_ADDRESS = #{branchAddress}
+            ]]>
+        </if>
+        <if test="branchPhone != null">
+            <![CDATA[
+            , BRANCH_PHONE = #{branchPhone}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE BRANCH_ID = #{branchId} LIMIT 1
         ]]>
     </update>
 

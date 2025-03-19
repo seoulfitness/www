@@ -35,7 +35,7 @@ public class UserService {
         Pagination pagination = new Pagination(currentPage, listCountPerPage, pageCountPerPage, totalCount);
 
         // 페이징된 게시글 목록 조회
-        List<UserDto> users = userDao.list(pagination.offset(), listCountPerPage, keyword);
+        List<UserDto> users = userDao.list(pagination.offset(), listCountPerPage, keyword, role);
 
         // 결과 맵 생성
         Map<String, Object> result = new HashMap<>();

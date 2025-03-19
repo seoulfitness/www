@@ -11,7 +11,7 @@
                 <main>
                     <%@ include file="../base/simple_header.jsp" %>
                     <%-- Main page content--%>
-                    <div class="container-xl px-4 mt-4">
+                    <div class="container-fluid px-4 mt-4">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
@@ -20,18 +20,20 @@
                                         <form id="createForm" action="/branches/create" method="post">
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchName">지점명</label>
-                                                <input class="form-control" name="branchName" id="branchName" type="text" placeholder="지점명을 입력하세요." />
+                                                <input class="form-control" name="branchName" id="branchName" type="text" placeholder="지점명을 입력하세요." value="${branch.branchName}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchAddress">주소</label>
-                                                <input class="form-control" name="branchAddress" id="branchAddress" type="text" placeholder="주소를 입력하세요." />
+                                                <input class="form-control" name="branchAddress" id="branchAddress" type="text" placeholder="주소를 입력하세요." value="${branch.branchAddress}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchPhone">전화번호</label>
-                                                <input class="form-control" name="branchPhone" id="branchPhone" type="text" placeholder="전화번호를 입력하세요." />
+                                                <input class="form-control" name="branchPhone" id="branchPhone" type="text" placeholder="전화번호를 입력하세요." value="${branch.branchPhone}" />
                                             </div>
-                                            <button class="btn btn-primary" type="submit">저장</button>
-                                            <a href="/branches" class="btn btn-outline-danger">취소</a>
+                                            <div>
+                                                <button class="btn btn-primary" type="submit">지점 등록</button>
+                                                <a href="/branches" class="btn btn-outline-danger">등록 취소</a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

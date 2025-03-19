@@ -23,6 +23,21 @@
         <property name="maxLifetime" value="1800000"/>
     </bean>
 
+    <!-- 데이터베이스 초기화 설정 -->
+    <bean id="dataSourceInitializer" class="org.springframework.jdbc.datasource.init.DataSourceInitializer">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="databasePopulator">
+            <bean class="org.springframework.jdbc.datasource.init.ResourceDatabasePopulator">
+                <property name="scripts">
+                    <list>
+                        <value>classpath:schema.sql</value>
+                    </list>
+                </property>
+                <property name="continueOnError" value="true"/>
+            </bean>
+        </property>
+    </bean>
+
     <!-- JdbcTemplate -->
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>

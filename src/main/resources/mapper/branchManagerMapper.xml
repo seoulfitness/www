@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="branchMangerMapper">
+
+    <resultMap id="branchManagerResultMap" type="kr.seoulfitness.branchManager.BranchManagerDto">
+        <!-- 지점 관리자 정보 -->
+        <result property="branchManagerId" column="BRANCH_MANAGER_ID" />
+        <result property="branchId" column="BRANCH_ID" />
+        <result property="userId" column="USER_ID" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />        
+        <!-- 지점 정보 -->
+        <result property="branchName" column="BRANCH_NAME" />
+        <result property="branchAddress" column="BRANCH_ADDRESS" />
+        <result property="branchPhone" column="BRANCH_PHONE" />
+        <!-- 사용자 정보 -->
+        <result property="userName" column="USER_NAME" />
+        <result property="userEmail" column="USER_EMAIL" />
+        <result property="userPhone" column="USER_PHONE" />
+        <result property="profileImage" column="PROFILE_IMAGE" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 지점 관리자 등록 -->
+    <insert id="create" parameterType="kr.seoulfitness.branchManager.BranchManagerDto" useGeneratedKeys="true" keyProperty="branchManagerId">
+        <![CDATA[
+        INSERT INTO BRANCH_MANAGERS (
+            BRANCH_ID, 
+            USER_ID,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{branchId}, 
+            #{userId}, 
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 지점 목록 -->
+    <select id="list" resultMap="branchManagerResultMap">
+        <![CDATA[
+        SELECT
+            -- 지점 관리자 정보
+            A.BRANCH_MANAGER_ID,
+            A.BRANCH_ID,
+            A.USER_ID, 
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 지점 정보
+            B.BRANCH_NAME AS BRANCH_NAME,
+            B.BRANCH_ADDRESS AS BRANCH_ADDRESS,
+            B.BRANCH_PHONE AS BRANCH_PHONE,            
+            -- 사용자 정보
+            C.USER_NAME AS USER_NAME,
+            C.USER_EMAIL AS USER_EMAIL,
+            C.USER_PHONE AS USER_PHONE,
+            C.PROFILE_IMAGE AS PROFILE_IMAGE
+        FROM    
+            BRANCH_MANAGERS AS A
+            LEFT JOIN USERS AS B ON B.USER_ID = A.USER_ID
+            LEFT JOIN BRANCHES AS C ON C.BRANCH_ID = A.BRANCH_ID
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                -- 지점 정보
+                B.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR B.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR B.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                -- 사용자 정보
+                OR C.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR C.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
+                OR C.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY C.USER_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+    
+    <!-- 지점 관리자 보기 -->
+    <select id="read" resultMap="branchManagerResultMap">
+        <![CDATA[
+        SELECT
+            -- 지점 관리자 정보
+            A.BRANCH_MANAGER_ID,
+            A.BRANCH_ID,
+            A.USER_ID, 
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 지점 정보
+            B.BRANCH_NAME AS BRANCH_NAME,
+            B.BRANCH_ADDRESS AS BRANCH_ADDRESS,
+            B.BRANCH_PHONE AS BRANCH_PHONE,            
+            -- 사용자 정보
+            C.USER_NAME AS USER_NAME,
+            C.USER_EMAIL AS USER_EMAIL,
+            C.USER_PHONE AS USER_PHONE,
+            C.PROFILE_IMAGE AS PROFILE_IMAGE
+        FROM    
+            BRANCH_MANAGERS AS A
+            LEFT JOIN USERS AS B ON B.USER_ID = A.USER_ID
+            LEFT JOIN BRANCHES AS C ON C.BRANCH_ID = A.BRANCH_ID
+        WHERE
+            BRANCH_MANAGER_ID = #{branchManagerId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 지점 관리자 수정 -->
+    <update id="update" parameterType="kr.seoulfitness.branchManager.BranchManagerDto">
+        <![CDATA[
+        UPDATE BRANCH_MANAGERS SET BRANCH_MANAGER_ID = #{branchManagerId}
+        ]]>
+        <if test="branchId != null">
+            <![CDATA[
+            , BRANCH_ID = #{branchId}
+            ]]>
+        </if>
+        <if test="userId != null">
+            <![CDATA[
+            , USER_ID = #{userId}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE BRANCH_MANAGER_ID = #{branchManagerId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 지점 관리자 삭제 -->
+    <delete id="delete" parameterType="int">
+        <![CDATA[
+        DELETE FROM BRANCH_MANAGERS WHERE 1=1
+        ]]>
+        <if test="branchManagerId != null and branchManagerId != 0">
+            <![CDATA[
+            AND BRANCH_MANAGER_ID = #{branchManagerId}
+            ]]>
+        </if>
+        <if test="branchId != null and branchId != 0">
+            <![CDATA[
+            AND BRANCH_ID = #{branchId}
+            ]]>
+        </if>
+    </delete>
+
+    <!-- 지점 관리자 수 -->
+    <select id="totalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) 
+        FROM    
+            BRANCH_MANAGERS AS A
+            LEFT JOIN USERS AS B ON A.USER_ID = B.USER_ID
+            LEFT JOIN BRANCHES AS C ON A.BRANCH_ID = C.BRANCH_ID
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                -- 지점 정보
+                B.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR B.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR B.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                -- 사용자 정보
+                OR C.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR C.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
+                OR C.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>

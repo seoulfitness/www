@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class BranchService {
     private BranchDao branchDao;
 
     // 지점 등록
-    public boolean create(BranchDto branch) {
+    public boolean create(BranchDto branch) {        
         return branchDao.create(branch) > 0;
     }
 
@@ -46,7 +48,7 @@ public class BranchService {
     }
 
     // 지점 수정
-    public boolean update(BranchDto branch) {
+    public boolean update(BranchDto branch) {        
         return branchDao.update(branch) > 0;
     }
 

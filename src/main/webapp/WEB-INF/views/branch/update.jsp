@@ -11,7 +11,7 @@
                 <main>
                     <%@ include file="../base/simple_header.jsp" %>
                     <%-- Main page content--%>
-                    <div class="container-xl px-4 mt-4">
+                    <div class="container-fluid px-4 mt-4">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
@@ -30,8 +30,10 @@
                                                 <label class="small mb-1" for="branchPhone">전화번호</label>
                                                 <input class="form-control" name="branchPhone" id="branchPhone" type="text" placeholder="전화번호를 입력하세요." value="${branch.branchPhone}" />
                                             </div>
-                                            <button class="btn btn-primary" type="submit">저장</button>
-                                            <a href="/branches" class="btn btn-outline-danger">취소</a>
+                                            <div>
+                                                <button class="btn btn-primary" type="submit">지점 수정</button>
+                                                <a href="/branches/${branch.branchId}" class="btn btn-outline-danger">수정 취소</a>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>

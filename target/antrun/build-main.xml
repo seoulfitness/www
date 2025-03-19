@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="maven-antrun-" default="main">
-  <target name="main">
-    <copy file="/Users/jeongps/Developments/seoulfitness.kr/www/target/ROOT.war" todir="/opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/webapps" overwrite="true" />
-  </target>
-</project>

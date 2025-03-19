@@ -3,8 +3,6 @@ package kr.seoulfitness.auth;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +14,7 @@ import kr.seoulfitness.user.UserService;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
-    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
-
+    
     @Autowired
     AuthService authService;
 
@@ -27,32 +24,6 @@ public class AuthController {
     // 로그인(화면, GET)
     @GetMapping("/login")
     public String loginGet() {
-        // 관리자 존재 여부 확인
-        UserDto existsAdmin = new UserDto();
-        existsAdmin.setUserId("root");
-        existsAdmin = userService.read(existsAdmin);
-
-        // 관리자 등록
-        if (existsAdmin == null) {
-            // 관리자 정보
-            UserDto newAdmin = new UserDto();
-            newAdmin.setUserId("root");
-            newAdmin.setPassword("1234");
-            newAdmin.setName("정필성");
-            newAdmin.setEmail("ibetter.kr@gmail.com");
-            newAdmin.setPhone("010-5911-8108");
-            newAdmin.setRole("root");
-            newAdmin.setStatus("Y");
-
-            // 관리자 등록
-            boolean result = userService.create(newAdmin);
-            if (result) {
-                logger.debug("관리자 등록 성공");
-            } else {
-                logger.debug("관리자 등록 실패");
-            }
-        }
-
         return ("auth/login");
     }
 
@@ -63,7 +34,11 @@ public class AuthController {
 
         if (loggedInUser != null) {
             session.setAttribute("loggedInUser", loggedInUser);
-            session.setAttribute("id", loggedInUser.getId());
+            session.setAttribute("userId", loggedInUser.getUserId());
+            session.setAttribute("userName", loggedInUser.getUserName());
+            session.setAttribute("userEmail", loggedInUser.getUserEmail());
+            session.setAttribute("userPhone", loggedInUser.getUserPhone());
+            session.setAttribute("role", loggedInUser.getRole());
             return ("redirect:/dashboard");
         }
 

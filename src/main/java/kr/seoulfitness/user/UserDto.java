@@ -1,41 +1,33 @@
 package kr.seoulfitness.user;
 
-import kr.seoulfitness.libs.ExtDto;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class UserDto extends ExtDto {
-    private int id;                 // 사용자 구분자   
-    private String userId;          // 사용자 아이디   
-    private String password;        // 사용자 비밀번호
-    private String name;            // 사용자 이름
-    private String email;           // 사용자 이메일
-    private String phone;           // 사용자 전화번호
-    private String profileImage;    // 사용자 프로필 이미지
-    private String role;            // 사용자 역할
-    private String status;          // 사용자 상태
-    private String deleteRequest;   // 사용자 삭제 요청
-    private String deleteRequestedAt; // 사용자 삭제 요청일
-}
+public class UserDto {
+    private String userId;              // 아이디   
+    private String password;            // 비밀번호
+    private String userName;            // 이름
+    private String userEmail;           // 이메일
+    private String userPhone;           // 전화번호
+    private String profileImage;        // 프로필 이미지
+    private String role;                // 역할
+    private String status;              // 상태
+    private String deleteRequest;       // 삭제 요청
+    private String deleteRequestedAt;   // 삭제 요청일시
+    private String createdAt;           // 생성일시
+    private String updatedAt;           // 수정일시
+    private String createdBy;           // 생성자
+    private String updatedBy;           // 수정한 사람
 
-/*
-CREATE TABLE USERS (
-    ID INT AUTO_INCREMENT PRIMARY KEY,
-    USER_ID VARCHAR(50) NOT NULL UNIQUE,
-    PASSWORD VARCHAR(255) NOT NULL,
-    NAME VARCHAR(100) NOT NULL,
-    EMAIL VARCHAR(100) NOT NULL,
-    PHONE VARCHAR(20) NOT NULL,
-    PROFILE_IMAGE VARCHAR(255),
-    ROLE VARCHAR(20) NOT NULL DEFAULT 'NORMAL_USER',
-    STATUS CHAR(1) NOT NULL DEFAULT 'Y',
-    DELETE_REQUEST CHAR(1) DEFAULT 'N',
-    DELETE_REQUESTED_AT DATETIME,
-    CREATED_AT DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UPDATED_AT DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CREATED_BY INT,
-    UPDATED_BY INT
-);
-*/
+    // 지점 관리자 정보
+    private String branchId;            // 지점 아이디
+    private String branchName;          // 지점 이름
+    private String branchAddress;       // 지점 주소
+    private String branchPhone;         // 지점 전화번호
+
+    // 등록한 사람, 수정한 사람 정보
+    private String createdUserName; // 등록한 사람 이름
+    private String updatedUserName; // 수정한 사람 이름
+    private String createdUserPhone; // 등록한 사람 전화번호
+    private String updatedUserPhone; // 수정한 사람 전화번호
+}

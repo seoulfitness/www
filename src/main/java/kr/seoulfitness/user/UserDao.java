@@ -32,10 +32,11 @@ public class UserDao {
     }
 
     // 사용자 목록
-    public List<UserDto> list(int offset, int listCountPerPage, String role) {
+    public List<UserDto> list(int offset, int listCountPerPage, String keyword, String role) {
         Map<String, Object> params = new HashMap<>();
         params.put("offset", offset);
         params.put("listCountPerPage", listCountPerPage);
+        params.put("keyword", keyword);
         params.put("role", role);
 
         List<UserDto> users = null;
