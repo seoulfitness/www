@@ -1,4 +1,4 @@
-package kr.seoulfitness.branchManager;
+package kr.seoulfitness.admin.branchManager;
 
 import java.util.HashMap;
 import java.util.List;

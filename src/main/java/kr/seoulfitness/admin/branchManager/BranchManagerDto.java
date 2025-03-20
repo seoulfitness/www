@@ -1,4 +1,4 @@
-package kr.seoulfitness.branchManager;
+package kr.seoulfitness.admin.branchManager;
 
 import lombok.Data;
 

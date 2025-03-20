@@ -1,4 +1,4 @@
-package kr.seoulfitness.user;
+package kr.seoulfitness.user.user;
 
 import lombok.Data;
 

@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS USERS (
 
 -- 관리자 정보
 INSERT INTO USERS (USER_ID, PASSWORD, USER_NAME, USER_EMAIL, USER_PHONE, ROLE, STATUS, CREATED_BY, UPDATED_BY)
-SELECT 'sung2ne', '$2a$10$xM/rrCyLBfVzQNqpW3ODvePFPv0H.43/Ezpp17fnistdwIE0Fs8k.', '정필성', 'admin@seoulfitness.kr', '010-1234-5678', 'root', 'Y', '관리자', '관리자'
-WHERE NOT EXISTS (SELECT 1 FROM USERS WHERE ROLE = '관리자');
+SELECT 'sung2ne', '$2a$10$xM/rrCyLBfVzQNqpW3ODvePFPv0H.43/Ezpp17fnistdwIE0Fs8k.', '정필성', 'admin@seoulfitness.kr', '010-1234-5678', 'admin', 'Y', '관리자', '관리자'
+WHERE NOT EXISTS (SELECT 1 FROM USERS WHERE ROLE = 'admin');
 
 -- 지점 테이블
 CREATE TABLE IF NOT EXISTS BRANCHES (

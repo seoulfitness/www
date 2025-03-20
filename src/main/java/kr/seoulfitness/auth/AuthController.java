@@ -9,17 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.seoulfitness.user.UserDto;
-import kr.seoulfitness.user.UserService;
+import kr.seoulfitness.user.user.UserDto;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
     
     @Autowired
     AuthService authService;
-
-    @Autowired
-    UserService userService;
 
     // 로그인(화면, GET)
     @GetMapping("/login")

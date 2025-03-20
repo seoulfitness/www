@@ -5,16 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
-import kr.seoulfitness.user.UserDto;
+
+import kr.seoulfitness.user.user.UserDto;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(
-        @SuppressWarnings("null") HttpServletRequest request, 
-        @SuppressWarnings("null") HttpServletResponse response, 
-        @SuppressWarnings("null") Object handler
-    ) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
         UserDto user = (UserDto) session.getAttribute("loggedInUser");
 

@@ -28,38 +28,39 @@
                                                     <button class="btn btn-secondary" type="submit" >검색</button>
                                                 </div>
                                             </form>
-                                            <a class="btn btn-primary" href="/branches/create">지점 등록</a>
+                                            <a class="btn btn-primary" href="/brancheManagers/create">지점 관리자 등록</a>
                                         </div>
                                         <%--// 검색 폼, 등록 버튼 --%>
 
-                                        <%-- 지점 목록 --%>
+                                        <%-- 지점 관리자 목록 --%>
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th class="col-2 text-center">지점명</th>
-                                                        <th class="col-5 text-center">주소</th>
+                                                        <th class="col-1 text-center">이름</th>
+                                                        <th class="col-1 text-center">아이디</th>                                                        
                                                         <th class="col-2 text-center">전화번호</th>
-                                                        <th class="col-2 text-center">지점 관리자</th>
+                                                        <th class="col-2 text-center">이메일</th>
+                                                        <th class="col-2 text-center">지점</th>
                                                         <th class="col-1 text-center">관리</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${branches}" var="branch">
+                                                    <c:forEach items="${brancheManagers}" var="brancheManager">
                                                         <tr>
-                                                            <td class="align-middle text-center">${branch.branchName}</td>
-                                                            <td class="align-middle text-center">${branch.branchAddress}</td>
-                                                            <td class="align-middle text-center">${branch.branchPhone}</td>
-                                                            <td class="align-middle text-center"></td>
+                                                            <td class="align-middle text-center">${brancheManager.userName}</td>
+                                                            <td class="align-middle text-center">${brancheManager.userId}</td>
+                                                            <td class="align-middle text-center">${brancheManager.userPhone}</td>
+                                                            <td class="align-middle text-center">${brancheManager.userEmail}</td>
                                                             <td class="align-middle text-center">
-                                                                <a href="/branches/${branch.branchId}" class="btn btn-primary btn-sm">보기</a>
+                                                                <a href="/brancheManagers/${brancheManager.userId}" class="btn btn-primary btn-sm">보기</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <%--// 지점 목록 --%>
+                                        <%--// 지점 관리자 목록 --%>
                                     </div>
                                 </div>
                             </div>

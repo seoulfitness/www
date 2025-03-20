@@ -15,24 +15,48 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
-                                    <div class="card-header">지점 등록</div>
+                                    <div class="card-header">
+                                        <div>지점 관리자 등록</div>
+                                        <div><span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.</div>
+                                    </div>
                                     <div class="card-body">
-                                        <form id="createForm" action="/branches/create" method="post">
+                                        <form id="createForm" action="/brancheManagers/create" method="post">
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="branchName">지점명</label>
-                                                <input class="form-control" name="branchName" id="branchName" type="text" placeholder="지점명을 입력하세요." value="${branch.branchName}" />
+                                                <label class="small mb-1" for="branchId">지점</label>
+                                                <select class="form-control" name="branchId" id="branchId">
+                                                    <option value="">지점을 선택하세요.</option>
+                                                    <c:forEach var="branch" items="${branches}">
+                                                        <option value="${branch.branchId}">${branch.branchName}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="branchAddress">주소</label>
-                                                <input class="form-control" name="branchAddress" id="branchAddress" type="text" placeholder="주소를 입력하세요." value="${branch.branchAddress}" />
+                                                <label class="small mb-1" for="userName">이름</label>
+                                                <input class="form-control" name="userName" id="userName" type="text" placeholder="이름을 입력하세요." value="${branchManager.userName}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="branchPhone">전화번호</label>
-                                                <input class="form-control" name="branchPhone" id="branchPhone" type="text" placeholder="전화번호를 입력하세요." value="${branch.branchPhone}" />
+                                                <label class="small mb-1" for="userEmail">이메일</label>
+                                                <input class="form-control" name="userEmail" id="userEmail" type="text" placeholder="이메일을 입력하세요." value="${branchManager.userEmail}" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="userPhone">전화번호</label>
+                                                <input class="form-control" name="userPhone" id="userPhone" type="text" placeholder="전화번호를 입력하세요." value="${branchManager.userPhone}" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="userId">아이디</label>
+                                                <input class="form-control" name="userId" id="userId" type="text" placeholder="아이디를 입력하세요." value="${branchManager.userId}" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="password">비밀번호</label>
+                                                <input class="form-control" name="password" id="password" type="password" placeholder="비밀번호를 입력하세요." />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="passwordCheck">비밀번호 확인</label>
+                                                <input class="form-control" name="passwordCheck" id="passwordCheck" type="password" placeholder="비밀번호를 입력하세요." />
                                             </div>
                                             <div>
-                                                <button class="btn btn-primary" type="submit">지점 등록</button>
-                                                <a href="/branches" class="btn btn-outline-danger">등록 취소</a>
+                                                <button class="btn btn-primary" type="submit">지점 관리자 등록</button>
+                                                <a href="/brancheManagers" class="btn btn-outline-danger">등록 취소</a>
                                             </div>
                                         </form>
                                     </div>
@@ -49,37 +73,75 @@
             $(document).ready(function() {
                 $("#createForm").validate({
                     rules: {
-                        branchName: {
+                        branchId: {
+                            required: true,
+                        },
+                        userName: {
                             required: true,
                             minlength: 2,
-                            maxlength: 50
+                            maxlength: 10
                         },
-                        branchAddress: {
+                        userEmail: {
                             required: true,
                             minlength: 2,
                             maxlength: 100
                         },
-                        branchPhone: {
+                        userPhone: {
                             required: true,
                             minlength: 2,
                             maxlength: 20
+                        },
+                        userId: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 20
+                        },
+                        password: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 20
+                        },
+                        passwordCheck: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 20,
+                            equalTo: "#password"
                         }
                     },
                     messages: {
-                        branchName: {
-                            required: "지점명을 입력해주세요.",
-                            minlength: "지점명은 최소 2자 이상이어야 합니다.",
-                            maxlength: "지점명은 최대 50자 이하여야 합니다."
+                        branchId: {
+                            required: "지점을 선택해주세요.",
                         },
-                        branchAddress: {
-                            required: "주소를 입력해주세요.",
-                            minlength: "주소는 최소 2자 이상이어야 합니다.",
-                            maxlength: "주소는 최대 100자 이하여야 합니다."
+                        userName: {
+                            required: "이름을 입력해주세요.",
+                            minlength: "이름은 최소 2자 이상이어야 합니다.",
+                            maxlength: "이름은 최대 10자 이하여야 합니다."
                         },
-                        branchPhone: {
+                        userEmail: {
+                            required: "이메일을 입력해주세요.",
+                            minlength: "이메일은 최소 2자 이상이어야 합니다.",
+                            maxlength: "이메일은 최대 100자 이하여야 합니다."
+                        },
+                        userPhone: {
                             required: "전화번호를 입력해주세요.",
                             minlength: "전화번호는 최소 2자 이상이어야 합니다.",
                             maxlength: "전화번호는 최대 20자 이하여야 합니다."
+                        },
+                        userId: {
+                            required: "아이디를 입력해주세요.",
+                            minlength: "아이디는 최소 6자 이상이어야 합니다.",
+                            maxlength: "아이디는 최대 20자 이하여야 합니다."
+                        },
+                        password: {
+                            required: "비밀번호를 입력해주세요.",
+                            minlength: "비밀번호는 최소 8자 이상이어야 합니다.",
+                            maxlength: "비밀번호는 최대 20자 이하여야 합니다."
+                        },
+                        passwordCheck: {
+                            required: "비밀번호 확인을 입력해주세요.",
+                            minlength: "비밀번호 확인은 최소 8자 이상이어야 합니다.",
+                            maxlength: "비밀번호 확인은 최대 20자 이하여야 합니다.",
+                            equalTo: "비밀번호와 일치하지 않습니다."
                         }
                     },
                     errorClass: 'is-invalid',

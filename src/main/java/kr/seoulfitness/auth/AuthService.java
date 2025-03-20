@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import kr.seoulfitness.user.UserDao;
-import kr.seoulfitness.user.UserDto;
+import kr.seoulfitness.user.user.UserDao;
+import kr.seoulfitness.user.user.UserDto;
 
 @Service
 public class AuthService {

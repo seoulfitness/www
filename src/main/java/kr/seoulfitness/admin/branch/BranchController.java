@@ -1,4 +1,4 @@
-package kr.seoulfitness.branch;
+package kr.seoulfitness.admin.branch;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.seoulfitness.branchManager.BranchManagerService;
+import kr.seoulfitness.admin.branchManager.BranchManagerService;
 
 @Controller
 @RequestMapping("/branches")

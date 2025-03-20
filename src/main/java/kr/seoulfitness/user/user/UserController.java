@@ -1,4 +1,4 @@
-package kr.seoulfitness.user;
+package kr.seoulfitness.user.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
