@@ -24,19 +24,29 @@
                                     </div>
                                     <div class="card-body">                                        
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-hover mb-3">
+                                            <table class="table table-hover mb-3">
                                                 <tbody>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">지점명</th>
-                                                        <td class="align-middle col-10">${branch.branchName}</td>
+                                                        <th class="align-middle col-2">대학교명</th>
+                                                        <td class="align-middle col-10">${school.schoolName}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">주소</th>
-                                                        <td class="align-middle col-10">${branch.branchAddress}</td>
+                                                        <th class="align-middle col-2">주소</th>
+                                                        <td class="align-middle col-10">${school.schoolAddress}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">전화번호</th>
-                                                        <td class="align-middle col-10">${branch.branchPhone}</td>
+                                                        <th class="align-middle col-2">전화번호</th>
+                                                        <td class="align-middle col-10">${school.schoolPhone}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="align-middle col-2">웹사이트</th>
+                                                        <td class="align-middle col-10">${school.schoolWebsite}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="align-middle col-2">로고</th>
+                                                        <td class="align-middle col-10">
+                                                            <img src="${school.schoolLogoUrl}" alt="대학교 로고" class="img-fluid">
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -44,11 +54,11 @@
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">등록일시</th>
-                                                        <td class="align-middle col-10"><fmt:formatDate value="${branch.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        <td class="align-middle col-10"><fmt:formatDate value="${school.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">등록한 사람</th>
-                                                        <td class="align-middle col-10">${branch.createdUserName} (${branch.createdBy}, ${branch.createdUserPhone})</td>
+                                                        <td class="align-middle col-10">${school.createdUserName} (${school.createdBy}, ${school.createdUserPhone})</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -56,20 +66,20 @@
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정일시</th>
-                                                        <td class="align-middle col-10"><fmt:formatDate value="${branch.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        <td class="align-middle col-10"><fmt:formatDate value="${school.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정한 사람</th>
-                                                        <td class="align-middle col-10">${branch.updatedUserName} (${branch.updatedBy}, ${branch.updatedUserPhone})</td>
+                                                        <td class="align-middle col-10">${school.updatedUserName} (${school.updatedBy}, ${school.updatedUserPhone})</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div>
                                             <div>
-                                                <a href="/admin/branches" class="btn btn-primary">지점 목록</a>
-                                                <a href="/admin/branches/${branch.branchId}/update" class="btn btn-outline-warning">지점 수정</a>
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">지점 삭제</button>
+                                                <a href="/branchManager/schools" class="btn btn-primary">대학교 목록</a>
+                                                <a href="/branchManager/schools/${school.schoolId}/update" class="btn btn-outline-warning">대학교 수정</a>
+                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">대학교 삭제</button>
                                             </div>
                                         </div>
                                     </div>
@@ -86,11 +96,11 @@
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="deleteForm" action="/branches/${branch.branchId}/delete" method="POST">
+                    <form id="deleteForm" action="/branchManager/schools/${school.schoolId}/delete" method="POST">
                         <%-- modal-header --%>
                         <div class="modal-header">
                             <h1 class="modal-title fs-5 text-danger" id="deleteModalModalLabel">
-                                <strong>지점 삭제</strong>
+                                <strong>대학교 삭제</strong>
                             </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
