@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="branchMangerMapper">
+<mapper namespace="branchManagerMapper">
 
-    <resultMap id="branchManagerResultMap" type="kr.seoulfitness.branchManager.BranchManagerDto">
+    <resultMap id="branchManagerResultMap" type="kr.seoulfitness.admin.branchManager.BranchManagerDto">
         <!-- 지점 관리자 정보 -->
         <result property="branchManagerId" column="BRANCH_MANAGER_ID" />
         <result property="branchId" column="BRANCH_ID" />
@@ -29,7 +29,7 @@
     </resultMap>
 
     <!-- 지점 관리자 등록 -->
-    <insert id="create" parameterType="kr.seoulfitness.branchManager.BranchManagerDto" useGeneratedKeys="true" keyProperty="branchManagerId">
+    <insert id="create" parameterType="kr.seoulfitness.admin.branchManager.BranchManagerDto">
         <![CDATA[
         INSERT INTO BRANCH_MANAGERS (
             BRANCH_ID, 
@@ -57,37 +57,44 @@
             A.UPDATED_AT,
             A.CREATED_BY,
             A.UPDATED_BY,
-            -- 지점 정보
-            B.BRANCH_NAME AS BRANCH_NAME,
-            B.BRANCH_ADDRESS AS BRANCH_ADDRESS,
-            B.BRANCH_PHONE AS BRANCH_PHONE,            
             -- 사용자 정보
-            C.USER_NAME AS USER_NAME,
-            C.USER_EMAIL AS USER_EMAIL,
-            C.USER_PHONE AS USER_PHONE,
-            C.PROFILE_IMAGE AS PROFILE_IMAGE
+            B.USER_NAME AS USER_NAME,
+            B.USER_EMAIL AS USER_EMAIL,
+            B.USER_PHONE AS USER_PHONE,
+            B.PROFILE_IMAGE AS PROFILE_IMAGE,
+            -- 지점 정보
+            C.BRANCH_NAME AS BRANCH_NAME,
+            C.BRANCH_ADDRESS AS BRANCH_ADDRESS,
+            C.BRANCH_PHONE AS BRANCH_PHONE,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
         FROM    
             BRANCH_MANAGERS AS A
             LEFT JOIN USERS AS B ON B.USER_ID = A.USER_ID
             LEFT JOIN BRANCHES AS C ON C.BRANCH_ID = A.BRANCH_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
         WHERE 1=1
         ]]>
         <if test="keyword != null">
             <![CDATA[
             AND (
-                -- 지점 정보
-                B.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
-                OR B.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
-                OR B.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
                 -- 사용자 정보
-                OR C.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
-                OR C.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
-                OR C.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR B.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR B.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
+                OR B.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                -- 지점 정보
+                OR C.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR C.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR C.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
             )
             ]]>
         </if>
         <![CDATA[
-        ORDER BY C.USER_NAME ASC
+        ORDER BY B.USER_NAME ASC
         LIMIT #{offset}, #{listCountPerPage}
         ]]>
     </select>
@@ -104,19 +111,26 @@
             A.UPDATED_AT,
             A.CREATED_BY,
             A.UPDATED_BY,
-            -- 지점 정보
-            B.BRANCH_NAME AS BRANCH_NAME,
-            B.BRANCH_ADDRESS AS BRANCH_ADDRESS,
-            B.BRANCH_PHONE AS BRANCH_PHONE,            
             -- 사용자 정보
-            C.USER_NAME AS USER_NAME,
-            C.USER_EMAIL AS USER_EMAIL,
-            C.USER_PHONE AS USER_PHONE,
-            C.PROFILE_IMAGE AS PROFILE_IMAGE
+            B.USER_NAME AS USER_NAME,
+            B.USER_EMAIL AS USER_EMAIL,
+            B.USER_PHONE AS USER_PHONE,
+            B.PROFILE_IMAGE AS PROFILE_IMAGE,
+            -- 지점 정보
+            C.BRANCH_NAME AS BRANCH_NAME,
+            C.BRANCH_ADDRESS AS BRANCH_ADDRESS,
+            C.BRANCH_PHONE AS BRANCH_PHONE,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
         FROM    
             BRANCH_MANAGERS AS A
             LEFT JOIN USERS AS B ON B.USER_ID = A.USER_ID
             LEFT JOIN BRANCHES AS C ON C.BRANCH_ID = A.BRANCH_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
         WHERE
             BRANCH_MANAGER_ID = #{branchManagerId}
         LIMIT 1
@@ -124,7 +138,7 @@
     </select>
 
     <!-- 지점 관리자 수정 -->
-    <update id="update" parameterType="kr.seoulfitness.branchManager.BranchManagerDto">
+    <update id="update" parameterType="kr.seoulfitness.admin.branchManager.BranchManagerDto">
         <![CDATA[
         UPDATE BRANCH_MANAGERS SET BRANCH_MANAGER_ID = #{branchManagerId}
         ]]>
@@ -136,6 +150,11 @@
         <if test="userId != null">
             <![CDATA[
             , USER_ID = #{userId}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
             ]]>
         </if>
         <![CDATA[
@@ -173,14 +192,14 @@
         <if test="keyword != null">
             <![CDATA[
             AND (
-                -- 지점 정보
-                B.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
-                OR B.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
-                OR B.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
                 -- 사용자 정보
-                OR C.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
-                OR C.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
-                OR C.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR B.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR B.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
+                OR B.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                -- 지점 정보
+                OR C.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR C.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR C.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
             )
             ]]>
         </if>

@@ -24,15 +24,15 @@
                 <%-- Sidenav Menu Heading (Core)--%>
                 <div class="sidenav-menu-heading">메뉴</div>
                 <%-- Sidenav Accordion (Dashboard)--%>
-                <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranches" aria-expanded="false" aria-controls="collapseBranches">
+                <a class="nav-link collapsed ${active_page == 'branches' or active_page == 'branchManagers' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranches" aria-expanded="false" aria-controls="collapseBranches">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     지점 관리
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapseBranches" data-bs-parent="#accordionSidenav">
+                <div class="collapse ${active_page == 'branches' or active_page == 'branchManagers' ? 'show' : ''}" id="collapseBranches" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                        <a class="nav-link" href="/branches">지점 목록</a>
-                        <a class="nav-link" href="/managers">지점 관리자</a>
+                        <a class="nav-link ${active_page == 'branches' ? 'active' : ''}" href="/admin/branches">지점 목록</a>
+                        <a class="nav-link ${active_page == 'branchManagers' ? 'active' : ''}" href="/admin/branchManagers">지점 관리자</a>
                     </nav>
                 </div>
                 <%-- Sidenav Heading (Custom)--%>

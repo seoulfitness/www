@@ -3,73 +3,49 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <%@ include file="../base/head.jsp" %>
+    <%@ include file="../../base/head.jsp" %>
     <body class="nav-fixed">
-        <%@ include file="../base/nav.jsp" %>
+        <%@ include file="../../base/nav.jsp" %>
         <div id="layoutSidenav">
-            <%@ include file="../base/layoutSidenav_nav.jsp" %>
+            <%@ include file="../../base/layoutSidenav_nav.jsp" %>
             <div id="layoutSidenav_content">
                 <main>
-                    <%@ include file="../base/simple_header.jsp" %>
+                    <%@ include file="../../base/simple_header.jsp" %>
                     <%-- Main page content--%>
                     <div class="container-fluid px-4 mt-4">
+                        <%-- 메시지 --%>
+                        <%@ include file="../../base/message.jsp" %>
+                        <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-body">                                        
                                         <div class="table-responsive">
-                                            <%-- 지점 관리자 정보 --%>
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">이름</th>
-                                                        <td class="align-middle col-10">${branchManager.userName}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="align-middle text-center col-2">아이디</th>
-                                                        <td class="align-middle col-10">${branchManager.userId}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="align-middle text-center col-2">전화번호</th>
-                                                        <td class="align-middle col-10">${branchManager.userPhone}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="align-middle text-center col-2">이메일</th>
-                                                        <td class="align-middle col-10">${branchManager.userEmail}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <%--// 지점 관리자 정보 --%>
-
-                                            <%-- 지점 정보 --%>
-                                            <table class="table table-bordered table-hover mb-3">
-                                                <tbody>
-                                                    <tr>
-                                                        <th class="align-middle text-center col-2">지점</th>
-                                                        <td class="align-middle col-10">${branchManager.branchName}</td>
+                                                        <th class="align-middle text-center col-2">지점명</th>
+                                                        <td class="align-middle col-10">${branch.branchName}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">주소</th>
-                                                        <td class="align-middle col-10">${branchManager.branchAddress}</td>
+                                                        <td class="align-middle col-10">${branch.branchAddress}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">전화번호</th>
-                                                        <td class="align-middle col-10">${branchManager.branchPhone}</td>
+                                                        <td class="align-middle col-10">${branch.branchPhone}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <%--// 지점 정보 --%>
-
-                                            <%-- 등록일시, 수정일시 --%>
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">등록일시</th>
-                                                        <td class="align-middle col-10">${branchManager.createdAt.substring(0, 16)}</td>
+                                                        <td class="align-middle col-10">${branch.createdAt.substring(0, 16)}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">등록한 사람</th>
-                                                        <td class="align-middle col-10">${branchManager.createdUserName} (${branchManager.createdBy}, ${branchManager.createdUserPhone})</td>
+                                                        <td class="align-middle col-10">${branch.createdUserName} (${branch.createdBy}, ${branch.createdUserPhone})</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -77,20 +53,19 @@
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정일시</th>
-                                                        <td class="align-middle col-10">${branchManager.updatedAt.substring(0, 16)}</td>
+                                                        <td class="align-middle col-10">${branch.updatedAt.substring(0, 16)}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정한 사람</th>
-                                                        <td class="align-middle col-10">${branchManager.updatedUserName} (${branchManager.updatedBy}, ${branchManager.updatedUserPhone})</td>
+                                                        <td class="align-middle col-10">${branch.updatedUserName} (${branch.updatedBy}, ${branch.updatedUserPhone})</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <%--// 등록일시, 수정일시 --%>
                                         </div>
                                         <div>
                                             <div>
-                                                <a href="/branches" class="btn btn-primary">지점 목록</a>
-                                                <a href="/branches/${branch.branchId}/update" class="btn btn-outline-warning">지점 수정</a>
+                                                <a href="/admin/branches" class="btn btn-primary">지점 목록</a>
+                                                <a href="/admin/branches/${branch.branchId}/update" class="btn btn-outline-warning">지점 수정</a>
                                                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">지점 삭제</button>
                                             </div>
                                         </div>
@@ -100,7 +75,7 @@
                         </div>
                     </div>
                 </main>
-                <%@ include file="../base/footer.jsp" %>
+                <%@ include file="../../base/footer.jsp" %>
             </div>
         </div>
 
@@ -139,6 +114,6 @@
         </div>
         <%-- 삭제 모달 --%>
 
-        <%@ include file="../base/script.jsp" %>
+        <%@ include file="../../base/script.jsp" %>
     </body>
 </html>

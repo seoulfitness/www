@@ -3,18 +3,18 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <%@ include file="../base/head.jsp" %>
+    <%@ include file="../../base/head.jsp" %>
     <body class="nav-fixed">
-        <%@ include file="../base/nav.jsp" %>
+        <%@ include file="../../base/nav.jsp" %>
         <div id="layoutSidenav">
-            <%@ include file="../base/layoutSidenav_nav.jsp" %>
+            <%@ include file="../../base/layoutSidenav_nav.jsp" %>
             <div id="layoutSidenav_content">
                 <main>
-                    <%@ include file="../base/simple_header.jsp" %>
+                    <%@ include file="../../base/simple_header.jsp" %>
                     <%-- Main page content--%>
                     <div class="container-fluid px-4 mt-4">
                         <%-- 메시지 --%>
-                        <%@ include file="../base/message.jsp" %>
+                        <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
@@ -28,7 +28,7 @@
                                                     <button class="btn btn-secondary" type="submit" >검색</button>
                                                 </div>
                                             </form>
-                                            <a class="btn btn-primary" href="/branches/create">지점 등록</a>
+                                            <a class="btn btn-primary" href="/admin/branches/create">지점 등록</a>
                                         </div>
                                         <%--// 검색 폼, 등록 버튼 --%>
 
@@ -52,7 +52,7 @@
                                                             <td class="align-middle text-center">${branch.branchPhone}</td>
                                                             <td class="align-middle text-center"></td>
                                                             <td class="align-middle text-center">
-                                                                <a href="/branches/${branch.branchId}" class="btn btn-primary btn-sm">보기</a>
+                                                                <a href="/admin/branches/${branch.branchId}" class="btn btn-primary btn-sm">보기</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -66,9 +66,9 @@
                         </div>
                     </div>
                 </main>
-                <%@ include file="../base/footer.jsp" %>
+                <%@ include file="../../base/footer.jsp" %>
             </div>
         </div>
-        <%@ include file="../base/script.jsp" %>
+        <%@ include file="../../base/script.jsp" %>
     </body>
 </html>

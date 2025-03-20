@@ -2,37 +2,42 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <%@ include file="../base/head.jsp" %>
+    <%@ include file="../../base/head.jsp" %>
     <body class="nav-fixed">
-        <%@ include file="../base/nav.jsp" %>
+        <%@ include file="../../base/nav.jsp" %>
         <div id="layoutSidenav">
-            <%@ include file="../base/layoutSidenav_nav.jsp" %>
+            <%@ include file="../../base/layoutSidenav_nav.jsp" %>
             <div id="layoutSidenav_content">
                 <main>
-                    <%@ include file="../base/simple_header.jsp" %>
+                    <%@ include file="../../base/simple_header.jsp" %>
                     <%-- Main page content--%>
                     <div class="container-fluid px-4 mt-4">
+                        <%-- 메시지 --%>
+                        <%@ include file="../../base/message.jsp" %>
+                        <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
-                                    <div class="card-header">지점 등록</div>
+                                    <div class="card-header">
+                                        지점 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                    </div>
                                     <div class="card-body">
-                                        <form id="createForm" action="/branches/create" method="post">
+                                        <form id="createForm" action="/admin/branches/create" method="post">
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="branchName">지점명</label>
+                                                <label class="small mb-1" for="branchName">지점명<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="branchName" id="branchName" type="text" placeholder="지점명을 입력하세요." value="${branch.branchName}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="branchAddress">주소</label>
+                                                <label class="small mb-1" for="branchAddress">주소<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="branchAddress" id="branchAddress" type="text" placeholder="주소를 입력하세요." value="${branch.branchAddress}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="branchPhone">전화번호</label>
+                                                <label class="small mb-1" for="branchPhone">전화번호<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="branchPhone" id="branchPhone" type="text" placeholder="전화번호를 입력하세요." value="${branch.branchPhone}" />
                                             </div>
                                             <div>
                                                 <button class="btn btn-primary" type="submit">지점 등록</button>
-                                                <a href="/branches" class="btn btn-outline-danger">등록 취소</a>
+                                                <a href="/admin/branches" class="btn btn-outline-danger">등록 취소</a>
                                             </div>
                                         </form>
                                     </div>
@@ -41,10 +46,10 @@
                         </div>
                     </div>
                 </main>
-                <%@ include file="../base/footer.jsp" %>
+                <%@ include file="../../base/footer.jsp" %>
             </div>
         </div>
-        <%@ include file="../base/script.jsp" %>
+        <%@ include file="../../base/script.jsp" %>
         <script>
             $(document).ready(function() {
                 $("#createForm").validate({

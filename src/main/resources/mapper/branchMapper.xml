@@ -3,7 +3,7 @@
 
 <mapper namespace="branchMapper">
 
-    <resultMap id="branchResultMap" type="kr.seoulfitness.branch.BranchDto">
+    <resultMap id="branchResultMap" type="kr.seoulfitness.admin.branch.BranchDto">
         <!-- 지점 정보 -->
         <result property="branchId" column="BRANCH_ID" />
         <result property="branchName" column="BRANCH_NAME" />
@@ -21,7 +21,7 @@
     </resultMap>
 
     <!-- 지점등록 -->
-    <insert id="create" parameterType="kr.seoulfitness.branch.BranchDto" useGeneratedKeys="true" keyProperty="branchId">
+    <insert id="create" parameterType="kr.seoulfitness.admin.branch.BranchDto">
         <![CDATA[
         INSERT INTO BRANCHES (
             BRANCH_NAME, 
@@ -108,7 +108,7 @@
     </select>
 
     <!-- 지점 수정 -->
-    <update id="update" parameterType="kr.seoulfitness.branch.BranchDto">
+    <update id="update" parameterType="kr.seoulfitness.admin.branch.BranchDto">
         <![CDATA[
         UPDATE BRANCHES SET BRANCH_ID = #{branchId}
         ]]>
@@ -125,6 +125,11 @@
         <if test="branchPhone != null">
             <![CDATA[
             , BRANCH_PHONE = #{branchPhone}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
             ]]>
         </if>
         <![CDATA[
