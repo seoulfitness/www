@@ -8,4 +8,4 @@
 <%-- Bootstrap --%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <%-- Custom scripts --%>
-<script src="/assets/js/scripts.js"></script>
+<script src="/static/js/scripts.js"></script>

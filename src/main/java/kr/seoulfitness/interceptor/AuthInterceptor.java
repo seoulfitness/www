@@ -13,22 +13,37 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        UserDto user = (UserDto) session.getAttribute("loggedInUser");
-
-        if (user == null) {
-            // 로그인하지 않은 경우, 로그인 페이지로 리디렉트
-            response.sendRedirect("/auth/login");
-            return false;
-        }
-
-        // /branches 경로에 대한 접근 제한
         String requestURI = request.getRequestURI();
-        if (requestURI.startsWith("/branches") && !"root".equals(user.getRole())) {
-            response.sendRedirect("/");
-            return false;
+        
+        // 인증이 필요한 URL 패턴들
+        if (requestURI.startsWith("/branchManager") || 
+            requestURI.startsWith("/branches") || 
+            requestURI.startsWith("/admin")) {
+            
+            UserDto user = (UserDto) session.getAttribute("loggedInUser");
+            
+            // 로그인 체크
+            if (user == null) {
+                response.sendRedirect("/auth/login");
+                return false;
+            }
+
+            // /admin 경로에 대한 접근 제한
+            if (requestURI.startsWith("/admin") && !"관리자".equals(user.getRole())) {
+                response.sendRedirect("/auth/logout");
+                return false;
+            }
+
+            // /branchManager 경로에 대한 접근 제한
+            if (requestURI.startsWith("/branchManager")) {
+                String role = user.getRole();
+                if (!"관리자".equals(role) && !"지점 관리자".equals(role)) {
+                    response.sendRedirect("/auth/logout");
+                    return false;
+                }
+            }
         }
 
-        // 로그인한 경우 계속 진행
         return true;
     }
 }

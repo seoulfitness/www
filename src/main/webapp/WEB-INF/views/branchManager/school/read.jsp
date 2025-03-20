@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="card-body">                                        
                                         <div class="table-responsive">
-                                            <table class="table table-hover mb-3">
+                                            <table class="table table-hover">
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle col-2">대학교명</th>
@@ -41,35 +41,53 @@
                                                     <tr>
                                                         <th class="align-middle col-2">웹사이트</th>
                                                         <td class="align-middle col-10">${school.schoolWebsite}</td>
-                                                    </tr>
+                                                    </tr>                                                    
                                                     <tr>
-                                                        <th class="align-middle col-2">로고</th>
+                                                        <th class="align-middle col-2">로고 URL</th>
                                                         <td class="align-middle col-10">
-                                                            <img src="${school.schoolLogoUrl}" alt="대학교 로고" class="img-fluid">
+                                                            <c:if test="${not empty school.schoolLogoUrl}">
+                                                                <img src="${school.schoolLogoUrl}" alt="대학교 로고" class="img-fluid">
+                                                            </c:if>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered table-hover mb-3">
-                                                <tbody>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">등록일시</th>
+                                                        <th class="align-middle col-2">로고 파일</th>
+                                                        <td class="align-middle col-10">
+                                                            <c:if test="${not empty school.schoolLogoOriginalFileName}">
+                                                                <img src="/static/img/schools/${school.schoolLogoOriginalFileName}" alt="대학교 로고" class="img-fluid">
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="align-middle col-2">로고 선택</th>
+                                                        <td class="align-middle col-10">
+                                                            <c:choose>
+                                                                <c:when test="${school.schoolLogo == 'url'}">
+                                                                    URL
+                                                                </c:when>
+                                                                <c:when test="${school.schoolLogo == 'file'}">
+                                                                    파일
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    선택 안함
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="align-middle col-2">등록일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${school.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">등록한 사람</th>
+                                                        <th class="align-middle col-2">등록한 사람</th>
                                                         <td class="align-middle col-10">${school.createdUserName} (${school.createdBy}, ${school.createdUserPhone})</td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered table-hover mb-3">
-                                                <tbody>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">수정일시</th>
+                                                        <th class="align-middle col-2">수정일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${school.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">수정한 사람</th>
+                                                        <th class="align-middle col-2">수정한 사람</th>
                                                         <td class="align-middle col-10">${school.updatedUserName} (${school.updatedBy}, ${school.updatedUserPhone})</td>
                                                     </tr>
                                                 </tbody>

@@ -52,13 +52,21 @@ public class UserDao {
 
     // 사용자 상세보기
     public UserDto read(UserDto user) {
+        UserDto result = null;
+        
         try {
-            user = sqlSession.selectOne("userMapper.read", user);
+            result = sqlSession.selectOne("userMapper.read", user);
+            if (result == null) {
+                logger.warn("사용자를 찾을 수 없습니다. userId: {}", user.getUserId());
+            } else {
+                logger.info("사용자 조회 성공. userId: {}, userName: {}, role: {}", 
+                    result.getUserId(), result.getUserName(), result.getRole());
+            }
         } catch (DataAccessException e) {
             logger.error("사용자 상세 오류 : {}", e.getMessage(), e);
         }
 
-        return user;
+        return result;
     }
 
     // 사용자 수정

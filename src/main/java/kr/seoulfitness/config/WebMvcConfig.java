@@ -12,14 +12,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(@SuppressWarnings("null") InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor())
-                .addPathPatterns("/**/**") // 보호할 URL 패턴
+                .addPathPatterns("/**") // 모든 URL에 대해 인터셉터 적용
                 .excludePathPatterns(
-                    "/auth/login", 
-                    "/auth/logout", 
-                    "/auth/register", 
-                    "/auth/find-user-id", 
-                    "/auth/reset-password", 
-                    "/assets/**"
-                ); // 예외 URL 패턴
+                    "/assets/**"  // 정적 리소스만 예외 처리
+                );
     }
 }

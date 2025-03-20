@@ -70,32 +70,7 @@
                                         </div>
 
                                         <%-- 페이지네이션 --%>
-                                        <c:if test="${pagination.totalCount > 0}">
-                                            <nav aria-label="Page navigation" class="mt-4">
-                                                <ul class="pagination justify-content-center">
-                                                    <%-- 이전 페이지 --%>
-                                                    <c:if test="${pagination.currentPage > 1}">
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="/branchManager/schools?page=${pagination.currentPage - 1}&keyword=${keyword}">이전</a>
-                                                        </li>
-                                                    </c:if>
-                                                    
-                                                    <%-- 페이지 번호 --%>
-                                                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="page">
-                                                        <li class="page-item ${page == pagination.currentPage ? 'active' : ''}">
-                                                            <a class="page-link" href="/branchManager/schools?page=${page}&keyword=${keyword}">${page}</a>
-                                                        </li>
-                                                    </c:forEach>
-                                                    
-                                                    <%-- 다음 페이지 --%>
-                                                    <c:if test="${pagination.currentPage < pagination.totalPage}">
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="/branchManager/schools?page=${pagination.currentPage + 1}&keyword=${keyword}">다음</a>
-                                                        </li>
-                                                    </c:if>
-                                                </ul>
-                                            </nav>
-                                        </c:if>
+                                        <%--// 페이지네이션 --%>
                                     </div>
                                 </div>
                             </div>

@@ -8,16 +8,16 @@
 <%-- Bootstrap --%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <%-- Custom scripts --%>
-<script src="/assets/js/scripts.js"></script>
+<script src="/static/js/scripts.js"></script>
 <%-- Chart.js --%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
 <%-- Chart Area Demo --%>
-<script src="/assets/demo/chart-area-demo.js"></script>
+<script src="/static/demo/chart-area-demo.js"></script>
 <%-- Chart Bar Demo --%>
-<script src="/assets/demo/chart-bar-demo.js"></script>
+<script src="/static/demo/chart-bar-demo.js"></script>
 <%-- Simple Datatables --%>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="/assets/js/datatables/datatables-simple-demo.js"></script>
+<script src="/static/js/datatables/datatables-simple-demo.js"></script>
 <%-- Litepicker --%>
 <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js" crossorigin="anonymous"></script>
-<script src="/assets/js/litepicker.js"></script>
+<script src="/static/js/litepicker.js"></script>

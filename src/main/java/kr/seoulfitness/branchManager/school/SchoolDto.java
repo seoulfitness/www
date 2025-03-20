@@ -13,6 +13,7 @@ public class SchoolDto {
     private String schoolAddress;       // 학교 주소
     private String schoolPhone;         // 학교 전화번호
     private String schoolWebsite;       // 학교 웹사이트
+    private String schoolLogo;          // 학교 로고 선택
     private String schoolLogoUrl;       // 학교 로고 이미지 경로
     private MultipartFile schoolLogoFile; // 학교 로고 이미지 파일
     private String schoolLogoFileName;  // 학교 로고 이미지 파일명

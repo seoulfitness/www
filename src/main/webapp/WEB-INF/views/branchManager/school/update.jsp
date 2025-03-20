@@ -40,12 +40,12 @@
                                                 <input class="form-control" name="schoolWebsite" id="schoolWebsite" type="url" placeholder="웹사이트 주소를 입력하세요." value="${school.schoolWebsite}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="schoolLogoUrl">학교 로고 URL</label>
+                                                <label class="small mb-1" for="schoolLogoUrl">로고 URL</label>
                                                 <input class="form-control" name="schoolLogoUrl" id="schoolLogoUrl" type="url" placeholder="학교 로고 URL을 입력하세요." value="${school.schoolLogoUrl}" />
                                             </div>
                                             <c:if test="${not empty school.schoolLogoOriginalFileName}">
                                                 <div class="mb-3">
-                                                    <img src="/assets/img/school-logo/${school.schoolLogoOriginalFileName}" alt="${school.schoolName} 로고" class="me-2" style="width: 48px; height: 48px; object-fit: contain;">
+                                                    <img src="/static/img/school-logo/${school.schoolLogoOriginalFileName}" alt="${school.schoolName} 로고" class="me-2" style="width: 48px; height: 48px; object-fit: contain;">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="deleteFile" id="deleteFile" value="false">
                                                         <label class="form-check-label text-danger" for="deleteFile">
@@ -55,9 +55,17 @@
                                                 </div>
                                             </c:if>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="schoolLogo">학교 로고 파일</label>
+                                                <label class="small mb-1" for="schoolLogo">로고 파일</label>
                                                 <input class="form-control" name="schoolLogo" id="schoolLogo" type="file" accept="image/*" />
                                                 <div class="form-text">이미지 파일만 업로드 가능합니다.</div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="schoolLogo">로고 선택</label>
+                                                <select class="form-control" name="schoolLogo" id="schoolLogo">
+                                                    <option value="none" ${school.schoolLogo == 'none' ? 'selected' : ''}>선택 안함</option>
+                                                    <option value="url" ${school.schoolLogo == 'url' ? 'selected' : ''}>URL</option>
+                                                    <option value="file" ${school.schoolLogo == 'file' ? 'selected' : ''}>파일</option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="schoolMemo">메모</label>

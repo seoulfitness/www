@@ -28,7 +28,7 @@ public class SchoolController {
     private SchoolService schoolService;
 
     // 파일 업로드 경로
-    private final String uploadPath = "classpath:/assets/img/school-logo/";
+    private final String uploadPath = "classpath:/assets/img/schools/";
 
     private static final Logger logger = LoggerFactory.getLogger(SchoolController.class);
 

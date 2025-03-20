@@ -36,7 +36,14 @@ public class AuthController {
             session.setAttribute("userEmail", loggedInUser.getUserEmail());
             session.setAttribute("userPhone", loggedInUser.getUserPhone());
             session.setAttribute("role", loggedInUser.getRole());
-            return ("redirect:/dashboard");
+
+            if (loggedInUser.getRole().equals("관리자")) {
+                return ("redirect:/admin/branches");
+            } else if (loggedInUser.getRole().equals("지점 관리자")) {
+                return ("redirect:/branchManager/schools");
+            } else {
+                return ("redirect:/auth/login");
+            }
         }
 
         return ("redirect:/auth/login");

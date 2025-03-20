@@ -8,8 +8,8 @@
     <meta name="author" content="" />
     <title>서울휘트니스</title>
     <link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet" />
-    <link href="/assets/css/styles.css" rel="stylesheet" />
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png" />
+    <link href="/static/css/styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.png" />
     <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/js/all.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js" crossorigin="anonymous"></script>
 </head>

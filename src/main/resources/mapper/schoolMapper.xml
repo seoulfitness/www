@@ -13,6 +13,7 @@
         <result property="schoolLogoUrl" column="SCHOOL_LOGO_URL" />
         <result property="schoolLogoFileName" column="SCHOOL_LOGO_FILENAME" />
         <result property="schoolLogoOriginalFileName" column="SCHOOL_LOGO_ORIGINAL_FILENAME" />
+        <result property="schoolLogo" column="SCHOOL_LOGO" />
         <result property="schoolMemo" column="SCHOOL_MEMO" />
         <result property="createdAt" column="CREATED_AT" />
         <result property="updatedAt" column="UPDATED_AT" />
@@ -36,6 +37,7 @@
             SCHOOL_LOGO_URL,
             SCHOOL_LOGO_FILENAME,
             SCHOOL_LOGO_ORIGINAL_FILENAME,
+            SCHOOL_LOGO,
             SCHOOL_MEMO,
             CREATED_BY,
             UPDATED_BY
@@ -47,6 +49,7 @@
             #{schoolLogoUrl},
             #{schoolLogoFileName},
             #{schoolLogoOriginalFileName},
+            #{schoolLogo},
             #{schoolMemo},
             #{createdBy}, 
             #{updatedBy}
@@ -67,6 +70,7 @@
             A.SCHOOL_LOGO_URL,
             A.SCHOOL_LOGO_FILENAME,
             A.SCHOOL_LOGO_ORIGINAL_FILENAME,
+            A.SCHOOL_LOGO,
             A.SCHOOL_MEMO,
             A.CREATED_AT,
             A.UPDATED_AT,
@@ -112,6 +116,7 @@
             A.SCHOOL_LOGO_URL,
             A.SCHOOL_LOGO_FILENAME,
             A.SCHOOL_LOGO_ORIGINAL_FILENAME,
+            A.SCHOOL_LOGO,
             A.SCHOOL_MEMO,
             A.CREATED_AT,
             A.UPDATED_AT,
@@ -170,6 +175,11 @@
         <if test="schoolLogoOriginalFileName != null">
             <![CDATA[
             , SCHOOL_LOGO_ORIGINAL_FILENAME = #{schoolLogoOriginalFileName}
+            ]]>
+        </if>
+        <if test="schoolLogo != null">
+            <![CDATA[
+            , SCHOOL_LOGO = #{schoolLogo}
             ]]>
         </if>
         <if test="schoolMemo != null">
