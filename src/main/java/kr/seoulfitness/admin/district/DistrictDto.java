@@ -1,5 +1,7 @@
 package kr.seoulfitness.admin.district;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -9,8 +11,8 @@ public class DistrictDto {
     private int provinceId;           // 시/도 아이디
     private String districtName;      // 구/군 이름
     private String districtMemo;      // 구/군 메모
-    private String createdAt;         // 생성일시
-    private String updatedAt;         // 수정일시
+    private Date createdAt;         // 생성일시
+    private Date updatedAt;         // 수정일시
     private String createdBy;         // 생성한 사람
     private String updatedBy;         // 수정한 사람
 

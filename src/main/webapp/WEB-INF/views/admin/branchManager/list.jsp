@@ -19,6 +19,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card mb-4">
+                                    <div class="card-header">
+                                        지점 관리자 목록
+                                    </div>
                                     <div class="card-body">
                                         <%-- 검색 폼, 등록 버튼 --%>
                                         <div class="d-flex justify-content-between mb-3">                

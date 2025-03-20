@@ -1,5 +1,7 @@
 package kr.seoulfitness.admin.user;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -14,8 +16,8 @@ public class UserDto {
     private String status;              // 상태
     private String deleteRequest;       // 삭제 요청
     private String deleteRequestedAt;   // 삭제 요청일시
-    private String createdAt;           // 생성일시
-    private String updatedAt;           // 수정일시
+    private Date createdAt;           // 생성일시
+    private Date updatedAt;           // 수정일시
     private String createdBy;           // 생성자
     private String updatedBy;           // 수정한 사람
 

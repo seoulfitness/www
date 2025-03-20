@@ -1,5 +1,7 @@
 package kr.seoulfitness.admin.province;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -8,8 +10,8 @@ public class ProvinceDto {
     private int provinceId;           // 시/도 아이디
     private String provinceName;      // 시/도 이름
     private String provinceMemo;      // 시/도 메모
-    private String createdAt;         // 생성일시
-    private String updatedAt;         // 수정일시
+    private Date createdAt;         // 생성일시
+    private Date updatedAt;         // 수정일시
     private String createdBy;         // 생성한 사람
     private String updatedBy;         // 수정한 사람
 

@@ -1,5 +1,7 @@
 package kr.seoulfitness.admin.branch;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -9,8 +11,8 @@ public class BranchDto {
     private String branchName;      // 지점 이름
     private String branchAddress;   // 지점 주소
     private String branchPhone;     // 지점 전화번호
-    private String createdAt;       // 생성일시
-    private String updatedAt;       // 수정일시
+    private Date createdAt;       // 생성일시
+    private Date updatedAt;       // 수정일시
     private String createdBy;       // 생성자
     private String updatedBy;       // 수정한 사람
 

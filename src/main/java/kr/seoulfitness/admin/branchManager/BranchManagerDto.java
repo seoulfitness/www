@@ -1,5 +1,7 @@
 package kr.seoulfitness.admin.branchManager;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -8,8 +10,8 @@ public class BranchManagerDto {
     private int branchManagerId;    // 지점 관리자 아이디
     private int branchId;           // 지점 아이디
     private String userId;          // 사용자 아이디
-    private String createdAt;       // 생성일시
-    private String updatedAt;       // 수정일시
+    private Date createdAt;       // 생성일시
+    private Date updatedAt;       // 수정일시
     private String createdBy;       // 생성자
     private String updatedBy;       // 수정한 사람
 

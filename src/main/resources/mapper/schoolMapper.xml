@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="schoolMapper">
+
+    <resultMap id="schoolResultMap" type="kr.seoulfitness.branchManager.school.SchoolDto">
+        <!-- 학교 정보 -->
+        <result property="schoolId" column="SCHOOL_ID" />
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <result property="schoolAddress" column="SCHOOL_ADDRESS" />
+        <result property="schoolPhone" column="SCHOOL_PHONE" />
+        <result property="schoolWebsite" column="SCHOOL_WEBSITE" />
+        <result property="schoolLogoUrl" column="SCHOOL_LOGO_URL" />
+        <result property="schoolLogoFileName" column="SCHOOL_LOGO_FILENAME" />
+        <result property="schoolLogoOriginalFileName" column="SCHOOL_LOGO_ORIGINAL_FILENAME" />
+        <result property="schoolMemo" column="SCHOOL_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 학교등록 -->
+    <insert id="create" parameterType="kr.seoulfitness.branchManager.school.SchoolDto">
+        <![CDATA[
+        INSERT INTO SCHOOLS (
+            SCHOOL_NAME, 
+            SCHOOL_ADDRESS, 
+            SCHOOL_PHONE,
+            SCHOOL_WEBSITE,
+            SCHOOL_LOGO_URL,
+            SCHOOL_LOGO_FILENAME,
+            SCHOOL_LOGO_ORIGINAL_FILENAME,
+            SCHOOL_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{schoolName}, 
+            #{schoolAddress}, 
+            #{schoolPhone},
+            #{schoolWebsite},
+            #{schoolLogoUrl},
+            #{schoolLogoFileName},
+            #{schoolLogoOriginalFileName},
+            #{schoolMemo},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 학교 목록 -->
+    <select id="list" resultMap="schoolResultMap">
+        <![CDATA[
+        SELECT
+            -- 학교 정보
+            A.SCHOOL_ID,
+            A.SCHOOL_NAME, 
+            A.SCHOOL_ADDRESS, 
+            A.SCHOOL_PHONE,
+            A.SCHOOL_WEBSITE,
+            A.SCHOOL_LOGO_URL,
+            A.SCHOOL_LOGO_FILENAME,
+            A.SCHOOL_LOGO_ORIGINAL_FILENAME,
+            A.SCHOOL_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            SCHOOLS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.SCHOOL_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.SCHOOL_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR A.SCHOOL_WEBSITE LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY SCHOOL_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 학교 보기 -->
+    <select id="read" resultMap="schoolResultMap">
+        <![CDATA[
+        SELECT
+            -- 학교 정보
+            A.SCHOOL_ID,
+            A.SCHOOL_NAME, 
+            A.SCHOOL_ADDRESS, 
+            A.SCHOOL_PHONE,
+            A.SCHOOL_WEBSITE,
+            A.SCHOOL_LOGO_URL,
+            A.SCHOOL_LOGO_FILENAME,
+            A.SCHOOL_LOGO_ORIGINAL_FILENAME,
+            A.SCHOOL_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            SCHOOLS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE
+            SCHOOL_ID = #{schoolId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 학교 수정 -->
+    <update id="update" parameterType="kr.seoulfitness.branchManager.school.SchoolDto">
+        <![CDATA[
+        UPDATE SCHOOLS SET SCHOOL_ID = #{schoolId}
+        ]]>
+        <if test="schoolName != null">
+            <![CDATA[
+            , SCHOOL_NAME = #{schoolName}
+            ]]>
+        </if>
+        <if test="schoolAddress != null">
+            <![CDATA[
+            , SCHOOL_ADDRESS = #{schoolAddress}
+            ]]>
+        </if>
+        <if test="schoolPhone != null">
+            <![CDATA[
+            , SCHOOL_PHONE = #{schoolPhone}
+            ]]>
+        </if>
+        <if test="schoolWebsite != null">
+            <![CDATA[
+            , SCHOOL_WEBSITE = #{schoolWebsite}
+            ]]>
+        </if>
+        <if test="schoolLogoUrl != null">
+            <![CDATA[
+            , SCHOOL_LOGO_URL = #{schoolLogoUrl}
+            ]]>
+        </if>
+        <if test="schoolLogoFileName != null">
+            <![CDATA[
+            , SCHOOL_LOGO_FILENAME = #{schoolLogoFileName}
+            ]]>
+        </if>
+        <if test="schoolLogoOriginalFileName != null">
+            <![CDATA[
+            , SCHOOL_LOGO_ORIGINAL_FILENAME = #{schoolLogoOriginalFileName}
+            ]]>
+        </if>
+        <if test="schoolMemo != null">
+            <![CDATA[
+            , SCHOOL_MEMO = #{schoolMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE SCHOOL_ID = #{schoolId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 학교 삭제 -->
+    <delete id="delete" parameterType="int">
+        <![CDATA[
+        DELETE FROM SCHOOLS WHERE SCHOOL_ID = #{schoolId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 학교 수 -->
+    <select id="totalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM SCHOOLS WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR SCHOOL_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR SCHOOL_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR SCHOOL_WEBSITE LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>

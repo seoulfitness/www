@@ -19,6 +19,9 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="card mb-4">
+                                    <div class="card-header">
+                                        지점 정보
+                                    </div>
                                     <div class="card-body">                                        
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover mb-3">
@@ -41,7 +44,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">등록일시</th>
-                                                        <td class="align-middle col-10">${branch.createdAt.substring(0, 16)}</td>
+                                                        <td class="align-middle col-10"><fmt:formatDate value="${branch.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">등록한 사람</th>
@@ -53,7 +56,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정일시</th>
-                                                        <td class="align-middle col-10">${branch.updatedAt.substring(0, 16)}</td>
+                                                        <td class="align-middle col-10"><fmt:formatDate value="${branch.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정한 사람</th>
