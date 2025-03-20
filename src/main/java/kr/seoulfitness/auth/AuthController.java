@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.seoulfitness.user.user.UserDto;
+import kr.seoulfitness.admin.user.UserDto;
 
 @Controller
 @RequestMapping("/auth")

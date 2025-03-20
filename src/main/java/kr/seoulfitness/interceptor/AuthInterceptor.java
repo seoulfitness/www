@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import kr.seoulfitness.user.user.UserDto;
+import kr.seoulfitness.admin.user.UserDto;
 
 public class AuthInterceptor implements HandlerInterceptor {
 

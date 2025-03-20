@@ -1,4 +1,4 @@
-package kr.seoulfitness.user.user;
+package kr.seoulfitness.admin.user;
 
 import java.util.HashMap;
 import java.util.List;
