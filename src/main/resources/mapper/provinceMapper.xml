@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="provinceMapper">
+
+    <resultMap id="provinceResultMap" type="kr.seoulfitness.admin.province.ProvinceDto">
+        <!-- 시/도 정보 -->
+        <result property="provinceId" column="PROVINCE_ID" />
+        <result property="provinceName" column="PROVINCE_NAME" />
+        <result property="provinceMemo" column="PROVINCE_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 시/도 등록 -->
+    <insert id="create" parameterType="kr.seoulfitness.admin.province.ProvinceDto">
+        <![CDATA[
+        INSERT INTO PROVINCES (
+            PROVINCE_NAME, 
+            PROVINCE_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{provinceName}, 
+            #{provinceMemo},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 시/도 목록 -->
+    <select id="list" resultMap="provinceResultMap">
+        <![CDATA[
+        SELECT
+            -- 시/도 정보
+            A.PROVINCE_ID,
+            A.PROVINCE_NAME, 
+            A.PROVINCE_MEMO, 
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            PROVINCES A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.PROVINCE_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.PROVINCE_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY A.PROVINCE_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 시/도 보기 -->
+    <select id="read" resultMap="provinceResultMap">
+        <![CDATA[
+        SELECT
+            -- 시/도 정보
+            A.PROVINCE_ID,
+            A.PROVINCE_NAME, 
+            A.PROVINCE_MEMO, 
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            PROVINCES A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE
+            A.PROVINCE_ID = #{provinceId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 시/도 수정 -->
+    <update id="update" parameterType="kr.seoulfitness.admin.province.ProvinceDto">
+        <![CDATA[
+        UPDATE PROVINCES SET PROVINCE_ID = #{provinceId}
+        ]]>
+        <if test="provinceName != null">
+            <![CDATA[
+            , PROVINCE_NAME = #{provinceName}
+            ]]>
+        </if>
+        <if test="provinceMemo != null">
+            <![CDATA[
+            , PROVINCE_MEMO = #{provinceMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE PROVINCE_ID = #{provinceId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 시/도 삭제 -->
+    <delete id="delete" parameterType="int">
+        <![CDATA[
+        DELETE FROM PROVINCES WHERE PROVINCE_ID = #{provinceId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 시/도 수 -->
+    <select id="totalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) 
+        FROM PROVINCES A
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.PROVINCE_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.PROVINCE_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>
