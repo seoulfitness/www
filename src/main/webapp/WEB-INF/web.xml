@@ -21,7 +21,10 @@
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+            <param-value>
+                /WEB-INF/spring/appServlet/servlet-context.xml
+                /WEB-INF/spring/security-context.xml
+            </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -50,9 +53,9 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 세션 타임아웃 설정 (60분) -->
+    <!-- 세션 타임아웃 설정 (24시간) -->
     <session-config>
-        <session-timeout>3600</session-timeout>
+        <session-timeout>1440</session-timeout>
     </session-config>
 
 </web-app>

@@ -36,8 +36,12 @@
                                                 <input class="form-control" name="schoolPhone" id="schoolPhone" type="text" placeholder="전화번호를 입력하세요." value="${school.schoolPhone}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="schoolWebsite">웹사이트</label>
-                                                <input class="form-control" name="schoolWebsite" id="schoolWebsite" type="url" placeholder="웹사이트 주소를 입력하세요." value="${school.schoolWebsite}" />
+                                                <label class="small mb-1" for="schoolUrl">웹사이트</label>
+                                                <input class="form-control" name="schoolUrl" id="schoolUrl" type="url" placeholder="웹사이트 주소를 입력하세요." value="${school.schoolUrl}" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="admissionInfoUrl">입학안내</label>
+                                                <input class="form-control" name="admissionInfoUrl" id="admissionInfoUrl" type="url" placeholder="입학안내 주소를 입력하세요." value="${school.admissionInfoUrl}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="schoolLogoUrl">로고 URL</label>
@@ -84,7 +88,11 @@
                             minlength: 2,
                             maxlength: 50
                         },
-                        schoolWebsite: {
+                        schoolUrl: {
+                            url: true,
+                            maxlength: 200
+                        },
+                        admissionInfoUrl: {
                             url: true,
                             maxlength: 200
                         },
@@ -102,9 +110,13 @@
                             minlength: "학교명은 최소 2자 이상이어야 합니다.",
                             maxlength: "학교명은 최대 50자 이하여야 합니다."
                         },
-                        schoolWebsite: {
+                        schoolUrl: {
                             url: "올바른 URL 형식이 아닙니다.",
                             maxlength: "웹사이트 주소는 최대 200자 이하여야 합니다."
+                        },
+                        admissionInfoUrl: {
+                            url: "올바른 URL 형식이 아닙니다.",
+                            maxlength: "입학안내 주소는 최대 200자 이하여야 합니다."
                         },
                         schoolLogoUrl: {
                             url: "올바른 URL 형식이 아닙니다.",

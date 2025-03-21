@@ -158,8 +158,9 @@
                 <h6 class="dropdown-header d-flex align-items-center">
                     <img class="dropdown-user-img" src="/static/img/illustrations/profiles/profile-1.png" />
                     <div class="dropdown-user-details">
-                        <div class="dropdown-user-details-name">${sessionScope.loggedInUser.userName}(${sessionScope.loggedInUser.userId})</div>
-                        <div class="dropdown-user-details-email">${sessionScope.loggedInUser.userPhone}</div>
+                        <div class="dropdown-user-details-name">${sessionScope.userName}</div>
+                        <div class="dropdown-user-details-email">${sessionScope.userId}</div>
+                        <div class="dropdown-user-details-email">${sessionScope.userPhone}</div>
                     </div>
                 </h6>
                 <div class="dropdown-divider"></div>

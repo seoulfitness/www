@@ -28,9 +28,16 @@ public class SchoolController {
     private SchoolService schoolService;
 
     // 파일 업로드 경로
-    private final String uploadPath = "classpath:/assets/img/schools/";
+    private final String uploadPath = System.getProperty("os.name").toLowerCase().contains("win") 
+        ? "c:/upload/schools/" 
+        : "/home/ubuntu/upload/schools/";
 
     private static final Logger logger = LoggerFactory.getLogger(SchoolController.class);
+
+    // 대학교 존재 여부 확인
+    public boolean isSchoolExists(int schoolId) {
+        return schoolService.read(schoolId) != null;
+    }
 
     // 대학교 등록
     @GetMapping("/create")
@@ -110,11 +117,12 @@ public class SchoolController {
     @GetMapping("/{schoolId}")
     public String readGet(@PathVariable int schoolId, Model model) {
         // 대학교 존재 여부 확인
-        SchoolDto school = schoolService.read(schoolId);
-        if (school == null) {
+        if (!isSchoolExists(schoolId)) {
             return "redirect:/branchManager/schools";
         }
 
+        // 대학교 상세
+        SchoolDto school = schoolService.read(schoolId);
         model.addAttribute("school", school);
         model.addAttribute("pageTitle", "대학교 관리");
         model.addAttribute("active_page", "schools");
@@ -125,11 +133,12 @@ public class SchoolController {
     @GetMapping("/{schoolId}/update")
     public String updateGet(@PathVariable int schoolId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {   
         // 대학교 존재 여부 확인
-        SchoolDto school = schoolService.read(schoolId);
-        if (school == null) {
+        if (!isSchoolExists(schoolId)) {
             return "redirect:/branchManager/schools";
         }
 
+        // 대학교 상세
+        SchoolDto school = schoolService.read(schoolId);
         model.addAttribute("school", school);
         model.addAttribute("pageTitle", "대학교 관리");
         model.addAttribute("active_page", "schools");
@@ -138,10 +147,9 @@ public class SchoolController {
 
     // 대학교 수정 처리
     @PostMapping("/{schoolId}/update")
-    public String updatePost(@PathVariable int schoolId, SchoolDto school, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int schoolId, SchoolDto school, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         // 대학교 존재 여부 확인
-        SchoolDto existsSchool = schoolService.read(schoolId);
-        if (existsSchool == null) {
+        if (!isSchoolExists(schoolId)) {
             return "redirect:/branchManager/schools";
         }
 
@@ -149,14 +157,11 @@ public class SchoolController {
             // 업로드 파일
             MultipartFile uploadFile = school.getSchoolLogoFile();
 
-            // 업로드 파일이 있거나, 파일 삭제 체크되어 있는 경우
-            if (uploadFile != null && !uploadFile.isEmpty() || school.getDeleteFile().equals("Y")) {
-                // 기존 파일 삭제
-                if (school.getSchoolLogoFileName() != null) {
-                    File fileToDelete = new File(uploadPath + File.separator + school.getSchoolLogoFileName());
-                    if (fileToDelete.exists()) {
-                        fileToDelete.delete();
-                    }
+            // 파일 삭제 체크되어 있는 경우
+            if (school.getDeleteFile() != null && school.getDeleteFile().equals("Y")) {
+                File fileToDelete = new File(uploadPath + File.separator + school.getSchoolLogoFileName());
+                if (fileToDelete.exists()) {
+                    fileToDelete.delete();
                 }
 
                 school.setSchoolLogoFileName(null);
@@ -165,6 +170,15 @@ public class SchoolController {
 
             // 업로드 파일이 존재하는 경우
             if (uploadFile != null && !uploadFile.isEmpty()) {
+                // 기존 파일 삭제
+                SchoolDto existsSchool = schoolService.read(schoolId);
+                if (existsSchool.getSchoolLogoFileName() != null) {
+                    File fileToDelete = new File(uploadPath + File.separator + existsSchool.getSchoolLogoFileName());
+                    if (fileToDelete.exists()) {
+                        fileToDelete.delete();
+                    }
+                }
+
                 // 업로드 파일 이름
                 String originalFileName = uploadFile.getOriginalFilename();
                 String fileName = UUID.randomUUID().toString() + "_" + originalFileName;
@@ -185,15 +199,17 @@ public class SchoolController {
             }
 
             // 대학교 수정
+            school.setSchoolId(schoolId);
             school.setUpdatedBy((String) session.getAttribute("userId"));
             boolean result = schoolService.update(school);
             if (!result) {
+                model.addAttribute("school", school);
                 redirectAttributes.addFlashAttribute("errorMessage", "대학교 수정에 실패했습니다.");
                 return "redirect:/branchManager/schools/" + schoolId + "/update";
             }
 
             redirectAttributes.addFlashAttribute("successMessage", "대학교 수정이 완료되었습니다.");
-            return "redirect:/branchManager/schools/" + schoolId + "/update";
+            return "redirect:/branchManager/schools/" + schoolId;
         } catch (IOException | IllegalStateException e) {
             logger.error("대학교 수정 중 오류 발생 : {}", e.getMessage(), e);
             redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드 중 오류가 발생했습니다.");
@@ -205,8 +221,7 @@ public class SchoolController {
     @PostMapping("/{schoolId}/delete")
     public String deletePost(@PathVariable int schoolId, RedirectAttributes redirectAttributes) {
         // 대학교 존재 여부 확인
-        SchoolDto school = schoolService.read(schoolId);
-        if (school == null) {
+        if (!isSchoolExists(schoolId)) {
             return "redirect:/branchManager/schools";
         }
 
