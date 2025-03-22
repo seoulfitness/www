@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,16 +18,16 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         대학교 정보
                                     </div>
-                                    <div class="card-body">                                        
+                                    <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-hover">
                                                 <tbody>
-                                                    <tr>
+                                                    <tr class="border-top">
                                                         <th class="align-middle col-2">대학교명</th>
                                                         <td class="align-middle col-10">${school.schoolName}</td>
                                                     </tr>
@@ -40,8 +41,20 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="align-middle col-2">웹사이트</th>
-                                                        <td class="align-middle col-10">${school.schoolWebsite}</td>
-                                                    </tr>                                                    
+                                                        <td class="align-middle col-10">
+                                                            <c:if test="${not empty school.schoolUrl}">
+                                                                <a href="${school.schoolUrl}" target="_blank">${school.schoolUrl}</a>
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>                        
+                                                    <tr>
+                                                        <th class="align-middle col-2">입학안내</th>
+                                                        <td class="align-middle col-10">
+                                                            <c:if test="${not empty school.admissionInfoUrl}">
+                                                                <a href="${school.admissionInfoUrl}" target="_blank">${school.admissionInfoUrl}</a>
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>
                                                     <tr>
                                                         <th class="align-middle col-2">로고 URL</th>
                                                         <td class="align-middle col-10">
@@ -54,7 +67,7 @@
                                                         <th class="align-middle col-2">로고 파일</th>
                                                         <td class="align-middle col-10">
                                                             <c:if test="${not empty school.schoolLogoOriginalFileName}">
-                                                                <img src="/static/img/schools/${school.schoolLogoOriginalFileName}" alt="대학교 로고" class="img-fluid">
+                                                                <img src="/static/img/schools/${school.schoolLogoOriginalFileName}" alt="대학교 로고" class="img-fluid" style="width: 100px; height: 100px; object-fit: contain;">
                                                             </c:if>
                                                         </td>
                                                     </tr>
@@ -74,7 +87,7 @@
                                                             </c:choose>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr class="border-top">
                                                         <th class="align-middle col-2">등록일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${school.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>

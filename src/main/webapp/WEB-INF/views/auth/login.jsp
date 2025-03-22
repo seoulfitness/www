@@ -19,12 +19,12 @@
                                             <%-- Form Group (email address)--%>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="userId">아이디</label>
-                                                <input class="form-control" name="userId" id="userId" type="text" placeholder="아이디를 입력해주세요." />
+                                                <input class="form-control" name="userId" id="userId" type="text" placeholder="아이디를 입력해주세요." value="sung2ne" />
                                             </div>
                                             <%-- Form Group (password)--%>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="password">비밀번호</label>
-                                                <input class="form-control" name="password" id="password" type="password" placeholder="비밀번호를 입력해주세요." />
+                                                <input class="form-control" name="password" id="password" type="password" placeholder="비밀번호를 입력해주세요." value="1234" />
                                             </div>
                                             <%-- Form Group (login box)--%>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

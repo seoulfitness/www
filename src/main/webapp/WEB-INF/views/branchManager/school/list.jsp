@@ -40,10 +40,13 @@
                                         <div class="table-responsive">
                                             <table class="table table-hover">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="border-top">
+                                                        <th>로고</th>
                                                         <th>학교명</th>
                                                         <th>주소</th>
                                                         <th>전화번호</th>
+                                                        <th>웹사이트</th>
+                                                        <th>입학안내</th>
                                                         <th>관리</th>
                                                     </tr>
                                                 </thead>
@@ -51,13 +54,31 @@
                                                     <c:forEach items="${schools}" var="school" varStatus="status">
                                                         <tr>
                                                             <td>
-                                                                <c:if test="${not empty school.schoolLogoUrl}">
-                                                                    <img src="${school.schoolLogoUrl}" alt="${school.schoolName} 로고" class="me-2" style="width: 24px; height: 24px; object-fit: contain;">
-                                                                </c:if>
-                                                                ${school.schoolName}
+                                                                <c:choose>
+                                                                    <c:when test="${not empty school.schoolLogoUrl}">
+                                                                        <img src="${school.schoolLogoUrl}" alt="${school.schoolName} 로고" class="me-2" style="width: 24px; height: 24px; object-fit: contain;">
+                                                                    </c:when>
+                                                                    <c:when test="${not empty school.schoolLogoOriginalFileName}">
+                                                                        <img src="/static/img/schools/${school.schoolLogoOriginalFileName}" alt="${school.schoolName} 로고" class="me-2" style="width: 24px; height: 24px; object-fit: contain;">
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="text-muted">없음</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
+                                                            <td>${school.schoolName}</td>
                                                             <td>${school.schoolAddress}</td>
                                                             <td>${school.schoolPhone}</td>
+                                                            <td>
+                                                                <c:if test="${not empty school.schoolUrl}">
+                                                                    <a href="${school.schoolUrl}" target="_blank"><i data-feather="external-link"></i></a>
+                                                                </c:if>
+                                                            </td>
+                                                            <td>
+                                                                <c:if test="${not empty school.admissionInfoUrl}">
+                                                                    <a href="${school.admissionInfoUrl}" target="_blank"><i data-feather="external-link"></i></a>
+                                                                </c:if>
+                                                            </td>
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <a href="/branchManager/schools/${school.schoolId}" class="btn btn-sm btn-outline-primary">보기</a>

@@ -47,8 +47,8 @@
                 <div class="collapse ${active_page == 'schools' or active_page == 'districts' or active_page == 'provinces' ? 'show' : ''}" id="collapseBranches" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                         <a class="nav-link ${active_page == 'schools' ? 'active' : ''}" href="/branchManager/schools">대학교</a>
-                        <a class="nav-link ${active_page == 'districts' ? 'active' : ''}" href="/admin/districts">구/군</a>
                         <a class="nav-link ${active_page == 'provinces' ? 'active' : ''}" href="/admin/provinces">시/도</a>
+                        <a class="nav-link ${active_page == 'districts' ? 'active' : ''}" href="/admin/districts">구/군</a>                        
                     </nav>
                 </div>
                 <%-- 기준 정보 관리 --%>

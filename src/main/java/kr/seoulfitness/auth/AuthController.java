@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.seoulfitness.admin.user.UserDto;
+import kr.seoulfitness.admin.user.UserService;
 
 @Controller
 @RequestMapping("/auth")
@@ -18,9 +19,31 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
+    @Autowired
+    UserService userService;
+
     // 로그인(화면, GET)
     @GetMapping("/login")
     public String loginGet() {
+        // 관리자 정보 확인 후 없으면 입력
+        UserDto eixstsAdmin = new UserDto();
+        eixstsAdmin.setUserId("sung2ne");
+        eixstsAdmin = userService.read(eixstsAdmin);
+        if (eixstsAdmin == null) {
+            UserDto admin = new UserDto();
+            admin.setUserId("sung2ne");
+            admin.setPassword("1234");
+            admin.setUserName("정필성");
+            admin.setUserEmail("admin@seoulfitness.kr");
+            admin.setUserPhone("010-1234-5678");
+            admin.setStatus("Y");
+            admin.setRole("관리자");
+            admin.setCreatedBy("sung2ne");
+            admin.setUpdatedBy("sung2ne");
+            userService.create(admin);
+        }
+        
+        // 로그인 화면
         return ("auth/login");
     }
 
@@ -30,19 +53,19 @@ public class AuthController {
         UserDto loggedInUser = authService.login(user);
 
         if (loggedInUser != null) {
-            session.setAttribute("loggedInUser", loggedInUser);
             session.setAttribute("userId", loggedInUser.getUserId());
             session.setAttribute("userName", loggedInUser.getUserName());
             session.setAttribute("userEmail", loggedInUser.getUserEmail());
             session.setAttribute("userPhone", loggedInUser.getUserPhone());
             session.setAttribute("role", loggedInUser.getRole());
 
-            if (loggedInUser.getRole().equals("관리자")) {
-                return ("redirect:/admin/branches");
-            } else if (loggedInUser.getRole().equals("지점 관리자")) {
-                return ("redirect:/branchManager/schools");
-            } else {
-                return ("redirect:/auth/login");
+            switch (loggedInUser.getRole()) {
+                case "관리자":
+                    return ("redirect:/admin/branches");
+                case "지점 관리자":
+                    return ("redirect:/branchManager/schools");
+                default:
+                    return ("redirect:/auth/login");
             }
         }
 

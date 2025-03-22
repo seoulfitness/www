@@ -36,8 +36,12 @@
                                                 <input class="form-control" name="schoolPhone" id="schoolPhone" type="text" placeholder="전화번호를 입력하세요." value="${school.schoolPhone}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="schoolWebsite">웹사이트</label>
-                                                <input class="form-control" name="schoolWebsite" id="schoolWebsite" type="url" placeholder="웹사이트 주소를 입력하세요." value="${school.schoolWebsite}" />
+                                                <label class="small mb-1" for="schoolUrl">웹사이트</label>
+                                                <input class="form-control" name="schoolUrl" id="schoolUrl" type="url" placeholder="웹사이트 주소를 입력하세요." value="${school.schoolUrl}" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small mb-1" for="admissionInfoUrl">입학안내</label>
+                                                <input class="form-control" name="admissionInfoUrl" id="admissionInfoUrl" type="url" placeholder="입학안내 주소를 입력하세요." value="${school.admissionInfoUrl}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="schoolLogoUrl">로고 URL</label>
@@ -45,7 +49,7 @@
                                             </div>
                                             <c:if test="${not empty school.schoolLogoOriginalFileName}">
                                                 <div class="mb-3">
-                                                    <img src="/static/img/school-logo/${school.schoolLogoOriginalFileName}" alt="${school.schoolName} 로고" class="me-2" style="width: 48px; height: 48px; object-fit: contain;">
+                                                    <img src="/static/img/schools/${school.schoolLogoOriginalFileName}" alt="${school.schoolName} 로고" class="me-2" style="width: 48px; height: 48px; object-fit: contain;">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="deleteFile" id="deleteFile" value="false">
                                                         <label class="form-check-label text-danger" for="deleteFile">
@@ -55,8 +59,8 @@
                                                 </div>
                                             </c:if>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="schoolLogo">로고 파일</label>
-                                                <input class="form-control" name="schoolLogo" id="schoolLogo" type="file" accept="image/*" />
+                                                <label class="small mb-1" for="schoolLogoFile">로고 파일</label>
+                                                <input class="form-control" name="schoolLogoFile" id="schoolLogoFile" type="file" accept="image/*" />
                                                 <div class="form-text">이미지 파일만 업로드 가능합니다.</div>
                                             </div>
                                             <div class="mb-3">
@@ -72,8 +76,8 @@
                                                 <textarea class="form-control" name="schoolMemo" id="schoolMemo" rows="5" placeholder="메모를 입력하세요.">${school.schoolMemo}</textarea>
                                             </div>
                                             <div>
-                                                <button class="btn btn-primary" type="submit">학교 등록</button>
-                                                <a href="/branchManager/schools" class="btn btn-outline-danger">등록 취소</a>
+                                                <button class="btn btn-primary" type="submit">학교 수정</button>
+                                                <a href="/branchManager/schools" class="btn btn-outline-danger">수정 취소</a>
                                             </div>
                                         </form>
                                     </div>
@@ -95,7 +99,11 @@
                             minlength: 2,
                             maxlength: 50
                         },
-                        schoolWebsite: {
+                        schoolUrl: {
+                            url: true,
+                            maxlength: 200
+                        },
+                        admissionInfoUrl: {
                             url: true,
                             maxlength: 200
                         },
@@ -113,9 +121,13 @@
                             minlength: "학교명은 최소 2자 이상이어야 합니다.",
                             maxlength: "학교명은 최대 50자 이하여야 합니다."
                         },
-                        schoolWebsite: {
+                        schoolUrl: {
                             url: "올바른 URL 형식이 아닙니다.",
                             maxlength: "웹사이트 주소는 최대 200자 이하여야 합니다."
+                        },
+                        admissionInfoUrl: {
+                            url: "올바른 URL 형식이 아닙니다.",
+                            maxlength: "입학안내 주소는 최대 200자 이하여야 합니다."
                         },
                         schoolLogoUrl: {
                             url: "올바른 URL 형식이 아닙니다.",

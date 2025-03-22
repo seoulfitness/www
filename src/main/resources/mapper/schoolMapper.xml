@@ -9,7 +9,8 @@
         <result property="schoolName" column="SCHOOL_NAME" />
         <result property="schoolAddress" column="SCHOOL_ADDRESS" />
         <result property="schoolPhone" column="SCHOOL_PHONE" />
-        <result property="schoolWebsite" column="SCHOOL_WEBSITE" />
+        <result property="schoolUrl" column="SCHOOL_URL" />
+        <result property="admissionInfoUrl" column="ADMISSION_INFO_URL" />
         <result property="schoolLogoUrl" column="SCHOOL_LOGO_URL" />
         <result property="schoolLogoFileName" column="SCHOOL_LOGO_FILENAME" />
         <result property="schoolLogoOriginalFileName" column="SCHOOL_LOGO_ORIGINAL_FILENAME" />
@@ -33,7 +34,8 @@
             SCHOOL_NAME, 
             SCHOOL_ADDRESS, 
             SCHOOL_PHONE,
-            SCHOOL_WEBSITE,
+            SCHOOL_URL,
+            ADMISSION_INFO_URL,
             SCHOOL_LOGO_URL,
             SCHOOL_LOGO_FILENAME,
             SCHOOL_LOGO_ORIGINAL_FILENAME,
@@ -45,7 +47,8 @@
             #{schoolName}, 
             #{schoolAddress}, 
             #{schoolPhone},
-            #{schoolWebsite},
+            #{schoolUrl},
+            #{admissionInfoUrl},
             #{schoolLogoUrl},
             #{schoolLogoFileName},
             #{schoolLogoOriginalFileName},
@@ -66,7 +69,8 @@
             A.SCHOOL_NAME, 
             A.SCHOOL_ADDRESS, 
             A.SCHOOL_PHONE,
-            A.SCHOOL_WEBSITE,
+            A.SCHOOL_URL,
+            A.ADMISSION_INFO_URL,
             A.SCHOOL_LOGO_URL,
             A.SCHOOL_LOGO_FILENAME,
             A.SCHOOL_LOGO_ORIGINAL_FILENAME,
@@ -93,7 +97,8 @@
                 A.SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%') 
                 OR A.SCHOOL_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
                 OR A.SCHOOL_PHONE LIKE CONCAT('%', #{keyword}, '%')
-                OR A.SCHOOL_WEBSITE LIKE CONCAT('%', #{keyword}, '%')
+                OR A.SCHOOL_URL LIKE CONCAT('%', #{keyword}, '%')
+                OR A.ADMISSION_INFO_URL LIKE CONCAT('%', #{keyword}, '%')
             )
             ]]>
         </if>
@@ -112,7 +117,8 @@
             A.SCHOOL_NAME, 
             A.SCHOOL_ADDRESS, 
             A.SCHOOL_PHONE,
-            A.SCHOOL_WEBSITE,
+            A.SCHOOL_URL,
+            A.ADMISSION_INFO_URL,
             A.SCHOOL_LOGO_URL,
             A.SCHOOL_LOGO_FILENAME,
             A.SCHOOL_LOGO_ORIGINAL_FILENAME,
@@ -157,9 +163,14 @@
             , SCHOOL_PHONE = #{schoolPhone}
             ]]>
         </if>
-        <if test="schoolWebsite != null">
+        <if test="schoolUrl != null">
             <![CDATA[
-            , SCHOOL_WEBSITE = #{schoolWebsite}
+            , SCHOOL_URL = #{schoolUrl}
+            ]]>
+        </if>
+        <if test="admissionInfoUrl != null">
+            <![CDATA[
+            , ADMISSION_INFO_URL = #{admissionInfoUrl}
             ]]>
         </if>
         <if test="schoolLogoUrl != null">
@@ -215,7 +226,8 @@
                 SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%') 
                 OR SCHOOL_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
                 OR SCHOOL_PHONE LIKE CONCAT('%', #{keyword}, '%')
-                OR SCHOOL_WEBSITE LIKE CONCAT('%', #{keyword}, '%')
+                OR SCHOOL_URL LIKE CONCAT('%', #{keyword}, '%')
+                OR ADMISSION_INFO_URL LIKE CONCAT('%', #{keyword}, '%')
             )
             ]]>
         </if>
