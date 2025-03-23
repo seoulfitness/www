@@ -17,41 +17,42 @@ public class BranchManagerService {
 
     // 지점 관리자 등록
     public boolean create(BranchManagerDto branchManager) {
-        return branchManagerDao.create(branchManager) > 0;
+        return branchManagerDao.insertBranchManager(branchManager) > 0;
     }
 
     // 지점 관리자 목록
-    public Map<String, Object> list(int currentPage, int listCountPerPage, int pageCountPerPage, String keyword, int branchId) {
+    public Map<String, Object> findAll(Map<String, Object> params) {
         // 전체 게시글 수 조회
-        int totalCount = branchManagerDao.totalCount(keyword, branchId);
+        int totalCount = branchManagerDao.getTotalCount(params);
 
         // 페이지네이션 정보 생성
-        Pagination pagination = new Pagination(currentPage, listCountPerPage, pageCountPerPage, totalCount);
+        params.put("totalCount", totalCount);
+        Pagination pagination = new Pagination(params);
 
         // 페이징된 게시글 목록 조회
-        List<BranchManagerDto> branchManagers = branchManagerDao.list(pagination.offset(), listCountPerPage, keyword, branchId);
+        params.put("offset", pagination.offset());
+        List<BranchManagerDto> branchManagers = branchManagerDao.getBranchManagers(params);
 
         // 결과 맵 생성
         Map<String, Object> result = new HashMap<>();
         result.put("branchManagers", branchManagers);
         result.put("pagination", pagination);
-        result.put("keyword", keyword);
 
         return result;
     }
 
     // 지점 관리자 상세보기
-    public BranchManagerDto read(int branchManagerId) {
-        return branchManagerDao.read(branchManagerId);
+    public BranchManagerDto find(int branchManagerId) {
+        return branchManagerDao.getBranchManager(branchManagerId);
     }
 
     // 지점 관리자 수정
     public boolean update(BranchManagerDto branchManager) {
-        return branchManagerDao.update(branchManager) > 0;
+        return branchManagerDao.updateBranchManager(branchManager) > 0;
     }
 
     // 지점 관리자 삭제
-    public boolean delete(int branchManagerId, int branchId) {
-        return branchManagerDao.delete(branchManagerId, branchId) > 0;
+    public boolean delete(Map<String, Object> params) {
+        return branchManagerDao.deleteBranchManager(params) > 0;
     }
 }

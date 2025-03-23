@@ -25,7 +25,8 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-hover">
+                                            <%-- 시/도 정보 --%>
+                                            <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr class="border-top">
                                                         <th class="align-middle col-2">시/도명</th>
@@ -35,6 +36,13 @@
                                                         <th class="align-middle col-2">메모</th>
                                                         <td class="align-middle col-10">${province.provinceMemo}</td>
                                                     </tr>
+                                                </tbody>
+                                            </table>
+                                            <%--// 시/도 정보 --%>
+
+                                            <%-- 등록일시, 수정일시 --%>
+                                            <table class="table table-bordered table-hover mb-3">
+                                                <tbody>
                                                     <tr class="border-top">
                                                         <th class="align-middle col-2">등록일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${province.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -53,13 +61,12 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <%--// 등록일시, 수정일시 --%>
                                         </div>
-                                        <div>
-                                            <div>
-                                                <a href="/admin/provinces" class="btn btn-primary">시/도 목록</a>
-                                                <a href="/admin/provinces/${province.provinceId}/update" class="btn btn-outline-warning">시/도 수정</a>
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">시/도 삭제</button>
-                                            </div>
+                                        <div class="card-footer">
+                                            <a href="/admin/provinces" class="btn btn-primary">시/도 목록</a>
+                                            <a href="/admin/provinces/${province.provinceId}/update" class="btn btn-outline-warning">시/도 수정</a>
+                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">시/도 삭제</button>
                                         </div>
                                     </div>
                                 </div>

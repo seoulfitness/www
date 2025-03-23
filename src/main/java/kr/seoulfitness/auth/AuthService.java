@@ -1,5 +1,8 @@
 package kr.seoulfitness.auth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,9 @@ public class AuthService {
 
     // 로그인
     public UserDto login(UserDto user) {
-        UserDto existsUser = userDao.read(user);
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", user.getUserId());
+        UserDto existsUser = userDao.getUser(params);
         
         if (existsUser == null) {
             logger.warn("로그인 실패: 사용자를 찾을 수 없습니다. userId: {}", user.getUserId());

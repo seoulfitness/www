@@ -1,5 +1,6 @@
 package kr.seoulfitness.admin.province;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,14 +24,14 @@ public class ProvinceController {
 
     // 시/도 존재 여부 확인
     public boolean isProvinceExists(int provinceId) {
-        return provinceService.read(provinceId) != null;
+        return provinceService.find(provinceId) != null;
     }
 
     // 시/도 등록
     @GetMapping("/create")
     public String createGet(Model model) {
         model.addAttribute("pageTitle", "시/도 관리");
-        model.addAttribute("active_page", "provinces");
+        model.addAttribute("activePage", "provinces");
         return "admin/province/create";
     }
 
@@ -53,58 +54,62 @@ public class ProvinceController {
 
     // 시/도 목록
     @GetMapping("")
-    public String listGet(
+    public String list(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 
         @RequestParam(required = false) String keyword,
         Model model
     ) {
-        int listCountPerPage = 10;  // 한 페이지에서 불러올 게시글 수
-        int pageCountPerPage = 5;   // 한 페이지에서 보여질 페이지 수
-        Map<String, Object> result = provinceService.list(currentPage, listCountPerPage, pageCountPerPage, keyword);
+        Map<String, Object> params = new HashMap<>();
+        params.put("currentPage", currentPage);
+        params.put("listCountPerPage", 10); // 한 페이지에서 불러올 게시글 수
+        params.put("pageCountPerPage", 5); // 한 페이지에서 보여질 페이지 수
+        params.put("keyword", keyword);
+
+        Map<String, Object> result = provinceService.findAll(params);
         model.addAttribute("provinces", result.get("provinces"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
         model.addAttribute("pageTitle", "시/도 관리");
-        model.addAttribute("active_page", "provinces");
+        model.addAttribute("activePage", "provinces");
 
         return "admin/province/list";
     }
 
     // 시/도 상세
     @GetMapping("/{provinceId}")
-    public String readGet(@PathVariable int provinceId, Model model) {
+    public String view(@PathVariable int provinceId, Model model) {
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";
         }
 
         // 시/도 상세
-        ProvinceDto province = provinceService.read(provinceId);
+        ProvinceDto province = provinceService.find(provinceId);
         model.addAttribute("province", province);
         model.addAttribute("pageTitle", "시/도 관리");
-        model.addAttribute("active_page", "provinces");
+        model.addAttribute("activePage", "provinces");
         return "admin/province/read";
     }
 
     // 시/도 수정
     @GetMapping("/{provinceId}/update")
-    public String updateGet(@PathVariable int provinceId, Model model) {   
+    public String editForm(@PathVariable int provinceId, Model model) {   
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";
         }
 
         // 시/도 수정
-        ProvinceDto province = provinceService.read(provinceId);
+        ProvinceDto province = provinceService.find(provinceId);
         model.addAttribute("province", province);
         model.addAttribute("pageTitle", "시/도 관리");
-        model.addAttribute("active_page", "provinces");
+        model.addAttribute("activePage", "provinces");
         return "admin/province/update";
     }
 
     // 시/도 수정 처리
     @PostMapping("/{provinceId}/update")
-    public String updatePost(@PathVariable int provinceId, ProvinceDto province, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String update(@PathVariable int provinceId, ProvinceDto province, HttpSession session, RedirectAttributes redirectAttributes) {
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";
@@ -125,7 +130,7 @@ public class ProvinceController {
 
     // 시/도 삭제
     @PostMapping("/{provinceId}/delete")
-    public String deletePost(@PathVariable int provinceId, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable int provinceId, RedirectAttributes redirectAttributes) {
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";

@@ -3,7 +3,7 @@
 
 <mapper namespace="schoolMapper">
 
-    <resultMap id="schoolResultMap" type="kr.seoulfitness.branchManager.school.SchoolDto">
+    <resultMap id="schoolResultMap" type="kr.seoulfitness.admin.school.SchoolDto">
         <!-- 학교 정보 -->
         <result property="schoolId" column="SCHOOL_ID" />
         <result property="schoolName" column="SCHOOL_NAME" />
@@ -28,7 +28,7 @@
     </resultMap>
 
     <!-- 학교등록 -->
-    <insert id="create" parameterType="kr.seoulfitness.branchManager.school.SchoolDto">
+    <insert id="insertSchool" parameterType="kr.seoulfitness.admin.school.SchoolDto">
         <![CDATA[
         INSERT INTO SCHOOLS (
             SCHOOL_NAME, 
@@ -61,7 +61,7 @@
     </insert>
 
     <!-- 학교 목록 -->
-    <select id="list" resultMap="schoolResultMap">
+    <select id="getSchools" resultMap="schoolResultMap">
         <![CDATA[
         SELECT
             -- 학교 정보
@@ -108,8 +108,8 @@
         ]]>
     </select>
 
-    <!-- 학교 보기 -->
-    <select id="read" resultMap="schoolResultMap">
+    <!-- 학교 상세보기 -->
+    <select id="getSchool" resultMap="schoolResultMap">
         <![CDATA[
         SELECT
             -- 학교 정보
@@ -144,7 +144,7 @@
     </select>
 
     <!-- 학교 수정 -->
-    <update id="update" parameterType="kr.seoulfitness.branchManager.school.SchoolDto">
+    <update id="updateSchool" parameterType="kr.seoulfitness.admin.school.SchoolDto">
         <![CDATA[
         UPDATE SCHOOLS SET SCHOOL_ID = #{schoolId}
         ]]>
@@ -209,14 +209,14 @@
     </update>
 
     <!-- 학교 삭제 -->
-    <delete id="delete" parameterType="int">
+    <delete id="deleteSchool" parameterType="int">
         <![CDATA[
         DELETE FROM SCHOOLS WHERE SCHOOL_ID = #{schoolId} LIMIT 1
         ]]>
     </delete>
 
     <!-- 학교 수 -->
-    <select id="totalCount" resultType="int">
+    <select id="getTotalCount" resultType="int">
         <![CDATA[
         SELECT COUNT(*) FROM SCHOOLS WHERE 1=1
         ]]>

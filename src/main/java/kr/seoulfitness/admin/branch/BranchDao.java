@@ -1,6 +1,5 @@
 package kr.seoulfitness.admin.branch;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +18,11 @@ public class BranchDao {
     private static final Logger logger = LoggerFactory.getLogger(BranchDao.class);
 
     // 지점 등록
-    public int create(BranchDto branch) {
+    public int insertBranch(BranchDto branch) {
         int result = -1;
 
         try {
-            result = sqlSession.insert("branchMapper.create", branch);
+            result = sqlSession.insert("branchMapper.insertBranch", branch);
         } catch (DataAccessException e) {
             logger.error("지점 등록 오류 : {}", e.getMessage(), e);
         }
@@ -32,16 +31,11 @@ public class BranchDao {
     }
 
     // 지점 목록
-    public List<BranchDto> list(int offset, int listCountPerPage, String keyword) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("listCountPerPage", listCountPerPage);
-        params.put("keyword", keyword);
-
+    public List<BranchDto> getBranches(Map<String, Object> params) {
         List<BranchDto> branches = null;
 
         try {
-            branches = sqlSession.selectList("branchMapper.list", params);
+            branches = sqlSession.selectList("branchMapper.getBranches", params);
         } catch (DataAccessException e) {
             logger.error("지점 목록 오류 : {}", e.getMessage(), e);
         }
@@ -50,11 +44,11 @@ public class BranchDao {
     }
 
     // 지점 상세보기
-    public BranchDto read(int branchId) {
+    public BranchDto getBranch(int branchId) {
         BranchDto branch = null;
         
         try {
-            branch = sqlSession.selectOne("branchMapper.read", branchId);
+            branch = sqlSession.selectOne("branchMapper.getBranch", branchId);
         } catch (DataAccessException e) {
             logger.error("지점 상세 오류 : {}", e.getMessage(), e);
         }
@@ -63,11 +57,11 @@ public class BranchDao {
     }
 
     // 지점 수정
-    public int update(BranchDto branch) {
+    public int updateBranch(BranchDto branch) {
         int result = -1;
 
         try {
-            result = sqlSession.update("branchMapper.update", branch);
+            result = sqlSession.update("branchMapper.updateBranch", branch);
         } catch (DataAccessException e) {
             logger.error("지점 수정 오류 : {}", e.getMessage(), e);
         }
@@ -76,11 +70,11 @@ public class BranchDao {
     }
 
     // 지점 삭제
-    public int delete(int branchId) {
+    public int deleteBranch(int branchId) {
         int result = -1;
 
         try {
-            result = sqlSession.delete("branchMapper.delete", branchId);
+            result = sqlSession.delete("branchMapper.deleteBranch", branchId);
         } catch (DataAccessException e) {
             logger.error("지점 삭제 오류 : {}", e.getMessage(), e);
         }
@@ -89,14 +83,11 @@ public class BranchDao {
     }
 
     // 전체 지점 수
-    public int totalCount(String keyword) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("keyword", keyword);
-
+    public int getTotalCount(Map<String, Object> params) {
         int totalCount = -1;
 
         try {
-            totalCount = sqlSession.selectOne("branchMapper.totalCount", params);
+            totalCount = sqlSession.selectOne("branchMapper.getTotalCount", params);
         } catch (DataAccessException e) {
             logger.error("전체 지점 수 오류 : {}", e.getMessage(), e);
         }

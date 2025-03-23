@@ -1,5 +1,7 @@
 package kr.seoulfitness.libs;
 
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
@@ -12,11 +14,11 @@ public class Pagination {
     private int startPage;          // 시작 페이지 번호
     private int endPage;            // 끝 페이지 번호
 
-    public Pagination(int currentPage, int listCountPerPage, int pageCountPerPage, int totalCount) {
-        this.currentPage = currentPage;
-        this.listCountPerPage = listCountPerPage;
-        this.pageCountPerPage = pageCountPerPage;
-        this.totalCount = totalCount;
+    public Pagination(Map<String, Object> params) {
+        this.currentPage = (int) params.get("currentPage");
+        this.listCountPerPage = (int) params.get("listCountPerPage");
+        this.pageCountPerPage = (int) params.get("pageCountPerPage");
+        this.totalCount = (int) params.get("totalCount");
 
         // 전체 페이지 수 계산
         this.totalPages = (int) Math.ceil((double) totalCount / listCountPerPage);

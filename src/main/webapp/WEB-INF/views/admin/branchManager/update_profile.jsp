@@ -18,12 +18,13 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        지점 관리자 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
-                                    </div>
-                                    <div class="card-body">
-                                        <form id="updateForm" action="/admin/branchManagers/${branchManager.branchManagerId}/update" method="post">
+                                <form id="updateForm" action="/admin/branchManagers/${branchManager.branchManagerId}/update" method="post">
+                                    <input type="hidden" name="branchManagerId" value="${branchManager.branchManagerId}" />
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            지점 관리자 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                        </div>
+                                        <div class="card-body">                                        
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchId">지점<span class="text-danger small">*</span></label>
                                                 <select class="form-control" name="branchId" id="branchId">
@@ -45,13 +46,13 @@
                                                 <label class="small mb-1" for="userEmail">이메일<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="userEmail" id="userEmail" type="text" placeholder="이메일을 입력하세요." value="${branchManager.userEmail}" />
                                             </div>                                            
-                                            <div>
-                                                <button class="btn btn-primary" type="submit">지점 관리자 수정</button>
-                                                <a href="/admin/branchManagers/${branchManager.branchManagerId}" class="btn btn-outline-danger">수정 취소</a>
-                                            </div>
-                                        </form>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" type="submit">지점 관리자 수정</button>
+                                            <a href="/admin/branchManagers/${branchManager.branchManagerId}" class="btn btn-outline-danger">수정 취소</a>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

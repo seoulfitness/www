@@ -38,7 +38,7 @@
 
                                         <%-- 목록 --%>
                                         <div class="table-responsive">
-                                            <table class="table table-hover">
+                                            <table class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr class="border-top">
                                                         <th>시/도명</th>

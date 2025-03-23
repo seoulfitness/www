@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="physicalSubjectMapper">
+
+    <resultMap id="physicalSubjectResultMap" type="kr.seoulfitness.admin.physicalSubject.PhysicalSubjectDto">
+        <!-- 실기 교과목 정보 -->
+        <result property="physicalSubjectId" column="PHYSICAL_SUBJECT_ID" />
+        <result property="physicalSubjectName" column="PHYSICAL_SUBJECT_NAME" />
+        <result property="physicalSubjectMemo" column="PHYSICAL_SUBJECT_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 실기 교과목 등록 -->
+    <insert id="insertPhysicalSubject" parameterType="kr.seoulfitness.admin.physicalSubject.PhysicalSubjectDto">
+        <![CDATA[
+        INSERT INTO PHYSICAL_SUBJECTS (
+            PHYSICAL_SUBJECT_NAME, 
+            PHYSICAL_SUBJECT_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{physicalSubjectName}, 
+            #{physicalSubjectMemo},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 실기 교과목 목록 -->
+    <select id="getPhysicalSubjects" resultMap="physicalSubjectResultMap">
+        <![CDATA[
+        SELECT
+            -- 실기 교과목 정보
+            A.PHYSICAL_SUBJECT_ID,
+            A.PHYSICAL_SUBJECT_NAME,
+            A.PHYSICAL_SUBJECT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            PHYSICAL_SUBJECTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.PHYSICAL_SUBJECT_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.PHYSICAL_SUBJECT_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY PHYSICAL_SUBJECT_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 실기 교과목 상세보기 -->
+    <select id="getPhysicalSubject" resultMap="physicalSubjectResultMap">
+        <![CDATA[
+        SELECT
+            -- 실기 교과목 정보
+            A.PHYSICAL_SUBJECT_ID,
+            A.PHYSICAL_SUBJECT_NAME,
+            A.PHYSICAL_SUBJECT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            PHYSICAL_SUBJECTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE
+            PHYSICAL_SUBJECT_ID = #{physicalSubjectId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 실기 교과목 수정 -->
+    <update id="updatePhysicalSubject" parameterType="kr.seoulfitness.admin.physicalSubject.PhysicalSubjectDto">
+        <![CDATA[
+        UPDATE PHYSICAL_SUBJECTS SET PHYSICAL_SUBJECT_ID = #{physicalSubjectId}
+        ]]>
+        <if test="physicalSubjectName != null">
+            <![CDATA[
+            , PHYSICAL_SUBJECT_NAME = #{physicalSubjectName}
+            ]]>
+        </if>
+        <if test="physicalSubjectMemo != null">
+            <![CDATA[
+            , PHYSICAL_SUBJECT_MEMO = #{physicalSubjectMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE PHYSICAL_SUBJECT_ID = #{physicalSubjectId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 실기 교과목 삭제 -->
+    <delete id="deletePhysicalSubject" parameterType="int">
+        <![CDATA[
+        DELETE FROM PHYSICAL_SUBJECTS WHERE PHYSICAL_SUBJECT_ID = #{physicalSubjectId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 전체 실기 교과목 수 -->
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM PHYSICAL_SUBJECTS WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                PHYSICAL_SUBJECT_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR PHYSICAL_SUBJECT_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>

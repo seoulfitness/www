@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csatSubjectMapper">
+
+    <resultMap id="csatSubjectResultMap" type="kr.seoulfitness.admin.csatSubject.CsatSubjectDto">
+        <!-- 수능 교과목 정보 -->
+        <result property="csatSubjectId" column="CSAT_SUBJECT_ID" />
+        <result property="csatSubjectName" column="CSAT_SUBJECT_NAME" />
+        <result property="csatSubjectMemo" column="CSAT_SUBJECT_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 수능 교과목 등록 -->
+    <insert id="insertCsatSubject" parameterType="kr.seoulfitness.admin.csatSubject.CsatSubjectDto">
+        <![CDATA[
+        INSERT INTO CSAT_SUBJECTS (
+            CSAT_SUBJECT_NAME, 
+            CSAT_SUBJECT_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{csatSubjectName}, 
+            #{csatSubjectMemo},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 수능 교과목 목록 -->
+    <select id="getCsatSubjects" resultMap="csatSubjectResultMap">
+        <![CDATA[
+        SELECT
+            -- 수능 교과목 정보
+            A.CSAT_SUBJECT_ID,
+            A.CSAT_SUBJECT_NAME,
+            A.CSAT_SUBJECT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            CSAT_SUBJECTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.CSAT_SUBJECT_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.CSAT_SUBJECT_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY CSAT_SUBJECT_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 수능 교과목 상세보기 -->
+    <select id="getCsatSubject" resultMap="csatSubjectResultMap">
+        <![CDATA[
+        SELECT
+            -- 수능 교과목 정보
+            A.CSAT_SUBJECT_ID,
+            A.CSAT_SUBJECT_NAME,
+            A.CSAT_SUBJECT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            CSAT_SUBJECTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE
+            CSAT_SUBJECT_ID = #{csatSubjectId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 수능 교과목 수정 -->
+    <update id="updateCsatSubject" parameterType="kr.seoulfitness.admin.csatSubject.CsatSubjectDto">
+        <![CDATA[
+        UPDATE CSAT_SUBJECTS SET CSAT_SUBJECT_ID = #{csatSubjectId}
+        ]]>
+        <if test="csatSubjectName != null">
+            <![CDATA[
+            , CSAT_SUBJECT_NAME = #{csatSubjectName}
+            ]]>
+        </if>
+        <if test="csatSubjectMemo != null">
+            <![CDATA[
+            , CSAT_SUBJECT_MEMO = #{csatSubjectMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE CSAT_SUBJECT_ID = #{csatSubjectId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 수능 교과목 삭제 -->
+    <delete id="deleteCsatSubject" parameterType="int">
+        <![CDATA[
+        DELETE FROM CSAT_SUBJECTS WHERE CSAT_SUBJECT_ID = #{csatSubjectId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 전체 수능 교과목 수 -->
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM CSAT_SUBJECTS WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                CSAT_SUBJECT_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR CSAT_SUBJECT_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>

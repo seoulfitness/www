@@ -17,12 +17,12 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        시/도 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
-                                    </div>
-                                    <div class="card-body">
-                                        <form id="createForm" action="/admin/provinces/create" method="post">
+                                <form id="createForm" action="/admin/provinces/create" method="post">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            시/도 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                        </div>
+                                        <div class="card-body">                                        
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="provinceName">시/도명<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="provinceName" id="provinceName" type="text" placeholder="시/도명을 입력하세요." value="${province.provinceName}" />
@@ -31,13 +31,13 @@
                                                 <label class="small mb-1" for="provinceMemo">메모</label>
                                                 <textarea class="form-control" name="provinceMemo" id="provinceMemo" rows="3" placeholder="메모를 입력하세요.">${province.provinceMemo}</textarea>
                                             </div>
-                                            <div>
-                                                <button class="btn btn-primary" type="submit">시/도 등록</button>
-                                                <a href="/admin/provinces" class="btn btn-outline-danger">등록 취소</a>
-                                            </div>
-                                        </form>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" type="submit">시/도 등록</button>
+                                            <a href="/admin/provinces" class="btn btn-outline-danger">등록 취소</a>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -25,7 +25,8 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-hover">
+                                            <%-- 구/군 정보 --%>
+                                            <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
                                                         <th class="align-middle col-2">시/도</th>
@@ -39,6 +40,13 @@
                                                         <th class="align-middle col-2">메모</th>
                                                         <td class="align-middle col-10">${district.districtMemo}</td>
                                                     </tr>
+                                                </tbody>
+                                            </table>
+                                            <%--// 구/군 정보 --%>
+
+                                            <%-- 등록일시, 수정일시 --%>
+                                            <table class="table table-bordered table-hover mb-3">
+                                                <tbody>
                                                     <tr class="border-top">
                                                         <th class="align-middle col-2">등록일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${district.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -57,6 +65,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <%--// 등록일시, 수정일시 --%>
                                         </div>                                        
                                     </div>
                                     <div class="card-footer">

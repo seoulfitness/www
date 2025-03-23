@@ -23,41 +23,42 @@ public class UserService {
     public boolean create(UserDto user) {
         // 비밀번호 암호화
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userDao.create(user) > 0;
+        return userDao.insertUser(user) > 0;
     }
 
     // 사용자 목록
-    public Map<String, Object> list(int currentPage, int listCountPerPage, int pageCountPerPage, String keyword, String role) {
+    public Map<String, Object> findAll(Map<String, Object> params) {
         // 전체 게시글 수 조회
-        int totalCount = userDao.totalCount(keyword, role);
+        int totalCount = userDao.getTotalCount(params);
 
         // 페이지네이션 정보 생성
-        Pagination pagination = new Pagination(currentPage, listCountPerPage, pageCountPerPage, totalCount);
+        params.put("totalCount", totalCount);
+        Pagination pagination = new Pagination(params);
 
         // 페이징된 게시글 목록 조회
-        List<UserDto> users = userDao.list(pagination.offset(), listCountPerPage, keyword, role);
+        params.put("offset", pagination.offset());
+        List<UserDto> users = userDao.getUsers(params);
 
         // 결과 맵 생성
         Map<String, Object> result = new HashMap<>();
         result.put("users", users);
         result.put("pagination", pagination);
-        result.put("keyword", keyword);
 
         return result;
     }
 
     // 사용자 상세보기
-    public UserDto read(UserDto user) {
-        return userDao.read(user);
+    public UserDto find(Map<String, Object> params) {
+        return userDao.getUser(params);
     }
 
     // 사용자 수정
-    public int update(UserDto user) {
-        return userDao.update(user);
+    public boolean update(UserDto user) {
+        return userDao.updateUser(user) > 0;
     }
 
     // 사용자 삭제
-    public int delete(int id) {
-        return userDao.delete(id);
+    public boolean delete(int userId) {
+        return userDao.deleteUser(userId) > 0;
     }
 }

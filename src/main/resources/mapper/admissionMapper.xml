@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admissionMapper">
+
+    <resultMap id="admissionResultMap" type="kr.seoulfitness.admin.admission.AdmissionDto">
+        <!-- 입시 요강 정보 -->
+        <result property="admissionId" column="ADMISSION_ID" />
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <result property="admissionType" column="ADMISSION_TYPE" />
+        <result property="schoolId" column="SCHOOL_ID" />
+        <result property="departmentId" column="DEPARTMENT_ID" />
+        <result property="earlyAdmission" column="EARLY_ADMISSION" />
+        <result property="regularAdmission" column="REGULAR_ADMISSION" />        
+        <result property="admissionMemo" column="ADMISSION_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+    </resultMap>
+
+    <!-- 입시 요강 등록 -->
+    <insert id="insertAdmission" parameterType="kr.seoulfitness.admin.admission.AdmissionDto">
+        <![CDATA[
+        INSERT INTO ADMISSIONS (
+            ADMISSION_YEAR,
+            ADMISSION_TYPE,
+            EARLY_ADMISSION,
+            REGULAR_ADMISSION,
+            SCHOOL_ID,
+            DEPARTMENT_ID,
+            ADMISSION_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionYear},
+            #{admissionType},
+            #{earlyAdmission},
+            #{regularAdmission},
+            #{schoolId},
+            #{departmentId},
+            #{admissionMemo},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 입시 요강 목록 -->
+    <select id="getAdmissions" resultMap="admissionResultMap">
+        <![CDATA[
+        SELECT
+            -- 입시 요강 정보
+            A.ADMISSION_ID,
+            A.ADMISSION_YEAR,
+            A.ADMISSION_TYPE,
+            A.EARLY_ADMISSION,
+            A.REGULAR_ADMISSION,
+            A.SCHOOL_ID,
+            A.DEPARTMENT_ID,
+            A.ADMISSION_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            ADMISSIONS A            
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = A.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = A.DEPARTMENT_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.ADMISSION_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <if test="admissionYear != null and admissionYear != 0">
+            <![CDATA[
+            AND A.ADMISSION_YEAR = #{admissionYear}
+            ]]>
+        </if>
+        <if test="admissionType != null">
+            <![CDATA[
+            AND A.ADMISSION_TYPE = #{admissionType}
+            ]]>
+        </if>
+        <if test="schoolId != null and schoolId != 0">
+            <![CDATA[
+            AND A.SCHOOL_ID = #{schoolId}
+            ]]>
+        </if>
+        <if test="departmentId != null and departmentId != 0">
+            <![CDATA[
+            AND A.DEPARTMENT_ID = #{departmentId}
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY A.ADMISSION_YEAR ASC, A.ADMISSION_TYPE ASC, B.SCHOOL_NAME ASC, C.DEPARTMENT_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 입시 요강 상세보기 -->
+    <select id="getAdmission" resultMap="admissionResultMap">
+        <![CDATA[
+        SELECT
+            -- 입시 요강 정보
+            A.ADMISSION_ID,
+            A.ADMISSION_YEAR,
+            A.ADMISSION_TYPE,
+            A.EARLY_ADMISSION,
+            A.REGULAR_ADMISSION,
+            A.SCHOOL_ID,
+            A.DEPARTMENT_ID,
+            A.ADMISSION_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            ADMISSIONS A
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = A.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = A.DEPARTMENT_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
+        WHERE
+            A.ADMISSION_ID = #{admissionId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 입시 요강 수정 -->
+    <update id="updateAdmission" parameterType="kr.seoulfitness.admin.admission.AdmissionDto">
+        <![CDATA[
+        UPDATE ADMISSIONS SET ADMISSION_ID = #{admissionId}
+        ]]>
+        <if test="admissionYear != null">
+            <![CDATA[
+            , ADMISSION_YEAR = #{admissionYear}
+            ]]>
+        </if>
+        <if test="admissionType != null">
+            <![CDATA[
+            , ADMISSION_TYPE = #{admissionType}
+            ]]>
+        </if>
+        <if test="earlyAdmission != null">
+            <![CDATA[
+            , EARLY_ADMISSION = #{earlyAdmission}
+            ]]>
+        </if>
+        <if test="regularAdmission != null">
+            <![CDATA[
+            , REGULAR_ADMISSION = #{regularAdmission}
+            ]]>
+        </if>
+        <if test="schoolId != null">
+            <![CDATA[
+            , SCHOOL_ID = #{schoolId}
+            ]]>
+        </if>
+        <if test="departmentId != null">
+            <![CDATA[
+            , DEPARTMENT_ID = #{departmentId}
+            ]]>
+        </if>
+        <if test="admissionMemo != null">
+            <![CDATA[
+            , ADMISSION_MEMO = #{admissionMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE ADMISSION_ID = #{admissionId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 입시 요강 삭제 -->
+    <delete id="deleteAdmission" parameterType="int">
+        <![CDATA[
+        DELETE FROM ADMISSIONS WHERE ADMISSION_ID = #{admissionId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 입시 요강 수 -->
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) 
+        FROM ADMISSIONS A
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND A.ADMISSION_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            ]]>
+        </if>
+        <if test="admissionYear != null and admissionYear != 0">
+            <![CDATA[
+            AND A.ADMISSION_YEAR = #{admissionYear}
+            ]]>
+        </if>
+        <if test="admissionType != null">
+            <![CDATA[
+            AND A.ADMISSION_TYPE = #{admissionType}
+            ]]>
+        </if>
+        <if test="schoolId != null and schoolId != 0">
+            <![CDATA[
+            AND A.SCHOOL_ID = #{schoolId}
+            ]]>
+        </if>
+        <if test="departmentId != null and departmentId != 0">
+            <![CDATA[
+            AND A.DEPARTMENT_ID = #{departmentId}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

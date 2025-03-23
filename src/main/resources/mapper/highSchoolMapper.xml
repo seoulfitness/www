@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="highSchoolMapper">
+
+    <resultMap id="highSchoolResultMap" type="kr.seoulfitness.admin.highSchool.HighSchoolDto">
+        <!-- 고등학교 정보 -->
+        <result property="highSchoolId" column="HIGH_SCHOOL_ID" />
+        <result property="highSchoolName" column="HIGH_SCHOOL_NAME" />
+        <result property="highSchoolAddress" column="HIGH_SCHOOL_ADDRESS" />
+        <result property="highSchoolPhone" column="HIGH_SCHOOL_PHONE" />
+        <result property="highSchoolWebsite" column="HIGH_SCHOOL_WEBSITE" />
+        <result property="highSchoolMemo" column="HIGH_SCHOOL_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />
+        
+        <!-- 시/도 정보 -->
+        <result property="provinceId" column="PROVINCE_ID" />
+        <result property="provinceName" column="PROVINCE_NAME" />
+        
+        <!-- 구/군 정보 -->
+        <result property="districtId" column="DISTRICT_ID" />
+        <result property="districtName" column="DISTRICT_NAME" />
+        
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 고등학교 등록 -->
+    <insert id="insertHighSchool" parameterType="kr.seoulfitness.admin.highSchool.HighSchoolDto">
+        <![CDATA[
+        INSERT INTO HIGH_SCHOOLS (
+            HIGH_SCHOOL_NAME, 
+            HIGH_SCHOOL_ADDRESS, 
+            HIGH_SCHOOL_PHONE,
+            HIGH_SCHOOL_WEBSITE,
+            HIGH_SCHOOL_MEMO,
+            PROVINCE_ID,
+            DISTRICT_ID,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{highSchoolName}, 
+            #{highSchoolAddress}, 
+            #{highSchoolPhone},
+            #{highSchoolWebsite},
+            #{highSchoolMemo},
+            #{provinceId},
+            #{districtId},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 고등학교 목록 -->
+    <select id="getHighSchools" resultMap="highSchoolResultMap">
+        <![CDATA[
+        SELECT
+            -- 고등학교 정보
+            A.HIGH_SCHOOL_ID,
+            A.HIGH_SCHOOL_NAME, 
+            A.HIGH_SCHOOL_ADDRESS, 
+            A.HIGH_SCHOOL_PHONE,
+            A.HIGH_SCHOOL_WEBSITE,
+            A.HIGH_SCHOOL_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 시/도 정보
+            B.PROVINCE_ID,
+            B.PROVINCE_NAME,
+            -- 구/군 정보
+            C.DISTRICT_ID,
+            C.DISTRICT_NAME,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            HIGH_SCHOOLS A
+            LEFT JOIN PROVINCES B ON B.PROVINCE_ID = A.PROVINCE_ID
+            LEFT JOIN DISTRICTS C ON C.DISTRICT_ID = A.DISTRICT_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.HIGH_SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.HIGH_SCHOOL_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.HIGH_SCHOOL_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR A.HIGH_SCHOOL_WEBSITE LIKE CONCAT('%', #{keyword}, '%')
+                OR B.PROVINCE_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR C.DISTRICT_NAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <!-- 시/도 검색 -->
+        <if test="provinceId != null and provinceId != 0">
+            <![CDATA[
+            AND A.PROVINCE_ID = #{provinceId}
+            ]]>
+        </if>
+        <!-- 구/군 검색 -->
+        <if test="districtId != null and districtId != 0">
+            <![CDATA[
+            AND A.DISTRICT_ID = #{districtId}
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY A.HIGH_SCHOOL_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 고등학교 상세보기 -->
+    <select id="getHighSchool" resultMap="highSchoolResultMap">
+        <![CDATA[
+        SELECT
+            -- 고등학교 정보
+            A.HIGH_SCHOOL_ID,
+            A.HIGH_SCHOOL_NAME, 
+            A.HIGH_SCHOOL_ADDRESS, 
+            A.HIGH_SCHOOL_PHONE,
+            A.HIGH_SCHOOL_WEBSITE,
+            A.HIGH_SCHOOL_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 시/도 정보
+            B.PROVINCE_ID,
+            B.PROVINCE_NAME,
+            -- 구/군 정보
+            C.DISTRICT_ID,
+            C.DISTRICT_NAME,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            HIGH_SCHOOLS A
+            LEFT JOIN PROVINCES B ON B.PROVINCE_ID = A.PROVINCE_ID
+            LEFT JOIN DISTRICTS C ON C.DISTRICT_ID = A.DISTRICT_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
+        WHERE
+            A.HIGH_SCHOOL_ID = #{highSchoolId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 고등학교 수정 -->
+    <update id="updateHighSchool" parameterType="kr.seoulfitness.admin.highSchool.HighSchoolDto">
+        <![CDATA[
+        UPDATE HIGH_SCHOOLS SET HIGH_SCHOOL_ID = #{highSchoolId}
+        ]]>
+        <if test="highSchoolName != null">
+            <![CDATA[
+            , HIGH_SCHOOL_NAME = #{highSchoolName}
+            ]]>
+        </if>
+        <if test="highSchoolAddress != null">
+            <![CDATA[
+            , HIGH_SCHOOL_ADDRESS = #{highSchoolAddress}
+            ]]>
+        </if>
+        <if test="highSchoolPhone != null">
+            <![CDATA[
+            , HIGH_SCHOOL_PHONE = #{highSchoolPhone}
+            ]]>
+        </if>
+        <if test="highSchoolWebsite != null">
+            <![CDATA[
+            , HIGH_SCHOOL_WEBSITE = #{highSchoolWebsite}
+            ]]>
+        </if>
+        <if test="highSchoolMemo != null">
+            <![CDATA[
+            , HIGH_SCHOOL_MEMO = #{highSchoolMemo}
+            ]]>
+        </if>
+        <if test="provinceId != null">
+            <![CDATA[
+            , PROVINCE_ID = #{provinceId}
+            ]]>
+        </if>
+        <if test="districtId != null">
+            <![CDATA[
+            , DISTRICT_ID = #{districtId}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE HIGH_SCHOOL_ID = #{highSchoolId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 고등학교 삭제 -->
+    <delete id="deleteHighSchool" parameterType="int">
+        <![CDATA[
+        DELETE FROM HIGH_SCHOOLS WHERE HIGH_SCHOOL_ID = #{highSchoolId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 고등학교 수 -->
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM HIGH_SCHOOLS A
+        LEFT JOIN PROVINCES B ON B.PROVINCE_ID = A.PROVINCE_ID
+        LEFT JOIN DISTRICTS C ON C.DISTRICT_ID = A.DISTRICT_ID
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.HIGH_SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.HIGH_SCHOOL_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.HIGH_SCHOOL_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR A.HIGH_SCHOOL_WEBSITE LIKE CONCAT('%', #{keyword}, '%')
+                OR B.PROVINCE_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR C.DISTRICT_NAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <!-- 시/도 검색 -->
+        <if test="provinceId != null and provinceId != 0">
+            <![CDATA[
+            AND A.PROVINCE_ID = #{provinceId}
+            ]]>
+        </if>
+        <!-- 구/군 검색 -->
+        <if test="districtId != null and districtId != 0">
+            <![CDATA[
+            AND A.DISTRICT_ID = #{districtId}
+            ]]>
+        </if>
+    </select>
+
+</mapper>

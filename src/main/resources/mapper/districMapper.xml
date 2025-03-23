@@ -23,7 +23,7 @@
     </resultMap>
 
     <!-- 구/군 등록 -->
-    <insert id="create" parameterType="kr.seoulfitness.admin.district.DistrictDto">
+    <insert id="insertDistrict" parameterType="kr.seoulfitness.admin.district.DistrictDto">
         <![CDATA[
         INSERT INTO DISTRICTS (
             PROVINCE_ID,
@@ -42,7 +42,7 @@
     </insert>
 
     <!-- 구/군 목록 -->
-    <select id="list" resultMap="districtResultMap">
+    <select id="getDistricts" resultMap="districtResultMap">
         <![CDATA[
         SELECT
             -- 구/군 정보
@@ -77,14 +77,19 @@
             )
             ]]>
         </if>
+        <if test="provinceId != null and provinceId != 0">
+            <![CDATA[
+            AND A.PROVINCE_ID = #{provinceId}
+            ]]>
+        </if>
         <![CDATA[
         ORDER BY D.PROVINCE_NAME ASC, A.DISTRICT_NAME ASC
         LIMIT #{offset}, #{listCountPerPage}
         ]]>
     </select>
 
-    <!-- 구/군 보기 -->
-    <select id="read" resultMap="districtResultMap">
+    <!-- 구/군 상세보기 -->
+    <select id="getDistrict" resultMap="districtResultMap">
         <![CDATA[
         SELECT
             -- 구/군 정보
@@ -115,7 +120,7 @@
     </select>
 
     <!-- 구/군 수정 -->
-    <update id="update" parameterType="kr.seoulfitness.admin.district.DistrictDto">
+    <update id="updateDistrict" parameterType="kr.seoulfitness.admin.district.DistrictDto">
         <![CDATA[
         UPDATE DISTRICTS SET DISTRICT_ID = #{districtId}
         ]]>
@@ -145,14 +150,14 @@
     </update>
 
     <!-- 구/군 삭제 -->
-    <delete id="delete" parameterType="int">
+    <delete id="deleteDistrict" parameterType="int">
         <![CDATA[
         DELETE FROM DISTRICTS WHERE DISTRICT_ID = #{districtId} LIMIT 1
         ]]>
     </delete>
 
     <!-- 구/군 수 -->
-    <select id="totalCount" resultType="int">
+    <select id="getTotalCount" resultType="int">
         <![CDATA[
         SELECT COUNT(*) 
         FROM DISTRICTS A
@@ -166,6 +171,12 @@
                 OR A.DISTRICT_MEMO LIKE CONCAT('%', #{keyword}, '%')
                 OR D.PROVINCE_NAME LIKE CONCAT('%', #{keyword}, '%')
             )
+            ]]>
+        </if>
+        <!-- 시/도 검색 -->
+        <if test="provinceId != null and provinceId != 0">
+            <![CDATA[
+            AND A.PROVINCE_ID = #{provinceId}
             ]]>
         </if>
     </select>

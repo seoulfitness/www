@@ -1,6 +1,5 @@
 package kr.seoulfitness.admin.district;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +18,11 @@ public class DistrictDao {
     private static final Logger logger = LoggerFactory.getLogger(DistrictDao.class);
 
     // 구/군 등록
-    public int create(DistrictDto district) {
+    public int insertDistrict(DistrictDto district) {
         int result = -1;
 
         try {
-            result = sqlSession.insert("districtMapper.create", district);
+            result = sqlSession.insert("districtMapper.insertDistrict", district);
         } catch (DataAccessException e) {
             logger.error("구/군 등록 오류 : {}", e.getMessage(), e);
         }
@@ -32,16 +31,11 @@ public class DistrictDao {
     }
 
     // 구/군 목록
-    public List<DistrictDto> list(int offset, int listCountPerPage, String keyword) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("listCountPerPage", listCountPerPage);
-        params.put("keyword", keyword);
-
+    public List<DistrictDto> getDistricts(Map<String, Object> params) {
         List<DistrictDto> districts = null;
 
         try {
-            districts = sqlSession.selectList("districtMapper.list", params);
+            districts = sqlSession.selectList("districtMapper.getDistricts", params);
         } catch (DataAccessException e) {
             logger.error("구/군 목록 오류 : {}", e.getMessage(), e);
         }
@@ -50,11 +44,11 @@ public class DistrictDao {
     }
 
     // 구/군 상세보기
-    public DistrictDto read(int districtId) {
+    public DistrictDto getDistrict(int districtId) {
         DistrictDto district = null;
         
         try {
-            district = sqlSession.selectOne("districtMapper.read", districtId);
+            district = sqlSession.selectOne("districtMapper.getDistrict", districtId);
         } catch (DataAccessException e) {
             logger.error("구/군 상세 오류 : {}", e.getMessage(), e);
         }
@@ -63,11 +57,11 @@ public class DistrictDao {
     }
 
     // 구/군 수정
-    public int update(DistrictDto district) {
+    public int updateDistrict(DistrictDto district) {
         int result = -1;
 
         try {
-            result = sqlSession.update("districtMapper.update", district);
+            result = sqlSession.update("districtMapper.updateDistrict", district);
         } catch (DataAccessException e) {
             logger.error("구/군 수정 오류 : {}", e.getMessage(), e);
         }
@@ -76,11 +70,11 @@ public class DistrictDao {
     }
 
     // 구/군 삭제
-    public int delete(int districtId) {
+    public int deleteDistrict(int districtId) {
         int result = -1;
 
         try {
-            result = sqlSession.delete("districtMapper.delete", districtId);
+            result = sqlSession.delete("districtMapper.deleteDistrict", districtId);
         } catch (DataAccessException e) {
             logger.error("구/군 삭제 오류 : {}", e.getMessage(), e);
         }
@@ -89,14 +83,11 @@ public class DistrictDao {
     }
 
     // 전체 구/군 수
-    public int totalCount(String keyword) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("keyword", keyword);
-
+    public int getTotalCount(Map<String, Object> params) {
         int totalCount = -1;
 
         try {
-            totalCount = sqlSession.selectOne("districtMapper.totalCount", params);
+            totalCount = sqlSession.selectOne("districtMapper.getTotalCount", params);
         } catch (DataAccessException e) {
             logger.error("전체 구/군 수 오류 : {}", e.getMessage(), e);
         }

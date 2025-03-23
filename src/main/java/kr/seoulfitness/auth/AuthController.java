@@ -1,5 +1,8 @@
 package kr.seoulfitness.auth;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,9 +29,9 @@ public class AuthController {
     @GetMapping("/login")
     public String loginGet() {
         // 관리자 정보 확인 후 없으면 입력
-        UserDto eixstsAdmin = new UserDto();
-        eixstsAdmin.setUserId("sung2ne");
-        eixstsAdmin = userService.read(eixstsAdmin);
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", "sung2ne");
+        UserDto eixstsAdmin = userService.find(params);
         if (eixstsAdmin == null) {
             UserDto admin = new UserDto();
             admin.setUserId("sung2ne");

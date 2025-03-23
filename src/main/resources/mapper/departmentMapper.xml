@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="departmentMapper">
+
+    <resultMap id="departmentResultMap" type="kr.seoulfitness.admin.department.DepartmentDto">
+        <!-- 학과 정보 -->
+        <result property="departmentId" column="DEPARTMENT_ID" />
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <result property="departmentAddress" column="DEPARTMENT_ADDRESS" />
+        <result property="departmentPhone" column="DEPARTMENT_PHONE" />
+        <result property="departmentUrl" column="DEPARTMENT_URL" />
+        <result property="departmentMemo" column="DEPARTMENT_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 학과 등록 -->
+    <insert id="insertDepartment" parameterType="kr.seoulfitness.admin.department.DepartmentDto">
+        <![CDATA[
+        INSERT INTO DEPARTMENTS (
+            DEPARTMENT_NAME, 
+            DEPARTMENT_ADDRESS, 
+            DEPARTMENT_PHONE,
+            DEPARTMENT_URL,
+            DEPARTMENT_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{departmentName}, 
+            #{departmentAddress}, 
+            #{departmentPhone},
+            #{departmentUrl},
+            #{departmentMemo},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 학과 목록 -->
+    <select id="getDepartments" resultMap="departmentResultMap">
+        <![CDATA[
+        SELECT
+            -- 학과 정보
+            A.DEPARTMENT_ID,
+            A.DEPARTMENT_NAME, 
+            A.DEPARTMENT_ADDRESS, 
+            A.DEPARTMENT_PHONE,
+            A.DEPARTMENT_URL,
+            A.DEPARTMENT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            DEPARTMENTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.DEPARTMENT_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.DEPARTMENT_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.DEPARTMENT_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR A.DEPARTMENT_URL LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY DEPARTMENT_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 학과 상세보기 -->
+    <select id="getDepartment" resultMap="departmentResultMap">
+        <![CDATA[
+        SELECT
+            -- 학과 정보
+            A.DEPARTMENT_ID,
+            A.DEPARTMENT_NAME, 
+            A.DEPARTMENT_ADDRESS, 
+            A.DEPARTMENT_PHONE,
+            A.DEPARTMENT_URL,
+            A.DEPARTMENT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            DEPARTMENTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE
+            DEPARTMENT_ID = #{departmentId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 학과 수정 -->
+    <update id="updateDepartment" parameterType="kr.seoulfitness.admin.department.DepartmentDto">
+        <![CDATA[
+        UPDATE DEPARTMENTS SET DEPARTMENT_ID = #{departmentId}
+        ]]>
+        <if test="departmentName != null">
+            <![CDATA[
+            , DEPARTMENT_NAME = #{departmentName}
+            ]]>
+        </if>
+        <if test="departmentAddress != null">
+            <![CDATA[
+            , DEPARTMENT_ADDRESS = #{departmentAddress}
+            ]]>
+        </if>
+        <if test="departmentPhone != null">
+            <![CDATA[
+            , DEPARTMENT_PHONE = #{departmentPhone}
+            ]]>
+        </if>
+        <if test="departmentUrl != null">
+            <![CDATA[
+            , DEPARTMENT_URL = #{departmentUrl}
+            ]]>
+        </if>
+        <if test="departmentMemo != null">
+            <![CDATA[
+            , DEPARTMENT_MEMO = #{departmentMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE DEPARTMENT_ID = #{departmentId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 학과 삭제 -->
+    <delete id="deleteDepartment" parameterType="int">
+        <![CDATA[
+        DELETE FROM DEPARTMENTS WHERE DEPARTMENT_ID = #{departmentId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 전체 학과 수 -->
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM DEPARTMENTS WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                DEPARTMENT_NAME LIKE CONCAT('%', #{keyword}, '%') 
+                OR DEPARTMENT_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
+                OR DEPARTMENT_PHONE LIKE CONCAT('%', #{keyword}, '%')
+                OR DEPARTMENT_URL LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>

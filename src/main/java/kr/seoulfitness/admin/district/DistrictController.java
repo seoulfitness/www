@@ -1,5 +1,6 @@
 package kr.seoulfitness.admin.district;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -28,18 +29,24 @@ public class DistrictController {
 
     // 구/군 존재 여부 확인
     public boolean isDistrictExists(int districtId) {
-        return districtService.read(districtId) != null;
+        return districtService.find(districtId) != null;
     }
 
     // 구/군 등록
     @GetMapping("/create")
     public String createGet(Model model) {
         // 시/도 목록
-        Map<String, Object> provinceResult = provinceService.list(1, 100, 100, null);
+        Map<String, Object> params = new HashMap<>();
+        params.put("currentPage", 1);
+        params.put("listCountPerPage", 100);
+        params.put("pageCountPerPage", 100);
+        params.put("keyword", null);
+
+        Map<String, Object> provinceResult = provinceService.findAll(params);
         model.addAttribute("provinces", provinceResult.get("provinces"));
 
         model.addAttribute("pageTitle", "구/군 관리");
-        model.addAttribute("active_page", "districts");
+        model.addAttribute("activePage", "districts");
         return "admin/district/create";
     }
 
@@ -62,62 +69,72 @@ public class DistrictController {
 
     // 구/군 목록
     @GetMapping("")
-    public String listGet(
+    public String list(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 
         @RequestParam(required = false) String keyword,
         Model model
     ) {
-        int listCountPerPage = 10;  // 한 페이지에서 불러올 게시글 수
-        int pageCountPerPage = 5;   // 한 페이지에서 보여질 페이지 수
-        Map<String, Object> result = districtService.list(currentPage, listCountPerPage, pageCountPerPage, keyword);
+        Map<String, Object> params = new HashMap<>();
+        params.put("currentPage", currentPage);
+        params.put("listCountPerPage", 10); // 한 페이지에서 불러올 게시글 수
+        params.put("pageCountPerPage", 5); // 한 페이지에서 보여질 페이지 수
+        params.put("keyword", keyword);
+
+        Map<String, Object> result = districtService.findAll(params);
         model.addAttribute("districts", result.get("districts"));
         model.addAttribute("pagination", result.get("pagination"));
-        model.addAttribute("keyword", result.get("keyword"));
+        model.addAttribute("keyword", keyword);
         model.addAttribute("pageTitle", "구/군 관리");
-        model.addAttribute("active_page", "districts");
+        model.addAttribute("activePage", "districts");
 
         return "admin/district/list";
     }
 
     // 구/군 상세
     @GetMapping("/{districtId}")
-    public String readGet(@PathVariable int districtId, Model model) {
+    public String view(@PathVariable int districtId, Model model) {
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";
         }
 
         // 구/군 상세
-        DistrictDto district = districtService.read(districtId);
+        DistrictDto district = districtService.find(districtId);
         model.addAttribute("district", district);
         model.addAttribute("pageTitle", "구/군 관리");
-        model.addAttribute("active_page", "districts");
+        model.addAttribute("activePage", "districts");
         return "admin/district/read";
     }
 
     // 구/군 수정
     @GetMapping("/{districtId}/update")
-    public String updateGet(@PathVariable int districtId, Model model) {   
+    public String editForm(@PathVariable int districtId, Model model) {   
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";
         }
 
         // 시/도 목록
-        Map<String, Object> provinceResult = provinceService.list(1, 100, 100, null);
+        Map<String, Object> params = new HashMap<>();
+        params.put("currentPage", 1);
+        params.put("listCountPerPage", 100);
+        params.put("pageCountPerPage", 100);
+        params.put("keyword", null);
+
+        Map<String, Object> provinceResult = provinceService.findAll(params);
         model.addAttribute("provinces", provinceResult.get("provinces"));
 
         // 구/군 수정
-        DistrictDto district = districtService.read(districtId);
+        DistrictDto district = districtService.find(districtId);
         model.addAttribute("district", district);
         model.addAttribute("pageTitle", "구/군 관리");
-        model.addAttribute("active_page", "districts");
+        model.addAttribute("activePage", "districts");
         return "admin/district/update";
     }
 
     // 구/군 수정 처리
     @PostMapping("/{districtId}/update")
-    public String updatePost(@PathVariable int districtId, DistrictDto district, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String update(@PathVariable int districtId, DistrictDto district, HttpSession session, RedirectAttributes redirectAttributes) {
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";
@@ -138,7 +155,7 @@ public class DistrictController {
 
     // 구/군 삭제
     @PostMapping("/{districtId}/delete")
-    public String deletePost(@PathVariable int districtId, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable int districtId, RedirectAttributes redirectAttributes) {
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";

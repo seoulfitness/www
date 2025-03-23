@@ -1,5 +1,6 @@
 package kr.seoulfitness.admin.branch;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -26,17 +27,22 @@ public class BranchController {
     @Autowired
     private BranchManagerService branchManagerService;
 
+    // 지점 존재 여부 확인
+    public boolean isBranchExists(int branchId) {
+        return branchService.find(branchId) != null;
+    }
+
     // 지점 등록
     @GetMapping("/create")
-    public String createGet(Model model) {
+    public String createForm(Model model) {
         model.addAttribute("pageTitle", "지점 관리");
-        model.addAttribute("active_page", "branches");
+        model.addAttribute("activePage", "branches");
         return "admin/branch/create";
     }
 
     // 지점 등록 처리
     @PostMapping("/create")
-    public String createPost(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String create(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
         // 지점 등록
         branch.setCreatedBy((String) session.getAttribute("userId"));
         branch.setUpdatedBy((String) session.getAttribute("userId"));
@@ -53,19 +59,27 @@ public class BranchController {
 
     // 지점 목록
     @GetMapping("")
-    public String listGet(
+    public String list(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 
         @RequestParam(required = false) String keyword,
         Model model
     ) {
-        int listCountPerPage = 10;  // 한 페이지에서 불러올 게시글 수
-        int pageCountPerPage = 5;   // 한 페이지에서 보여질 페이지 수
-        Map<String, Object> result = branchService.list(currentPage, listCountPerPage, pageCountPerPage, keyword);
+        // 파라미터 생성
+        Map<String, Object> params = new HashMap<>();
+        params.put("currentPage", currentPage);
+        params.put("listCountPerPage", 10);
+        params.put("pageCountPerPage", 5);
+        params.put("keyword", keyword);
+
+        // 지점 목록 조회
+        Map<String, Object> result = branchService.findAll(params);
+
+        // 목록 페이지 설정
         model.addAttribute("branches", result.get("branches"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
         model.addAttribute("pageTitle", "지점 관리");
-        model.addAttribute("active_page", "branches");
+        model.addAttribute("activePage", "branches");
 
         /*
         // 지점 관리자 정보 조회
@@ -91,68 +105,72 @@ public class BranchController {
 
     // 지점 상세
     @GetMapping("/{branchId}")
-    public String readGet(@PathVariable int branchId, Model model) {
+    public String view(@PathVariable int branchId, Model model) {
         // 지점 존재 여부 확인
-        BranchDto branch = branchService.read(branchId);
-        if (branch == null) {
+        if (!isBranchExists(branchId)) {
             return "redirect:/admin/branches";
         }
 
+        // 지점 조회
+        BranchDto branch = branchService.find(branchId);
+
         model.addAttribute("branch", branch);
         model.addAttribute("pageTitle", "지점 관리");
-        model.addAttribute("active_page", "branches");
+        model.addAttribute("activePage", "branches");
         return "admin/branch/read";
     }
 
     // 지점 수정
     @GetMapping("/{branchId}/update")
-    public String updateGet(@PathVariable int branchId, Model model) {   
+    public String editForm(@PathVariable int branchId, Model model) {   
         // 지점 존재 여부 확인
-        BranchDto branch = branchService.read(branchId);
-        if (branch == null) {
+        if (!isBranchExists(branchId)) {
             return "redirect:/admin/branches";
         }
+
+        // 지점 조회
+        BranchDto branch = branchService.find(branchId);
 
         // 지점 수정
         model.addAttribute("branch", branch);
         model.addAttribute("pageTitle", "지점 관리");
-        model.addAttribute("active_page", "branches");
+        model.addAttribute("activePage", "branches");
         return "admin/branch/update";
     }
 
     // 지점 수정 처리
     @PostMapping("/{branchId}/update")
-    public String updatePost(@PathVariable int branchId, BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String update(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
         // 지점 존재 여부 확인
-        BranchDto existsBranch = branchService.read(branchId);
-        if (existsBranch == null) {
+        if (!isBranchExists(branch.getBranchId())) {
             return "redirect:/admin/branches";
         }
 
         // 지점 수정
-        branch.setBranchId(branchId);
         branch.setUpdatedBy((String) session.getAttribute("userId"));
         boolean result = branchService.update(branch);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "지점 수정이 완료되었습니다.");
-            return "redirect:/admin/branches/" + branchId;
+            return "redirect:/admin/branches/" + branch.getBranchId();
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "지점 수정에 실패했습니다.");
-        return "redirect:/admin/branches/" + branchId + "/update";
+        return "redirect:/admin/branches/" + branch.getBranchId() + "/update";
     }
 
     // 지점 삭제
     @PostMapping("/{branchId}/delete")
-    public String deletePost(@PathVariable int branchId, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable int branchId, RedirectAttributes redirectAttributes) {
         // 지점 존재 여부 확인
-        BranchDto branch = branchService.read(branchId);
-        if (branch == null) {
+        if (!isBranchExists(branchId)) {
             return "redirect:/admin/branches";
         }
 
         // 지점 관리자에서 사용자 삭제
-        boolean branchManagerResult = branchManagerService.delete(0, branchId);
+        Map<String, Object> params = new HashMap<>();
+        params.put("branchId", branchId);
+        params.put("branchManagerId", 0);
+        boolean branchManagerResult = branchManagerService.delete(params);
         if (!branchManagerResult) {
             redirectAttributes.addFlashAttribute("errorMessage", "지점 관리자 삭제에 실패했습니다.");
             return "redirect:/admin/branches/" + branchId;

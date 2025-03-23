@@ -1,6 +1,5 @@
 package kr.seoulfitness.admin.province;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,11 +18,11 @@ public class ProvinceDao {
     private static final Logger logger = LoggerFactory.getLogger(ProvinceDao.class);
 
     // 시/도 등록
-    public int create(ProvinceDto province) {
+    public int insertProvince(ProvinceDto province) {
         int result = -1;
 
         try {
-            result = sqlSession.insert("provinceMapper.create", province);
+            result = sqlSession.insert("provinceMapper.insertProvince", province);
         } catch (DataAccessException e) {
             logger.error("시/도 등록 오류 : {}", e.getMessage(), e);
         }
@@ -32,16 +31,11 @@ public class ProvinceDao {
     }
 
     // 시/도 목록
-    public List<ProvinceDto> list(int offset, int listCountPerPage, String keyword) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("listCountPerPage", listCountPerPage);
-        params.put("keyword", keyword);
-
+    public List<ProvinceDto> getProvinces(Map<String, Object> params) {
         List<ProvinceDto> provinces = null;
 
         try {
-            provinces = sqlSession.selectList("provinceMapper.list", params);
+            provinces = sqlSession.selectList("provinceMapper.getProvinces", params);
         } catch (DataAccessException e) {
             logger.error("시/도 목록 오류 : {}", e.getMessage(), e);
         }
@@ -50,11 +44,11 @@ public class ProvinceDao {
     }
 
     // 시/도 상세보기
-    public ProvinceDto read(int provinceId) {
+    public ProvinceDto getProvince(int provinceId) {
         ProvinceDto province = null;
         
         try {
-            province = sqlSession.selectOne("provinceMapper.read", provinceId);
+            province = sqlSession.selectOne("provinceMapper.getProvince", provinceId);
         } catch (DataAccessException e) {
             logger.error("시/도 상세 오류 : {}", e.getMessage(), e);
         }
@@ -63,11 +57,11 @@ public class ProvinceDao {
     }
 
     // 시/도 수정
-    public int update(ProvinceDto province) {
+    public int updateProvince(ProvinceDto province) {
         int result = -1;
 
         try {
-            result = sqlSession.update("provinceMapper.update", province);
+            result = sqlSession.update("provinceMapper.updateProvince", province);
         } catch (DataAccessException e) {
             logger.error("시/도 수정 오류 : {}", e.getMessage(), e);
         }
@@ -76,11 +70,11 @@ public class ProvinceDao {
     }
 
     // 시/도 삭제
-    public int delete(int provinceId) {
+    public int deleteProvince(int provinceId) {
         int result = -1;
 
         try {
-            result = sqlSession.delete("provinceMapper.delete", provinceId);
+            result = sqlSession.delete("provinceMapper.deleteProvince", provinceId);
         } catch (DataAccessException e) {
             logger.error("시/도 삭제 오류 : {}", e.getMessage(), e);
         }
@@ -89,14 +83,11 @@ public class ProvinceDao {
     }
 
     // 전체 시/도 수
-    public int totalCount(String keyword) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("keyword", keyword);
-
+    public int getTotalCount(Map<String, Object> params) {
         int totalCount = -1;
 
         try {
-            totalCount = sqlSession.selectOne("provinceMapper.totalCount", params);
+            totalCount = sqlSession.selectOne("provinceMapper.getTotalCount", params);
         } catch (DataAccessException e) {
             logger.error("전체 시/도 수 오류 : {}", e.getMessage(), e);
         }

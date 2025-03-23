@@ -20,7 +20,7 @@
     </resultMap>
 
     <!-- 시/도 등록 -->
-    <insert id="create" parameterType="kr.seoulfitness.admin.province.ProvinceDto">
+    <insert id="insertProvince" parameterType="kr.seoulfitness.admin.province.ProvinceDto">
         <![CDATA[
         INSERT INTO PROVINCES (
             PROVINCE_NAME, 
@@ -37,7 +37,7 @@
     </insert>
 
     <!-- 시/도 목록 -->
-    <select id="list" resultMap="provinceResultMap">
+    <select id="getProvinces" resultMap="provinceResultMap">
         <![CDATA[
         SELECT
             -- 시/도 정보
@@ -74,7 +74,7 @@
     </select>
 
     <!-- 시/도 보기 -->
-    <select id="read" resultMap="provinceResultMap">
+    <select id="getProvince" resultMap="provinceResultMap">
         <![CDATA[
         SELECT
             -- 시/도 정보
@@ -101,7 +101,7 @@
     </select>
 
     <!-- 시/도 수정 -->
-    <update id="update" parameterType="kr.seoulfitness.admin.province.ProvinceDto">
+    <update id="updateProvince" parameterType="kr.seoulfitness.admin.province.ProvinceDto">
         <![CDATA[
         UPDATE PROVINCES SET PROVINCE_ID = #{provinceId}
         ]]>
@@ -126,14 +126,14 @@
     </update>
 
     <!-- 시/도 삭제 -->
-    <delete id="delete" parameterType="int">
+    <delete id="deleteProvince" parameterType="int">
         <![CDATA[
         DELETE FROM PROVINCES WHERE PROVINCE_ID = #{provinceId} LIMIT 1
         ]]>
     </delete>
 
     <!-- 시/도 수 -->
-    <select id="totalCount" resultType="int">
+    <select id="getTotalCount" resultType="int">
         <![CDATA[
         SELECT COUNT(*) 
         FROM PROVINCES A

@@ -83,10 +83,6 @@
                                                         <th class="align-middle text-center col-2">등록한 사람</th>
                                                         <td class="align-middle col-10">${branchManager.createdUserName} (${branchManager.createdBy}, ${branchManager.createdUserPhone})</td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered table-hover mb-3">
-                                                <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${branchManager.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -99,13 +95,11 @@
                                             </table>
                                             <%--// 등록일시, 수정일시 --%>
                                         </div>
-                                        <div>
-                                            <div>
-                                                <a href="/admin/branchManagers" class="btn btn-primary">지점 관리자 목록</a>
-                                                <a href="/admin/branchManagers/${branchManager.branchManagerId}/update" class="btn btn-outline-warning">지점 관리자 수정</a>
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">지점 관리자 삭제</button>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="/admin/branchManagers" class="btn btn-primary">지점 관리자 목록</a>
+                                        <a href="/admin/branchManagers/${branchManager.branchManagerId}/update" class="btn btn-outline-warning">지점 관리자 수정</a>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">지점 관리자 삭제</button>
                                     </div>
                                 </div>
                             </div>

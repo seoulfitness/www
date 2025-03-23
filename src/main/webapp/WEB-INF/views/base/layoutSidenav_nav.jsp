@@ -24,34 +24,63 @@
                 <%-- Sidenav Menu Heading (Core)--%>
                 <div class="sidenav-menu-heading">메뉴</div>
 
-                <%-- 지점 관리 --%>
-                <a class="nav-link collapsed ${active_page == 'branches' or active_page == 'branchManagers' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranches" aria-expanded="false" aria-controls="collapseBranches">
+                <%-- 지점 --%>
+                <a class="nav-link collapsed ${activePage == 'branches' or activePage == 'branchManagers' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranch" aria-expanded="false" aria-controls="collapseBranches">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
-                    지점 관리
+                    지점 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse ${active_page == 'branches' or active_page == 'branchManagers' ? 'show' : ''}" id="collapseBranches" data-bs-parent="#accordionSidenav">
+                <div class="collapse ${activePage == 'branches' or activePage == 'branchManagers' ? 'show' : ''}" id="collapseBranch" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                        <a class="nav-link ${active_page == 'branches' ? 'active' : ''}" href="/admin/branches">지점 목록</a>
-                        <a class="nav-link ${active_page == 'branchManagers' ? 'active' : ''}" href="/admin/branchManagers">지점 관리자</a>
+                        <a class="nav-link ${activePage == 'branches' ? 'active' : ''}" href="/admin/branches">지점 목록</a>
+                        <a class="nav-link ${activePage == 'branchManagers' ? 'active' : ''}" href="/admin/branchManagers">지점 관리자</a>
                     </nav>
                 </div>
-                <%--// 지점 관리 --%>
+                <%--// 지점 --%>
 
-                <%-- 기준 정보 관리 --%>
-                <a class="nav-link collapsed ${active_page == 'schools' or active_page == 'districts' or active_page == 'provinces' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranches" aria-expanded="false" aria-controls="collapseBranches">
+                <%-- 대학교 --%>
+                <a class="nav-link collapsed ${activePage == 'schools' or activePage == 'departments' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSchool" aria-expanded="false" aria-controls="collapseBranches">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
-                    기준 정보
+                    대학교 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse ${active_page == 'schools' or active_page == 'districts' or active_page == 'provinces' ? 'show' : ''}" id="collapseBranches" data-bs-parent="#accordionSidenav">
+                <div class="collapse ${activePage == 'schools' or activePage == 'departments' ? 'show' : ''}" id="collapseSchool" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
-                        <a class="nav-link ${active_page == 'schools' ? 'active' : ''}" href="/branchManager/schools">대학교</a>
-                        <a class="nav-link ${active_page == 'provinces' ? 'active' : ''}" href="/admin/provinces">시/도</a>
-                        <a class="nav-link ${active_page == 'districts' ? 'active' : ''}" href="/admin/districts">구/군</a>                        
+                        <a class="nav-link ${activePage == 'schools' ? 'active' : ''}" href="/admin/schools">대학교</a>
+                        <a class="nav-link ${activePage == 'departments' ? 'active' : ''}" href="/admin/departments">학과</a>              
                     </nav>
                 </div>
-                <%-- 기준 정보 관리 --%>
+                <%--// 대학교 --%>
+
+                <%-- 고등학교 --%>
+                <a class="nav-link collapsed ${activePage == 'districts' or activePage == 'provinces' or activePage == 'highSchools' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseHighSchool" aria-expanded="false" aria-controls="collapseBranches">
+                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    고등학교 정보
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse ${activePage == 'districts' or activePage == 'provinces' or activePage == 'highSchools' ? 'show' : ''}" id="collapseHighSchool" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link ${activePage == 'provinces' ? 'active' : ''}" href="/admin/provinces">시/도</a>
+                        <a class="nav-link ${activePage == 'districts' ? 'active' : ''}" href="/admin/districts">구/군</a> 
+                        <a class="nav-link ${activePage == 'highSchools' ? 'active' : ''}" href="/admin/highSchools">고등학교</a>                 
+                    </nav>
+                </div>
+                <%-- 고등학교 --%>
+
+                <%-- 입시 정보 --%>
+                <a class="nav-link collapsed ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSubject" aria-expanded="false" aria-controls="collapseBranches">
+                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    입시 정보
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'show' : ''}" id="collapseSubject" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link ${activePage == 'csatSubjects' ? 'active' : ''}" href="/admin/csatSubjects">수능 교과목</a>
+                        <a class="nav-link ${activePage == 'physicalSubjects' ? 'active' : ''}" href="/admin/physicalSubjects">실기 교과목</a>
+                        <a class="nav-link ${activePage == 'admissions' ? 'active' : ''}" href="/admin/admissions">입시 요강</a>
+                    </nav>
+                </div>
+                <%--// 입시 정보 --%>
 
                 <%-- Sidenav Heading (Custom)--%>
                 <div class="sidenav-menu-heading">Custom</div>

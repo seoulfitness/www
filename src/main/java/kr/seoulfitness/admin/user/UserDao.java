@@ -19,11 +19,11 @@ public class UserDao {
     private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
 
     // 사용자 등록
-    public int create(UserDto user) {
+    public int insertUser(UserDto user) {
         int result = -1;
 
         try {
-            result = sqlSession.insert("userMapper.create", user);
+            result = sqlSession.insert("userMapper.insertUser", user);
         } catch (DataAccessException e) {
             logger.error("사용자 등록 오류 : {}", e.getMessage(), e);
         }
@@ -32,17 +32,11 @@ public class UserDao {
     }
 
     // 사용자 목록
-    public List<UserDto> list(int offset, int listCountPerPage, String keyword, String role) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("offset", offset);
-        params.put("listCountPerPage", listCountPerPage);
-        params.put("keyword", keyword);
-        params.put("role", role);
-
+    public List<UserDto> getUsers(Map<String, Object> params) {
         List<UserDto> users = null;
 
         try {
-            users = sqlSession.selectList("userMapper.list", params);
+            users = sqlSession.selectList("userMapper.getUsers", params);
         } catch (DataAccessException e) {
             logger.error("사용자 목록 오류 : {}", e.getMessage(), e);
         }
@@ -51,30 +45,24 @@ public class UserDao {
     }
 
     // 사용자 상세보기
-    public UserDto read(UserDto user) {
+    public UserDto getUser(Map<String, Object> params) {
         UserDto result = null;
         
         try {
-            result = sqlSession.selectOne("userMapper.read", user);
-            if (result == null) {
-                logger.warn("사용자를 찾을 수 없습니다. userId: {}", user.getUserId());
-            } else {
-                logger.info("사용자 조회 성공. userId: {}, userName: {}, role: {}", 
-                    result.getUserId(), result.getUserName(), result.getRole());
-            }
+            result = sqlSession.selectOne("userMapper.getUser", params);
         } catch (DataAccessException e) {
             logger.error("사용자 상세 오류 : {}", e.getMessage(), e);
         }
 
         return result;
     }
-
+    
     // 사용자 수정
-    public int update(UserDto user) {
+    public int updateUser(UserDto user) {
         int result = -1;
 
         try {
-            result = sqlSession.update("userMapper.update", user);
+            result = sqlSession.update("userMapper.updateUser", user);
         } catch (DataAccessException e) {
             logger.error("사용자 수정 오류 : {}", e.getMessage(), e);
         }
@@ -83,11 +71,11 @@ public class UserDao {
     }
 
     // 사용자 삭제
-    public int delete(int id) {
+    public int deleteUser(int userId) {
         int result = -1;
 
         try {
-            result = sqlSession.delete("userMapper.delete", id);
+            result = sqlSession.delete("userMapper.deleteUser", userId);
         } catch (DataAccessException e) {
             logger.error("사용자 삭제 오류 : {}", e.getMessage(), e);
         }
@@ -96,10 +84,7 @@ public class UserDao {
     }
 
     // 전체 사용자 수
-    public int totalCount(String keyword, String role) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("keyword", keyword);
-        params.put("role", role);
+    public int getTotalCount(Map<String, Object> params) {
 
         int totalCount = -1;
 

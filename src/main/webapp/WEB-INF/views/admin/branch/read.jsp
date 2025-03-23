@@ -24,6 +24,7 @@
                                     </div>
                                     <div class="card-body">                                        
                                         <div class="table-responsive">
+                                            <%-- 지점 정보 --%>
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
@@ -40,6 +41,9 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <%--// 지점 정보 --%>
+
+                                            <%-- 등록일시, 수정일시 --%>
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
@@ -50,10 +54,6 @@
                                                         <th class="align-middle text-center col-2">등록한 사람</th>
                                                         <td class="align-middle col-10">${branch.createdUserName} (${branch.createdBy}, ${branch.createdUserPhone})</td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered table-hover mb-3">
-                                                <tbody>
                                                     <tr>
                                                         <th class="align-middle text-center col-2">수정일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${branch.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -64,14 +64,13 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <%--// 등록일시, 수정일시 --%>
                                         </div>
-                                        <div>
-                                            <div>
-                                                <a href="/admin/branches" class="btn btn-primary">지점 목록</a>
-                                                <a href="/admin/branches/${branch.branchId}/update" class="btn btn-outline-warning">지점 수정</a>
-                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">지점 삭제</button>
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="/admin/branches" class="btn btn-primary">지점 목록</a>
+                                        <a href="/admin/branches/${branch.branchId}/update" class="btn btn-outline-warning">지점 수정</a>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">지점 삭제</button>
                                     </div>
                                 </div>
                             </div>

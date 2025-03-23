@@ -17,12 +17,13 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        지점 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
-                                    </div>
-                                    <div class="card-body">
-                                        <form id="updateForm" action="/admin/branches/${branch.branchId}/update" method="post">
+                                <form id="updateForm" action="/admin/branches/${branch.branchId}/update" method="post">
+                                    <input type="hidden" name="branchId" value="${branch.branchId}" />
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            지점 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                        </div>
+                                        <div class="card-body">                                     
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchName">지점명<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="branchName" id="branchName" type="text" placeholder="지점명을 입력하세요." value="${branch.branchName}" />
@@ -34,14 +35,14 @@
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchPhone">전화번호<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="branchPhone" id="branchPhone" type="text" placeholder="전화번호를 입력하세요." value="${branch.branchPhone}" />
-                                            </div>
-                                            <div>
-                                                <button class="btn btn-primary" type="submit">지점 수정</button>
-                                                <a href="/admin/branches/${branch.branchId}" class="btn btn-outline-danger">수정 취소</a>
-                                            </div>
-                                        </form>
+                                            </div>                                                                                  
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" type="submit">지점 수정</button>
+                                            <a href="/admin/branches/${branch.branchId}" class="btn btn-outline-danger">수정 취소</a>
+                                        </div>  
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

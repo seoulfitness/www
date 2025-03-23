@@ -20,6 +20,7 @@
                             <div class="col-lg-12">
                                 <%-- 구/군 수정 --%>
                                 <form id="updateForm" action="/admin/districts/${district.districtId}/update" method="post">
+                                    <input type="hidden" name="districtId" value="${district.districtId}" />
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             구/군 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)

@@ -10,11 +10,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {       
         // 인증이 필요한 URL 패턴들
-        if (
-            request.getRequestURI().startsWith("/branchManager/") || 
-            request.getRequestURI().startsWith("/user/") || 
-            request.getRequestURI().startsWith("/admin/")
-        ) {                        
+        if (request.getRequestURI().startsWith("/user/") || request.getRequestURI().startsWith("/admin/")) {                        
             // 로그인 체크
             if (request.getSession().getAttribute("userId") == null) {
                 response.sendRedirect("/auth/logout");
@@ -25,14 +21,6 @@ public class AuthInterceptor implements HandlerInterceptor {
             if (request.getRequestURI().startsWith("/admin/") && !"관리자".equals(request.getSession().getAttribute("role"))) {
                 response.sendRedirect("/auth/logout");
                 return false;
-            }
-
-            // /branchManager 경로에 대한 접근 제한
-            if (request.getRequestURI().startsWith("/branchManager/")) {
-                if (!"관리자".equals(request.getSession().getAttribute("role")) && !"지점 관리자".equals(request.getSession().getAttribute("role"))) {
-                    response.sendRedirect("/auth/logout");
-                    return false;
-                }
             }
         }
 

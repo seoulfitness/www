@@ -21,7 +21,7 @@
     </resultMap>
 
     <!-- 지점등록 -->
-    <insert id="create" parameterType="kr.seoulfitness.admin.branch.BranchDto">
+    <insert id="insertBranch" parameterType="kr.seoulfitness.admin.branch.BranchDto">
         <![CDATA[
         INSERT INTO BRANCHES (
             BRANCH_NAME, 
@@ -40,7 +40,7 @@
     </insert>
 
     <!-- 지점 목록 -->
-    <select id="list" resultMap="branchResultMap">
+    <select id="getBranches" resultMap="branchResultMap">
         <![CDATA[
         SELECT
             -- 지점 정보
@@ -79,8 +79,8 @@
     </select>
     
 
-    <!-- 지점 보기 -->
-    <select id="read" resultMap="branchResultMap">
+    <!-- 지점 상세보기 -->
+    <select id="getBranch" resultMap="branchResultMap">
         <![CDATA[
         SELECT
             -- 지점 정보
@@ -108,7 +108,7 @@
     </select>
 
     <!-- 지점 수정 -->
-    <update id="update" parameterType="kr.seoulfitness.admin.branch.BranchDto">
+    <update id="updateBranch" parameterType="kr.seoulfitness.admin.branch.BranchDto">
         <![CDATA[
         UPDATE BRANCHES SET BRANCH_ID = #{branchId}
         ]]>
@@ -138,14 +138,14 @@
     </update>
 
     <!-- 지점 삭제 -->
-    <delete id="delete" parameterType="int">
+    <delete id="deleteBranch" parameterType="int">
         <![CDATA[
         DELETE FROM BRANCHES WHERE BRANCH_ID = #{branchId} LIMIT 1
         ]]>
     </delete>
 
     <!-- 지점 수 -->
-    <select id="totalCount" resultType="int">
+    <select id="getTotalCount" resultType="int">
         <![CDATA[
         SELECT COUNT(*) FROM BRANCHES WHERE 1=1
         ]]>

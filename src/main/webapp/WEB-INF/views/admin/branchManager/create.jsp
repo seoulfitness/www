@@ -18,12 +18,12 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        지점 관리자 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
-                                    </div>
-                                    <div class="card-body">
-                                        <form id="createForm" action="/admin/branchManagers/create" method="post">
+                                <form id="createForm" action="/admin/branchManagers/create" method="post">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            지점 관리자 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                        </div>
+                                        <div class="card-body">                                        
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="branchId">지점<span class="text-danger small">*</span></label>
                                                 <select class="form-control" name="branchId" id="branchId">
@@ -57,13 +57,13 @@
                                                 <label class="small mb-1" for="passwordCheck">비밀번호 확인<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="passwordCheck" id="passwordCheck" type="password" placeholder="비밀번호를 입력하세요." />
                                             </div>
-                                            <div>
-                                                <button class="btn btn-primary" type="submit">지점 관리자 등록</button>
-                                                <a href="/admin/branchManagers" class="btn btn-outline-danger">등록 취소</a>
-                                            </div>
-                                        </form>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-primary" type="submit">지점 관리자 등록</button>
+                                            <a href="/admin/branchManagers" class="btn btn-outline-danger">등록 취소</a>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

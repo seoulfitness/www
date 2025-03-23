@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="criteriaMapper">
+
+    <resultMap id="criteriaResultMap" type="kr.seoulfitness.admin.criteria.CriteriaDto">
+        <!-- 입시 요강 정보 -->
+        <result property="criteriaId" column="CRITERIA_ID" />
+        <result property="year" column="YEAR" />
+        <result property="criteriaGubun" column="CRITERIA_GUBUN" />
+        <result property="schoolId" column="SCHOOL_ID" />
+        <result property="departmentId" column="DEPARTMENT_ID" />
+        <result property="acceptedCount" column="ACCEPTED_COUNT" />
+        <result property="csatReflectedScore" column="CSAT_REFLECTED_SCORE" />
+        <result property="physicalReflectedScore" column="PHYSICAL_REFLECTED_SCORE" />
+        <result property="internalReflectedScore" column="INTERNAL_REFLECTED_SCORE" />
+        <result property="interviewReflectedScore" column="INTERVIEW_REFLECTED_SCORE" />
+        <result property="totalReflectedScore" column="TOTAL_REFLECTED_SCORE" />
+        <result property="criteriaMemo" column="CRITERIA_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 입시 요강 등록 -->
+    <insert id="insertCriteria" parameterType="kr.seoulfitness.admin.criteria.CriteriaDto">
+        <![CDATA[
+        INSERT INTO CRITERIAS (
+            YEAR,
+            CRITERIA_GUBUN,
+            SCHOOL_ID,
+            DEPARTMENT_ID,
+            ACCEPTED_COUNT,
+            CSAT_REFLECTED_SCORE,
+            PHYSICAL_REFLECTED_SCORE,
+            INTERNAL_REFLECTED_SCORE,
+            INTERVIEW_REFLECTED_SCORE,
+            TOTAL_REFLECTED_SCORE,
+            CRITERIA_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{year},
+            #{criteriaGubun},
+            #{schoolId},
+            #{departmentId},
+            #{acceptedCount},
+            #{csatReflectedScore},
+            #{physicalReflectedScore},
+            #{internalReflectedScore},
+            #{interviewReflectedScore},
+            #{totalReflectedScore},
+            #{criteriaMemo},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 입시 요강 목록 -->
+    <select id="getCriterias" resultMap="criteriaResultMap">
+        <![CDATA[
+        SELECT
+            -- 입시 요강 정보
+            A.CRITERIA_ID,
+            A.YEAR,
+            A.CRITERIA_GUBUN,
+            A.SCHOOL_ID,
+            A.DEPARTMENT_ID,
+            A.ACCEPTED_COUNT,
+            A.CSAT_REFLECTED_SCORE,
+            A.PHYSICAL_REFLECTED_SCORE,
+            A.INTERNAL_REFLECTED_SCORE,
+            A.INTERVIEW_REFLECTED_SCORE,
+            A.TOTAL_REFLECTED_SCORE,
+            A.CRITERIA_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            CRITERIAS A
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = A.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = A.DEPARTMENT_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.CRITERIA_GUBUN LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.CRITERIA_MEMO LIKE CONCAT('%', #{keyword}, '%')
+                OR B.SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR C.DEPARTMENT_NAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <if test="year != null and year != 0">
+            <![CDATA[
+            AND A.YEAR = #{year}
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY A.YEAR DESC, B.SCHOOL_NAME DESC, C.DEPARTMENT_NAME DESC DESC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 입시 요강 상세보기 -->
+    <select id="getCriteria" resultMap="criteriaResultMap">
+        <![CDATA[
+        SELECT
+            -- 입시 요강 정보
+            A.CRITERIA_ID,
+            A.YEAR,
+            A.CRITERIA_GUBUN,
+            A.SCHOOL_ID,
+            A.DEPARTMENT_ID,
+            A.ACCEPTED_COUNT,
+            A.CSAT_REFLECTED_SCORE,
+            A.PHYSICAL_REFLECTED_SCORE,
+            A.INTERNAL_REFLECTED_SCORE,
+            A.INTERVIEW_REFLECTED_SCORE,
+            A.TOTAL_REFLECTED_SCORE,
+            A.CRITERIA_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 등록한 사람, 수정한 사람
+            D.USER_NAME AS CREATED_USER_NAME,
+            D.USER_PHONE AS CREATED_USER_PHONE,
+            E.USER_NAME AS UPDATED_USER_NAME,
+            E.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            CRITERIAS A
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = A.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = A.DEPARTMENT_ID
+            LEFT JOIN USERS D ON D.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
+        WHERE
+            A.CRITERIA_ID = #{criteriaId}
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 입시 요강 수정 -->
+    <update id="updateCriteria" parameterType="kr.seoulfitness.admin.criteria.CriteriaDto">
+        <![CDATA[
+        UPDATE CRITERIAS SET CRITERIA_ID = #{criteriaId}
+        ]]>
+        <if test="year != null">
+            <![CDATA[
+            , YEAR = #{year}
+            ]]>
+        </if>
+        <if test="criteriaGubun != null">
+            <![CDATA[
+            , CRITERIA_GUBUN = #{criteriaGubun}
+            ]]>
+        </if>
+        <if test="schoolId != null">
+            <![CDATA[
+            , SCHOOL_ID = #{schoolId}
+            ]]>
+        </if>
+        <if test="departmentId != null">
+            <![CDATA[
+            , DEPARTMENT_ID = #{departmentId}
+            ]]>
+        </if>
+        <if test="acceptedCount != null">
+            <![CDATA[
+            , ACCEPTED_COUNT = #{acceptedCount}
+            ]]>
+        </if>
+        <if test="csatReflectedScore != null">
+            <![CDATA[
+            , CSAT_REFLECTED_SCORE = #{csatReflectedScore}
+            ]]>
+        </if>
+        <if test="physicalReflectedScore != null">
+            <![CDATA[
+            , PHYSICAL_REFLECTED_SCORE = #{physicalReflectedScore}
+            ]]>
+        </if>
+        <if test="internalReflectedScore != null">
+            <![CDATA[
+            , INTERNAL_REFLECTED_SCORE = #{internalReflectedScore}
+            ]]>
+        </if>
+        <if test="interviewReflectedScore != null">
+            <![CDATA[
+            , INTERVIEW_REFLECTED_SCORE = #{interviewReflectedScore}
+            ]]>
+        </if>
+        <if test="totalReflectedScore != null">
+            <![CDATA[
+            , TOTAL_REFLECTED_SCORE = #{totalReflectedScore}
+            ]]>
+        </if>
+        <if test="criteriaMemo != null">
+            <![CDATA[
+            , CRITERIA_MEMO = #{criteriaMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE CRITERIA_ID = #{criteriaId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 입시 요강 삭제 -->
+    <delete id="deleteCriteria" parameterType="int">
+        <![CDATA[
+        DELETE FROM CRITERIAS WHERE CRITERIA_ID = #{criteriaId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 입시 요강 수 -->
+    <select id="getTotalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) 
+        FROM CRITERIAS A
+        LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = A.SCHOOL_ID
+        LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = A.DEPARTMENT_ID
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.CRITERIA_GUBUN LIKE CONCAT('%', #{keyword}, '%') 
+                OR A.CRITERIA_MEMO LIKE CONCAT('%', #{keyword}, '%')
+                OR B.SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR C.DEPARTMENT_NAME LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <if test="year != null and year != 0">
+            <![CDATA[
+            AND A.YEAR = #{year}
+            ]]>
+        </if>
+    </select>
+
+</mapper>
