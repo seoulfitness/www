@@ -2,6 +2,7 @@ package kr.seoulfitness.admin.admission;
 
 import java.util.Date;
 
+import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto;
 import lombok.Data;
 
 @Data
@@ -31,4 +32,7 @@ public class AdmissionDto {
     private String updatedUserName;     // 수정한 사람 이름
     private String createdUserPhone;    // 등록한 사람 전화번호
     private String updatedUserPhone;    // 수정한 사람 전화번호
+
+    // 수시 모집 정보
+    private EarlyAdmissionDto earlyAdmissionDto;
 }

@@ -46,9 +46,9 @@
                                                         <th>학교</th>
                                                         <th>학과</th>
                                                         <th>수시</th>
-                                                        <th>수시 점수</th>
+                                                        <th>수시 모집 정보</th>
                                                         <th>정시</th>
-                                                        <th>정시 점수</th>
+                                                        <th>정시 모집 정보</th>
                                                         <th>메모</th>
                                                         <th>관리</th>
                                                     </tr>
@@ -70,6 +70,14 @@
                                                             </td>
                                                             <td>
                                                                 <c:if test="${admission.earlyAdmission == 'Y'}">
+                                                                    <c:choose>
+                                                                        <c:when test="${not empty admission.earlyAdmissionDto}">
+                                                                            <button type="button" class="btn btn-sm btn-outline-primary btn-early-admission" data-admission-id="${admission.admissionId}">정보</button>                                                                        
+                                                                        </c:when>
+                                                                        <c:when test="${empty admission.earlyAdmissionDto}">
+                                                                            <button type="button" class="btn btn-sm btn-outline-danger btn-early-admission" data-admission-id="${admission.admissionId}">정보</button>                                                                        
+                                                                        </c:when>
+                                                                    </c:choose>                                                                    
                                                                     <a href="#" class="btn btn-sm btn-outline-primary">수능</a>
                                                                     <a href="#" class="btn btn-sm btn-outline-primary">영어</a>
                                                                     <a href="#" class="btn btn-sm btn-outline-primary">한국사</a>
@@ -87,6 +95,7 @@
                                                             </td>
                                                             <td>
                                                                 <c:if test="${admission.regularAdmission == 'Y'}">
+                                                                    <a href="#" class="btn btn-sm btn-outline-primary">정보</a>
                                                                     <a href="#" class="btn btn-sm btn-outline-primary">수능</a>
                                                                     <a href="#" class="btn btn-sm btn-outline-primary">영어</a>
                                                                     <a href="#" class="btn btn-sm btn-outline-primary">한국사</a>
@@ -147,6 +156,88 @@
                 <%@ include file="../../base/footer.jsp" %>
             </div>
         </div>
+
+        <%-- 수시 모집 정보 모달 --%>
+        <div class="modal fade modal-dialog-scrollable" id="earlyAdmissionModal" data-bs-backdrop="static" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form id="earlyAdmissionForm">
+                        <div class="modal-header">
+                            <h1 class="modal-title">수시 모집 정보</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="useCsatReflectedScore" class="form-label">수능 점수 반영</label>
+                                <select class="form-select" id="useCsatReflectedScore" name="useCsatReflectedScore">
+                                    <option value="Y">반영</option>
+                                    <option value="N">미반영</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="csatReflectedScore" class="form-label">수능 반영 점수</label>
+                                <input type="text" class="form-control" id="csatReflectedScore" name="csatReflectedScore" placeholder="수능 반영 점수">
+                            </div>
+                            <div class="mb-3">
+                                <label for="usePhysicalReflectedScore" class="form-label">실기 점수 반영</label>
+                                <select class="form-select" id="usePhysicalReflectedScore" name="usePhysicalReflectedScore">
+                                    <option value="Y">반영</option>
+                                    <option value="N">미반영</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="physicalReflectedScore" class="form-label">실기 반영 점수</label>
+                                <input type="text" class="form-control" id="physicalReflectedScore" name="physicalReflectedScore" placeholder="실기 반영 점수">
+                            </div>
+                            <div class="mb-3">
+                                <label for="useInternalReflectedScore" class="form-label">내신 점수 반영</label>
+                                <select class="form-select" id="useInternalReflectedScore" name="useInternalReflectedScore">
+                                    <option value="Y">반영</option>
+                                    <option value="N">미반영</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="internalReflectedScore" class="form-label">내신 반영 점수</label>
+                                <input type="text" class="form-control" id="internalReflectedScore" name="internalReflectedScore" placeholder="내신 반영 점수">
+                            </div>
+                            <div class="mb-3">
+                                <label for="useInterviewReflectedScore" class="form-label">면접 점수 반영</label>
+                                <select class="form-select" id="useInterviewReflectedScore" name="useInterviewReflectedScore">
+                                    <option value="Y">반영</option>
+                                    <option value="N">미반영</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="interviewReflectedScore" class="form-label">면접 반영 점수</label>
+                                <input type="text" class="form-control" id="interviewReflectedScore" name="interviewReflectedScore" placeholder="면접 반영 점수">
+                            </div>
+                            <div class="mb-3">
+                                <label for="acceptedCount" class="form-label">모집 인원</label>
+                                <input type="text" class="form-control" id="acceptedCount" name="acceptedCount" placeholder="모집 인원">
+                            </div>
+                            <div class="mb-3">
+                                <label for="earlyAdmissionMemo" class="form-label">메모</label>
+                                <textarea class="form-control" id="earlyAdmissionMemo" name="earlyAdmissionMemo" placeholder="메모"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="submit" class="btn btn-primary">저장</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <%@ include file="../../base/script.jsp" %>
+        <script>
+            $(document).ready(function() {
+                $('.btn-early-admission').click(function() {
+                    var admissionId = $(this).data('admission-id');
+                    console.log(admissionId);
+                    $('#earlyAdmissionModal').modal('show');
+                });
+            });
+        </script>
     </body>
 </html>

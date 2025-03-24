@@ -1,6 +1,8 @@
 package kr.seoulfitness.admin.admission;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.seoulfitness.admin.department.DepartmentService;
+import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto;
+import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionService;
 import kr.seoulfitness.admin.school.SchoolService;
 
 @Controller
@@ -29,6 +33,9 @@ public class AdmissionController {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private EarlyAdmissionService earlyAdmissionService;
 
     // 대입시 요강 존재 여부 확인
     public boolean isAdmissionExists(int admissionId) {
@@ -90,6 +97,20 @@ public class AdmissionController {
         params.put("keyword", keyword);
 
         Map<String, Object> result = admissionService.findAll(params);
+
+        // 입시 요강 목록
+        List<AdmissionDto> admissions = (List<AdmissionDto>) result.get("admissions");
+        for (AdmissionDto admission : admissions) {
+            // 수시 모집 여부 확인
+            if (admission.getEarlyAdmission().equals("Y")) {
+                // 수시 모집 상세보기
+                Map<String, Object> earlyAdmissionParams = new HashMap<>();
+                earlyAdmissionParams.put("admissionId", admission.getAdmissionId());
+                EarlyAdmissionDto earlyAdmission = earlyAdmissionService.find(earlyAdmissionParams);
+                admission.setEarlyAdmissionDto(earlyAdmission);
+            }
+        }
+        
         model.addAttribute("admissions", result.get("admissions"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
