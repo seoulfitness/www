@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="criteriaMapper">
+<mapper namespace="earlyAdmissionMapperr">
 
-    <resultMap id="criteriaResultMap" type="kr.seoulfitness.admin.criteria.CriteriaDto">
+    <resultMap id="earlyAdmissionResultMap" type="kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto">
         <!-- 입시 요강 정보 -->
-        <result property="criteriaId" column="CRITERIA_ID" />
-        <result property="year" column="YEAR" />
-        <result property="criteriaGubun" column="CRITERIA_GUBUN" />
+        <result property="earlyAdmissionId" column="EARLY_ADMISSION_ID" />
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <result property="admissionType" column="ADMISSION_TYPE" />
         <result property="schoolId" column="SCHOOL_ID" />
         <result property="departmentId" column="DEPARTMENT_ID" />
         <result property="acceptedCount" column="ACCEPTED_COUNT" />

@@ -3,7 +3,8 @@
 ```sql
 CREATE TABLE IF NOT EXISTS seoulfitness_v2.ADMISSIONS (
     ADMISSION_ID INT AUTO_INCREMENT PRIMARY KEY COMMENT '입시 요강 아이디',
-    YEAR INT NOT NULL COMMENT '입시 요강 연도',
+    ADMISSION_YEAR INT NOT NULL COMMENT '입시 요강 연도',
+    ADMISSION_TYPE VARCHAR(1) NOT NULL DEFAULT '가' COMMENT '구분',
     EARLY_ADMISSION VARCHAR(1) NOT NULL COMMENT '수시 입시 여부 (Y/N)',
     REGULAR_ADMISSION VARCHAR(1) NOT NULL COMMENT '정시 입시 여부 (Y/N)',
     SCHOOL_ID INT NOT NULL COMMENT '입시 요강 학교 아이디',
@@ -14,4 +15,26 @@ CREATE TABLE IF NOT EXISTS seoulfitness_v2.ADMISSIONS (
     CREATED_BY VARCHAR(50) COMMENT '등록한 사람',
     UPDATED_BY VARCHAR(50) COMMENT '수정한 사람'
 );
+```
+
+```sql
+INSERT INTO seoulfitness_v2.ADMISSIONS (ADMISSION_ID, ADMISSION_YEAR, ADMISSION_TYPE, SCHOOL_ID, DEPARTMENT_ID, EARLY_ADMISSION, REGULAR_ADMISSION, ADMISSION_MEMO)
+SELECT id, 
+       year, 
+       CASE 
+           WHEN category = 1 THEN '가' 
+           WHEN category = 2 THEN '나' 
+           WHEN category = 3 THEN '다'
+           WHEN category = 4 THEN '라'
+       END AS category, 
+       school_id, 
+       department_id, 
+       'N', 
+       'Y', 
+       memo 
+FROM seoulfitness.criteria;
+```
+
+```sql
+UPDATE seoulfitness_v2.ADMISSIONS SET CREATED_BY='sung2ne', UPDATED_BY='sung2ne';
 ```
