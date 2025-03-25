@@ -34,4 +34,13 @@ public class EarlyAdmissionDto {
     private String updatedUserName;     // 수정한 사람 이름
     private String createdUserPhone;    // 등록한 사람 전화번호
     private String updatedUserPhone;    // 수정한 사람 전화번호
+
+    // 수시(입시) 정보 존재 여부
+    private boolean exists;
+    public boolean isExists() {
+        return exists;
+    }
+    public void setExists(boolean exists) {
+        this.exists = exists;
+    }
 }
