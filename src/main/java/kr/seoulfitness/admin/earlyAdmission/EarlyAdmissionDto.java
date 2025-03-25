@@ -9,11 +9,11 @@ public class EarlyAdmissionDto {
     // 수시 모집 정보
     private int earlyAdmissionId;           // 수시 모집 아이디
     private int admissionId;                // 입시 요강 아이디
-    private int csatReflectedScore;         // 수능 반영 점수(0.0 ~ 1000.0)
-    private int physicalReflectedScore;     // 실기 반영 점수(0.0 ~ 1000.0)
-    private int internalReflectedScore;     // 내신 반영 점수(0.0 ~ 1000.0)
-    private int interviewReflectedScore;    // 면접 반영 점수(0.0 ~ 1000.0)
-    private int acceptedCount;              // 입시 모집 인원
+    private double csatReflectedScore;         // 수능 반영 점수(0.000 ~ 1000.000)
+    private double physicalReflectedScore;     // 실기 반영 점수(0.000 ~ 1000.000)
+    private double internalReflectedScore;     // 내신 반영 점수(0.000 ~ 1000.000)
+    private double interviewReflectedScore;    // 면접 반영 점수(0.000 ~ 1000.000)
+    private String acceptedCount;              // 입시 모집 인원
     private String earlyAdmissionMemo;      // 수시 모집 메모 
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시

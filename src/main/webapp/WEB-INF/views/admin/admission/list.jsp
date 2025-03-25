@@ -221,7 +221,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
                             <button type="submit" class="btn btn-primary">저장</button>
                         </div>
                     </form>
@@ -232,10 +232,21 @@
         <%@ include file="../../base/script.jsp" %>
         <script>
             $(document).ready(function() {
+                // 수시 모집 정보 모달 버튼 클릭 이벤트
                 $('.btn-early-admission').click(function() {
-                    var admissionId = $(this).data('admission-id');
-                    console.log(admissionId);
-                    $('#earlyAdmissionModal').modal('show');
+                    let admissionId = $(this).data('admission-id');
+                    $.ajax({
+                        url: '/admin/early-admissions/api/' + admissionId,
+                        type: 'GET',
+                        success: function(response) {
+                            console.log(response);
+                            $('#earlyAdmissionModal').modal('show');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+                    });
+                    
                 });
             });
         </script>
