@@ -85,7 +85,7 @@
                     <div class="dropdown-notifications-item-icon bg-info"><i data-feather="bar-chart"></i></div>
                     <div class="dropdown-notifications-item-content">
                         <div class="dropdown-notifications-item-content-details">December 22, 2021</div>
-                        <div class="dropdown-notifications-item-content-text">A new monthly report is ready. Click here to view!</div>
+                        <div class="dropdown-notifications-item-content-text">A new monthly report is ready. Click here to read!</div>
                     </div>
                 </a>
                 <%-- Example Alert 3--%>

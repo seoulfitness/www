@@ -24,7 +24,7 @@ public class CsatSubjectController {
 
     // 학과 존재 여부 확인
     public boolean isCsatSubjectExists(int csatSubjectId) {
-        return csatSubjectService.find(csatSubjectId) != null;
+        return csatSubjectService.read(csatSubjectId) != null;
     }
 
     // 학과 등록
@@ -66,7 +66,7 @@ public class CsatSubjectController {
         params.put("keyword", keyword);
 
         // 학과 목록 조회
-        Map<String, Object> result = csatSubjectService.findAll(params);
+        Map<String, Object> result = csatSubjectService.list(params);
         model.addAttribute("csatSubjects", result.get("csatSubjects"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
@@ -78,13 +78,13 @@ public class CsatSubjectController {
 
     // 학과 상세
     @GetMapping("/{csatSubjectId}")
-    public String view(@PathVariable int csatSubjectId, Model model) {
+    public String read(@PathVariable int csatSubjectId, Model model) {
         // 학과 존재 여부 확인
         if (!isCsatSubjectExists(csatSubjectId)) {
             return "redirect:/admin/csatSubjects";
         }
 
-        CsatSubjectDto csatSubject = csatSubjectService.find(csatSubjectId);
+        CsatSubjectDto csatSubject = csatSubjectService.read(csatSubjectId);
         model.addAttribute("csatSubject", csatSubject);
         model.addAttribute("pageTitle", "수능 교과목");
         model.addAttribute("activePage", "csatSubjects");
@@ -99,7 +99,7 @@ public class CsatSubjectController {
             return "redirect:/admin/csatSubjects";
         }
 
-        CsatSubjectDto csatSubject = csatSubjectService.find(csatSubjectId);
+        CsatSubjectDto csatSubject = csatSubjectService.read(csatSubjectId);
         model.addAttribute("csatSubject", csatSubject);
         model.addAttribute("pageTitle", "수능 교과목");
         model.addAttribute("activePage", "csatSubjects");

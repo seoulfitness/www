@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="regularAdmissionMapper">
+
+    <resultMap id="regularAdmissionResultMap" type="kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto">
+        <!-- 정시 모집 정보 -->
+        <result property="regularAdmissionId" column="REGULAR_ADMISSION_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        <result property="useCsatReflectedScore" column="USE_CSAT_REFLECTED_SCORE" />
+        <result property="usePhysicalReflectedScore" column="USE_PHYSICAL_REFLECTED_SCORE" />
+        <result property="useInternalReflectedScore" column="USE_INTERNAL_REFLECTED_SCORE" />
+        <result property="useInterviewReflectedScore" column="USE_INTERVIEW_REFLECTED_SCORE" />
+        <result property="csatReflectedScore" column="CSAT_REFLECTED_SCORE" />
+        <result property="physicalReflectedScore" column="PHYSICAL_REFLECTED_SCORE" />
+        <result property="internalReflectedScore" column="INTERNAL_REFLECTED_SCORE" />
+        <result property="interviewReflectedScore" column="INTERVIEW_REFLECTED_SCORE" />
+        <result property="acceptedCount" column="ACCEPTED_COUNT" />
+        <result property="regularAdmissionMemo" column="REGULAR_ADMISSION_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <!-- 입시 연도 -->
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 정시 모집 등록 -->
+    <insert id="insertRegularAdmission" parameterType="kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto" useGeneratedKeys="true" keyProperty="regularAdmissionId">
+        <![CDATA[
+        INSERT INTO REGULAR_ADMISSIONS (
+            ADMISSION_ID,
+            CSAT_REFLECTED_SCORE,
+            USE_CSAT_REFLECTED_SCORE,
+            PHYSICAL_REFLECTED_SCORE,
+            USE_PHYSICAL_REFLECTED_SCORE,
+            INTERNAL_REFLECTED_SCORE,
+            USE_INTERNAL_REFLECTED_SCORE,
+            INTERVIEW_REFLECTED_SCORE,
+            USE_INTERVIEW_REFLECTED_SCORE,
+            ACCEPTED_COUNT,
+            REGULAR_ADMISSION_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionId},
+            #{csatReflectedScore},
+            #{useCsatReflectedScore},
+            #{physicalReflectedScore},
+            #{usePhysicalReflectedScore},
+            #{internalReflectedScore},
+            #{useInternalReflectedScore},
+            #{interviewReflectedScore},
+            #{useInterviewReflectedScore},
+            #{acceptedCount},
+            #{regularAdmissionMemo},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 정시 모집 상세보기 -->
+    <select id="getRegularAdmission" resultMap="regularAdmissionResultMap">
+        <![CDATA[
+        SELECT
+            -- 정시 모집 정보
+            A.REGULAR_ADMISSION_ID,
+            A.ADMISSION_ID,
+            A.USE_CSAT_REFLECTED_SCORE,
+            A.CSAT_REFLECTED_SCORE,
+            A.USE_PHYSICAL_REFLECTED_SCORE,
+            A.PHYSICAL_REFLECTED_SCORE,
+            A.USE_INTERNAL_REFLECTED_SCORE,
+            A.INTERNAL_REFLECTED_SCORE,
+            A.USE_INTERVIEW_REFLECTED_SCORE,
+            A.INTERVIEW_REFLECTED_SCORE,
+            A.ACCEPTED_COUNT,
+            A.REGULAR_ADMISSION_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 입시 연도
+            D.ADMISSION_YEAR,
+            -- 등록한 사람, 수정한 사람
+            E.USER_NAME AS CREATED_USER_NAME,
+            E.USER_PHONE AS CREATED_USER_PHONE,
+            F.USER_NAME AS UPDATED_USER_NAME,
+            F.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            REGULAR_ADMISSIONS A
+            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
+            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="regularAdmissionId != null and regularAdmissionId != 0">
+            <![CDATA[
+            AND A.REGULAR_ADMISSION_ID = #{regularAdmissionId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND A.ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 정시 모집 수정 -->
+    <update id="updateRegularAdmission" parameterType="kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto">
+        <selectKey keyProperty="exists" resultType="boolean" order="BEFORE">
+            SELECT COUNT(*) > 0 FROM REGULAR_ADMISSIONS WHERE ADMISSION_ID = #{admissionId}
+        </selectKey>
+        <if test="exists">
+            <![CDATA[
+            UPDATE REGULAR_ADMISSIONS SET ADMISSION_ID = #{admissionId}
+            ]]>
+            <if test="useCsatReflectedScore != null">
+                <![CDATA[
+                , USE_CSAT_REFLECTED_SCORE = #{useCsatReflectedScore}
+                ]]>
+            </if>
+            <if test="csatReflectedScore != null">
+                <![CDATA[
+                , CSAT_REFLECTED_SCORE = #{csatReflectedScore}
+                ]]>
+            </if>
+            <if test="usePhysicalReflectedScore != null">
+                <![CDATA[
+                , USE_PHYSICAL_REFLECTED_SCORE = #{usePhysicalReflectedScore}
+                ]]>
+            </if>
+            <if test="physicalReflectedScore != null">
+                <![CDATA[
+                , PHYSICAL_REFLECTED_SCORE = #{physicalReflectedScore}
+                ]]>
+            </if>
+            <if test="useInternalReflectedScore != null">
+                <![CDATA[
+                , USE_INTERNAL_REFLECTED_SCORE = #{useInternalReflectedScore}
+                ]]>
+            </if>
+            <if test="internalReflectedScore != null">
+                <![CDATA[
+                , INTERNAL_REFLECTED_SCORE = #{internalReflectedScore}
+                ]]>
+            </if>
+            <if test="useInterviewReflectedScore != null">
+                <![CDATA[
+                , USE_INTERVIEW_REFLECTED_SCORE = #{useInterviewReflectedScore}
+                ]]>
+            </if>
+            <if test="interviewReflectedScore != null">
+                <![CDATA[
+                , INTERVIEW_REFLECTED_SCORE = #{interviewReflectedScore}
+                ]]>
+            </if>
+            <if test="acceptedCount != null">
+                <![CDATA[
+                , ACCEPTED_COUNT = #{acceptedCount}
+                ]]>
+            </if>
+            <if test="regularAdmissionMemo != null">
+                <![CDATA[
+                , REGULAR_ADMISSION_MEMO = #{regularAdmissionMemo}
+                ]]>
+            </if>
+            <![CDATA[
+            WHERE REGULAR_ADMISSIONS_ID = #{regularAdmissionId}
+            ]]>
+        </if>
+    </update>
+
+</mapper>

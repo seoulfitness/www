@@ -29,7 +29,7 @@ public class HighSchoolController {
 
     // 고등학교 존재 여부 확인
     public boolean isHighschoolExists(int highSchoolId) {
-        return highSchoolService.find(highSchoolId) != null;
+        return highSchoolService.read(highSchoolId) != null;
     }
 
     // 고등학교 등록
@@ -43,7 +43,7 @@ public class HighSchoolController {
         provinceParams.put("keyword", null);
 
         // 시/도 목록 조회
-        Map<String, Object> provinceResult = provinceService.findAll(provinceParams);
+        Map<String, Object> provinceResult = provinceService.list(provinceParams);
         model.addAttribute("provinces", provinceResult.get("provinces"));
 
         model.addAttribute("pageTitle", "고등학교 관리");
@@ -83,7 +83,7 @@ public class HighSchoolController {
         params.put("keyword", keyword);
 
         // 고등학교 목록 조회
-        Map<String, Object> result = highSchoolService.findAll(params);
+        Map<String, Object> result = highSchoolService.list(params);
 
         // 목록 페이지 설정
         model.addAttribute("highSchools", result.get("highSchools"));
@@ -97,14 +97,14 @@ public class HighSchoolController {
 
     // 고등학교 상세
     @GetMapping("/{highSchoolId}")
-    public String view(@PathVariable int highSchoolId, Model model) {
+    public String read(@PathVariable int highSchoolId, Model model) {
         // 고등학교 존재 여부 확인
         if (!isHighschoolExists(highSchoolId)) {
             return "redirect:/admin/highSchools";
         }
 
         // 고등학교 상세
-        HighSchoolDto highSchool = highSchoolService.find(highSchoolId);
+        HighSchoolDto highSchool = highSchoolService.read(highSchoolId);
         model.addAttribute("highSchool", highSchool);
         model.addAttribute("pageTitle", "고등학교 관리");
         model.addAttribute("activePage", "highSchools");
@@ -126,11 +126,11 @@ public class HighSchoolController {
         provinceParams.put("pageCountPerPage", 100);
         provinceParams.put("keyword", null);
 
-        Map<String, Object> provinceResult = provinceService.findAll(provinceParams);
+        Map<String, Object> provinceResult = provinceService.list(provinceParams);
         model.addAttribute("provinces", provinceResult.get("provinces"));
 
         // 고등학교 정보
-        HighSchoolDto highSchool = highSchoolService.find(highSchoolId);
+        HighSchoolDto highSchool = highSchoolService.read(highSchoolId);
         model.addAttribute("highSchool", highSchool);
         model.addAttribute("pageTitle", "고등학교 관리");
         model.addAttribute("activePage", "highSchools");

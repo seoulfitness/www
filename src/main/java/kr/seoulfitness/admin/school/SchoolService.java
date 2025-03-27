@@ -21,7 +21,7 @@ public class SchoolService {
     }
 
     // 학교 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = schoolDao.getTotalCount(params);
         params.put("totalCount", totalCount);
@@ -42,7 +42,7 @@ public class SchoolService {
     }
 
     // 학교 상세보기
-    public SchoolDto find(int schoolId) {
+    public SchoolDto read(int schoolId) {
         return schoolDao.getSchool(schoolId);
     }
 

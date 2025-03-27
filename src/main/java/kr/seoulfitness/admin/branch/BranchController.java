@@ -29,7 +29,7 @@ public class BranchController {
 
     // 지점 존재 여부 확인
     public boolean isBranchExists(int branchId) {
-        return branchService.find(branchId) != null;
+        return branchService.read(branchId) != null;
     }
 
     // 지점 등록
@@ -72,7 +72,7 @@ public class BranchController {
         params.put("keyword", keyword);
 
         // 지점 목록 조회
-        Map<String, Object> result = branchService.findAll(params);
+        Map<String, Object> result = branchService.list(params);
 
         // 목록 페이지 설정
         model.addAttribute("branches", result.get("branches"));
@@ -105,14 +105,14 @@ public class BranchController {
 
     // 지점 상세
     @GetMapping("/{branchId}")
-    public String view(@PathVariable int branchId, Model model) {
+    public String read(@PathVariable int branchId, Model model) {
         // 지점 존재 여부 확인
         if (!isBranchExists(branchId)) {
             return "redirect:/admin/branches";
         }
 
         // 지점 조회
-        BranchDto branch = branchService.find(branchId);
+        BranchDto branch = branchService.read(branchId);
 
         model.addAttribute("branch", branch);
         model.addAttribute("pageTitle", "지점 관리");
@@ -129,7 +129,7 @@ public class BranchController {
         }
 
         // 지점 조회
-        BranchDto branch = branchService.find(branchId);
+        BranchDto branch = branchService.read(branchId);
 
         // 지점 수정
         model.addAttribute("branch", branch);

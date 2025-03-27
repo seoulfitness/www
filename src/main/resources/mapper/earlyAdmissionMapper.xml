@@ -7,6 +7,10 @@
         <!-- 수시 모집 정보 -->
         <result property="earlyAdmissionId" column="EARLY_ADMISSION_ID" />
         <result property="admissionId" column="ADMISSION_ID" />
+        <result property="useCsatReflectedScore" column="USE_CSAT_REFLECTED_SCORE" />
+        <result property="usePhysicalReflectedScore" column="USE_PHYSICAL_REFLECTED_SCORE" />
+        <result property="useInternalReflectedScore" column="USE_INTERNAL_REFLECTED_SCORE" />
+        <result property="useInterviewReflectedScore" column="USE_INTERVIEW_REFLECTED_SCORE" />
         <result property="csatReflectedScore" column="CSAT_REFLECTED_SCORE" />
         <result property="physicalReflectedScore" column="PHYSICAL_REFLECTED_SCORE" />
         <result property="internalReflectedScore" column="INTERNAL_REFLECTED_SCORE" />
@@ -31,14 +35,18 @@
     </resultMap>
 
     <!-- 수시 모집 등록 -->
-    <insert id="insertEarlyAdmission" parameterType="kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto">
+    <insert id="insertEarlyAdmission" parameterType="kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto" useGeneratedKeys="true" keyProperty="earlyAdmissionId">
         <![CDATA[
         INSERT INTO EARLY_ADMISSIONS (
             ADMISSION_ID,
             CSAT_REFLECTED_SCORE,
+            USE_CSAT_REFLECTED_SCORE,
             PHYSICAL_REFLECTED_SCORE,
+            USE_PHYSICAL_REFLECTED_SCORE,
             INTERNAL_REFLECTED_SCORE,
+            USE_INTERNAL_REFLECTED_SCORE,
             INTERVIEW_REFLECTED_SCORE,
+            USE_INTERVIEW_REFLECTED_SCORE,
             ACCEPTED_COUNT,
             EARLY_ADMISSION_MEMO,
             CREATED_BY,
@@ -46,9 +54,13 @@
         ) VALUES (
             #{admissionId},
             #{csatReflectedScore},
+            #{useCsatReflectedScore},
             #{physicalReflectedScore},
+            #{usePhysicalReflectedScore},
             #{internalReflectedScore},
+            #{useInternalReflectedScore},
             #{interviewReflectedScore},
+            #{useInterviewReflectedScore},
             #{acceptedCount},
             #{earlyAdmissionMemo},
             #{createdBy},
@@ -57,63 +69,6 @@
         ]]>
     </insert>
 
-    <!-- 수시 모집 목록 -->
-    <select id="getEarlyAdmissions" resultMap="earlyAdmissionResultMap">
-        <![CDATA[
-        SELECT
-            -- 수시 모집 정보
-            A.EARLY_ADMISSION_ID,
-            A.ADMISSION_ID,
-            A.CSAT_REFLECTED_SCORE,
-            A.PHYSICAL_REFLECTED_SCORE,
-            A.INTERNAL_REFLECTED_SCORE,
-            A.INTERVIEW_REFLECTED_SCORE,
-            A.ACCEPTED_COUNT,
-            A.EARLY_ADMISSION_MEMO,
-            A.CREATED_AT,
-            A.UPDATED_AT,
-            A.CREATED_BY,
-            A.UPDATED_BY,
-            -- 학교 정보
-            B.SCHOOL_NAME,
-            -- 학과 정보
-            C.DEPARTMENT_NAME,
-            -- 입시 연도
-            D.ADMISSION_YEAR,
-            -- 등록한 사람, 수정한 사람
-            E.USER_NAME AS CREATED_USER_NAME,
-            E.USER_PHONE AS CREATED_USER_PHONE,
-            F.USER_NAME AS UPDATED_USER_NAME,
-            F.USER_PHONE AS UPDATED_USER_PHONE
-        FROM    
-            EARLY_ADMISSIONS A
-            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
-            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
-            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
-            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
-            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
-        WHERE 1=1
-        ]]>
-        <if test="keyword != null">
-            <![CDATA[
-            AND (
-                A.EARLY_ADMISSION_MEMO LIKE CONCAT('%', #{keyword}, '%') 
-                OR B.SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%')
-                OR C.DEPARTMENT_NAME LIKE CONCAT('%', #{keyword}, '%')
-            )
-            ]]>
-        </if>
-        <if test="admissionYear != null and admissionYear != ''">
-            <![CDATA[
-            AND D.YEAR = #{admissionYear}
-            ]]>
-        </if>
-        <![CDATA[
-        ORDER BY D.YEAR DESC, B.SCHOOL_NAME DESC, C.DEPARTMENT_NAME DESC
-        LIMIT #{offset}, #{listCountPerPage}
-        ]]>
-    </select>
-
     <!-- 수시 모집 상세보기 -->
     <select id="getEarlyAdmission" resultMap="earlyAdmissionResultMap">
         <![CDATA[
@@ -121,9 +76,13 @@
             -- 수시 모집 정보
             A.EARLY_ADMISSION_ID,
             A.ADMISSION_ID,
+            A.USE_CSAT_REFLECTED_SCORE,
             A.CSAT_REFLECTED_SCORE,
+            A.USE_PHYSICAL_REFLECTED_SCORE,
             A.PHYSICAL_REFLECTED_SCORE,
+            A.USE_INTERNAL_REFLECTED_SCORE,
             A.INTERNAL_REFLECTED_SCORE,
+            A.USE_INTERVIEW_REFLECTED_SCORE,
             A.INTERVIEW_REFLECTED_SCORE,
             A.ACCEPTED_COUNT,
             A.EARLY_ADMISSION_MEMO,
@@ -151,12 +110,12 @@
             LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
         WHERE 1=1
         ]]>
-        <if test="earlyAdmissionId != null">
+        <if test="earlyAdmissionId != null and earlyAdmissionId != 0">
             <![CDATA[
             AND A.EARLY_ADMISSION_ID = #{earlyAdmissionId}
             ]]>
         </if>
-        <if test="admissionId != null">
+        <if test="admissionId != null and admissionId != 0">
             <![CDATA[
             AND A.ADMISSION_ID = #{admissionId}
             ]]>
@@ -173,75 +132,62 @@
         </selectKey>
         <if test="exists">
             <![CDATA[
-            UPDATE EARLY_ADMISSIONS SET
-                CSAT_REFLECTED_SCORE = #{csatReflectedScore},
-                PHYSICAL_REFLECTED_SCORE = #{physicalReflectedScore},
-                INTERNAL_REFLECTED_SCORE = #{internalReflectedScore},
-                INTERVIEW_REFLECTED_SCORE = #{interviewReflectedScore},
-                ACCEPTED_COUNT = #{acceptedCount},
-                EARLY_ADMISSION_MEMO = #{earlyAdmissionMemo},
-                UPDATED_BY = #{updatedBy}
-            WHERE ADMISSION_ID = #{admissionId}
+            UPDATE EARLY_ADMISSIONS SET ADMISSION_ID = #{admissionId}
             ]]>
-        </if>
-        <if test="!exists">
+            <if test="useCsatReflectedScore != null">
+                <![CDATA[
+                , USE_CSAT_REFLECTED_SCORE = #{useCsatReflectedScore}
+                ]]>
+            </if>
+            <if test="csatReflectedScore != null">
+                <![CDATA[
+                , CSAT_REFLECTED_SCORE = #{csatReflectedScore}
+                ]]>
+            </if>
+            <if test="usePhysicalReflectedScore != null">
+                <![CDATA[
+                , USE_PHYSICAL_REFLECTED_SCORE = #{usePhysicalReflectedScore}
+                ]]>
+            </if>
+            <if test="physicalReflectedScore != null">
+                <![CDATA[
+                , PHYSICAL_REFLECTED_SCORE = #{physicalReflectedScore}
+                ]]>
+            </if>
+            <if test="useInternalReflectedScore != null">
+                <![CDATA[
+                , USE_INTERNAL_REFLECTED_SCORE = #{useInternalReflectedScore}
+                ]]>
+            </if>
+            <if test="internalReflectedScore != null">
+                <![CDATA[
+                , INTERNAL_REFLECTED_SCORE = #{internalReflectedScore}
+                ]]>
+            </if>
+            <if test="useInterviewReflectedScore != null">
+                <![CDATA[
+                , USE_INTERVIEW_REFLECTED_SCORE = #{useInterviewReflectedScore}
+                ]]>
+            </if>
+            <if test="interviewReflectedScore != null">
+                <![CDATA[
+                , INTERVIEW_REFLECTED_SCORE = #{interviewReflectedScore}
+                ]]>
+            </if>
+            <if test="acceptedCount != null">
+                <![CDATA[
+                , ACCEPTED_COUNT = #{acceptedCount}
+                ]]>
+            </if>
+            <if test="earlyAdmissionMemo != null">
+                <![CDATA[
+                , EARLY_ADMISSION_MEMO = #{earlyAdmissionMemo}
+                ]]>
+            </if>
             <![CDATA[
-            INSERT INTO EARLY_ADMISSIONS (
-                ADMISSION_ID,
-                CSAT_REFLECTED_SCORE,
-                PHYSICAL_REFLECTED_SCORE,
-                INTERNAL_REFLECTED_SCORE,
-                INTERVIEW_REFLECTED_SCORE,
-                ACCEPTED_COUNT,
-                EARLY_ADMISSION_MEMO,
-                CREATED_BY,
-                UPDATED_BY
-            ) VALUES (
-                #{admissionId},
-                #{csatReflectedScore},
-                #{physicalReflectedScore},
-                #{internalReflectedScore},
-                #{interviewReflectedScore},
-                #{acceptedCount},
-                #{earlyAdmissionMemo},
-                #{createdBy},
-                #{updatedBy}
-            )
+            WHERE EARLY_ADMISSIONS_ID = #{earlyAdmissionId}
             ]]>
         </if>
     </update>
-
-    <!-- 수시 모집 삭제 -->
-    <delete id="deleteEarlyAdmission" parameterType="int">
-        <![CDATA[
-        DELETE FROM EARLY_ADMISSIONS WHERE EARLY_ADMISSION_ID = #{earlyAdmissionId} LIMIT 1
-        ]]>
-    </delete>
-
-    <!-- 수시 모집 수 -->
-    <select id="getTotalCount" resultType="int">
-        <![CDATA[
-        SELECT COUNT(*) 
-        FROM EARLY_ADMISSIONS A
-        LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
-        LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
-        LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
-        WHERE 1=1
-        ]]>
-        <if test="keyword != null">
-            <![CDATA[
-            AND (
-                A.EARLY_ADMISSION_MEMO LIKE CONCAT('%', #{keyword}, '%') 
-                OR B.SCHOOL_NAME LIKE CONCAT('%', #{keyword}, '%')
-                OR C.DEPARTMENT_NAME LIKE CONCAT('%', #{keyword}, '%')
-            )
-            ]]>
-        </if>
-        <if test="admissionYear != null and admissionYear != ''">
-            <![CDATA[
-            AND D.YEAR = #{admissionYear}
-            ]]>
-        </if>
-    </select>
 
 </mapper>

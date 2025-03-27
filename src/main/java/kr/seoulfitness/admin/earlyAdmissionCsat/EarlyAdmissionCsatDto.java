@@ -6,32 +6,34 @@ import lombok.Data;
 
 @Data
 public class EarlyAdmissionCsatDto {
-    // 수시 모집 수능 점수 정보
-    private int earlyAdmissionCsatId;       // 수시 모집 수능 점수 아이디
-    private int admissionId;                // 입시 요강 아이디
-    private String useType;                 // 사용 구분('Y' : 사용, 'N' : 미사용)    
+    // 수시 모집 수능 정보
+    private int earlyAdmissionCsatId;       // 수시 모집 수능 정보 아이디
+    private int admissionId;                // 입시 요강 아이디   
     private int scoreType;                  // 점수 반영 구분(1: 표준점수, 2: 백분위, 3: 기타방법)
-    private int scienceSubject;             // 탐구 교과목 반영 구분(1: 동일 과목 허용, 2: 동일 과목 미허용)
+    private int scoreType2;             // 탐구 교과목 반영 구분(1: 동일 과목 허용, 2: 동일 과목 미허용)
     private String earlyAdmissionCsatMemo;  // 수시 모집 수능 점수 메모  
-    private int subject1ReflectedScore;     // 국어 반영 점수(0.0 ~ 1000.0)
-    private int subject2ReflectedScore;     // 수학 반영 점수(0.0 ~ 1000.0)
-    private int subject3ReflectedScore;     // 사회문화 반영 점수
-    private int subject4ReflectedScore;     // 생활과윤리 반영 점수
-    private int subject5ReflectedScore;     // 윤리와사상 반영 점수
-    private int subject6ReflectedScore;     // 정치와법 반영 점수
-    private int subject7ReflectedScore;     // 경제 반영 점수
-    private int subject8ReflectedScore;     // 한국지리 반영 점수
-    private int subject9ReflectedScore;     // 세계지리 반영 점수
-    private int subject10ReflectedScore;    // 세계사 반영 점수
-    private int subject11ReflectedScore;    // 동아시아사 반영 점수
-    private int subject12ReflectedScore;    // 화학1 반영 점수
-    private int subject13ReflectedScore;    // 화학2 반영 점수
-    private int subject14ReflectedScore;    // 생명과학1 반영 점수
-    private int subject15ReflectedScore;    // 생명과학2 반영 점수
-    private int subject16ReflectedScore;    // 물리1 반영 점수
-    private int subject17ReflectedScore;    // 물리2 반영 점수
-    private int subject18ReflectedScore;    // 지구과학1 반영 점수
-    private int subject19ReflectedScore;    // 지구과학2 반영 점수
+    
+    // 수능 교과목 반영 점수
+    private double subject1ReflectedScore;     // 국어 반영 점수(0.0 ~ 100.0)
+    private double subject2ReflectedScore;     // 수학 반영 점수(0.0 ~ 100.0)
+    private double subject3ReflectedScore;     // 사회문화 반영 점수(0.0 ~ 100.0)
+    private double subject4ReflectedScore;     // 생활과윤리 반영 점수(0.0 ~ 100.0)
+    private double subject5ReflectedScore;     // 윤리와사상 반영 점수(0.0 ~ 100.0)
+    private double subject6ReflectedScore;     // 정치와법 반영 점수(0.0 ~ 100.0)
+    private double subject7ReflectedScore;     // 경제 반영 점수(0.0 ~ 100.0)
+    private double subject8ReflectedScore;     // 한국지리 반영 점수(0.0 ~ 100.0)
+    private double subject9ReflectedScore;     // 세계지리 반영 점수(0.0 ~ 100.0)
+    private double subject10ReflectedScore;    // 세계사 반영 점수(0.0 ~ 100.0)
+    private double subject11ReflectedScore;    // 동아시아사 반영 점수(0.0 ~ 100.0)
+    private double subject12ReflectedScore;    // 화학1 반영 점수(0.0 ~ 100.0)
+    private double subject13ReflectedScore;    // 화학2 반영 점수(0.0 ~ 100.0)
+    private double subject14ReflectedScore;    // 생명과학1 반영 점수(0.0 ~ 100.0)
+    private double subject15ReflectedScore;    // 생명과학2 반영 점수(0.0 ~ 100.0)
+    private double subject16ReflectedScore;    // 물리1 반영 점수(0.0 ~ 100.0)
+    private double subject17ReflectedScore;    // 물리2 반영 점수(0.0 ~ 100.0)
+    private double subject18ReflectedScore;    // 지구과학1 반영 점수(0.0 ~ 100.0)
+    private double subject19ReflectedScore;    // 지구과학2 반영 점수(0.0 ~ 100.0)
+    
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시
     private String createdBy;               // 생성자

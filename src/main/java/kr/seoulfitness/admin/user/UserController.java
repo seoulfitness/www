@@ -30,7 +30,7 @@ public class UserController {
 
     // 사용자 상세 (화면, GET)
     @GetMapping("/{id}")
-    public String view(@PathVariable("id") int id) {
+    public String read(@PathVariable("id") int id) {
         return "user/read";
     }
 

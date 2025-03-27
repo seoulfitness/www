@@ -21,7 +21,7 @@ public class BranchManagerService {
     }
 
     // 지점 관리자 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = branchManagerDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class BranchManagerService {
     }
 
     // 지점 관리자 상세보기
-    public BranchManagerDto find(int branchManagerId) {
+    public BranchManagerDto read(int branchManagerId) {
         return branchManagerDao.getBranchManager(branchManagerId);
     }
 

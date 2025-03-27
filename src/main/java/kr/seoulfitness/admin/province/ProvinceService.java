@@ -21,7 +21,7 @@ public class ProvinceService {
     }
 
     // 시/도 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = provinceDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class ProvinceService {
     }
 
     // 시/도 상세보기
-    public ProvinceDto find(int provinceId) {
+    public ProvinceDto read(int provinceId) {
         return provinceDao.getProvince(provinceId);
     }
 

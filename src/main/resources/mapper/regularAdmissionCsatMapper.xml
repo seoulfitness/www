@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="regularAdmissionCsatMapper">
+
+    <resultMap id="regularAdmissionCsatResultMap" type="kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto">
+        <!-- 정시 입시 수능 점수 정보 -->
+        <result property="regularAdmissionCsatId" column="REGULAR_ADMISSION_CSAT_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        <result property="scoreType" column="SCORE_TYPE" />
+        <result property="scoreType2" column="SCORE_TYPE2" />
+        <result property="regularAdmissionCsatMemo" column="REGULAR_ADMISSION_CSAT_MEMO" />
+        
+        <!-- 수능 교과목 반영 점수 -->
+        <result property="subject1ReflectedScore" column="SUBJECT1_REFLECTED_SCORE" />
+        <result property="subject2ReflectedScore" column="SUBJECT2_REFLECTED_SCORE" />
+        <result property="subject3ReflectedScore" column="SUBJECT3_REFLECTED_SCORE" />
+        <result property="subject4ReflectedScore" column="SUBJECT4_REFLECTED_SCORE" />
+        <result property="subject5ReflectedScore" column="SUBJECT5_REFLECTED_SCORE" />
+        <result property="subject6ReflectedScore" column="SUBJECT6_REFLECTED_SCORE" />
+        <result property="subject7ReflectedScore" column="SUBJECT7_REFLECTED_SCORE" />
+        <result property="subject8ReflectedScore" column="SUBJECT8_REFLECTED_SCORE" />
+        <result property="subject9ReflectedScore" column="SUBJECT9_REFLECTED_SCORE" />
+        <result property="subject10ReflectedScore" column="SUBJECT10_REFLECTED_SCORE" />
+        <result property="subject11ReflectedScore" column="SUBJECT11_REFLECTED_SCORE" />
+        <result property="subject12ReflectedScore" column="SUBJECT12_REFLECTED_SCORE" />
+        <result property="subject13ReflectedScore" column="SUBJECT13_REFLECTED_SCORE" />
+        <result property="subject14ReflectedScore" column="SUBJECT14_REFLECTED_SCORE" />
+        <result property="subject15ReflectedScore" column="SUBJECT15_REFLECTED_SCORE" />
+        <result property="subject16ReflectedScore" column="SUBJECT16_REFLECTED_SCORE" />
+        <result property="subject17ReflectedScore" column="SUBJECT17_REFLECTED_SCORE" />
+        <result property="subject18ReflectedScore" column="SUBJECT18_REFLECTED_SCORE" />
+        <result property="subject19ReflectedScore" column="SUBJECT19_REFLECTED_SCORE" />
+        
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <!-- 입시 연도 -->
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 정시 입시 수능 점수 정보 등록 -->
+    <insert id="insertRegularAdmissionCsat" parameterType="kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto" useGeneratedKeys="true" keyProperty="regularAdmissionCsatId">
+        <![CDATA[
+        INSERT INTO REGULAR_ADMISSION_CSAT (
+            ADMISSION_ID,
+            SCORE_TYPE,
+            SCORE_TYPE2,
+            REGULAR_ADMISSION_CSAT_MEMO,
+            SUBJECT1_REFLECTED_SCORE,
+            SUBJECT2_REFLECTED_SCORE,
+            SUBJECT3_REFLECTED_SCORE,
+            SUBJECT4_REFLECTED_SCORE,
+            SUBJECT5_REFLECTED_SCORE,
+            SUBJECT6_REFLECTED_SCORE,
+            SUBJECT7_REFLECTED_SCORE,
+            SUBJECT8_REFLECTED_SCORE,
+            SUBJECT9_REFLECTED_SCORE,
+            SUBJECT10_REFLECTED_SCORE,
+            SUBJECT11_REFLECTED_SCORE,
+            SUBJECT12_REFLECTED_SCORE,
+            SUBJECT13_REFLECTED_SCORE,
+            SUBJECT14_REFLECTED_SCORE,
+            SUBJECT15_REFLECTED_SCORE,
+            SUBJECT16_REFLECTED_SCORE,
+            SUBJECT17_REFLECTED_SCORE,
+            SUBJECT18_REFLECTED_SCORE,
+            SUBJECT19_REFLECTED_SCORE,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionId},
+            #{scoreType},
+            #{scoreType2},
+            #{regularAdmissionCsatMemo},
+            #{subject1ReflectedScore},
+            #{subject2ReflectedScore},
+            #{subject3ReflectedScore},
+            #{subject4ReflectedScore},
+            #{subject5ReflectedScore},
+            #{subject6ReflectedScore},
+            #{subject7ReflectedScore},
+            #{subject8ReflectedScore},
+            #{subject9ReflectedScore},
+            #{subject10ReflectedScore},
+            #{subject11ReflectedScore},
+            #{subject12ReflectedScore},
+            #{subject13ReflectedScore},
+            #{subject14ReflectedScore},
+            #{subject15ReflectedScore},
+            #{subject16ReflectedScore},
+            #{subject17ReflectedScore},
+            #{subject18ReflectedScore},
+            #{subject19ReflectedScore},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 정시 입시 수능 점수 정보 상세보기 -->
+    <select id="getRegularAdmissionCsat" resultMap="regularAdmissionCsatResultMap">
+        <![CDATA[
+        SELECT
+            -- 정시 입시 수능 점수 정보
+            A.REGULAR_ADMISSION_CSAT_ID,
+            A.ADMISSION_ID,
+            A.SCORE_TYPE,
+            A.SCORE_TYPE2,
+            A.REGULAR_ADMISSION_CSAT_MEMO,
+            A.SUBJECT1_REFLECTED_SCORE,
+            A.SUBJECT2_REFLECTED_SCORE,
+            A.SUBJECT3_REFLECTED_SCORE,
+            A.SUBJECT4_REFLECTED_SCORE,
+            A.SUBJECT5_REFLECTED_SCORE,
+            A.SUBJECT6_REFLECTED_SCORE,
+            A.SUBJECT7_REFLECTED_SCORE,
+            A.SUBJECT8_REFLECTED_SCORE,
+            A.SUBJECT9_REFLECTED_SCORE,
+            A.SUBJECT10_REFLECTED_SCORE,
+            A.SUBJECT11_REFLECTED_SCORE,
+            A.SUBJECT12_REFLECTED_SCORE,
+            A.SUBJECT13_REFLECTED_SCORE,
+            A.SUBJECT14_REFLECTED_SCORE,
+            A.SUBJECT15_REFLECTED_SCORE,
+            A.SUBJECT16_REFLECTED_SCORE,
+            A.SUBJECT17_REFLECTED_SCORE,
+            A.SUBJECT18_REFLECTED_SCORE,
+            A.SUBJECT19_REFLECTED_SCORE,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 입시 연도
+            D.ADMISSION_YEAR,
+            -- 등록한 사람, 수정한 사람
+            E.USER_NAME AS CREATED_USER_NAME,
+            E.USER_PHONE AS CREATED_USER_PHONE,
+            F.USER_NAME AS UPDATED_USER_NAME,
+            F.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            REGULAR_ADMISSION_CSAT A
+            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
+            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="regularAdmissionCsatId != null and regularAdmissionCsatId != 0">
+            <![CDATA[
+            AND A.REGULAR_ADMISSION_CSAT_ID = #{regularAdmissionCsatId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND A.ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 정시 입시 수능 점수 정보 수정 -->
+    <update id="updateRegularAdmissionCsat" parameterType="kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto">
+        <![CDATA[
+        UPDATE REGULAR_ADMISSION_CSAT SET
+            ADMISSION_ID = #{admissionId},
+            SCORE_TYPE = #{scoreType},
+            SCORE_TYPE2 = #{scoreType2},
+            REGULAR_ADMISSION_CSAT_MEMO = #{regularAdmissionCsatMemo},
+            SUBJECT1_REFLECTED_SCORE = #{subject1ReflectedScore},
+            SUBJECT2_REFLECTED_SCORE = #{subject2ReflectedScore},
+            SUBJECT3_REFLECTED_SCORE = #{subject3ReflectedScore},
+            SUBJECT4_REFLECTED_SCORE = #{subject4ReflectedScore},
+            SUBJECT5_REFLECTED_SCORE = #{subject5ReflectedScore},
+            SUBJECT6_REFLECTED_SCORE = #{subject6ReflectedScore},
+            SUBJECT7_REFLECTED_SCORE = #{subject7ReflectedScore},
+            SUBJECT8_REFLECTED_SCORE = #{subject8ReflectedScore},
+            SUBJECT9_REFLECTED_SCORE = #{subject9ReflectedScore},
+            SUBJECT10_REFLECTED_SCORE = #{subject10ReflectedScore},
+            SUBJECT11_REFLECTED_SCORE = #{subject11ReflectedScore},
+            SUBJECT12_REFLECTED_SCORE = #{subject12ReflectedScore},
+            SUBJECT13_REFLECTED_SCORE = #{subject13ReflectedScore},
+            SUBJECT14_REFLECTED_SCORE = #{subject14ReflectedScore},
+            SUBJECT15_REFLECTED_SCORE = #{subject15ReflectedScore},
+            SUBJECT16_REFLECTED_SCORE = #{subject16ReflectedScore},
+            SUBJECT17_REFLECTED_SCORE = #{subject17ReflectedScore},
+            SUBJECT18_REFLECTED_SCORE = #{subject18ReflectedScore},
+            SUBJECT19_REFLECTED_SCORE = #{subject19ReflectedScore},
+            UPDATED_BY = #{updatedBy}
+        WHERE REGULAR_ADMISSION_CSAT_ID = #{regularAdmissionCsatId}
+        ]]>
+    </update>
+
+</mapper>

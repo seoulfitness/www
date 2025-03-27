@@ -65,16 +65,16 @@
                                                 <label class="small mb-1" for="earlyAdmission">수시 입시 여부<span class="text-danger small">*</span></label>
                                                 <select class="form-control" name="earlyAdmission" id="earlyAdmission">
                                                     <option value="">수시 입시 여부를 선택하세요.</option>
-                                                    <option value="Y" ${admission.earlyAdmission == 'Y' ? 'selected' : ''}>있음</option>
-                                                    <option value="N" ${admission.earlyAdmission == 'N' ? 'selected' : ''}>없음</option>
+                                                    <option value="Y" ${admission.earlyAdmission == 'Y' ? 'selected' : ''}>진행</option>
+                                                    <option value="N" ${admission.earlyAdmission == 'N' ? 'selected' : ''}>미진행</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="regularAdmission">정시 입시 여부<span class="text-danger small">*</span></label>
                                                 <select class="form-control" name="regularAdmission" id="regularAdmission">
                                                     <option value="">정시 입시 여부를 선택하세요.</option>
-                                                    <option value="Y" ${admission.regularAdmission == 'Y' ? 'selected' : ''}>있음</option>
-                                                    <option value="N" ${admission.regularAdmission == 'N' ? 'selected' : ''}>없음</option>
+                                                    <option value="Y" ${admission.regularAdmission == 'Y' ? 'selected' : ''}>진행</option>
+                                                    <option value="N" ${admission.regularAdmission == 'N' ? 'selected' : ''}>미진행</option>
                                                 </select>
                                             </div>                                            
                                             <div class="mb-3">

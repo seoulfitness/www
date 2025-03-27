@@ -3,6 +3,17 @@ package kr.seoulfitness.admin.admission;
 import java.util.Date;
 
 import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto;
+import kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatDto;
+import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto;
+import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto;
+import kr.seoulfitness.admin.earlyAdmissionInterview.EarlyAdmissionInterviewDto;
+import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto;
+import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
+import kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto;
+import kr.seoulfitness.admin.regularAdmissionEnglish.RegularAdmissionEnglishDto;
+import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryDto;
+import kr.seoulfitness.admin.regularAdmissionInterview.RegularAdmissionInterviewDto;
+import kr.seoulfitness.admin.regularAdmissionPhysical.RegularAdmissionPhysicalDto;
 import lombok.Data;
 
 @Data
@@ -33,6 +44,19 @@ public class AdmissionDto {
     private String createdUserPhone;    // 등록한 사람 전화번호
     private String updatedUserPhone;    // 수정한 사람 전화번호
 
-    // 수시 모집 정보
+    // 입시(수시) 모집 정보
     private EarlyAdmissionDto earlyAdmissionDto;
+    private EarlyAdmissionCsatDto earlyAdmissionCsatDto;
+    private EarlyAdmissionEnglishDto earlyAdmissionEnglishDto;
+    private EarlyAdmissionHistoryDto earlyAdmissionHistoryDto;
+    private EarlyAdmissionInterviewDto earlyAdmissionInterviewDto;
+    private EarlyAdmissionPhysicalDto earlyAdmissionPhysicalDto;
+
+    // 입시(정시) 모집 정보
+    private RegularAdmissionDto regularAdmissionDto;
+    private RegularAdmissionCsatDto regularAdmissionCsatDto;
+    private RegularAdmissionEnglishDto regularAdmissionEnglishDto;
+    private RegularAdmissionHistoryDto regularAdmissionHistoryDto;
+    private RegularAdmissionInterviewDto regularAdmissionInterviewDto;
+    private RegularAdmissionPhysicalDto regularAdmissionPhysicalDto;
 }

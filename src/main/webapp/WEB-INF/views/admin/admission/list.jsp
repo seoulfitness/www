@@ -46,9 +46,7 @@
                                                         <th>학교</th>
                                                         <th>학과</th>
                                                         <th>수시</th>
-                                                        <th>수시 모집 정보</th>
                                                         <th>정시</th>
-                                                        <th>정시 모집 정보</th>
                                                         <th>메모</th>
                                                         <th>관리</th>
                                                     </tr>
@@ -61,47 +59,38 @@
                                                             <td>${admission.schoolName}</td>
                                                             <td>${admission.departmentName}</td>
                                                             <td>
-                                                                <c:if test="${admission.earlyAdmission == 'Y'}">
-                                                                    <span class="badge bg-success">있음</span>
-                                                                </c:if>
-                                                                <c:if test="${admission.earlyAdmission == 'N'}">
-                                                                    <span class="badge bg-danger">없음</span>
-                                                                </c:if>
+                                                                <c:choose>
+                                                                    <c:when test="${not empty admission.earlyAdmission && admission.earlyAdmission == 'Y'}">
+                                                                        <c:choose>
+                                                                            <c:when test="${not empty admission.earlyAdmissionDto}">
+                                                                                <span class="btn btn-success btn-sm">수시 입시 진행</span>                                                                        
+                                                                            </c:when>
+                                                                            <c:when test="${empty admission.earlyAdmissionDto}">
+                                                                                <span class="btn btn-outline-danger btn-sm">정보 입력 필요</span>                                                                        
+                                                                            </c:when>
+                                                                        </c:choose>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="btn btn-outline-dark btn-sm">미진행</span>                                                                        
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                             <td>
-                                                                <c:if test="${admission.earlyAdmission == 'Y'}">
-                                                                    <c:choose>
-                                                                        <c:when test="${not empty admission.earlyAdmissionDto}">
-                                                                            <button type="button" class="btn btn-sm btn-outline-primary btn-early-admission" data-admission-id="${admission.admissionId}">정보</button>                                                                        
+                                                                <c:choose>
+                                                                    <c:when test="${not empty admission.regularAdmission && admission.regularAdmission == 'Y'}">
+                                                                        <c:choose>
+                                                                        <c:when test="${not empty admission.regularAdmissionDto}">
+                                                                            <span class="btn btn-success btn-sm">정시 입시 진행</span> 
                                                                         </c:when>
-                                                                        <c:when test="${empty admission.earlyAdmissionDto}">
-                                                                            <button type="button" class="btn btn-sm btn-outline-danger btn-early-admission" data-admission-id="${admission.admissionId}">정보</button>                                                                        
+                                                                        <c:when test="${empty admission.regularAdmissionDto}">
+                                                                            <span class="btn btn-outline-danger btn-sm">정보 입력 필요</span> 
                                                                         </c:when>
-                                                                    </c:choose>                                                                    
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">수능</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">영어</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">한국사</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">내신</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">면접</a>
-                                                                </c:if>
-                                                            </td>
-                                                            <td>
-                                                                <c:if test="${admission.regularAdmission == 'Y'}">
-                                                                    <span class="badge bg-success">있음</span>
-                                                                </c:if>
-                                                                <c:if test="${admission.regularAdmission == 'N'}">
-                                                                    <span class="badge bg-danger">없음</span>
-                                                                </c:if>
-                                                            </td>
-                                                            <td>
-                                                                <c:if test="${admission.regularAdmission == 'Y'}">
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">정보</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">수능</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">영어</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">한국사</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">내신</a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-primary">면접</a>
-                                                                </c:if>
+                                                                        </c:choose>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="btn btn-outline-dark btn-sm">미진행</span>                                                                        
+                                                                    </c:otherwise>
+                                                                </c:choose>
                                                             </td>
                                                             <td>${admission.admissionMemo}</td>
                                                             <td>
@@ -156,12 +145,6 @@
                 <%@ include file="../../base/footer.jsp" %>
             </div>
         </div>
-
-        <%-- 수시(입시) 정보 모달 --%>
-        <%@ include file="earlyAdmissionModal.jsp" %>
-        <%--// 수시(입시) 정보 모달 --%>
-
         <%@ include file="../../base/script.jsp" %>
-        <%@ include file="earlyAdmissionScript.jsp" %>
     </body>
 </html>

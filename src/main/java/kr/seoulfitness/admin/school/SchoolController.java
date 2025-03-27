@@ -46,7 +46,7 @@ public class SchoolController {
 
     // 대학교 존재 여부 확인
     public boolean isSchoolExists(int schoolId) {
-        return schoolService.find(schoolId) != null;
+        return schoolService.read(schoolId) != null;
     }
 
     // 대학교 등록
@@ -117,7 +117,7 @@ public class SchoolController {
         params.put("pageCountPerPage", 5);
         params.put("keyword", keyword);
 
-        Map<String, Object> result = schoolService.findAll(params);
+        Map<String, Object> result = schoolService.list(params);
         model.addAttribute("schools", result.get("schools"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
@@ -129,14 +129,14 @@ public class SchoolController {
 
     // 대학교 상세
     @GetMapping("/{schoolId}")
-    public String view(@PathVariable int schoolId, Model model) {
+    public String read(@PathVariable int schoolId, Model model) {
         // 대학교 존재 여부 확인
         if (!isSchoolExists(schoolId)) {
             return "redirect:/admin/schools";
         }
 
         // 대학교 상세
-        SchoolDto school = schoolService.find(schoolId);
+        SchoolDto school = schoolService.read(schoolId);
         model.addAttribute("school", school);
         model.addAttribute("pageTitle", "대학교 관리");
         model.addAttribute("activePage", "schools");
@@ -152,7 +152,7 @@ public class SchoolController {
         }
 
         // 대학교 상세
-        SchoolDto school = schoolService.find(schoolId);
+        SchoolDto school = schoolService.read(schoolId);
         model.addAttribute("school", school);
         model.addAttribute("pageTitle", "대학교 관리");
         model.addAttribute("activePage", "schools");
@@ -185,7 +185,7 @@ public class SchoolController {
             // 업로드 파일이 존재하는 경우
             if (uploadFile != null && !uploadFile.isEmpty()) {
                 // 기존 파일 삭제
-                SchoolDto existsSchool = schoolService.find(schoolId);
+                SchoolDto existsSchool = schoolService.read(schoolId);
                 if (existsSchool.getSchoolLogoFileName() != null) {
                     File fileToDelete = new File(uploadPath + File.separator + existsSchool.getSchoolLogoFileName());
                     if (fileToDelete.exists()) {

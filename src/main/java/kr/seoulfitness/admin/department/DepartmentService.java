@@ -21,7 +21,7 @@ public class DepartmentService {
     }
 
     // 학과 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = departmentDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class DepartmentService {
     }
 
     // 학과 상세보기
-    public DepartmentDto find(int departmentId) {
+    public DepartmentDto read(int departmentId) {
         return departmentDao.getDepartment(departmentId);
     }
 

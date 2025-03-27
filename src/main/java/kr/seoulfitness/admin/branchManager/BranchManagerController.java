@@ -34,7 +34,7 @@ public class BranchManagerController {
 
     // 지점 관리자 존재 여부 확인
     public boolean isBranchManagerExists(int branchManagerId) {
-        return branchManagerService.find(branchManagerId) != null;
+        return branchManagerService.read(branchManagerId) != null;
     }
 
     // 지점 관리자 등록
@@ -47,7 +47,7 @@ public class BranchManagerController {
         params.put("pageCountPerPage", 100);
         params.put("keyword", "");
         
-        Map<String, Object> result = branchService.findAll(params);
+        Map<String, Object> result = branchService.list(params);
         if (result.get("branches") == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "등록된 지점이 없습니다.");
             return "redirect:/admin/branchManagers";
@@ -104,7 +104,7 @@ public class BranchManagerController {
         params.put("keyword", keyword);
 
         // 지점 관리자 목록 조회
-        Map<String, Object> result = branchManagerService.findAll(params);
+        Map<String, Object> result = branchManagerService.list(params);
 
         // 목록 페이지 설정
         model.addAttribute("branchManagers", result.get("branchManagers"));
@@ -118,14 +118,14 @@ public class BranchManagerController {
 
     // 지점 관리자 상세
     @GetMapping("/{branchManagerId}")
-    public String view(@PathVariable int branchManagerId, Model model) {
+    public String read(@PathVariable int branchManagerId, Model model) {
         // 지점 관리자 존재 여부 확인
         if (!isBranchManagerExists(branchManagerId)) {
             return "redirect:/admin/branchManagers";
         }
 
         // 지점 관리자 조회
-        BranchManagerDto branchManager = branchManagerService.find(branchManagerId);
+        BranchManagerDto branchManager = branchManagerService.read(branchManagerId);
         model.addAttribute("branchManager", branchManager);
         model.addAttribute("pageTitle", "지점 관리자");
         model.addAttribute("activePage", "branchManagers");
@@ -136,7 +136,7 @@ public class BranchManagerController {
     @GetMapping("/{branchManagerId}/update")
     public String editForm(@PathVariable int branchManagerId, Model model, RedirectAttributes redirectAttributes) { 
         // 지점 관리자 존재 여부 확인
-        BranchManagerDto existsBranchManager = branchManagerService.find(branchManagerId);
+        BranchManagerDto existsBranchManager = branchManagerService.read(branchManagerId);
         if (existsBranchManager == null) {
             return "redirect:/admin/branchManagers";
         }
@@ -147,7 +147,7 @@ public class BranchManagerController {
         params.put("listCountPerPage", 100);
         params.put("pageCountPerPage", 100);
         params.put("keyword", "");
-        Map<String, Object> result = branchService.findAll(params);
+        Map<String, Object> result = branchService.list(params);
         if (result.get("branches") == null) {
             redirectAttributes.addFlashAttribute("errorMessage", "등록된 지점이 없습니다.");
             return "redirect:/admin/branchManagers";
@@ -155,7 +155,7 @@ public class BranchManagerController {
         model.addAttribute("branches", result.get("branches")); // 지점 목록
 
         // 지점 관리자 존재 여부 확인
-        BranchManagerDto branchManager = branchManagerService.find(branchManagerId);
+        BranchManagerDto branchManager = branchManagerService.read(branchManagerId);
         if (branchManager == null) {
             return "redirect:/admin/branchManagers";
         }
@@ -171,7 +171,7 @@ public class BranchManagerController {
     @PostMapping("/{branchManagerId}/update")
     public String update(@PathVariable int branchManagerId, BranchManagerDto branchManager, HttpSession session, RedirectAttributes redirectAttributes) {
         // 지점 관리자 존재 여부 확인
-        BranchManagerDto existsBranchManager = branchManagerService.find(branchManagerId);
+        BranchManagerDto existsBranchManager = branchManagerService.read(branchManagerId);
         if (existsBranchManager == null) {
             return "redirect:/admin/branchManagers";
         }
@@ -194,7 +194,7 @@ public class BranchManagerController {
     @PostMapping("/{branchManagerId}/delete")
     public String delete(@PathVariable int branchManagerId, RedirectAttributes redirectAttributes) {
         // 지점 관리자 존재 여부 확인
-        BranchManagerDto branchManager = branchManagerService.find(branchManagerId);
+        BranchManagerDto branchManager = branchManagerService.read(branchManagerId);
         if (branchManager == null) {
             return "redirect:/admin/branchManagers";
         }

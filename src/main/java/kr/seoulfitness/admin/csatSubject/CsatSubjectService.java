@@ -21,7 +21,7 @@ public class CsatSubjectService {
     }
 
     // 학과 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = csatSubjectDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class CsatSubjectService {
     }
 
     // 학과 상세보기
-    public CsatSubjectDto find(int csatSubjectId) {
+    public CsatSubjectDto read(int csatSubjectId) {
         return csatSubjectDao.getCsatSubject(csatSubjectId);
     }
 

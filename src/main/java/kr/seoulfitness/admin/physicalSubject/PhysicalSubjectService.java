@@ -21,7 +21,7 @@ public class PhysicalSubjectService {
     }
 
     // 실기 교과목 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = physicalSubjectDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class PhysicalSubjectService {
     }
 
     // 실기 교과목 상세보기
-    public PhysicalSubjectDto find(int physicalSubjectId) {
+    public PhysicalSubjectDto read(int physicalSubjectId) {
         return physicalSubjectDao.getPhysicalSubject(physicalSubjectId);
     }
 

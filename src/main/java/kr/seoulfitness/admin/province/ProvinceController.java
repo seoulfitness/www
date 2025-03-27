@@ -24,7 +24,7 @@ public class ProvinceController {
 
     // 시/도 존재 여부 확인
     public boolean isProvinceExists(int provinceId) {
-        return provinceService.find(provinceId) != null;
+        return provinceService.read(provinceId) != null;
     }
 
     // 시/도 등록
@@ -65,7 +65,7 @@ public class ProvinceController {
         params.put("pageCountPerPage", 5); // 한 페이지에서 보여질 페이지 수
         params.put("keyword", keyword);
 
-        Map<String, Object> result = provinceService.findAll(params);
+        Map<String, Object> result = provinceService.list(params);
         model.addAttribute("provinces", result.get("provinces"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
@@ -77,14 +77,14 @@ public class ProvinceController {
 
     // 시/도 상세
     @GetMapping("/{provinceId}")
-    public String view(@PathVariable int provinceId, Model model) {
+    public String read(@PathVariable int provinceId, Model model) {
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";
         }
 
         // 시/도 상세
-        ProvinceDto province = provinceService.find(provinceId);
+        ProvinceDto province = provinceService.read(provinceId);
         model.addAttribute("province", province);
         model.addAttribute("pageTitle", "시/도 관리");
         model.addAttribute("activePage", "provinces");
@@ -100,7 +100,7 @@ public class ProvinceController {
         }
 
         // 시/도 수정
-        ProvinceDto province = provinceService.find(provinceId);
+        ProvinceDto province = provinceService.read(provinceId);
         model.addAttribute("province", province);
         model.addAttribute("pageTitle", "시/도 관리");
         model.addAttribute("activePage", "provinces");

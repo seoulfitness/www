@@ -32,7 +32,7 @@ public class ApiDistrictController {
         params.put("keyword", null);
         params.put("provinceId", provinceId);
     
-        Map<String, Object> result = districtService.findAll(params);
+        Map<String, Object> result = districtService.list(params);
         return (List<DistrictDto>) result.get("districts");
     }
 }

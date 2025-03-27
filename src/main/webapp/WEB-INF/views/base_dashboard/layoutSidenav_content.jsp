@@ -11,7 +11,7 @@
                                 <div class="page-header-icon"><i data-feather="activity"></i></div>
                                 Dashboard
                             </h1>
-                            <div class="page-header-subtitle">Example dashboard overview and content summary</div>
+                            <div class="page-header-subtitle">Example dashboard overread and content summary</div>
                         </div>
                         <div class="col-12 col-xl-auto mt-4">
                             <div class="input-group input-group-joined border-0" style="width: 16.5rem">
@@ -79,7 +79,7 @@
                                     <div class="timeline-item-content">
                                         Your
                                         <a class="fw-bold text-dark" href="#!">weekly report</a>
-                                        has been generated and is ready to view.
+                                        has been generated and is ready to read.
                                     </div>
                                 </div>
                                 <%-- Timeline Item 3--%>

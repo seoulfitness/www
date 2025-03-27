@@ -24,7 +24,7 @@ public class DepartmentController {
 
     // 학과 존재 여부 확인
     public boolean isDepartmentExists(int departmentId) {
-        return departmentService.find(departmentId) != null;
+        return departmentService.read(departmentId) != null;
     }
 
     // 학과 등록
@@ -66,7 +66,7 @@ public class DepartmentController {
         params.put("keyword", keyword);
 
         // 학과 목록 조회
-        Map<String, Object> result = departmentService.findAll(params);
+        Map<String, Object> result = departmentService.list(params);
         model.addAttribute("departments", result.get("departments"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
@@ -78,13 +78,13 @@ public class DepartmentController {
 
     // 학과 상세
     @GetMapping("/{departmentId}")
-    public String view(@PathVariable int departmentId, Model model) {
+    public String read(@PathVariable int departmentId, Model model) {
         // 학과 존재 여부 확인
         if (!isDepartmentExists(departmentId)) {
             return "redirect:/admin/departments";
         }
 
-        DepartmentDto department = departmentService.find(departmentId);
+        DepartmentDto department = departmentService.read(departmentId);
         model.addAttribute("department", department);
         model.addAttribute("pageTitle", "학과 관리");
         model.addAttribute("activePage", "departments");
@@ -99,7 +99,7 @@ public class DepartmentController {
             return "redirect:/admin/departments";
         }
 
-        DepartmentDto department = departmentService.find(departmentId);
+        DepartmentDto department = departmentService.read(departmentId);
         model.addAttribute("department", department);
         model.addAttribute("pageTitle", "학과 관리");
         model.addAttribute("activePage", "departments");

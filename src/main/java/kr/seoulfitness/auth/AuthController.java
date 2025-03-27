@@ -31,7 +31,7 @@ public class AuthController {
         // 관리자 정보 확인 후 없으면 입력
         Map<String, Object> params = new HashMap<>();
         params.put("userId", "sung2ne");
-        UserDto eixstsAdmin = userService.find(params);
+        UserDto eixstsAdmin = userService.read(params);
         if (eixstsAdmin == null) {
             UserDto admin = new UserDto();
             admin.setUserId("sung2ne");

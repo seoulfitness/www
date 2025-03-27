@@ -21,7 +21,7 @@ public class AdmissionService {
     }
 
     // 입시 요강 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = admissionDao.getTotalCount(params);
         params.put("totalCount", totalCount);
@@ -42,7 +42,7 @@ public class AdmissionService {
     }
 
     // 입시 요강 상세보기
-    public AdmissionDto find(int admissionId) {
+    public AdmissionDto read(int admissionId) {
         return admissionDao.getAdmission(admissionId);
     }
 

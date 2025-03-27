@@ -21,7 +21,7 @@ public class HighSchoolService {
     }
 
     // 고등학교 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = highSchoolDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class HighSchoolService {
     }
 
     // 고등학교 상세보기
-    public HighSchoolDto find(int highSchoolId) {
+    public HighSchoolDto read(int highSchoolId) {
         return highSchoolDao.getHighSchool(highSchoolId);
     }
 

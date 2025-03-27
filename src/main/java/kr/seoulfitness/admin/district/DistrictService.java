@@ -21,7 +21,7 @@ public class DistrictService {
     }
 
     // 구/군 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = districtDao.getTotalCount(params);
 
@@ -42,7 +42,7 @@ public class DistrictService {
     }
 
     // 구/군 상세보기
-    public DistrictDto find(int districtId) {
+    public DistrictDto read(int districtId) {
         return districtDao.getDistrict(districtId);
     }
 

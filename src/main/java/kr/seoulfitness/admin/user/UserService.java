@@ -27,7 +27,7 @@ public class UserService {
     }
 
     // 사용자 목록
-    public Map<String, Object> findAll(Map<String, Object> params) {
+    public Map<String, Object> list(Map<String, Object> params) {
         // 전체 게시글 수 조회
         int totalCount = userDao.getTotalCount(params);
 
@@ -48,7 +48,7 @@ public class UserService {
     }
 
     // 사용자 상세보기
-    public UserDto find(Map<String, Object> params) {
+    public UserDto read(Map<String, Object> params) {
         return userDao.getUser(params);
     }
 

@@ -29,7 +29,7 @@ public class DistrictController {
 
     // 구/군 존재 여부 확인
     public boolean isDistrictExists(int districtId) {
-        return districtService.find(districtId) != null;
+        return districtService.read(districtId) != null;
     }
 
     // 구/군 등록
@@ -42,7 +42,7 @@ public class DistrictController {
         params.put("pageCountPerPage", 100);
         params.put("keyword", null);
 
-        Map<String, Object> provinceResult = provinceService.findAll(params);
+        Map<String, Object> provinceResult = provinceService.list(params);
         model.addAttribute("provinces", provinceResult.get("provinces"));
 
         model.addAttribute("pageTitle", "구/군 관리");
@@ -80,7 +80,7 @@ public class DistrictController {
         params.put("pageCountPerPage", 5); // 한 페이지에서 보여질 페이지 수
         params.put("keyword", keyword);
 
-        Map<String, Object> result = districtService.findAll(params);
+        Map<String, Object> result = districtService.list(params);
         model.addAttribute("districts", result.get("districts"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", keyword);
@@ -92,14 +92,14 @@ public class DistrictController {
 
     // 구/군 상세
     @GetMapping("/{districtId}")
-    public String view(@PathVariable int districtId, Model model) {
+    public String read(@PathVariable int districtId, Model model) {
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";
         }
 
         // 구/군 상세
-        DistrictDto district = districtService.find(districtId);
+        DistrictDto district = districtService.read(districtId);
         model.addAttribute("district", district);
         model.addAttribute("pageTitle", "구/군 관리");
         model.addAttribute("activePage", "districts");
@@ -121,11 +121,11 @@ public class DistrictController {
         params.put("pageCountPerPage", 100);
         params.put("keyword", null);
 
-        Map<String, Object> provinceResult = provinceService.findAll(params);
+        Map<String, Object> provinceResult = provinceService.list(params);
         model.addAttribute("provinces", provinceResult.get("provinces"));
 
         // 구/군 수정
-        DistrictDto district = districtService.find(districtId);
+        DistrictDto district = districtService.read(districtId);
         model.addAttribute("district", district);
         model.addAttribute("pageTitle", "구/군 관리");
         model.addAttribute("activePage", "districts");

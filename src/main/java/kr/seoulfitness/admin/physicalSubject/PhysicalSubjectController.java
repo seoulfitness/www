@@ -24,7 +24,7 @@ public class PhysicalSubjectController {
 
     // 실기 교과목 존재 여부 확인
     public boolean isPhysicalSubjectExists(int physicalSubjectId) {
-        return physicalSubjectService.find(physicalSubjectId) != null;
+        return physicalSubjectService.read(physicalSubjectId) != null;
     }
 
     // 실기 교과목 등록
@@ -66,7 +66,7 @@ public class PhysicalSubjectController {
         params.put("keyword", keyword);
 
         // 실기 교과목 목록 조회
-        Map<String, Object> result = physicalSubjectService.findAll(params);
+        Map<String, Object> result = physicalSubjectService.list(params);
         model.addAttribute("physicalSubjects", result.get("physicalSubjects"));
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
@@ -78,13 +78,13 @@ public class PhysicalSubjectController {
 
     // 실기 교과목 상세
     @GetMapping("/{physicalSubjectId}")
-    public String view(@PathVariable int physicalSubjectId, Model model) {
+    public String read(@PathVariable int physicalSubjectId, Model model) {
         // 실기 교과목 존재 여부 확인
         if (!isPhysicalSubjectExists(physicalSubjectId)) {
             return "redirect:/admin/physicalSubjects";
         }
 
-        PhysicalSubjectDto physicalSubject = physicalSubjectService.find(physicalSubjectId);
+        PhysicalSubjectDto physicalSubject = physicalSubjectService.read(physicalSubjectId);
         model.addAttribute("physicalSubject", physicalSubject);
         model.addAttribute("pageTitle", "실기 교과목");
         model.addAttribute("activePage", "physicalSubjects");
@@ -99,7 +99,7 @@ public class PhysicalSubjectController {
             return "redirect:/admin/physicalSubjects";
         }
 
-        PhysicalSubjectDto physicalSubject = physicalSubjectService.find(physicalSubjectId);
+        PhysicalSubjectDto physicalSubject = physicalSubjectService.read(physicalSubjectId);
         model.addAttribute("physicalSubject", physicalSubject);
         model.addAttribute("pageTitle", "실기 교과목");
         model.addAttribute("activePage", "physicalSubjects");

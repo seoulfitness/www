@@ -6,53 +6,122 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import kr.seoulfitness.admin.admission.AdmissionDto;
+import kr.seoulfitness.admin.admission.AdmissionService;
 
 @Controller
-@RequestMapping("/admin/early-admissions")
+@RequestMapping("/admin/earlyAdmissions")
 public class EarlyAdmissionController {
 
     @Autowired
     private EarlyAdmissionService earlyAdmissionService;
 
-    // 입시(수시) 요강 정보 조회
-    @GetMapping("/api/{admissionId}")
-    public ResponseEntity<Map<String, Object>> earlyAdmissionGet(@PathVariable("admissionId") int admissionId) {
-        // 입시(수시) 요강 정보 조회
-        Map<String, Object> earlyAdmissionParams = new HashMap<>();
-        earlyAdmissionParams.put("admissionId", admissionId);
-        EarlyAdmissionDto earlyAdmission = earlyAdmissionService.find(earlyAdmissionParams);
+    @Autowired
+    private AdmissionService admissionService;
 
-        // JSON 형식으로 데이터 반환
-        Map<String, Object> response = new HashMap<>();
-        response.put("earlyAdmission", earlyAdmission);
-        
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    // 입시(수시) 정보 존재 여부 확인
+    public boolean isEarlyAdmissionExists(Map<String, Object> params) {
+        return earlyAdmissionService.read(params) != null;
     }
 
-    // 입시(수시) 요강 정보 수정
-    @PostMapping("/api/{admissionId}/update")
-    public ResponseEntity<Map<String, Object>> earlyAdmissionUpdate(
-        @PathVariable("admissionId") int admissionId, 
-        @RequestBody EarlyAdmissionDto earlyAdmission, 
-        HttpSession session
+    // 입시(수시) 정보 등록
+    @GetMapping("/create")
+    public String create(@RequestParam("admissionId") int admissionId, Model model) {
+        // 입시 요강 정보
+        AdmissionDto admission = admissionService.read(admissionId);
+        model.addAttribute("admission", admission);
+
+        model.addAttribute("admissionId", admissionId);
+        model.addAttribute("activePage", "admissions");
+        return "admin/earlyAdmission/create";
+    }
+
+    // 입시(수시) 정보 등록 처리
+    @PostMapping("/create")
+    public String create(
+        @RequestParam("admissionId") int admissionId, 
+        EarlyAdmissionDto earlyAdmission, 
+        HttpSession session, 
+        RedirectAttributes redirectAttributes
     ) {
-        // 입시(수시) 요강 정보 수정
         earlyAdmission.setCreatedBy((String) session.getAttribute("userId"));
         earlyAdmission.setUpdatedBy((String) session.getAttribute("userId"));
-        boolean result = earlyAdmissionService.update(earlyAdmission);
+        EarlyAdmissionDto createdEarlyAdmission = earlyAdmissionService.create(earlyAdmission);
+        if (createdEarlyAdmission != null) {
+            redirectAttributes.addFlashAttribute("successMessage", "입시(수시) 정보 등록이 완료되었습니다.");
+            return "redirect:/admin/earlyAdmissions/" + createdEarlyAdmission.getEarlyAdmissionId();
+        }
 
-        // JSON 형식으로 데이터 반환
-        Map<String, Object> response = new HashMap<>();
-        response.put("result", result);
-        
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        redirectAttributes.addFlashAttribute("errorMessage", "입시(수시) 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("earlyAdmission", earlyAdmission);
+        return "redirect:/admin/earlyAdmissions/create" + "?admissionId=" + admissionId;
+    }
+
+    // 입시(수시) 정보 조회
+    @GetMapping("/{earlyAdmissionId}")
+    public String read(@PathVariable int earlyAdmissionId, Model model) {
+        // 입시(수시) 정보
+        Map<String, Object> params = new HashMap<>();
+        params.put("earlyAdmissionId", earlyAdmissionId);
+        EarlyAdmissionDto earlyAdmission = earlyAdmissionService.read(params);
+        model.addAttribute("earlyAdmission", earlyAdmission);
+        model.addAttribute("activePage", "admissions");
+
+        // 입시 요강 정보
+        AdmissionDto admission = admissionService.read(earlyAdmission.getAdmissionId());
+        model.addAttribute("admission", admission);
+
+        return "admin/earlyAdmission/read";
+    }
+
+    // 입시(수시) 정보 수정
+    @GetMapping("/{earlyAdmissionId}/update")
+    public String update(@PathVariable int earlyAdmissionId, Model model) {
+        // 입시(수시) 정보
+        Map<String, Object> params = new HashMap<>();
+        params.put("earlyAdmissionId", earlyAdmissionId);
+        EarlyAdmissionDto earlyAdmission = earlyAdmissionService.read(params);
+        model.addAttribute("earlyAdmission", earlyAdmission);
+        model.addAttribute("activePage", "admissions");
+
+        // 입시 요강 정보
+        AdmissionDto admission = admissionService.read(earlyAdmission.getAdmissionId());
+        model.addAttribute("admission", admission);
+        return "admin/earlyAdmission/edit";
+    }
+    
+    // 입시(수시) 정보 수정 처리
+    @PostMapping("/{earlyAdmissionId}/update")
+    public String update(
+        @PathVariable int earlyAdmissionId,
+        EarlyAdmissionDto earlyAdmission,
+        HttpSession session,
+        RedirectAttributes redirectAttributes
+    ) {
+        // 입시(수시) 정보 존재 여부 확인
+        Map<String, Object> params = new HashMap<>();
+        params.put("earlyAdmissionId", earlyAdmissionId);
+        if (!isEarlyAdmissionExists(params)) {
+            return "redirect:/admin/admissions";
+        }
+
+        earlyAdmission.setUpdatedBy((String) session.getAttribute("userId"));
+        if (earlyAdmissionService.update(earlyAdmission)) {
+            redirectAttributes.addFlashAttribute("successMessage", "입시(수시) 정보 수정이 완료되었습니다.");
+            return "redirect:/admin/earlyAdmissions/" + earlyAdmissionId;
+        }
+
+        redirectAttributes.addFlashAttribute("errorMessage", "입시(수시) 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("earlyAdmission", earlyAdmission);
+        return "redirect:/admin/earlyAdmissions/" + earlyAdmissionId + "/update";
     }
 }
