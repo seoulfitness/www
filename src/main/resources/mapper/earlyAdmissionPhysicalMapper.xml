@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="earlyAdmissionPhysicalMapper">
+
+    <resultMap id="earlyAdmissionPhysicalResultMap" type="kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto">
+        <!-- 수시 모집 실기 점수 정보 -->
+        <result property="earlyAdmissionPhysicalId" column="EARLY_ADMISSION_PHYSICAL_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        <result property="useType" column="USE_TYPE" />
+        
+        <!-- 실기 교과목 사용 여부 -->
+        <result property="useSubject1" column="USE_SUBJECT1" />
+        <result property="useSubject2" column="USE_SUBJECT2" />
+        <result property="useSubject3" column="USE_SUBJECT3" />
+        <result property="useSubject4" column="USE_SUBJECT4" />
+        <result property="useSubject5" column="USE_SUBJECT5" />
+        <result property="useSubject6" column="USE_SUBJECT6" />
+        <result property="useSubject7" column="USE_SUBJECT7" />
+        <result property="useSubject8" column="USE_SUBJECT8" />
+        <result property="useSubject9" column="USE_SUBJECT9" />
+        <result property="useSubject10" column="USE_SUBJECT10" />
+
+        <!-- 실기 교과목 ID -->
+        <result property="subject1Id" column="SUBJECT1_ID" />
+        <result property="subject2Id" column="SUBJECT2_ID" />
+        <result property="subject3Id" column="SUBJECT3_ID" />
+        <result property="subject4Id" column="SUBJECT4_ID" />
+        <result property="subject5Id" column="SUBJECT5_ID" />
+        <result property="subject6Id" column="SUBJECT6_ID" />
+        <result property="subject7Id" column="SUBJECT7_ID" />
+        <result property="subject8Id" column="SUBJECT8_ID" />
+        <result property="subject9Id" column="SUBJECT9_ID" />
+        <result property="subject10Id" column="SUBJECT10_ID" />
+
+        <!-- 실기 교과목 평가 방법 -->
+        <result property="subject1EvaluationMethod" column="SUBJECT1_EVALUATION_METHOD" />
+        <result property="subject2EvaluationMethod" column="SUBJECT2_EVALUATION_METHOD" />
+        <result property="subject3EvaluationMethod" column="SUBJECT3_EVALUATION_METHOD" />
+        <result property="subject4EvaluationMethod" column="SUBJECT4_EVALUATION_METHOD" />
+        <result property="subject5EvaluationMethod" column="SUBJECT5_EVALUATION_METHOD" />
+        <result property="subject6EvaluationMethod" column="SUBJECT6_EVALUATION_METHOD" />
+        <result property="subject7EvaluationMethod" column="SUBJECT7_EVALUATION_METHOD" />
+        <result property="subject8EvaluationMethod" column="SUBJECT8_EVALUATION_METHOD" />
+        <result property="subject9EvaluationMethod" column="SUBJECT9_EVALUATION_METHOD" />
+        <result property="subject10EvaluationMethod" column="SUBJECT10_EVALUATION_METHOD" />
+
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <!-- 입시 연도 -->
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <!-- 입시 구분 -->
+        <result property="admissionType" column="ADMISSION_TYPE" />
+        <!-- 수시/정시 입시 여부 -->
+        <result property="earlyAdmission" column="EARLY_ADMISSION" />
+        <result property="regularAdmission" column="REGULAR_ADMISSION" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 수시 모집 실기 점수 정보 등록 -->
+    <insert id="insertEarlyAdmissionPhysical" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto" useGeneratedKeys="true" keyProperty="earlyAdmissionPhysicalId">
+        <![CDATA[
+        INSERT INTO EARLY_ADMISSION_PHYSICAL (
+            ADMISSION_ID,
+            USE_TYPE,
+            USE_SUBJECT1, USE_SUBJECT2, USE_SUBJECT3, USE_SUBJECT4, USE_SUBJECT5,
+            USE_SUBJECT6, USE_SUBJECT7, USE_SUBJECT8, USE_SUBJECT9, USE_SUBJECT10,
+            SUBJECT1_ID, SUBJECT2_ID, SUBJECT3_ID, SUBJECT4_ID, SUBJECT5_ID,
+            SUBJECT6_ID, SUBJECT7_ID, SUBJECT8_ID, SUBJECT9_ID, SUBJECT10_ID,
+            SUBJECT1_EVALUATION_METHOD, SUBJECT2_EVALUATION_METHOD, SUBJECT3_EVALUATION_METHOD,
+            SUBJECT4_EVALUATION_METHOD, SUBJECT5_EVALUATION_METHOD, SUBJECT6_EVALUATION_METHOD,
+            SUBJECT7_EVALUATION_METHOD, SUBJECT8_EVALUATION_METHOD, SUBJECT9_EVALUATION_METHOD,
+            SUBJECT10_EVALUATION_METHOD,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionId},
+            #{useType},
+            #{useSubject1}, #{useSubject2}, #{useSubject3}, #{useSubject4}, #{useSubject5},
+            #{useSubject6}, #{useSubject7}, #{useSubject8}, #{useSubject9}, #{useSubject10},
+            #{subject1Id}, #{subject2Id}, #{subject3Id}, #{subject4Id}, #{subject5Id},
+            #{subject6Id}, #{subject7Id}, #{subject8Id}, #{subject9Id}, #{subject10Id},
+            #{subject1EvaluationMethod}, #{subject2EvaluationMethod}, #{subject3EvaluationMethod},
+            #{subject4EvaluationMethod}, #{subject5EvaluationMethod}, #{subject6EvaluationMethod},
+            #{subject7EvaluationMethod}, #{subject8EvaluationMethod}, #{subject9EvaluationMethod},
+            #{subject10EvaluationMethod},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 수시 모집 실기 점수 정보 상세보기 -->
+    <select id="getEarlyAdmissionPhysical" resultMap="earlyAdmissionPhysicalResultMap">
+        <![CDATA[
+        SELECT
+            -- 수시 모집 실기 점수 정보
+            A.EARLY_ADMISSION_PHYSICAL_ID,
+            A.ADMISSION_ID,
+            A.USE_TYPE,
+            A.USE_SUBJECT1, A.USE_SUBJECT2, A.USE_SUBJECT3, A.USE_SUBJECT4, A.USE_SUBJECT5,
+            A.USE_SUBJECT6, A.USE_SUBJECT7, A.USE_SUBJECT8, A.USE_SUBJECT9, A.USE_SUBJECT10,
+            A.SUBJECT1_ID, A.SUBJECT2_ID, A.SUBJECT3_ID, A.SUBJECT4_ID, A.SUBJECT5_ID,
+            A.SUBJECT6_ID, A.SUBJECT7_ID, A.SUBJECT8_ID, A.SUBJECT9_ID, A.SUBJECT10_ID,
+            A.SUBJECT1_EVALUATION_METHOD, A.SUBJECT2_EVALUATION_METHOD, A.SUBJECT3_EVALUATION_METHOD,
+            A.SUBJECT4_EVALUATION_METHOD, A.SUBJECT5_EVALUATION_METHOD, A.SUBJECT6_EVALUATION_METHOD,
+            A.SUBJECT7_EVALUATION_METHOD, A.SUBJECT8_EVALUATION_METHOD, A.SUBJECT9_EVALUATION_METHOD,
+            A.SUBJECT10_EVALUATION_METHOD,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 입시 연도
+            D.ADMISSION_YEAR,
+            -- 입시 구분
+            D.ADMISSION_TYPE,
+            -- 수시/정시 입시 여부
+            D.EARLY_ADMISSION,
+            D.REGULAR_ADMISSION,
+            -- 등록한 사람, 수정한 사람
+            E.USER_NAME AS CREATED_USER_NAME,
+            E.USER_PHONE AS CREATED_USER_PHONE,
+            F.USER_NAME AS UPDATED_USER_NAME,
+            F.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            EARLY_ADMISSION_PHYSICAL A
+            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
+            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="earlyAdmissionPhysicalId != null and earlyAdmissionPhysicalId != 0">
+            <![CDATA[
+            AND A.EARLY_ADMISSION_PHYSICAL_ID = #{earlyAdmissionPhysicalId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND A.ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 수시 모집 실기 점수 정보 수정 -->
+    <update id="updateEarlyAdmissionPhysical" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto">
+        <![CDATA[
+        UPDATE EARLY_ADMISSION_PHYSICAL SET ADMISSION_ID = #{admissionId}, USE_TYPE = #{useType}, UPDATED_BY = #{updatedBy}
+        ]]>
+        <if test="useSubject1 != null and useSubject1 != ''">
+            <![CDATA[
+            , USE_SUBJECT1 = #{useSubject1}
+            ]]>
+        </if>
+        <if test="useSubject2 != null and useSubject2 != ''">
+            <![CDATA[
+            , USE_SUBJECT2 = #{useSubject2}
+            ]]>
+        </if>
+        <if test="useSubject3 != null and useSubject3 != ''">
+            <![CDATA[
+            , USE_SUBJECT3 = #{useSubject3}
+            ]]>
+        </if>
+        <if test="useSubject4 != null and useSubject4 != ''">
+            <![CDATA[
+            , USE_SUBJECT4 = #{useSubject4}
+            ]]>
+        </if>
+        <if test="useSubject5 != null and useSubject5 != ''">
+            <![CDATA[
+            , USE_SUBJECT5 = #{useSubject5}
+            ]]>
+        </if>
+        <if test="useSubject6 != null and useSubject6 != ''">
+            <![CDATA[
+            , USE_SUBJECT6 = #{useSubject6}
+            ]]>
+        </if>
+        <if test="useSubject7 != null and useSubject7 != ''">
+            <![CDATA[
+            , USE_SUBJECT7 = #{useSubject7}
+            ]]>
+        </if>
+        <if test="useSubject8 != null and useSubject8 != ''">
+            <![CDATA[
+            , USE_SUBJECT8 = #{useSubject8}
+            ]]>
+        </if>
+        <if test="useSubject9 != null and useSubject9 != ''">
+            <![CDATA[
+            , USE_SUBJECT9 = #{useSubject9}
+            ]]>
+        </if>
+        <if test="useSubject10 != null and useSubject10 != ''">
+            <![CDATA[
+            , USE_SUBJECT10 = #{useSubject10}
+            ]]>
+        </if>
+        <if test="subject1Id != null and subject1Id != 0">
+            <![CDATA[
+            , SUBJECT1_ID = #{subject1Id}
+            ]]>
+        </if>
+        <if test="subject2Id != null and subject2Id != 0">
+            <![CDATA[
+            , SUBJECT2_ID = #{subject2Id}
+            ]]>
+        </if>
+        <if test="subject3Id != null and subject3Id != 0">
+            <![CDATA[
+            , SUBJECT3_ID = #{subject3Id}
+            ]]>
+        </if>
+        <if test="subject4Id != null and subject4Id != 0">
+            <![CDATA[
+            , SUBJECT4_ID = #{subject4Id}
+            ]]>
+        </if>
+        <if test="subject5Id != null and subject5Id != 0">
+            <![CDATA[
+            , SUBJECT5_ID = #{subject5Id}
+            ]]>
+        </if>
+        <if test="subject6Id != null and subject6Id != 0">
+            <![CDATA[
+            , SUBJECT6_ID = #{subject6Id}
+            ]]>
+        </if>
+        <if test="subject7Id != null and subject7Id != 0">
+            <![CDATA[
+            , SUBJECT7_ID = #{subject7Id}
+            ]]>
+        </if>
+        <if test="subject8Id != null and subject8Id != 0">
+            <![CDATA[
+            , SUBJECT8_ID = #{subject8Id}
+            ]]>
+        </if>
+        <if test="subject9Id != null and subject9Id != 0">
+            <![CDATA[
+            , SUBJECT9_ID = #{subject9Id}
+            ]]>
+        </if>
+        <if test="subject10Id != null and subject10Id != 0">
+            <![CDATA[
+            , SUBJECT10_ID = #{subject10Id}
+            ]]>
+        </if>
+        <if test="subject1EvaluationMethod != null and subject1EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT1_EVALUATION_METHOD = #{subject1EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject2EvaluationMethod != null and subject2EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT2_EVALUATION_METHOD = #{subject2EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject3EvaluationMethod != null and subject3EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT3_EVALUATION_METHOD = #{subject3EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject4EvaluationMethod != null and subject4EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT4_EVALUATION_METHOD = #{subject4EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject5EvaluationMethod != null and subject5EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT5_EVALUATION_METHOD = #{subject5EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject6EvaluationMethod != null and subject6EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT6_EVALUATION_METHOD = #{subject6EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject7EvaluationMethod != null and subject7EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT7_EVALUATION_METHOD = #{subject7EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject8EvaluationMethod != null and subject8EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT8_EVALUATION_METHOD = #{subject8EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject9EvaluationMethod != null and subject9EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT9_EVALUATION_METHOD = #{subject9EvaluationMethod}
+            ]]>
+        </if>
+        <if test="subject10EvaluationMethod != null and subject10EvaluationMethod != ''">
+            <![CDATA[
+            , SUBJECT10_EVALUATION_METHOD = #{subject10EvaluationMethod}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE EARLY_ADMISSION_PHYSICAL_ID = #{earlyAdmissionPhysicalId}
+        ]]>
+    </update>
+
+</mapper>

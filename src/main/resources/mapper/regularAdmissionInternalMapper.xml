@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="regularAdmissionInternalMapper">
+
+    <resultMap id="regularAdmissionInternalResultMap" type="kr.seoulfitness.admin.regularAdmissionInternal.RegularAdmissionInternalDto">
+        <!-- 정시 입시 내신 점수 정보 -->
+        <result property="regularAdmissionInternalId" column="REGULAR_ADMISSION_INTERNAL_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        
+        <!-- 내신 등급 반영 점수 -->
+        <result property="internalReflectedGrade1" column="INTERNAL_REFLECTED_GRADE1" />
+        <result property="internalReflectedGrade2" column="INTERNAL_REFLECTED_GRADE2" />
+        <result property="internalReflectedGrade3" column="INTERNAL_REFLECTED_GRADE3" />
+        <result property="internalReflectedGrade4" column="INTERNAL_REFLECTED_GRADE4" />
+        <result property="internalReflectedGrade5" column="INTERNAL_REFLECTED_GRADE5" />
+        <result property="internalReflectedGrade6" column="INTERNAL_REFLECTED_GRADE6" />
+        <result property="internalReflectedGrade7" column="INTERNAL_REFLECTED_GRADE7" />
+        <result property="internalReflectedGrade8" column="INTERNAL_REFLECTED_GRADE8" />
+        <result property="internalReflectedGrade9" column="INTERNAL_REFLECTED_GRADE9" />
+
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <!-- 입시 연도 -->
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 정시 입시 내신 점수 정보 등록 -->
+    <insert id="insertRegularAdmissionInternal" parameterType="kr.seoulfitness.admin.regularAdmissionInternal.RegularAdmissionInternalDto" useGeneratedKeys="true" keyProperty="regularAdmissionInternalId">
+        <![CDATA[
+        INSERT INTO REGULAR_ADMISSION_INTERNAL (
+            ADMISSION_ID,
+            INTERNAL_REFLECTED_GRADE1,
+            INTERNAL_REFLECTED_GRADE2,
+            INTERNAL_REFLECTED_GRADE3,
+            INTERNAL_REFLECTED_GRADE4,
+            INTERNAL_REFLECTED_GRADE5,
+            INTERNAL_REFLECTED_GRADE6,
+            INTERNAL_REFLECTED_GRADE7,
+            INTERNAL_REFLECTED_GRADE8,
+            INTERNAL_REFLECTED_GRADE9,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionId},
+            #{internalReflectedGrade1},
+            #{internalReflectedGrade2},
+            #{internalReflectedGrade3},
+            #{internalReflectedGrade4},
+            #{internalReflectedGrade5},
+            #{internalReflectedGrade6},
+            #{internalReflectedGrade7},
+            #{internalReflectedGrade8},
+            #{internalReflectedGrade9},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 정시 입시 내신 점수 정보 상세보기 -->
+    <select id="getRegularAdmissionInternal" resultMap="regularAdmissionInternalResultMap">
+        <![CDATA[
+        SELECT
+            -- 정시 입시 내신 점수 정보
+            A.REGULAR_ADMISSION_INTERNAL_ID,
+            A.ADMISSION_ID,
+            A.INTERNAL_REFLECTED_GRADE1,
+            A.INTERNAL_REFLECTED_GRADE2,
+            A.INTERNAL_REFLECTED_GRADE3,
+            A.INTERNAL_REFLECTED_GRADE4,
+            A.INTERNAL_REFLECTED_GRADE5,
+            A.INTERNAL_REFLECTED_GRADE6,
+            A.INTERNAL_REFLECTED_GRADE7,
+            A.INTERNAL_REFLECTED_GRADE8,
+            A.INTERNAL_REFLECTED_GRADE9,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 입시 연도
+            D.ADMISSION_YEAR,
+            -- 등록한 사람, 수정한 사람
+            E.USER_NAME AS CREATED_USER_NAME,
+            E.USER_PHONE AS CREATED_USER_PHONE,
+            F.USER_NAME AS UPDATED_USER_NAME,
+            F.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            REGULAR_ADMISSION_INTERNAL A
+            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
+            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="regularAdmissionInternalId != null and regularAdmissionInternalId != 0">
+            <![CDATA[
+            AND A.REGULAR_ADMISSION_INTERNAL_ID = #{regularAdmissionInternalId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND A.ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 정시 입시 내신 점수 정보 수정 -->
+    <update id="updateRegularAdmissionInternal" parameterType="kr.seoulfitness.admin.regularAdmissionInternal.RegularAdmissionInternalDto">
+        <![CDATA[
+        UPDATE REGULAR_ADMISSION_INTERNAL SET ADMISSION_ID = #{admissionId}, UPDATED_BY = #{updatedBy}
+        ]]>
+        <if test="internalReflectedGrade1 != null and internalReflectedGrade1 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE1 = #{internalReflectedGrade1},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade2 != null and internalReflectedGrade2 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE2 = #{internalReflectedGrade2},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade3 != null and internalReflectedGrade3 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE3 = #{internalReflectedGrade3},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade4 != null and internalReflectedGrade4 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE4 = #{internalReflectedGrade4},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade5 != null and internalReflectedGrade5 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE5 = #{internalReflectedGrade5},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade6 != null and internalReflectedGrade6 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE6 = #{internalReflectedGrade6},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade7 != null and internalReflectedGrade7 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE7 = #{internalReflectedGrade7},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade8 != null and internalReflectedGrade8 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE8 = #{internalReflectedGrade8},
+            ]]>
+        </if>
+        <if test="internalReflectedGrade9 != null and internalReflectedGrade9 != ''">
+            <![CDATA[
+            , INTERNAL_REFLECTED_GRADE9 = #{internalReflectedGrade9},
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE REGULAR_ADMISSION_INTERNAL_ID = #{regularAdmissionInternalId}
+        ]]>
+    </update>
+
+</mapper>

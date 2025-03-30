@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="earlyAdmissionHistoryMapper">
+
+    <resultMap id="earlyAdmissionHistoryResultMap" type="kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto">
+        <!-- 수시 입시 한국사 점수 정보 -->
+        <result property="earlyAdmissionHistoryId" column="EARLY_ADMISSION_HISTORY_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        
+        <!-- 한국사 등급 반영 점수 -->
+        <result property="subject21ReflectedGrade1" column="SUBJECT21_REFLECTED_GRADE1" />
+        <result property="subject21ReflectedGrade2" column="SUBJECT21_REFLECTED_GRADE2" />
+        <result property="subject21ReflectedGrade3" column="SUBJECT21_REFLECTED_GRADE3" />
+        <result property="subject21ReflectedGrade4" column="SUBJECT21_REFLECTED_GRADE4" />
+        <result property="subject21ReflectedGrade5" column="SUBJECT21_REFLECTED_GRADE5" />
+        <result property="subject21ReflectedGrade6" column="SUBJECT21_REFLECTED_GRADE6" />
+        <result property="subject21ReflectedGrade7" column="SUBJECT21_REFLECTED_GRADE7" />
+        <result property="subject21ReflectedGrade8" column="SUBJECT21_REFLECTED_GRADE8" />
+        <result property="subject21ReflectedGrade9" column="SUBJECT21_REFLECTED_GRADE9" />
+
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <!-- 입시 연도 -->
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 수시 입시 한국사 점수 정보 등록 -->
+    <insert id="insertEarlyAdmissionHistory" parameterType="kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto" useGeneratedKeys="true" keyProperty="earlyAdmissionHistoryId">
+        <![CDATA[
+        INSERT INTO EARLY_ADMISSION_HISTORY (
+            ADMISSION_ID,
+            SUBJECT21_REFLECTED_GRADE1,
+            SUBJECT21_REFLECTED_GRADE2,
+            SUBJECT21_REFLECTED_GRADE3,
+            SUBJECT21_REFLECTED_GRADE4,
+            SUBJECT21_REFLECTED_GRADE5,
+            SUBJECT21_REFLECTED_GRADE6,
+            SUBJECT21_REFLECTED_GRADE7,
+            SUBJECT21_REFLECTED_GRADE8,
+            SUBJECT21_REFLECTED_GRADE9,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionId},
+            #{subject21ReflectedGrade1},
+            #{subject21ReflectedGrade2},
+            #{subject21ReflectedGrade3},
+            #{subject21ReflectedGrade4},
+            #{subject21ReflectedGrade5},
+            #{subject21ReflectedGrade6},
+            #{subject21ReflectedGrade7},
+            #{subject21ReflectedGrade8},
+            #{subject21ReflectedGrade9},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 수시 입시 한국사 점수 정보 상세보기 -->
+    <select id="getEarlyAdmissionHistory" resultMap="earlyAdmissionHistoryResultMap">
+        <![CDATA[
+        SELECT
+            -- 수시 입시 한국사 점수 정보
+            A.EARLY_ADMISSION_HISTORY_ID,
+            A.ADMISSION_ID,
+            A.SUBJECT21_REFLECTED_GRADE1,
+            A.SUBJECT21_REFLECTED_GRADE2,
+            A.SUBJECT21_REFLECTED_GRADE3,
+            A.SUBJECT21_REFLECTED_GRADE4,
+            A.SUBJECT21_REFLECTED_GRADE5,
+            A.SUBJECT21_REFLECTED_GRADE6,
+            A.SUBJECT21_REFLECTED_GRADE7,
+            A.SUBJECT21_REFLECTED_GRADE8,
+            A.SUBJECT21_REFLECTED_GRADE9,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 입시 연도
+            D.ADMISSION_YEAR,
+            -- 등록한 사람, 수정한 사람
+            E.USER_NAME AS CREATED_USER_NAME,
+            E.USER_PHONE AS CREATED_USER_PHONE,
+            F.USER_NAME AS UPDATED_USER_NAME,
+            F.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            EARLY_ADMISSION_HISTORY A
+            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
+            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="earlyAdmissionHistoryId != null and earlyAdmissionHistoryId != 0">
+            <![CDATA[
+            AND A.EARLY_ADMISSION_HISTORY_ID = #{earlyAdmissionHistoryId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND A.ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 수시 입시 한국사 점수 정보 수정 -->
+    <update id="updateEarlyAdmissionHistory" parameterType="kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto">
+        <![CDATA[
+        UPDATE EARLY_ADMISSION_HISTORY SET ADMISSION_ID = #{admissionId}, UPDATED_BY = #{updatedBy}
+        ]]>
+        <if test="subject21ReflectedGrade1 != null and subject21ReflectedGrade1 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE1 = #{subject21ReflectedGrade1},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade2 != null and subject21ReflectedGrade2 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE2 = #{subject21ReflectedGrade2},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade3 != null and subject21ReflectedGrade3 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE3 = #{subject21ReflectedGrade3},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade4 != null and subject21ReflectedGrade4 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE4 = #{subject21ReflectedGrade4},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade5 != null and subject21ReflectedGrade5 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE5 = #{subject21ReflectedGrade5},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade6 != null and subject21ReflectedGrade6 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE6 = #{subject21ReflectedGrade6},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade7 != null and subject21ReflectedGrade7 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE7 = #{subject21ReflectedGrade7},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade8 != null and subject21ReflectedGrade8 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE8 = #{subject21ReflectedGrade8},
+            ]]>
+        </if>
+        <if test="subject21ReflectedGrade9 != null and subject21ReflectedGrade9 != ''">
+            <![CDATA[
+            , SUBJECT21_REFLECTED_GRADE9 = #{subject21ReflectedGrade9},
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE EARLY_ADMISSION_HISTORY_ID = #{earlyAdmissionHistoryId}
+        ]]>
+    </update>
+
+</mapper>

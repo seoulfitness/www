@@ -10,15 +10,15 @@ public class EarlyAdmissionEnglishDto {
     private int admissionId;              // 입시 요강 아이디
 
     // 영어 등급 반영 점수
-    private int subject20ReflectedGrade1;    // 영어 등급 1 반영 점수
-    private int subject20ReflectedGrade2;    // 영어 등급 2 반영 점수
-    private int subject20ReflectedGrade3;    // 영어 등급 3 반영 점수
-    private int subject20ReflectedGrade4;    // 영어 등급 4 반영 점수
-    private int subject20ReflectedGrade5;    // 영어 등급 5 반영 점수
-    private int subject20ReflectedGrade6;    // 영어 등급 6 반영 점수
-    private int subject20ReflectedGrade7;    // 영어 등급 7 반영 점수
-    private int subject20ReflectedGrade8;    // 영어 등급 8 반영 점수
-    private int subject20ReflectedGrade9;    // 영어 등급 9 반영 점수
+    private double subject20ReflectedGrade1;    // 영어 등급 1 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade2;    // 영어 등급 2 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade3;    // 영어 등급 3 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade4;    // 영어 등급 4 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade5;    // 영어 등급 5 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade6;    // 영어 등급 6 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade7;    // 영어 등급 7 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade8;    // 영어 등급 8 반영 점수(-100.000 ~ 100.000)
+    private double subject20ReflectedGrade9;    // 영어 등급 9 반영 점수(-100.000 ~ 100.000)
 
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시

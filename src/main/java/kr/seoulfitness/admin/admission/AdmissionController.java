@@ -20,6 +20,8 @@ import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto;
 import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionService;
 import kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatDto;
 import kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatService;
+import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto;
+import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishService;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionService;
 import kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto;
@@ -45,6 +47,9 @@ public class AdmissionController {
     @Autowired
     private EarlyAdmissionCsatService earlyAdmissionCsatService;
 
+    @Autowired
+    private EarlyAdmissionEnglishService earlyAdmissionEnglishService;
+    
     @Autowired
     private RegularAdmissionService regularAdmissionService;
 
@@ -170,6 +175,15 @@ public class AdmissionController {
             earlyAdmissionCsatParams.put("admissionId", admission.getAdmissionId());
             EarlyAdmissionCsatDto earlyAdmissionCsat = earlyAdmissionCsatService.read(earlyAdmissionCsatParams);
             model.addAttribute("earlyAdmissionCsat", earlyAdmissionCsat);
+        }
+
+        // 수시 영어 정보 존재 여부 확인
+        if (admission.getEarlyAdmission().equals("Y")) {
+            // 수시 영어 정보 상세보기
+            Map<String, Object> earlyAdmissionEnglishParams = new HashMap<>();
+            earlyAdmissionEnglishParams.put("admissionId", admission.getAdmissionId());
+            EarlyAdmissionEnglishDto earlyAdmissionEnglish = earlyAdmissionEnglishService.read(earlyAdmissionEnglishParams);
+            model.addAttribute("earlyAdmissionEnglish", earlyAdmissionEnglish);
         }
 
         // 정시 모집 여부 확인

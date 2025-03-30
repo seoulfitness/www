@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="earlyAdmissionEnglishMapper">
+
+    <resultMap id="earlyAdmissionEnglishResultMap" type="kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto">
+        <!-- 수시 입시 영어 점수 정보 -->
+        <result property="earlyAdmissionEnglishId" column="EARLY_ADMISSION_ENGLISH_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        
+        <!-- 영어 등급 반영 점수 -->
+        <result property="subject20ReflectedGrade1" column="SUBJECT20_REFLECTED_GRADE1" />
+        <result property="subject20ReflectedGrade2" column="SUBJECT20_REFLECTED_GRADE2" />
+        <result property="subject20ReflectedGrade3" column="SUBJECT20_REFLECTED_GRADE3" />
+        <result property="subject20ReflectedGrade4" column="SUBJECT20_REFLECTED_GRADE4" />
+        <result property="subject20ReflectedGrade5" column="SUBJECT20_REFLECTED_GRADE5" />
+        <result property="subject20ReflectedGrade6" column="SUBJECT20_REFLECTED_GRADE6" />
+        <result property="subject20ReflectedGrade7" column="SUBJECT20_REFLECTED_GRADE7" />
+        <result property="subject20ReflectedGrade8" column="SUBJECT20_REFLECTED_GRADE8" />
+        <result property="subject20ReflectedGrade9" column="SUBJECT20_REFLECTED_GRADE9" />
+
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        
+        <!-- 학교 정보 -->
+        <result property="schoolName" column="SCHOOL_NAME" />
+        <!-- 학과 정보 -->
+        <result property="departmentName" column="DEPARTMENT_NAME" />
+        <!-- 입시 연도 -->
+        <result property="admissionYear" column="ADMISSION_YEAR" />
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 수시 입시 영어 점수 정보 등록 -->
+    <insert id="insertEarlyAdmissionEnglish" parameterType="kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto" useGeneratedKeys="true" keyProperty="earlyAdmissionEnglishId">
+        <![CDATA[
+        INSERT INTO EARLY_ADMISSION_ENGLISH (
+            ADMISSION_ID,
+            SUBJECT20_REFLECTED_GRADE1,
+            SUBJECT20_REFLECTED_GRADE2,
+            SUBJECT20_REFLECTED_GRADE3,
+            SUBJECT20_REFLECTED_GRADE4,
+            SUBJECT20_REFLECTED_GRADE5,
+            SUBJECT20_REFLECTED_GRADE6,
+            SUBJECT20_REFLECTED_GRADE7,
+            SUBJECT20_REFLECTED_GRADE8,
+            SUBJECT20_REFLECTED_GRADE9,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{admissionId},
+            #{subject20ReflectedGrade1},
+            #{subject20ReflectedGrade2},
+            #{subject20ReflectedGrade3},
+            #{subject20ReflectedGrade4},
+            #{subject20ReflectedGrade5},
+            #{subject20ReflectedGrade6},
+            #{subject20ReflectedGrade7},
+            #{subject20ReflectedGrade8},
+            #{subject20ReflectedGrade9},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 수시 입시 영어 점수 정보 상세보기 -->
+    <select id="getEarlyAdmissionEnglish" resultMap="earlyAdmissionEnglishResultMap">
+        <![CDATA[
+        SELECT
+            -- 수시 입시 영어 점수 정보
+            A.EARLY_ADMISSION_ENGLISH_ID,
+            A.ADMISSION_ID,
+            A.SUBJECT20_REFLECTED_GRADE1,
+            A.SUBJECT20_REFLECTED_GRADE2,
+            A.SUBJECT20_REFLECTED_GRADE3,
+            A.SUBJECT20_REFLECTED_GRADE4,
+            A.SUBJECT20_REFLECTED_GRADE5,
+            A.SUBJECT20_REFLECTED_GRADE6,
+            A.SUBJECT20_REFLECTED_GRADE7,
+            A.SUBJECT20_REFLECTED_GRADE8,
+            A.SUBJECT20_REFLECTED_GRADE9,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 학교 정보
+            B.SCHOOL_NAME,
+            -- 학과 정보
+            C.DEPARTMENT_NAME,
+            -- 입시 연도
+            D.ADMISSION_YEAR,
+            -- 등록한 사람, 수정한 사람
+            E.USER_NAME AS CREATED_USER_NAME,
+            E.USER_PHONE AS CREATED_USER_PHONE,
+            F.USER_NAME AS UPDATED_USER_NAME,
+            F.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            EARLY_ADMISSION_ENGLISH A
+            LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
+            LEFT JOIN SCHOOLS B ON B.SCHOOL_ID = D.SCHOOL_ID
+            LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
+            LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="earlyAdmissionEnglishId != null and earlyAdmissionEnglishId != 0">
+            <![CDATA[
+            AND A.EARLY_ADMISSION_ENGLISH_ID = #{earlyAdmissionEnglishId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND A.ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 수시 입시 영어 점수 정보 수정 -->
+    <update id="updateEarlyAdmissionEnglish" parameterType="kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto">
+        <![CDATA[
+        UPDATE EARLY_ADMISSION_ENGLISH SET ADMISSION_ID = #{admissionId}, UPDATED_BY = #{updatedBy}
+        ]]>
+        <if test="subject20ReflectedGrade1 != null and subject20ReflectedGrade1 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE1 = #{subject20ReflectedGrade1},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade2 != null and subject20ReflectedGrade2 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE2 = #{subject20ReflectedGrade2},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade3 != null and subject20ReflectedGrade3 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE3 = #{subject20ReflectedGrade3},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade4 != null and subject20ReflectedGrade4 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE4 = #{subject20ReflectedGrade4},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade5 != null and subject20ReflectedGrade5 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE5 = #{subject20ReflectedGrade5},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade6 != null and subject20ReflectedGrade6 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE6 = #{subject20ReflectedGrade6},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade7 != null and subject20ReflectedGrade7 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE7 = #{subject20ReflectedGrade7},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade8 != null and subject20ReflectedGrade8 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE8 = #{subject20ReflectedGrade8},
+            ]]>
+        </if>
+        <if test="subject20ReflectedGrade9 != null and subject20ReflectedGrade9 != ''">
+            <![CDATA[
+            , SUBJECT20_REFLECTED_GRADE9 = #{subject20ReflectedGrade9},
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE EARLY_ADMISSION_ENGLISH_ID = #{earlyAdmissionEnglishId}
+        ]]>
+    </update>
+
+</mapper>

@@ -17,69 +17,56 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <form id="updateForm" action="/admin/earlyAdmissions/update?admissionId=${admissionId}" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="earlyAdmissionId" value="${earlyAdmission.earlyAdmissionId}" />
+                                <form id="updateForm" action="/admin/earlyAdmissionEnglish/update?admissionId=${admissionId}" method="post" enctype="multipart/form-data">
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            수시 입시 정보 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                            ${admission.admissionYear}년 ${admission.admissionType}군 ${admission.schoolName} ${admission.departmentName} 수시 입시 영어 정보 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
                                         </div>
-                                        <div class="card-body">                                        
+                                        <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="useCsatReflectedScore" class="form-label">수능 점수 반영</label>
-                                                <select class="form-select" id="useCsatReflectedScore" name="useCsatReflectedScore" value="${earlyAdmission.useCsatReflectedScore}">
-                                                    <option value="Y" <c:if test="${earlyAdmission.useCsatReflectedScore == 'Y'}">selected</c:if>>반영</option>
-                                                    <option value="N" <c:if test="${earlyAdmission.useCsatReflectedScore == 'N'}">selected</c:if>>미반영</option>
-                                                </select>
+                                                <label class="small mb-1" for="subject20ReflectedGrade1">영어 등급 1 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade1" name="subject20ReflectedGrade1" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade1}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="csatReflectedScore" class="form-label">수능 반영 점수</label>
-                                                <input type="number" class="form-control" min="0.00" max="1000.00" step="0.01" value="${not empty earlyAdmission.csatReflectedScore ? earlyAdmission.csatReflectedScore : '0.00'}" id="csatReflectedScore" name="csatReflectedScore" placeholder="수능 반영 점수">
+                                                <label class="small mb-1" for="subject20ReflectedGrade2">영어 등급 2 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade2" name="subject20ReflectedGrade2" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade2}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="usePhysicalReflectedScore" class="form-label">실기 점수 반영</label>
-                                                <select class="form-select" id="usePhysicalReflectedScore" name="usePhysicalReflectedScore" value="${earlyAdmission.usePhysicalReflectedScore}">
-                                                    <option value="Y" <c:if test="${earlyAdmission.usePhysicalReflectedScore == 'Y'}">selected</c:if>>반영</option>
-                                                    <option value="N" <c:if test="${earlyAdmission.usePhysicalReflectedScore == 'N'}">selected</c:if>>미반영</option>
-                                                </select>
+                                                <label class="small mb-1" for="subject20ReflectedGrade3">영어 등급 3 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade3" name="subject20ReflectedGrade3" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade3}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="physicalReflectedScore" class="form-label">실기 반영 점수</label>
-                                                <input type="number" class="form-control" min="0.00" max="1000.00" step="0.01" value="${not empty earlyAdmission.physicalReflectedScore ? earlyAdmission.physicalReflectedScore : '0.00'}" id="physicalReflectedScore" name="physicalReflectedScore" placeholder="실기 반영 점수">
+                                                <label class="small mb-1" for="subject20ReflectedGrade4">영어 등급 4 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade4" name="subject20ReflectedGrade4" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade4}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="useInternalReflectedScore" class="form-label">내신 점수 반영</label>
-                                                <select class="form-select" id="useInternalReflectedScore" name="useInternalReflectedScore" value="${earlyAdmission.useInternalReflectedScore}">
-                                                    <option value="Y" <c:if test="${earlyAdmission.useInternalReflectedScore == 'Y'}">selected</c:if>>반영</option>
-                                                    <option value="N" <c:if test="${earlyAdmission.useInternalReflectedScore == 'N'}">selected</c:if>>미반영</option>
-                                                </select>
+                                                <label class="small mb-1" for="subject20ReflectedGrade5">영어 등급 5 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade5" name="subject20ReflectedGrade5" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade5}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="internalReflectedScore" class="form-label">내신 반영 점수</label>
-                                                <input type="number" class="form-control" min="0.00" max="1000.00" step="0.01" value="${not empty earlyAdmission.internalReflectedScore ? earlyAdmission.internalReflectedScore : '0.00'}" id="internalReflectedScore" name="internalReflectedScore" placeholder="내신 반영 점수">
+                                                <label class="small mb-1" for="subject20ReflectedGrade6">영어 등급 6 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade6" name="subject20ReflectedGrade6" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade6}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="useInterviewReflectedScore" class="form-label">면접 점수 반영</label>
-                                                <select class="form-select" id="useInterviewReflectedScore" name="useInterviewReflectedScore" value="${earlyAdmission.useInterviewReflectedScore}">
-                                                    <option value="Y" <c:if test="${earlyAdmission.useInterviewReflectedScore == 'Y'}">selected</c:if>>반영</option>
-                                                    <option value="N" <c:if test="${earlyAdmission.useInterviewReflectedScore == 'N'}">selected</c:if>>미반영</option>
-                                                </select>
+                                                <label class="small mb-1" for="subject20ReflectedGrade7">영어 등급 7 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade7" name="subject20ReflectedGrade7" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade7}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="interviewReflectedScore" class="form-label">면접 반영 점수</label>
-                                                <input type="number" class="form-control" min="0.00" max="1000.00" step="0.01" value="${not empty earlyAdmission.interviewReflectedScore ? earlyAdmission.interviewReflectedScore : '0.00'}" id="interviewReflectedScore" name="interviewReflectedScore" placeholder="면접 반영 점수">
+                                                <label class="small mb-1" for="subject20ReflectedGrade8">영어 등급 8 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade8" name="subject20ReflectedGrade8" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade8}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="acceptedCount" class="form-label">모집 인원</label>
-                                                <input type="text" class="form-control" id="acceptedCount" name="acceptedCount" placeholder="모집 인원" value="$earlyAdmission.acceptedCount">
+                                                <label class="small mb-1" for="subject20ReflectedGrade9">영어 등급 9 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
+                                                <input class="form-control" id="subject20ReflectedGrade9" name="subject20ReflectedGrade9" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade9}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label for="earlyAdmissionMemo" class="form-label">메모</label>
-                                                <textarea class="form-control" id="earlyAdmissionMemo" name="earlyAdmissionMemo" placeholder="메모" value="$earlyAdmission.earlyAdmissionMemo"></textarea>
+                                                <label for="earlyAdmissionEnglishMemo" class="form-label">메모</label>
+                                                <textarea class="form-control" id="earlyAdmissionEnglishMemo" name="earlyAdmissionEnglishMemo" placeholder="메모" value="${earlyAdmission.earlyAdmissionMemo}"></textarea>
                                             </div>
                                         </div>
                                         <div class="card-footer">
                                             <button class="btn btn-primary" type="submit">수시 입시 정보 수정</button>
-                                            <a href="/admin/admissions/${admissionId}" class="btn btn-outline-danger">취소</a>
+                                            <a href="/admin/earlyAdmissionEnglish/${earlyAdmissionEnglish.earlyAdmissionEnglishId}" class="btn btn-outline-danger">취소</a>
                                         </div>
                                     </div>
                                 </form>
@@ -92,95 +79,143 @@
         </div>
         <%@ include file="../../base/script.jsp" %>
         <script>
-            $(document).ready(function() {
-                // 수시(입시) 수능 점수 반영 여부
-                $('#useCsatReflectedScore').change(function() {
-                    if ($(this).val() == 'Y') {
-                        $('#csatReflectedScore').prop('disabled', false);
-                    } else {
-                        $('#csatReflectedScore').prop('disabled', true);
-                    }
-                });
-
-                // 수시(입시) 실기 점수 반영 여부
-                $('#usePhysicalReflectedScore').change(function() {
-                    if ($(this).val() == 'Y') {
-                        $('#physicalReflectedScore').prop('disabled', false);
-                    } else {
-                        $('#physicalReflectedScore').prop('disabled', true);
-                    }
-                });
-
-                // 수시(입시) 내신 점수 반영 여부
-                $('#useInternalReflectedScore').change(function() {
-                    if ($(this).val() == 'Y') {
-                        $('#internalReflectedScore').prop('disabled', false);
-                    } else {
-                        $('#internalReflectedScore').prop('disabled', true);
-                    }
-                });
-
-                // 수시(입시) 면접 점수 반영 여부
-                $('#useInterviewReflectedScore').change(function() {
-                    if ($(this).val() == 'Y') {
-                        $('#interviewReflectedScore').prop('disabled', false);
-                    } else {
-                        $('#interviewReflectedScore').prop('disabled', true);
-                    }
-                });
-
-                // 수시(입시) 정보 저장
+            $(document).ready(function() {                
+                // 수시 입시 영어 정보 수정
                 $('#updateForm').validate({
                     rules: {
-                        acceptedCount: {
-                            required: true
+                        subject20ReflectedGrade1: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
                         },
-                        earlyAdmissionMemo: {
+                        subject20ReflectedGrade2: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade3: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade4: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade5: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade6: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade7: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade8: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        subject20ReflectedGrade9: {
+                            required: true,
+                            number: true,
+                            min: -2000,
+                            max: 2000,
+                            threeDecimalPlaces: true
+                        },
+                        earlyAdmissionEnglishMemo: {
                             maxlength: 500
-                        },
-                        // useCsatReflectedScore가 Y인 경우 csatReflectedScore가 필수
-                        csatReflectedScore: {
-                            required: function() {
-                                return $('#useCsatReflectedScore').val() == 'Y';
-                            }
-                        },
-                        // usePhysicalReflectedScore가 Y인 경우 physicalReflectedScore가 필수
-                        physicalReflectedScore: {
-                            required: function() {
-                                return $('#usePhysicalReflectedScore').val() == 'Y';
-                            }
-                        },
-                        // useInternalReflectedScore가 Y인 경우 internalReflectedScore가 필수
-                        internalReflectedScore: {
-                            required: function() {
-                                return $('#useInternalReflectedScore').val() == 'Y';
-                            }
-                        },
-                        // useInterviewReflectedScore가 Y인 경우 interviewReflectedScore가 필수
-                        interviewReflectedScore: {
-                            required: function() {
-                                return $('#useInterviewReflectedScore').val() == 'Y';
-                            }
                         }
                     },
                     messages: {
-                        acceptedCount: {
-                            required: '모집 인원을 입력하세요.'
+                        subject20ReflectedGrade1: {
+                            required: "영어 1등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
                         },
-                        earlyAdmissionMemo: {
+                        subject20ReflectedGrade2: {
+                            required: "영어 2등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade3: {
+                            required: "영어 3등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade4: {
+                            required: "영어 4등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade5: {
+                            required: "영어 5등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade6: {
+                            required: "영어 6등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade7: {
+                            required: "영어 7등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade8: {
+                            required: "영어 8등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        subject20ReflectedGrade9: {
+                            required: "영어 9등급 점수를 입력하세요.",
+                            number: "숫자만 입력 가능합니다.",
+                            min: "-2000 이상의 값을 입력하세요.",
+                            max: "2000 이하의 값을 입력하세요.",
+                            threeDecimalPlaces: "소수점 셋째 자리까지만 입력 가능합니다."
+                        },
+                        earlyAdmissionEnglishMemo: {
                             maxlength: '500자 이하로 입력하세요.'
-                        },
-                        csatReflectedScore: {
-                            required: '수능 반영 점수를 입력하세요.'
-                        },
-                        physicalReflectedScore: {
-                            required: '실기 반영 점수를 입력하세요.'
-                        },
-                        internalReflectedScore: {
-                            required: '내신 반영 점수를 입력하세요.'
-                        },
-                        interviewReflectedScore: {
-                            required: '면접 반영 점수를 입력하세요.'
                         }
                     },
                     errorClass: 'is-invalid',

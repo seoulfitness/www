@@ -10,15 +10,15 @@ public class EarlyAdmissionHistoryDto {
     private int admissionId;              // 입시 요강 아이디
     
     // 한국사 등급 반영 점수
-    private int subject21ReflectedGrade1;    // 한국사 등급 1 반영 점수
-    private int subject21ReflectedGrade2;    // 한국사 등급 2 반영 점수
-    private int subject21ReflectedGrade3;    // 한국사 등급 3 반영 점수
-    private int subject21ReflectedGrade4;    // 한국사 등급 4 반영 점수
-    private int subject21ReflectedGrade5;    // 한국사 등급 5 반영 점수
-    private int subject21ReflectedGrade6;    // 한국사 등급 6 반영 점수
-    private int subject21ReflectedGrade7;    // 한국사 등급 7 반영 점수
-    private int subject21ReflectedGrade8;    // 한국사 등급 8 반영 점수
-    private int subject21ReflectedGrade9;    // 한국사 등급 9 반영 점수
+    private double subject21ReflectedGrade1;    // 한국사 등급 1 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade2;    // 한국사 등급 2 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade3;    // 한국사 등급 3 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade4;    // 한국사 등급 4 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade5;    // 한국사 등급 5 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade6;    // 한국사 등급 6 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade7;    // 한국사 등급 7 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade8;    // 한국사 등급 8 반영 점수(-100.000 ~ 100.000)
+    private double subject21ReflectedGrade9;    // 한국사 등급 9 반영 점수(-100.000 ~ 100.000)
 
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시

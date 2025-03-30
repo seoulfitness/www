@@ -27,12 +27,12 @@ public class RegularAdmissionController {
     @Autowired
     private AdmissionService admissionService;
 
-    // 입시(수시) 정보 존재 여부 확인
+    // 수시 정보 존재 여부 확인
     public boolean isRegularAdmissionExists(Map<String, Object> params) {
         return regularAdmissionService.read(params) != null;
     }
 
-    // 입시(수시) 정보 등록
+    // 수시 정보 등록
     @GetMapping("/create")
     public String create(@RequestParam("admissionId") int admissionId, Model model) {
         // 입시 요강 정보
@@ -44,7 +44,7 @@ public class RegularAdmissionController {
         return "admin/regularAdmission/create";
     }
 
-    // 입시(수시) 정보 등록 처리
+    // 수시 정보 등록 처리
     @PostMapping("/create")
     public String create(
         @RequestParam("admissionId") int admissionId, 
@@ -56,16 +56,16 @@ public class RegularAdmissionController {
         regularAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         RegularAdmissionDto createdRegularAdmission = regularAdmissionService.create(regularAdmission);
         if (createdRegularAdmission != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "입시(수시) 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
             return "redirect:/admin/regularAdmissions/" + createdRegularAdmission.getRegularAdmissionId();
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "입시(수시) 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmission", regularAdmission);
         return "redirect:/admin/regularAdmissions/create" + "?admissionId=" + admissionId;
     }
 
-    // 입시(수시) 정보 조회
+    // 수시 정보 조회
     @GetMapping("/{regularAdmissionId}")
     public String read(@PathVariable int regularAdmissionId, Model model) {
         Map<String, Object> params = new HashMap<>();
@@ -81,7 +81,7 @@ public class RegularAdmissionController {
         return "admin/regularAdmission/read";
     }
 
-    // 입시(수시) 정보 수정
+    // 수시 정보 수정
     @GetMapping("/{regularAdmissionId}/update")
     public String update(@PathVariable int regularAdmissionId, Model model) {
         Map<String, Object> params = new HashMap<>();
@@ -97,7 +97,7 @@ public class RegularAdmissionController {
         return "admin/regularAdmission/edit";
     }
     
-    // 입시(수시) 정보 수정 처리
+    // 수시 정보 수정 처리
     @PostMapping("/{regularAdmissionId}/update")
     public String update(
         @PathVariable int regularAdmissionId,
@@ -105,7 +105,7 @@ public class RegularAdmissionController {
         HttpSession session,
         RedirectAttributes redirectAttributes
     ) {
-        // 입시(수시) 정보 존재 여부 확인
+        // 수시 정보 존재 여부 확인
         Map<String, Object> params = new HashMap<>();
         params.put("regularAdmissionId", regularAdmissionId);
         if (!isRegularAdmissionExists(params)) {
@@ -114,11 +114,11 @@ public class RegularAdmissionController {
 
         regularAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionService.update(regularAdmission)) {
-            redirectAttributes.addFlashAttribute("successMessage", "입시(수시) 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 수정이 완료되었습니다.");
             return "redirect:/admin/regularAdmissions/" + regularAdmissionId;
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "입시(수시) 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmission", regularAdmission);
         return "redirect:/admin/regularAdmissions/" + regularAdmissionId + "/update";
     }

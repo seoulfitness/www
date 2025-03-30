@@ -180,31 +180,112 @@
     <!-- 수시 입시 수능 점수 정보 수정 -->
     <update id="updateEarlyAdmissionCsat" parameterType="kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatDto">
         <![CDATA[
-        UPDATE EARLY_ADMISSION_CSAT SET
-            ADMISSION_ID = #{admissionId},
-            SCORE_TYPE = #{scoreType},
-            SCORE_TYPE2 = #{scoreType2},
-            EARLY_ADMISSION_CSAT_MEMO = #{earlyAdmissionCsatMemo},
-            SUBJECT1_REFLECTED_SCORE = #{subject1ReflectedScore},
-            SUBJECT2_REFLECTED_SCORE = #{subject2ReflectedScore},
-            SUBJECT3_REFLECTED_SCORE = #{subject3ReflectedScore},
-            SUBJECT4_REFLECTED_SCORE = #{subject4ReflectedScore},
-            SUBJECT5_REFLECTED_SCORE = #{subject5ReflectedScore},
-            SUBJECT6_REFLECTED_SCORE = #{subject6ReflectedScore},
-            SUBJECT7_REFLECTED_SCORE = #{subject7ReflectedScore},
-            SUBJECT8_REFLECTED_SCORE = #{subject8ReflectedScore},
-            SUBJECT9_REFLECTED_SCORE = #{subject9ReflectedScore},
-            SUBJECT10_REFLECTED_SCORE = #{subject10ReflectedScore},
-            SUBJECT11_REFLECTED_SCORE = #{subject11ReflectedScore},
-            SUBJECT12_REFLECTED_SCORE = #{subject12ReflectedScore},
-            SUBJECT13_REFLECTED_SCORE = #{subject13ReflectedScore},
-            SUBJECT14_REFLECTED_SCORE = #{subject14ReflectedScore},
-            SUBJECT15_REFLECTED_SCORE = #{subject15ReflectedScore},
-            SUBJECT16_REFLECTED_SCORE = #{subject16ReflectedScore},
-            SUBJECT17_REFLECTED_SCORE = #{subject17ReflectedScore},
-            SUBJECT18_REFLECTED_SCORE = #{subject18ReflectedScore},
-            SUBJECT19_REFLECTED_SCORE = #{subject19ReflectedScore},
-            UPDATED_BY = #{updatedBy}
+        UPDATE EARLY_ADMISSION_CSAT SET ADMISSION_ID = #{admissionId}
+            , UPDATED_BY = #{updatedBy}
+            , SCORE_TYPE = #{scoreType}
+            , SCORE_TYPE2 = #{scoreType2}
+        ]]>
+        <if test="earlyAdmissionCsatMemo != null and earlyAdmissionCsatMemo != ''">
+            <![CDATA[
+            , EARLY_ADMISSION_CSAT_MEMO = #{earlyAdmissionCsatMemo},
+            ]]>
+        </if>
+        <if test="subject1ReflectedScore != null and subject1ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT1_REFLECTED_SCORE = #{subject1ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject2ReflectedScore != null and subject2ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT2_REFLECTED_SCORE = #{subject2ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject3ReflectedScore != null and subject3ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT3_REFLECTED_SCORE = #{subject3ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject4ReflectedScore != null and subject4ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT4_REFLECTED_SCORE = #{subject4ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject5ReflectedScore != null and subject5ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT5_REFLECTED_SCORE = #{subject5ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject6ReflectedScore != null and subject6ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT6_REFLECTED_SCORE = #{subject6ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject7ReflectedScore != null and subject7ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT7_REFLECTED_SCORE = #{subject7ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject8ReflectedScore != null and subject8ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT8_REFLECTED_SCORE = #{subject8ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject9ReflectedScore != null and subject9ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT9_REFLECTED_SCORE = #{subject9ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject10ReflectedScore != null and subject10ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT10_REFLECTED_SCORE = #{subject10ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject11ReflectedScore != null and subject11ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT11_REFLECTED_SCORE = #{subject11ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject12ReflectedScore != null and subject12ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT12_REFLECTED_SCORE = #{subject12ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject13ReflectedScore != null and subject13ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT13_REFLECTED_SCORE = #{subject13ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject14ReflectedScore != null and subject14ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT14_REFLECTED_SCORE = #{subject14ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject15ReflectedScore != null and subject15ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT15_REFLECTED_SCORE = #{subject15ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject16ReflectedScore != null and subject16ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT16_REFLECTED_SCORE = #{subject16ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject17ReflectedScore != null and subject17ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT17_REFLECTED_SCORE = #{subject17ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject18ReflectedScore != null and subject18ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT18_REFLECTED_SCORE = #{subject18ReflectedScore},
+            ]]>
+        </if>
+        <if test="subject19ReflectedScore != null and subject19ReflectedScore != ''">
+            <![CDATA[
+            , SUBJECT19_REFLECTED_SCORE = #{subject19ReflectedScore},
+            ]]>
+        </if>
+        <![CDATA[
         WHERE EARLY_ADMISSION_CSAT_ID = #{earlyAdmissionCsatId}
         ]]>
     </update>

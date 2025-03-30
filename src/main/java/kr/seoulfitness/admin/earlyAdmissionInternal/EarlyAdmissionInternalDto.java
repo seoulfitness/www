@@ -8,7 +8,17 @@ import lombok.Data;
 public class EarlyAdmissionInternalDto {
     private int earlyAdmissionInternalId; // 수시 모집 내신 점수 아이디
     private int admissionId;              // 입시 요강 아이디
-    private String useType;              // 사용 구분('Y' : 사용, 'N' : 미사용)
+
+    // 내신 점수
+    private double internalReflectedGrade1;    // 내신 등급 1 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade2;    // 내신 등급 2 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade3;    // 내신 등급 3 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade4;    // 내신 등급 4 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade5;    // 내신 등급 5 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade6;    // 내신 등급 6 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade7;    // 내신 등급 7 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade8;    // 내신 등급 8 반영 점수(0.000 ~ 100.000)
+    private double internalReflectedGrade9;    // 내신 등급 9 반영 점수(0.000 ~ 100.000)
 
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시

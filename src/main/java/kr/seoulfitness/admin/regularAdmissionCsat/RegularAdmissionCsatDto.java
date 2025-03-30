@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 public class RegularAdmissionCsatDto {
-    // 입시(정시) 수능 점수 정보
-    private int regularAdmissionCsatId;       // 입시(정시) 수능 점수 아이디
+    // 정시 수능 점수 정보
+    private int regularAdmissionCsatId;       // 정시 수능 점수 아이디
     private int admissionId;                // 입시 요강 아이디
     private int scoreType;                  // 점수 반영 구분(1: 표준점수, 2: 백분위, 3: 기타방법)
     private int scoreType2;             // 탐구 교과목 반영 구분(1: 동일 과목 허용, 2: 동일 과목 미허용)
-    private String regularAdmissionCsatMemo;  // 입시(정시) 수능 점수 메모  
+    private String regularAdmissionCsatMemo;  // 정시 수능 점수 메모  
     
     // 수능 교과목 반영 점수
     private double subject1ReflectedScore;     // 국어 반영 점수(0.0 ~ 100.0)

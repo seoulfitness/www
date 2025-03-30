@@ -28,12 +28,12 @@ public class EarlyAdmissionController {
     @Autowired
     private AdmissionService admissionService;
 
-    // 입시(수시) 정보 존재 여부 확인
+    // 수시 정보 존재 여부 확인
     public boolean isEarlyAdmissionExists(Map<String, Object> params) {
         return earlyAdmissionService.read(params) != null;
     }
 
-    // 입시(수시) 정보 등록
+    // 수시 정보 등록
     @GetMapping("/create")
     public String create(@RequestParam("admissionId") int admissionId, Model model) {
         // 입시 요강 정보
@@ -45,7 +45,7 @@ public class EarlyAdmissionController {
         return "admin/earlyAdmission/create";
     }
 
-    // 입시(수시) 정보 등록 처리
+    // 수시 정보 등록 처리
     @PostMapping("/create")
     public String create(
         @RequestParam("admissionId") int admissionId, 
@@ -57,19 +57,19 @@ public class EarlyAdmissionController {
         earlyAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         EarlyAdmissionDto createdEarlyAdmission = earlyAdmissionService.create(earlyAdmission);
         if (createdEarlyAdmission != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "입시(수시) 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
             return "redirect:/admin/earlyAdmissions/" + createdEarlyAdmission.getEarlyAdmissionId();
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "입시(수시) 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("earlyAdmission", earlyAdmission);
         return "redirect:/admin/earlyAdmissions/create" + "?admissionId=" + admissionId;
     }
 
-    // 입시(수시) 정보 조회
+    // 수시 정보 조회
     @GetMapping("/{earlyAdmissionId}")
     public String read(@PathVariable int earlyAdmissionId, Model model) {
-        // 입시(수시) 정보
+        // 수시 정보
         Map<String, Object> params = new HashMap<>();
         params.put("earlyAdmissionId", earlyAdmissionId);
         EarlyAdmissionDto earlyAdmission = earlyAdmissionService.read(params);
@@ -83,10 +83,10 @@ public class EarlyAdmissionController {
         return "admin/earlyAdmission/read";
     }
 
-    // 입시(수시) 정보 수정
+    // 수시 정보 수정
     @GetMapping("/{earlyAdmissionId}/update")
     public String update(@PathVariable int earlyAdmissionId, Model model) {
-        // 입시(수시) 정보
+        // 수시 정보
         Map<String, Object> params = new HashMap<>();
         params.put("earlyAdmissionId", earlyAdmissionId);
         EarlyAdmissionDto earlyAdmission = earlyAdmissionService.read(params);
@@ -99,7 +99,7 @@ public class EarlyAdmissionController {
         return "admin/earlyAdmission/edit";
     }
     
-    // 입시(수시) 정보 수정 처리
+    // 수시 정보 수정 처리
     @PostMapping("/{earlyAdmissionId}/update")
     public String update(
         @PathVariable int earlyAdmissionId,
@@ -107,7 +107,7 @@ public class EarlyAdmissionController {
         HttpSession session,
         RedirectAttributes redirectAttributes
     ) {
-        // 입시(수시) 정보 존재 여부 확인
+        // 수시 정보 존재 여부 확인
         Map<String, Object> params = new HashMap<>();
         params.put("earlyAdmissionId", earlyAdmissionId);
         if (!isEarlyAdmissionExists(params)) {
@@ -116,11 +116,11 @@ public class EarlyAdmissionController {
 
         earlyAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionService.update(earlyAdmission)) {
-            redirectAttributes.addFlashAttribute("successMessage", "입시(수시) 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 수정이 완료되었습니다.");
             return "redirect:/admin/earlyAdmissions/" + earlyAdmissionId;
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "입시(수시) 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("earlyAdmission", earlyAdmission);
         return "redirect:/admin/earlyAdmissions/" + earlyAdmissionId + "/update";
     }
