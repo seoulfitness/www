@@ -84,7 +84,7 @@
                                                                 <%-- 수시 영어 정보 --%>
                                                                 <c:choose>
                                                                     <c:when test="${not empty earlyAdmissionEnglish}">
-                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionEnglish/${earlyAdmissionEnglish.earlyAdmissionId}">영어 정보</a>                                                                        
+                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionEnglish/${earlyAdmissionEnglish.earlyAdmissionEnglishId}">영어 정보</a>                                                                        
                                                                     </c:when>
                                                                     <c:when test="${empty earlyAdmissionEnglish}">
                                                                         <a class="btn btn-outline-danger btn-sm" href="/admin/earlyAdmissionEnglish/create?admissionId=${admission.admissionId}">영어 정보 입력</a>                                                                        
@@ -104,7 +104,7 @@
                                                                 <%-- 수시 실기 정보 --%>
                                                                 <c:choose>
                                                                     <c:when test="${not empty earlyAdmissionPhysical}">
-                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionPhysical/${earlyAdmissionPhysical.earlyAdmissionId}">실기 정보</a>
+                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionPhysical/${earlyAdmissionPhysical.earlyAdmissionPhysicalId}">실기 정보</a>
                                                                     </c:when>
                                                                     <c:when test="${empty earlyAdmissionPhysical}">
                                                                         <a class="btn btn-outline-danger btn-sm" href="/admin/earlyAdmissionPhysical/create?admissionId=${admission.admissionId}">실기 정보 입력</a>                                                                        
@@ -114,7 +114,7 @@
                                                                 <%-- 수시 내신 정보 --%>
                                                                 <c:choose>
                                                                     <c:when test="${not empty earlyAdmissionInternal}">
-                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionInternal/${earlyAdmissionInternal.earlyAdmissionId}">내신 정보</a>                                                                        
+                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionInternal/${earlyAdmissionInternal.earlyAdmissionInternalId}">내신 정보</a>                                                                        
                                                                     </c:when>
                                                                     <c:when test="${empty earlyAdmissionInternal}">
                                                                         <a class="btn btn-outline-danger btn-sm" href="/admin/earlyAdmissionInternal/create?admissionId=${admission.admissionId}">내신 정보 입력</a>                                                                        
@@ -124,7 +124,7 @@
                                                                 <%-- 수시 면접 정보 --%>
                                                                 <c:choose>
                                                                     <c:when test="${not empty earlyAdmissionInterview}">
-                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionInterview/${earlyAdmissionInterview.earlyAdmissionId}">면접 정보</a>                                                                        
+                                                                        <a class="btn btn-primary btn-sm" href="/admin/earlyAdmissionInterview/${earlyAdmissionInterview.earlyAdmissionInterviewId}">면접 정보</a>                                                                        
                                                                     </c:when>
                                                                     <c:when test="${empty earlyAdmissionInterview}">
                                                                         <a class="btn btn-outline-danger btn-sm" href="/admin/earlyAdmissionInterview/create?admissionId=${admission.admissionId}">면접 정보 입력</a>                                                                        

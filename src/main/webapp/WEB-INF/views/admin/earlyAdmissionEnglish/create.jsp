@@ -25,43 +25,43 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade1">영어 등급 1 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade1" name="subject20ReflectedGrade1" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade1}" />
+                                                <input class="form-control" id="subject20ReflectedGrade1" name="subject20ReflectedGrade1" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade2 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade2}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade2">영어 등급 2 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade2" name="subject20ReflectedGrade2" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade2}" />
+                                                <input class="form-control" id="subject20ReflectedGrade2" name="subject20ReflectedGrade2" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade2 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade2}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade3">영어 등급 3 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade3" name="subject20ReflectedGrade3" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade3}" />
+                                                <input class="form-control" id="subject20ReflectedGrade3" name="subject20ReflectedGrade3" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade3 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade3}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade4">영어 등급 4 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade4" name="subject20ReflectedGrade4" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade4}" />
+                                                <input class="form-control" id="subject20ReflectedGrade4" name="subject20ReflectedGrade4" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade4 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade4}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade5">영어 등급 5 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade5" name="subject20ReflectedGrade5" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade5}" />
+                                                <input class="form-control" id="subject20ReflectedGrade5" name="subject20ReflectedGrade5" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade5 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade5}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade6">영어 등급 6 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade6" name="subject20ReflectedGrade6" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade6}" />
+                                                <input class="form-control" id="subject20ReflectedGrade6" name="subject20ReflectedGrade6" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade6 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade6}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade7">영어 등급 7 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade7" name="subject20ReflectedGrade7" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade7}" />
+                                                <input class="form-control" id="subject20ReflectedGrade7" name="subject20ReflectedGrade7" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade7 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade7}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade8">영어 등급 8 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade8" name="subject20ReflectedGrade8" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade8}" />
+                                                <input class="form-control" id="subject20ReflectedGrade8" name="subject20ReflectedGrade8" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade8 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade8}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="subject20ReflectedGrade9">영어 등급 9 점수 <span class="text-danger">(감점일 경우 -를 붙여주세요)</span></label>
-                                                <input class="form-control" id="subject20ReflectedGrade9" name="subject20ReflectedGrade9" type="text" value="${earlyAdmissionEnglish.subject20ReflectedGrade9}" />
+                                                <input class="form-control" id="subject20ReflectedGrade9" name="subject20ReflectedGrade9" type="number" value="${empty earlyAdmissionEnglish.subject20ReflectedGrade9 ? '0.000' : earlyAdmissionEnglish.subject20ReflectedGrade9}" />
                                             </div>
                                             <div class="mb-3">
                                                 <label for="earlyAdmissionEnglishMemo" class="form-label">메모</label>
-                                                <textarea class="form-control" id="earlyAdmissionEnglishMemo" name="earlyAdmissionEnglishMemo" placeholder="메모" value="${earlyAdmission.earlyAdmissionMemo}"></textarea>
+                                                <textarea class="form-control" id="earlyAdmissionEnglishMemo" name="earlyAdmissionEnglishMemo" placeholder="메모" value="${empty earlyAdmissionEnglish.earlyAdmissionEnglishMemo ? '' : earlyAdmissionEnglish.earlyAdmissionEnglishMemo}"></textarea>
                                             </div>
                                         </div>
                                         <div class="card-footer">

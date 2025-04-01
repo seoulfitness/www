@@ -3,6 +3,7 @@ package kr.seoulfitness.admin.admission;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,16 @@ import kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatDto;
 import kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatService;
 import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto;
 import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishService;
+import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto;
+import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryService;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionService;
 import kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto;
 import kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatService;
+import kr.seoulfitness.admin.regularAdmissionEnglish.RegularAdmissionEnglishDto;
+import kr.seoulfitness.admin.regularAdmissionEnglish.RegularAdmissionEnglishService;
+import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryDto;
+import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryService;
 import kr.seoulfitness.admin.school.SchoolService;
 
 @Controller
@@ -49,13 +56,22 @@ public class AdmissionController {
 
     @Autowired
     private EarlyAdmissionEnglishService earlyAdmissionEnglishService;
-    
+
+    @Autowired
+    private EarlyAdmissionHistoryService earlyAdmissionHistoryService;
+
     @Autowired
     private RegularAdmissionService regularAdmissionService;
 
     @Autowired
     private RegularAdmissionCsatService regularAdmissionCsatService;
 
+    @Autowired
+    private RegularAdmissionEnglishService regularAdmissionEnglishService;
+
+    @Autowired
+    private RegularAdmissionHistoryService regularAdmissionHistoryService;
+    
     // 입시 요강 존재 여부 확인
     public boolean isAdmissionExists(int admissionId) {
         return admissionService.read(admissionId) != null;
@@ -166,24 +182,24 @@ public class AdmissionController {
             earlyAdmissionParams.put("admissionId", admission.getAdmissionId());
             EarlyAdmissionDto earlyAdmission = earlyAdmissionService.read(earlyAdmissionParams);
             model.addAttribute("earlyAdmission", earlyAdmission);
-        }
 
-        // 수시 수능 정보 존재 여부 확인
-        if (admission.getEarlyAdmission().equals("Y")) {
             // 수시 수능 정보 상세보기
             Map<String, Object> earlyAdmissionCsatParams = new HashMap<>();
             earlyAdmissionCsatParams.put("admissionId", admission.getAdmissionId());
             EarlyAdmissionCsatDto earlyAdmissionCsat = earlyAdmissionCsatService.read(earlyAdmissionCsatParams);
             model.addAttribute("earlyAdmissionCsat", earlyAdmissionCsat);
-        }
 
-        // 수시 영어 정보 존재 여부 확인
-        if (admission.getEarlyAdmission().equals("Y")) {
             // 수시 영어 정보 상세보기
             Map<String, Object> earlyAdmissionEnglishParams = new HashMap<>();
             earlyAdmissionEnglishParams.put("admissionId", admission.getAdmissionId());
             EarlyAdmissionEnglishDto earlyAdmissionEnglish = earlyAdmissionEnglishService.read(earlyAdmissionEnglishParams);
             model.addAttribute("earlyAdmissionEnglish", earlyAdmissionEnglish);
+
+            // 수시 한국사 정보 상세보기
+            Map<String, Object> earlyAdmissionHistoryParams = new HashMap<>();
+            earlyAdmissionHistoryParams.put("admissionId", admission.getAdmissionId());
+            EarlyAdmissionHistoryDto earlyAdmissionHistory = earlyAdmissionHistoryService.read(earlyAdmissionHistoryParams);
+            model.addAttribute("earlyAdmissionHistory", earlyAdmissionHistory);
         }
 
         // 정시 모집 여부 확인
@@ -193,15 +209,24 @@ public class AdmissionController {
             regularAdmissionParams.put("admissionId", admission.getAdmissionId());
             RegularAdmissionDto regularAdmission = regularAdmissionService.read(regularAdmissionParams);
             model.addAttribute("regularAdmission", regularAdmission);
-        }
 
-        // 정시 수능 정보 존재 여부 확인
-        if (admission.getRegularAdmission().equals("Y")) {
             // 정시 수능 정보 상세보기
             Map<String, Object> regularAdmissionCsatParams = new HashMap<>();
             regularAdmissionCsatParams.put("admissionId", admission.getAdmissionId());
             RegularAdmissionCsatDto regularAdmissionCsat = regularAdmissionCsatService.read(regularAdmissionCsatParams);
             model.addAttribute("regularAdmissionCsat", regularAdmissionCsat);
+
+            // 정시 영어 정보 상세보기
+            Map<String, Object> regularAdmissionEnglishParams = new HashMap<>();
+            regularAdmissionEnglishParams.put("admissionId", admission.getAdmissionId());
+            RegularAdmissionEnglishDto regularAdmissionEnglish = regularAdmissionEnglishService.read(regularAdmissionEnglishParams);
+            model.addAttribute("regularAdmissionEnglish", regularAdmissionEnglish);
+
+            // 정시 한국사 정보 상세보기
+            Map<String, Object> regularAdmissionHistoryParams = new HashMap<>();
+            regularAdmissionHistoryParams.put("admissionId", admission.getAdmissionId());
+            RegularAdmissionHistoryDto regularAdmissionHistory = regularAdmissionHistoryService.read(regularAdmissionHistoryParams);
+            model.addAttribute("regularAdmissionHistory", regularAdmissionHistory);
         }
 
         model.addAttribute("admission", admission);
