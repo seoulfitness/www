@@ -35,7 +35,7 @@
                                                         <label class="small mb-1" for="subject1Id">교과목 1 선택 <span class="text-danger">*</span></label>
                                                         <select class="form-control" id="subject1Id" name="subject1Id">
                                                             <c:forEach var="physicalSubject" items="${physicalSubjects}">
-                                                                <option value="${physicalSubject.physicalSubjectId}" ${regualrAdmissionPhysical.subject1 == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
+                                                                <option value="${physicalSubject.physicalSubjectId}" ${regualrAdmissionPhysical.subject1Id == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
@@ -52,23 +52,23 @@
                                                         <div class="col-md-3">
                                                             <label class="small mb-1" for="useSubject${i}">교과목 ${i} 사용 여부 <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="useSubject${i}" name="useSubject${i}">
-                                                                <option value="Y" ${regualrAdmissionPhysical['useSubject' + i] == 'Y' ? 'selected' : ''}>사용</option>
-                                                                <option value="N" ${regualrAdmissionPhysical['useSubject' + i] == 'N' ? 'selected' : ''}>미사용</option>
+                                                                <option value="Y" ${regularAdmissionPhysical['useSubject'.concat(i)] == 'Y' ? 'selected' : ''}>사용</option>
+                                                                <option value="N" ${regularAdmissionPhysical['useSubject'.concat(i)] == 'N' ? 'selected' : ''}>미사용</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="small mb-1" for="subject${i}Id">교과목 ${i} 선택 <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="subject${i}Id" name="subject${i}Id">
                                                                 <c:forEach var="physicalSubject" items="${physicalSubjects}">
-                                                                    <option value="${physicalSubject.physicalSubjectId}" ${regualrAdmissionPhysical['subject' + i] == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
+                                                                    <option value="${physicalSubject.physicalSubjectId}" ${regularAdmissionPhysical['subject'.concat(i).concat('Id')] == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
                                                                 </c:forEach>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="small mb-1" for="subject${i}EvaluationMethod">평가 방법 <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="subject${i}EvaluationMethod" name="subject${i}EvaluationMethod">
-                                                                <option value="1" ${regualrAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '1' ? 'selected' : ''}>절대평가</option>
-                                                                <option value="2" ${regualrAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '2' ? 'selected' : ''}>상대평가</option>
+                                                                <option value="1" ${regularAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == '1' ? 'selected' : ''}>절대평가</option>
+                                                                <option value="2" ${regularAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == '2' ? 'selected' : ''}>상대평가</option>
                                                             </select>
                                                         </div>
                                                     </div>
