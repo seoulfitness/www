@@ -47,6 +47,8 @@ public class RegularAdmissionPhysicalDto {
     private String subject9EvaluationMethod;         // '1' : 절대평가, '2' : 상대평가
     private String subject10EvaluationMethod;         // '1' : 절대평가, '2' : 상대평가
 
+    private String regularAdmissionPhysicalMemo; // 메모
+
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시
     private String createdBy;               // 생성자

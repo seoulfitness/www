@@ -56,11 +56,11 @@ public class RegularAdmissionInternalController {
         regularAdmissionInternal.setUpdatedBy((String) session.getAttribute("userId"));
         RegularAdmissionInternalDto createdRegularAdmissionInternal = regularAdmissionInternalService.create(regularAdmissionInternal);
         if (createdRegularAdmissionInternal != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 내신 점수 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 내신 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#regularAdmissionInternal";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 내신 점수 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 내신 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionInternal", regularAdmissionInternal);
         return "redirect:/admin/regularAdmissionInternal/create" + "?admissionId=" + admissionId;
     }
@@ -114,11 +114,11 @@ public class RegularAdmissionInternalController {
 
         regularAdmissionInternal.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionInternalService.update(regularAdmissionInternal)) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 내신 점수 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 내신 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + regularAdmissionInternal.getAdmissionId() + "#regularAdmissionInternal";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 내신 점수 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 내신 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionInternal", regularAdmissionInternal);
         return "redirect:/admin/regularAdmissionInternal/" + regularAdmissionInternalId + "/update";
     }

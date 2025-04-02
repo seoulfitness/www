@@ -56,11 +56,11 @@ public class RegularAdmissionController {
         regularAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         RegularAdmissionDto createdRegularAdmission = regularAdmissionService.create(regularAdmission);
         if (createdRegularAdmission != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#regularAdmission";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmission", regularAdmission);
         return "redirect:/admin/regularAdmissions/create" + "?admissionId=" + admissionId;
     }
@@ -114,11 +114,11 @@ public class RegularAdmissionController {
 
         regularAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionService.update(regularAdmission)) {
-            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + regularAdmission.getAdmissionId() + "#regularAdmission";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmission", regularAdmission);
         return "redirect:/admin/regularAdmissions/" + regularAdmissionId + "/update";
     }

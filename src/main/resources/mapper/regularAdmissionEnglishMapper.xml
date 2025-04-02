@@ -18,6 +18,8 @@
         <result property="subject20ReflectedGrade7" column="SUBJECT20_REFLECTED_GRADE7" />
         <result property="subject20ReflectedGrade8" column="SUBJECT20_REFLECTED_GRADE8" />
         <result property="subject20ReflectedGrade9" column="SUBJECT20_REFLECTED_GRADE9" />
+        <!-- 메모 -->
+        <result property="regularAdmissionEnglishMemo" column="REGULAR_ADMISSION_ENGLISH_MEMO" />
 
         <result property="createdAt" column="CREATED_AT" />
         <result property="updatedAt" column="UPDATED_AT" />
@@ -51,6 +53,7 @@
             SUBJECT20_REFLECTED_GRADE7,
             SUBJECT20_REFLECTED_GRADE8,
             SUBJECT20_REFLECTED_GRADE9,
+            REGULAR_ADMISSION_ENGLISH_MEMO,
             CREATED_BY,
             UPDATED_BY
         ) VALUES (
@@ -64,6 +67,7 @@
             #{subject20ReflectedGrade7},
             #{subject20ReflectedGrade8},
             #{subject20ReflectedGrade9},
+            #{regularAdmissionEnglishMemo},
             #{createdBy},
             #{updatedBy}
         )
@@ -86,6 +90,7 @@
             A.SUBJECT20_REFLECTED_GRADE7,
             A.SUBJECT20_REFLECTED_GRADE8,
             A.SUBJECT20_REFLECTED_GRADE9,
+            A.REGULAR_ADMISSION_ENGLISH_MEMO,
             A.CREATED_AT,
             A.UPDATED_AT,
             A.CREATED_BY,
@@ -173,6 +178,11 @@
         <if test="subject20ReflectedGrade9 != null and subject20ReflectedGrade9 != ''">
             <![CDATA[
             , SUBJECT20_REFLECTED_GRADE9 = #{subject20ReflectedGrade9},
+            ]]>
+        </if>
+        <if test="regularAdmissionEnglishMemo != null and regularAdmissionEnglishMemo != ''">
+            <![CDATA[
+            , REGULAR_ADMISSION_ENGLISH_MEMO = #{regularAdmissionEnglishMemo},
             ]]>
         </if>
         <![CDATA[

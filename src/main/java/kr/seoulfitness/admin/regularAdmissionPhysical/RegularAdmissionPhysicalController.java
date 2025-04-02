@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.seoulfitness.admin.admission.AdmissionDto;
 import kr.seoulfitness.admin.admission.AdmissionService;
+import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
 @Controller
 @RequestMapping("/admin/regularAdmissionPhysical")
 public class RegularAdmissionPhysicalController {
@@ -26,6 +27,9 @@ public class RegularAdmissionPhysicalController {
 
     @Autowired
     private AdmissionService admissionService;
+
+    @Autowired
+    private PhysicalSubjectService physicalSubjectService;
 
     // 정시 실기 점수 정보 존재 여부 확인
     public boolean isRegularAdmissionPhysicalExists(Map<String, Object> params) {
@@ -41,6 +45,17 @@ public class RegularAdmissionPhysicalController {
         
         model.addAttribute("admissionId", admissionId);
         model.addAttribute("activePage", "admissions");
+
+        // 실기 교과목 파라미터 생성
+        Map<String, Object> physicalSubjectParams = new HashMap<>();
+        physicalSubjectParams.put("currentPage", 1);
+        physicalSubjectParams.put("listCountPerPage", 1000);
+        physicalSubjectParams.put("pageCountPerPage", 1000);
+
+        // 실기 교과목 목록 조회
+        Map<String, Object> physicalSubjectResult = physicalSubjectService.list(physicalSubjectParams);
+        model.addAttribute("physicalSubjects", physicalSubjectResult.get("physicalSubjects"));
+
         return "admin/regularAdmissionPhysical/create";
     }
 
@@ -56,11 +71,11 @@ public class RegularAdmissionPhysicalController {
         regularAdmissionPhysical.setUpdatedBy((String) session.getAttribute("userId"));
         RegularAdmissionPhysicalDto createdRegularAdmissionPhysical = regularAdmissionPhysicalService.create(regularAdmissionPhysical);
         if (createdRegularAdmissionPhysical != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 실기 점수 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 실기 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#regularAdmissionPhysical";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 실기 점수 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 실기 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionPhysical", regularAdmissionPhysical);
         return "redirect:/admin/regularAdmissionPhysical/create" + "?admissionId=" + admissionId;
     }
@@ -94,6 +109,16 @@ public class RegularAdmissionPhysicalController {
         AdmissionDto admission = admissionService.read(regularAdmissionPhysical.getAdmissionId());
         model.addAttribute("admission", admission);
 
+        // 실기 교과목 파라미터 생성
+        Map<String, Object> physicalSubjectParams = new HashMap<>();
+        physicalSubjectParams.put("currentPage", 1);
+        physicalSubjectParams.put("listCountPerPage", 1000);
+        physicalSubjectParams.put("pageCountPerPage", 1000);
+
+        // 실기 교과목 목록 조회
+        Map<String, Object> physicalSubjectResult = physicalSubjectService.list(physicalSubjectParams);
+        model.addAttribute("physicalSubjects", physicalSubjectResult.get("physicalSubjects"));
+
         return "admin/regularAdmissionPhysical/update";
     }
     
@@ -114,11 +139,11 @@ public class RegularAdmissionPhysicalController {
 
         regularAdmissionPhysical.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionPhysicalService.update(regularAdmissionPhysical)) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 실기 점수 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 실기 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + regularAdmissionPhysical.getAdmissionId() + "#regularAdmissionPhysical";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 실기 점수 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 실기 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionPhysical", regularAdmissionPhysical);
         return "redirect:/admin/regularAdmissionPhysical/" + regularAdmissionPhysicalId + "/update";
     }

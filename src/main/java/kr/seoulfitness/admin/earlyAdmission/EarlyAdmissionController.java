@@ -57,11 +57,11 @@ public class EarlyAdmissionController {
         earlyAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         EarlyAdmissionDto createdEarlyAdmission = earlyAdmissionService.create(earlyAdmission);
         if (createdEarlyAdmission != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 입시 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#earlyAdmission";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 입시 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("earlyAdmission", earlyAdmission);
         return "redirect:/admin/earlyAdmissions/create" + "?admissionId=" + admissionId;
     }
@@ -116,11 +116,11 @@ public class EarlyAdmissionController {
 
         earlyAdmission.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionService.update(earlyAdmission)) {
-            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 입시 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + earlyAdmission.getAdmissionId() + "#earlyAdmission";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 입시 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("earlyAdmission", earlyAdmission);
         return "redirect:/admin/earlyAdmissions/" + earlyAdmissionId + "/update";
     }

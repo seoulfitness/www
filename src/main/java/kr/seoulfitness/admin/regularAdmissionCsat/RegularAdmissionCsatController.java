@@ -57,11 +57,11 @@ public class RegularAdmissionCsatController {
         regularAdmissionCsat.setUpdatedBy((String) session.getAttribute("userId"));
         RegularAdmissionCsatDto createdRegularAdmissionCsat = regularAdmissionCsatService.create(regularAdmissionCsat);
         if (createdRegularAdmissionCsat != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 수능 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#regularAdmissionCsat";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 수능 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionCsat", regularAdmissionCsat);
         return "redirect:/admin/regularAdmissionCsat/create" + "?admissionId=" + admissionId;
     }
@@ -115,11 +115,11 @@ public class RegularAdmissionCsatController {
 
         regularAdmissionCsat.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionCsatService.update(regularAdmissionCsat)) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 수능 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + regularAdmissionCsat.getAdmissionId() + "#regularAdmissionCsat";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 수능 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionCsat", regularAdmissionCsat);
         return "redirect:/admin/regularAdmissionCsat/" + regularAdmissionId + "/update";
     }

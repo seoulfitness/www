@@ -10,7 +10,7 @@
                 수시 입시 수능 정보
             </div>
             <div class="card-body">
-                <div class="alert alert-warning">
+                <div class="alert alert-danger">
                     수시 입시 수능 정보가 없습니다. 수시 입시 수능 정보를 입력해주세요.
                 </div>
             </div>

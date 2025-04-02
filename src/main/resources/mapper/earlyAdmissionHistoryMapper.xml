@@ -19,6 +19,9 @@
         <result property="subject21ReflectedGrade8" column="SUBJECT21_REFLECTED_GRADE8" />
         <result property="subject21ReflectedGrade9" column="SUBJECT21_REFLECTED_GRADE9" />
 
+        <!-- 메모 -->
+        <result property="earlyAdmissionHistoryMemo" column="EARLY_ADMISSION_HISTORY_MEMO" />
+
         <result property="createdAt" column="CREATED_AT" />
         <result property="updatedAt" column="UPDATED_AT" />
         <result property="createdBy" column="CREATED_BY" />
@@ -51,6 +54,7 @@
             SUBJECT21_REFLECTED_GRADE7,
             SUBJECT21_REFLECTED_GRADE8,
             SUBJECT21_REFLECTED_GRADE9,
+            EARLY_ADMISSION_HISTORY_MEMO,
             CREATED_BY,
             UPDATED_BY
         ) VALUES (
@@ -64,6 +68,7 @@
             #{subject21ReflectedGrade7},
             #{subject21ReflectedGrade8},
             #{subject21ReflectedGrade9},
+            #{earlyAdmissionHistoryMemo},
             #{createdBy},
             #{updatedBy}
         )
@@ -86,6 +91,7 @@
             A.SUBJECT21_REFLECTED_GRADE7,
             A.SUBJECT21_REFLECTED_GRADE8,
             A.SUBJECT21_REFLECTED_GRADE9,
+            A.EARLY_ADMISSION_HISTORY_MEMO,
             A.CREATED_AT,
             A.UPDATED_AT,
             A.CREATED_BY,
@@ -173,6 +179,11 @@
         <if test="subject21ReflectedGrade9 != null and subject21ReflectedGrade9 != ''">
             <![CDATA[
             , SUBJECT21_REFLECTED_GRADE9 = #{subject21ReflectedGrade9},
+            ]]>
+        </if>
+        <if test="earlyAdmissionHistoryMemo != null and earlyAdmissionHistoryMemo != ''">
+            <![CDATA[
+            , EARLY_ADMISSION_HISTORY_MEMO = #{earlyAdmissionHistoryMemo},
             ]]>
         </if>
         <![CDATA[

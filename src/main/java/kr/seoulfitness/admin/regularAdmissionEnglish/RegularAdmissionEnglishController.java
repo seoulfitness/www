@@ -56,11 +56,11 @@ public class RegularAdmissionEnglishController {
         regularAdmissionEnglish.setUpdatedBy((String) session.getAttribute("userId"));
         RegularAdmissionEnglishDto createdRegularAdmissionEnglish = regularAdmissionEnglishService.create(regularAdmissionEnglish);
         if (createdRegularAdmissionEnglish != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 영어 점수 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 영어 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#regularAdmissionEnglish";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 영어 점수 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 영어 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionEnglish", regularAdmissionEnglish);
         return "redirect:/admin/regularAdmissionEnglish/create" + "?admissionId=" + admissionId;
     }
@@ -114,11 +114,11 @@ public class RegularAdmissionEnglishController {
 
         regularAdmissionEnglish.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionEnglishService.update(regularAdmissionEnglish)) {
-            redirectAttributes.addFlashAttribute("successMessage", "정시 영어 점수 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "정시 입시 영어 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + regularAdmissionEnglish.getAdmissionId() + "#regularAdmissionEnglish";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "정시 영어 점수 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "정시 입시 영어 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("regularAdmissionEnglish", regularAdmissionEnglish);
         return "redirect:/admin/regularAdmissionEnglish/" + regularAdmissionEnglishId + "/update";
     }

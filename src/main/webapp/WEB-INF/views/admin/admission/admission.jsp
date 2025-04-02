@@ -32,6 +32,11 @@
                             <c:choose>
                                 <c:when test="${admission.earlyAdmission == 'Y'}">
                                     <span class="btn btn-success btn-sm">수시 입시 진행</span>  
+                                    <a href="#earlyAdmission" class="btn btn-outline-primary btn-sm">입시 정보</a>
+                                    <a href="#earlyAdmissionCsat" class="btn btn-outline-primary btn-sm">수능 정보</a>
+                                    <a href="#earlyAdmissionEnglish" class="btn btn-outline-primary btn-sm">영어 정보</a>
+                                    <a href="#earlyAdmissionHistory" class="btn btn-outline-primary btn-sm">한국사 정보</a>
+                                    <a href="#earlyAdmissionPhysical" class="btn btn-outline-primary btn-sm">실기 정보</a>
                                 </c:when>
                                 <c:otherwise>
                                     <span class="btn btn-danger btn-sm">수시 입시 미진행</span>
@@ -45,6 +50,11 @@
                             <c:choose>
                                 <c:when test="${admission.regularAdmission == 'Y'}">
                                     <span class="btn btn-success btn-sm">정시 입시 진행</span>  
+                                    <a href="#regularAdmission" class="btn btn-outline-primary btn-sm">입시 정보</a>
+                                    <a href="#regularAdmissionCsat" class="btn btn-outline-primary btn-sm">수능 정보</a>
+                                    <a href="#regularAdmissionEnglish" class="btn btn-outline-primary btn-sm">영어 정보</a>
+                                    <a href="#regularAdmissionHistory" class="btn btn-outline-primary btn-sm">한국사 정보</a>
+                                    <a href="#regularAdmissionPhysical" class="btn btn-outline-primary btn-sm">실기 정보</a>
                                 </c:when>
                                 <c:otherwise>
                                     <span class="btn btn-danger btn-sm">정시 입시 미진행</span>

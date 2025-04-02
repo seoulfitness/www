@@ -20,6 +20,8 @@ public class EarlyAdmissionEnglishDto {
     private double subject20ReflectedGrade8;    // 영어 등급 8 반영 점수(-100.000 ~ 100.000)
     private double subject20ReflectedGrade9;    // 영어 등급 9 반영 점수(-100.000 ~ 100.000)
 
+    private String earlyAdmissionEnglishMemo; // 메모
+
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시
     private String createdBy;               // 생성자

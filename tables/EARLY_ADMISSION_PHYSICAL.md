@@ -5,7 +5,6 @@
 CREATE TABLE IF NOT EXISTS seoulfitness_v2.EARLY_ADMISSION_PHYSICAL (
     EARLY_ADMISSION_PHYSICAL_ID INT AUTO_INCREMENT PRIMARY KEY COMMENT '수시 모집 실기 점수 아이디',
     ADMISSION_ID INT COMMENT '입시 요강 아이디',
-    USE_TYPE CHAR(1) COMMENT '사용 구분(Y: 사용, N: 미사용)',
     
     -- 실기 교과목 사용 여부
     USE_SUBJECT1 CHAR(1) COMMENT '실기 교과목 1 사용 여부(Y: 사용, N: 미사용)',

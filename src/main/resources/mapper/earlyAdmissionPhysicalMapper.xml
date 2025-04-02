@@ -7,7 +7,6 @@
         <!-- 수시 모집 실기 점수 정보 -->
         <result property="earlyAdmissionPhysicalId" column="EARLY_ADMISSION_PHYSICAL_ID" />
         <result property="admissionId" column="ADMISSION_ID" />
-        <result property="useType" column="USE_TYPE" />
         
         <!-- 실기 교과목 사용 여부 -->
         <result property="useSubject1" column="USE_SUBJECT1" />
@@ -66,6 +65,19 @@
         <result property="updatedUserName" column="UPDATED_USER_NAME" />
         <result property="createdUserPhone" column="CREATED_USER_PHONE" />
         <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+
+        <!-- 실기 교과목 이름 -->
+        <result property="subject1Name" column="SUBJECT1_NAME" />
+        <result property="subject2Name" column="SUBJECT2_NAME" />
+        <result property="subject3Name" column="SUBJECT3_NAME" />
+        <result property="subject4Name" column="SUBJECT4_NAME" />
+        <result property="subject5Name" column="SUBJECT5_NAME" />
+        <result property="subject6Name" column="SUBJECT6_NAME" />
+        <result property="subject7Name" column="SUBJECT7_NAME" />
+        <result property="subject8Name" column="SUBJECT8_NAME" />
+        <result property="subject9Name" column="SUBJECT9_NAME" />
+        <result property="subject10Name" column="SUBJECT10_NAME" />
+        
     </resultMap>
 
     <!-- 수시 모집 실기 점수 정보 등록 -->
@@ -73,7 +85,6 @@
         <![CDATA[
         INSERT INTO EARLY_ADMISSION_PHYSICAL (
             ADMISSION_ID,
-            USE_TYPE,
             USE_SUBJECT1, USE_SUBJECT2, USE_SUBJECT3, USE_SUBJECT4, USE_SUBJECT5,
             USE_SUBJECT6, USE_SUBJECT7, USE_SUBJECT8, USE_SUBJECT9, USE_SUBJECT10,
             SUBJECT1_ID, SUBJECT2_ID, SUBJECT3_ID, SUBJECT4_ID, SUBJECT5_ID,
@@ -86,7 +97,6 @@
             UPDATED_BY
         ) VALUES (
             #{admissionId},
-            #{useType},
             #{useSubject1}, #{useSubject2}, #{useSubject3}, #{useSubject4}, #{useSubject5},
             #{useSubject6}, #{useSubject7}, #{useSubject8}, #{useSubject9}, #{useSubject10},
             #{subject1Id}, #{subject2Id}, #{subject3Id}, #{subject4Id}, #{subject5Id},
@@ -108,7 +118,6 @@
             -- 수시 모집 실기 점수 정보
             A.EARLY_ADMISSION_PHYSICAL_ID,
             A.ADMISSION_ID,
-            A.USE_TYPE,
             A.USE_SUBJECT1, A.USE_SUBJECT2, A.USE_SUBJECT3, A.USE_SUBJECT4, A.USE_SUBJECT5,
             A.USE_SUBJECT6, A.USE_SUBJECT7, A.USE_SUBJECT8, A.USE_SUBJECT9, A.USE_SUBJECT10,
             A.SUBJECT1_ID, A.SUBJECT2_ID, A.SUBJECT3_ID, A.SUBJECT4_ID, A.SUBJECT5_ID,
@@ -136,7 +145,18 @@
             E.USER_NAME AS CREATED_USER_NAME,
             E.USER_PHONE AS CREATED_USER_PHONE,
             F.USER_NAME AS UPDATED_USER_NAME,
-            F.USER_PHONE AS UPDATED_USER_PHONE
+            F.USER_PHONE AS UPDATED_USER_PHONE,
+            -- 실기 교과목 정보
+            P1.PHYSICAL_SUBJECT_NAME AS SUBJECT1_NAME,
+            P2.PHYSICAL_SUBJECT_NAME AS SUBJECT2_NAME,
+            P3.PHYSICAL_SUBJECT_NAME AS SUBJECT3_NAME,
+            P4.PHYSICAL_SUBJECT_NAME AS SUBJECT4_NAME,
+            P5.PHYSICAL_SUBJECT_NAME AS SUBJECT5_NAME,
+            P6.PHYSICAL_SUBJECT_NAME AS SUBJECT6_NAME,
+            P7.PHYSICAL_SUBJECT_NAME AS SUBJECT7_NAME,
+            P8.PHYSICAL_SUBJECT_NAME AS SUBJECT8_NAME,
+            P9.PHYSICAL_SUBJECT_NAME AS SUBJECT9_NAME,
+            P10.PHYSICAL_SUBJECT_NAME AS SUBJECT10_NAME
         FROM
             EARLY_ADMISSION_PHYSICAL A
             LEFT JOIN ADMISSIONS D ON D.ADMISSION_ID = A.ADMISSION_ID
@@ -144,6 +164,16 @@
             LEFT JOIN DEPARTMENTS C ON C.DEPARTMENT_ID = D.DEPARTMENT_ID
             LEFT JOIN USERS E ON E.USER_ID = A.CREATED_BY
             LEFT JOIN USERS F ON F.USER_ID = A.UPDATED_BY
+            LEFT JOIN PHYSICAL_SUBJECTS P1 ON P1.PHYSICAL_SUBJECT_ID = A.SUBJECT1_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P2 ON P2.PHYSICAL_SUBJECT_ID = A.SUBJECT2_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P3 ON P3.PHYSICAL_SUBJECT_ID = A.SUBJECT3_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P4 ON P4.PHYSICAL_SUBJECT_ID = A.SUBJECT4_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P5 ON P5.PHYSICAL_SUBJECT_ID = A.SUBJECT5_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P6 ON P6.PHYSICAL_SUBJECT_ID = A.SUBJECT6_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P7 ON P7.PHYSICAL_SUBJECT_ID = A.SUBJECT7_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P8 ON P8.PHYSICAL_SUBJECT_ID = A.SUBJECT8_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P9 ON P9.PHYSICAL_SUBJECT_ID = A.SUBJECT9_ID
+            LEFT JOIN PHYSICAL_SUBJECTS P10 ON P10.PHYSICAL_SUBJECT_ID = A.SUBJECT10_ID
         WHERE 1=1
         ]]>
         <if test="earlyAdmissionPhysicalId != null and earlyAdmissionPhysicalId != 0">
@@ -164,7 +194,7 @@
     <!-- 수시 모집 실기 점수 정보 수정 -->
     <update id="updateEarlyAdmissionPhysical" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto">
         <![CDATA[
-        UPDATE EARLY_ADMISSION_PHYSICAL SET ADMISSION_ID = #{admissionId}, USE_TYPE = #{useType}, UPDATED_BY = #{updatedBy}
+        UPDATE EARLY_ADMISSION_PHYSICAL SET ADMISSION_ID = #{admissionId}, UPDATED_BY = #{updatedBy}
         ]]>
         <if test="useSubject1 != null and useSubject1 != ''">
             <![CDATA[

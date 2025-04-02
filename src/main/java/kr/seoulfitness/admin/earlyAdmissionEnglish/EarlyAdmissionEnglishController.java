@@ -56,11 +56,11 @@ public class EarlyAdmissionEnglishController {
         earlyAdmissionEnglish.setUpdatedBy((String) session.getAttribute("userId"));
         EarlyAdmissionEnglishDto createdEarlyAdmissionEnglish = earlyAdmissionEnglishService.create(earlyAdmissionEnglish);
         if (createdEarlyAdmissionEnglish != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 입시 영어 정보 등록이 완료되었습니다.");
             return "redirect:/admin/admissions/" + admissionId + "#earlyAdmissionEnglish";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 입시 영어 정보 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("earlyAdmissionEnglish", earlyAdmissionEnglish);
         return "redirect:/admin/earlyAdmissionEnglish/create" + "?admissionId=" + admissionId;
     }
@@ -114,11 +114,11 @@ public class EarlyAdmissionEnglishController {
 
         earlyAdmissionEnglish.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionEnglishService.update(earlyAdmissionEnglish)) {
-            redirectAttributes.addFlashAttribute("successMessage", "수시 영어 점수 정보 수정이 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("successMessage", "수시 입시 영어 정보 수정이 완료되었습니다.");
             return "redirect:/admin/admissions/" + earlyAdmissionEnglish.getAdmissionId() + "#earlyAdmissionEnglish";
         }
 
-        redirectAttributes.addFlashAttribute("errorMessage", "수시 영어 점수 정보 수정에 실패했습니다.");
+        redirectAttributes.addFlashAttribute("errorMessage", "수시 입시 영어 정보 수정에 실패했습니다.");
         redirectAttributes.addFlashAttribute("earlyAdmissionEnglish", earlyAdmissionEnglish);
         return "redirect:/admin/earlyAdmissionEnglish/" + earlyAdmissionEnglishId + "/update";
     }

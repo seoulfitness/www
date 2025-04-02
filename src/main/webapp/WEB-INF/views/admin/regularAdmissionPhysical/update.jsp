@@ -17,10 +17,10 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <form id="createForm" action="/admin/earlyAdmissionPhysical/create?admissionId=${admissionId}" method="post" enctype="multipart/form-data">
+                                <form id="updateForm" action="/admin/regualrAdmissionPhysical/update?admissionId=${admissionId}" method="post" enctype="multipart/form-data">
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            ${admission.admissionYear}년 ${admission.admissionType}군 ${admission.schoolName} ${admission.departmentName} 수시 입시 실기 정보 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                            ${admission.admissionYear}년 ${admission.admissionType}군 ${admission.schoolName} ${admission.departmentName} 정시 입시 실기 정보 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
                                         </div>
                                         <div class="card-body">
                                             <div id="subjectBlock">
@@ -35,15 +35,15 @@
                                                         <label class="small mb-1" for="subject1Id">교과목 1 선택 <span class="text-danger">*</span></label>
                                                         <select class="form-control" id="subject1Id" name="subject1Id">
                                                             <c:forEach var="physicalSubject" items="${physicalSubjects}">
-                                                                <option value="${physicalSubject.physicalSubjectId}" ${earlyAdmissionPhysical['subject' + i] == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
+                                                                <option value="${physicalSubject.physicalSubjectId}" ${regualrAdmissionPhysical.subject1 == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label class="small mb-1" for="subject1EvaluationMethod">평가 방법 <span class="text-danger">*</span></label>
                                                         <select class="form-control" id="subject1EvaluationMethod" name="subject1EvaluationMethod">
-                                                            <option value="1" ${earlyAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '1' ? 'selected' : ''}>절대평가</option>
-                                                            <option value="2" ${earlyAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '2' ? 'selected' : ''}>상대평가</option>
+                                                            <option value="1" ${regualrAdmissionPhysical.subject1EvaluationMethod == '1' ? 'selected' : ''}>절대평가</option>
+                                                            <option value="2" ${regualrAdmissionPhysical.subject1EvaluationMethod == '2' ? 'selected' : ''}>상대평가</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -52,36 +52,36 @@
                                                         <div class="col-md-3">
                                                             <label class="small mb-1" for="useSubject${i}">교과목 ${i} 사용 여부 <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="useSubject${i}" name="useSubject${i}">
-                                                                <option value="Y" ${earlyAdmissionPhysical['useSubject' + i] == 'Y' ? 'selected' : ''}>사용</option>
-                                                                <option value="N" ${earlyAdmissionPhysical['useSubject' + i] == 'N' ? 'selected' : ''}>미사용</option>
+                                                                <option value="Y" ${regualrAdmissionPhysical['useSubject' + i] == 'Y' ? 'selected' : ''}>사용</option>
+                                                                <option value="N" ${regualrAdmissionPhysical['useSubject' + i] == 'N' ? 'selected' : ''}>미사용</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="small mb-1" for="subject${i}Id">교과목 ${i} 선택 <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="subject${i}Id" name="subject${i}Id">
                                                                 <c:forEach var="physicalSubject" items="${physicalSubjects}">
-                                                                    <option value="${physicalSubject.physicalSubjectId}" ${earlyAdmissionPhysical['subject' + i] == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
+                                                                    <option value="${physicalSubject.physicalSubjectId}" ${regualrAdmissionPhysical['subject' + i] == physicalSubject.physicalSubjectId ? 'selected' : ''}>${physicalSubject.physicalSubjectName}</option>
                                                                 </c:forEach>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3">
                                                             <label class="small mb-1" for="subject${i}EvaluationMethod">평가 방법 <span class="text-danger">*</span></label>
                                                             <select class="form-control" id="subject${i}EvaluationMethod" name="subject${i}EvaluationMethod">
-                                                                <option value="1" ${earlyAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '1' ? 'selected' : ''}>절대평가</option>
-                                                                <option value="2" ${earlyAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '2' ? 'selected' : ''}>상대평가</option>
+                                                                <option value="1" ${regualrAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '1' ? 'selected' : ''}>절대평가</option>
+                                                                <option value="2" ${regualrAdmissionPhysical['subject' + i + 'EvaluationMethod'] == '2' ? 'selected' : ''}>상대평가</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="earlyAdmissionPhysicalMemo" class="form-label">메모</label>
-                                                <textarea class="form-control" id="earlyAdmissionPhysicalMemo" name="earlyAdmissionPhysicalMemo" placeholder="메모" value="${earlyAdmissionPhysical.earlyAdmissionPhysicalMemo}"></textarea>
+                                                <label for="regualrAdmissionPhysicalMemo" class="form-label">메모</label>
+                                                <textarea class="form-control" id="regualrAdmissionPhysicalMemo" name="regualrAdmissionPhysicalMemo" placeholder="메모" value="${regualrAdmissionPhysical.regualrAdmissionPhysicalMemo}"></textarea>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button class="btn btn-primary" type="submit">수시 입시 실기 정보 등록</button>
-                                            <a href="/admin/admissions/${admissionId}#earlyAdmissionPhysical" class="btn btn-outline-danger">취소</a>
+                                            <button class="btn btn-primary" type="submit">정시 입시 실기 정보 수정</button>
+                                            <a href="/admin/admissions/${admissionId}#regualrAdmissionPhysical" class="btn btn-outline-danger">취소</a>
                                         </div>
                                     </div>
                                 </form>
@@ -95,6 +95,7 @@
         <%@ include file="../../base/script.jsp" %>
         <script>
             $(document).ready(function() {
+                /*
                 function init() {   
                     // 교과목 2부터 10까지 사용 여부를 모두 사용안함으로 설정
                     for (let i=2; i<11; i++) {
@@ -112,6 +113,7 @@
                 }
         
                 init();
+                */
 
                 // 교과목 i 사용 여부 변경 시 교과목 (i+1) 선택 여부 변경
                 for (let i=2; i<11; i++) {
@@ -170,8 +172,8 @@
                 }, "중복되는 교과목이 있습니다.");
 
 
-                // 수시 입시 실기 정보 등록
-                $('#createForm').validate({
+                // 정시 입시 실기 정보 수정
+                $('#updateForm').validate({
                     rules: {
                         subject2Id: {
                             notEqual: '#subject1Id'
@@ -200,12 +202,12 @@
                         subject10Id: {
                             notEqual: ['#subject1Id', '#subject2Id', '#subject3Id', '#subject4Id', '#subject5Id', '#subject6Id', '#subject7Id', '#subject8Id', '#subject9Id']
                         },
-                        earlyAdmissionMemo: {
+                        regualrAdmissionMemo: {
                             maxlength: 500
                         },
                     },
                     messages: {
-                        earlyAdmissionMemo: {
+                        regualrAdmissionMemo: {
                             maxlength: '500자 이하로 입력하세요.'
                         },
                     },
@@ -222,7 +224,7 @@
 
                 // 교과목 선택 변경 시 validation 강제 실행
                 $('[id^=subject][id$=Id]').change(function() {
-                    $('#createForm').valid();
+                    $('#updateForm').valid();
                 });
             });
         </script>

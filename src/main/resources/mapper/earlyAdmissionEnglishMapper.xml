@@ -7,6 +7,7 @@
         <!-- 수시 입시 영어 점수 정보 -->
         <result property="earlyAdmissionEnglishId" column="EARLY_ADMISSION_ENGLISH_ID" />
         <result property="admissionId" column="ADMISSION_ID" />
+        <result property="earlyAdmissionEnglishMemo" column="EARLY_ADMISSION_ENGLISH_MEMO" />
         
         <!-- 영어 등급 반영 점수 -->
         <result property="subject20ReflectedGrade1" column="SUBJECT20_REFLECTED_GRADE1" />
@@ -51,6 +52,7 @@
             SUBJECT20_REFLECTED_GRADE7,
             SUBJECT20_REFLECTED_GRADE8,
             SUBJECT20_REFLECTED_GRADE9,
+            EARLY_ADMISSION_ENGLISH_MEMO,
             CREATED_BY,
             UPDATED_BY
         ) VALUES (
@@ -64,6 +66,7 @@
             #{subject20ReflectedGrade7},
             #{subject20ReflectedGrade8},
             #{subject20ReflectedGrade9},
+            #{earlyAdmissionEnglishMemo},
             #{createdBy},
             #{updatedBy}
         )
@@ -86,6 +89,7 @@
             A.SUBJECT20_REFLECTED_GRADE7,
             A.SUBJECT20_REFLECTED_GRADE8,
             A.SUBJECT20_REFLECTED_GRADE9,
+            A.EARLY_ADMISSION_ENGLISH_MEMO,
             A.CREATED_AT,
             A.UPDATED_AT,
             A.CREATED_BY,
@@ -173,6 +177,11 @@
         <if test="subject20ReflectedGrade9 != null and subject20ReflectedGrade9 != ''">
             <![CDATA[
             , SUBJECT20_REFLECTED_GRADE9 = #{subject20ReflectedGrade9},
+            ]]>
+        </if>
+        <if test="earlyAdmissionEnglishMemo != null and earlyAdmissionEnglishMemo != ''">
+            <![CDATA[
+            , EARLY_ADMISSION_ENGLISH_MEMO = #{earlyAdmissionEnglishMemo},
             ]]>
         </if>
         <![CDATA[

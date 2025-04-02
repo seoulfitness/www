@@ -10,7 +10,7 @@
                 정시 입시 영어 정보
             </div>
             <div class="card-body">
-                <div class="alert alert-warning">
+                <div class="alert alert-danger">
                     정시 입시 영어 정보가 없습니다. 정시 입시 영어 정보를 입력해주세요.
                 </div>
             </div>
@@ -32,60 +32,14 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover mb-3">
                         <tbody>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 1 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade1}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 2 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade2}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 3 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade3}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 4 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade4}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 5 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade5}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 6 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade6}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 7 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade7}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 8 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade8}점
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="align-middle col-2">영어 등급 9 반영 점수</th>
-                                <td class="align-middle col-10">
-                                    ${regularAdmissionEnglish.subject20ReflectedGrade9}점
-                                </td>
-                            </tr>
+                            <c:forEach var="i" begin="1" end="9">
+                                <tr>
+                                    <th class="align-middle col-2">영어 등급 ${i} 반영 점수</th>
+                                    <td class="align-middle col-10">
+                                        ${regularAdmissionEnglish['subject20ReflectedGrade'.concat(i)]}점
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             <tr>
                                 <th class="align-middle col-2">메모</th>
                                 <td class="align-middle col-10">

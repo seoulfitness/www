@@ -4,19 +4,19 @@
 
 <c:choose>
     <%-- 정시 입시 실기 정보 없음 --%>
-    <c:when test="${empty regularAdmissionPhysical}">
-        <div class="card mb-4" id="regularAdmissionPhysical">
+    <c:when test="${empty regualrAdmissionPhysical}">
+        <div class="card mb-4" id="regualrAdmissionPhysical">
             <div class="card-header">
                 정시 입시 실기 정보
             </div>
             <div class="card-body">
-                <div class="alert alert-warning">
+                <div class="alert alert-danger">
                     정시 입시 실기 정보가 없습니다. 정시 입시 실기 정보를 입력해주세요.
                 </div>
             </div>
             <div class="card-footer">
                 <a href="/admin/admissions" class="btn btn-primary">입시 요강 목록</a>
-                <a class="btn btn-outline-danger" href="/admin/regularAdmissionPhysical/create?admissionId=${admission.admissionId}">실기 정보 입력</a>
+                <a class="btn btn-outline-danger" href="/admin/regualrAdmissionPhysical/create?admissionId=${admission.admissionId}">실기 정보 입력</a>
             </div>
         </div>
     </c:when>
@@ -24,7 +24,7 @@
 
     <%-- 정시 입시 실기 정보 있음 --%>
     <c:otherwise>
-        <div class="card mb-4" id="regularAdmissionPhysical">
+        <div class="card mb-4" id="regualrAdmissionPhysical">
             <div class="card-header">
                 정시 입시 실기 정보
             </div>
@@ -32,12 +32,35 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover mb-3">
                         <tbody>
-                            <c:forEach var="physicalSubject" items="${physicalSubjects}">
-                                <tr>
-                                    <td class="align-middle col-4">${physicalSubject.physicalSubjectName}</td>
-                                    <td class="align-middle col-8"></td>
-                                </tr>
-                            </c:forEach>
+                            <tr>
+                                <th class="align-middle col-2">교과목</th>
+                                <th class="align-middle col-4">교과목명</th>
+                                <th class="align-middle col-6">평가 방법</th>
+                            </tr>
+                            <c:forEach var="i" begin="1" end="10">
+                                <c:if test="${regualrAdmissionPhysical['useSubject'.concat(i)] == 'Y'}">
+                                    <tr>
+                                        <th class="align-middle col-2">교과목 ${i}</th>
+                                        <td class="align-middle col-4">${regualrAdmissionPhysical['subject'.concat(i).concat('Name')]}</td>
+                                        <td class="align-middle col-6">
+                                            <c:if test="${regualrAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
+                                                절대평가
+                                            </c:if>
+                                            <c:if test="${regualrAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
+                                                상대평가
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>      
+                            <tr>
+                                <th class="align-middle col-2" colspan="2">메모</th>
+                                <td class="align-middle col-10">
+                                    <c:if test="${not empty regualrAdmissionPhysical.regualrAdmissionPhysicalMemo}">
+                                        ${regualrAdmissionPhysical.regualrAdmissionPhysicalMemo}
+                                    </c:if>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>   
                     <%-- 등록일시, 수정일시 --%>
@@ -45,19 +68,19 @@
                         <tbody>
                             <tr class="border-top">
                                 <th class="align-middle col-2">등록일시</th>
-                                <td class="align-middle col-10"><fmt:formatDate value="${regularAdmissionPhysical.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                <td class="align-middle col-10"><fmt:formatDate value="${regualrAdmissionPhysical.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                             </tr>
                             <tr>
                                 <th class="align-middle col-2">등록한 사람</th>
-                                <td class="align-middle col-10">${regularAdmissionPhysical.createdUserName} (${regularAdmissionPhysical.createdBy}, ${regularAdmissionPhysical.createdUserPhone})</td>
+                                <td class="align-middle col-10">${regualrAdmissionPhysical.createdUserName} (${regualrAdmissionPhysical.createdBy}, ${regualrAdmissionPhysical.createdUserPhone})</td>
                             </tr>
                             <tr>
                                 <th class="align-middle col-2">수정일시</th>
-                                <td class="align-middle col-10"><fmt:formatDate value="${regularAdmissionPhysical.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                <td class="align-middle col-10"><fmt:formatDate value="${regualrAdmissionPhysical.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                             </tr>
                             <tr>
                                 <th class="align-middle col-2">수정한 사람</th>
-                                <td class="align-middle col-10">${regularAdmissionPhysical.updatedUserName} (${regularAdmissionPhysical.updatedBy}, ${regularAdmissionPhysical.updatedUserPhone})</td>
+                                <td class="align-middle col-10">${regualrAdmissionPhysical.updatedUserName} (${regualrAdmissionPhysical.updatedBy}, ${regualrAdmissionPhysical.updatedUserPhone})</td>
                             </tr>
                         </tbody>
                     </table>
@@ -66,7 +89,7 @@
             </div>
             <div class="card-footer">
                 <a href="/admin/admissions" class="btn btn-primary">입시 요강 목록</a>
-                <a href="/admin/regularAdmissionPhysical/${regularAdmissionPhysical.regularAdmissionPhysicalId}/update" class="btn btn-outline-warning">정시 입시 실기 정보 수정</a>
+                <a href="/admin/regualrAdmissionPhysical/${regualrAdmissionPhysical.regualrAdmissionPhysicalId}/update" class="btn btn-outline-warning">정시 입시 실기 정보 수정</a>
             </div>
         </div>
     </c:otherwise>

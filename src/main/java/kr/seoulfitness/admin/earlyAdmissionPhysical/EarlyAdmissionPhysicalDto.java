@@ -9,7 +9,6 @@ public class EarlyAdmissionPhysicalDto {
     // 수시 모집 실기 점수 정보
     private int earlyAdmissionPhysicalId;       // 수시 모집 실기 점수 아이디
     private int admissionId;                    // 입시 요강 아이디
-    private String useType;                     // 사용 구분('Y' : 사용, 'N' : 미사용)
 
     // 실기 교과목 사용 여부
     private String useSubject1;         // 'Y' : 사용, 'N' : 미사용
@@ -47,6 +46,8 @@ public class EarlyAdmissionPhysicalDto {
     private String subject9EvaluationMethod;         // '1' : 절대평가, '2' : 상대평가
     private String subject10EvaluationMethod;         // '1' : 절대평가, '2' : 상대평가
 
+    private String earlyAdmissionPhysicalMemo; // 메모
+
     private Date createdAt;                 // 생성일시
     private Date updatedAt;                 // 수정일시
     private String createdBy;               // 생성자
@@ -69,4 +70,16 @@ public class EarlyAdmissionPhysicalDto {
     private String updatedUserName;     // 수정한 사람 이름
     private String createdUserPhone;    // 등록한 사람 전화번호
     private String updatedUserPhone;    // 수정한 사람 전화번호
+
+    // 실기 교과목 이름
+    private String subject1Name;        // 실기 교과목 1 이름
+    private String subject2Name;        // 실기 교과목 2 이름
+    private String subject3Name;        // 실기 교과목 3 이름
+    private String subject4Name;        // 실기 교과목 4 이름
+    private String subject5Name;        // 실기 교과목 5 이름
+    private String subject6Name;        // 실기 교과목 6 이름
+    private String subject7Name;        // 실기 교과목 7 이름
+    private String subject8Name;        // 실기 교과목 8 이름
+    private String subject9Name;        // 실기 교과목 9 이름
+    private String subject10Name;        // 실기 교과목 10 이름
 }

@@ -10,7 +10,7 @@
                 수시 입시 실기 정보
             </div>
             <div class="card-body">
-                <div class="alert alert-warning">
+                <div class="alert alert-danger">
                     수시 입시 실기 정보가 없습니다. 수시 입시 실기 정보를 입력해주세요.
                 </div>
             </div>
@@ -32,12 +32,35 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover mb-3">
                         <tbody>
-                            <c:forEach var="physicalSubject" items="${physicalSubjects}">
-                                <tr>
-                                    <td class="align-middle col-4">${physicalSubject.physicalSubjectName}</td>
-                                    <td class="align-middle col-8"></td>
-                                </tr>
-                            </c:forEach>
+                            <tr>
+                                <th class="align-middle col-2">교과목</th>
+                                <th class="align-middle col-4">교과목명</th>
+                                <th class="align-middle col-6">평가 방법</th>
+                            </tr>
+                            <c:forEach var="i" begin="1" end="10">
+                                <c:if test="${earlyAdmissionPhysical['useSubject'.concat(i)] == 'Y'}">
+                                    <tr>
+                                        <th class="align-middle col-2">교과목 ${i}</th>
+                                        <td class="align-middle col-4">${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}</td>
+                                        <td class="align-middle col-6">
+                                            <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
+                                                절대평가
+                                            </c:if>
+                                            <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
+                                                상대평가
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>  
+                            <tr>
+                                <th class="align-middle col-2" colspan="2">메모</th>
+                                <td class="align-middle col-10">
+                                    <c:if test="${not empty earlyAdmissionPhysical.earlyAdmissionPhysicalMemo}">
+                                        ${earlyAdmissionPhysical.earlyAdmissionPhysicalMemo}
+                                    </c:if>
+                                </td>
+                            </tr>                         
                         </tbody>
                     </table>   
                     <%-- 등록일시, 수정일시 --%>
