@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.seoulfitness.admin.admission.AdmissionDto;
 import kr.seoulfitness.admin.admission.AdmissionService;
+import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
 @Controller
 @RequestMapping("/admin/earlyAdmissionPhysical")
 public class EarlyAdmissionPhysicalController {
@@ -26,6 +27,9 @@ public class EarlyAdmissionPhysicalController {
 
     @Autowired
     private AdmissionService admissionService;
+
+    @Autowired
+    private PhysicalSubjectService physicalSubjectService;
 
     // 수시 실기 점수 정보 존재 여부 확인
     public boolean isEarlyAdmissionPhysicalExists(Map<String, Object> params) {
@@ -37,10 +41,20 @@ public class EarlyAdmissionPhysicalController {
     public String create(@RequestParam("admissionId") int admissionId, Model model) {
         // 입시 요강 정보
         AdmissionDto admission = admissionService.read(admissionId);
-        model.addAttribute("admission", admission);
-        
+        model.addAttribute("admission", admission);        
         model.addAttribute("admissionId", admissionId);
         model.addAttribute("activePage", "admissions");
+
+        // 실기 교과목 파라미터 생성
+        Map<String, Object> physicalSubjectParams = new HashMap<>();
+        physicalSubjectParams.put("currentPage", 1);
+        physicalSubjectParams.put("listCountPerPage", 1000);
+        physicalSubjectParams.put("pageCountPerPage", 1000);
+
+        // 실기 교과목 목록 조회
+        Map<String, Object> physicalSubjectResult = physicalSubjectService.list(physicalSubjectParams);
+        model.addAttribute("physicalSubjects", physicalSubjectResult.get("physicalSubjects"));
+
         return "admin/earlyAdmissionPhysical/create";
     }
 
