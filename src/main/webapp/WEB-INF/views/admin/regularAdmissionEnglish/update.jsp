@@ -65,8 +65,8 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button class="btn btn-primary" type="submit">정시 입시 정보 수정</button>
-                                            <a href="/admin/regularAdmissionEnglish/${regularAdmissionEnglish.regularAdmissionEnglishId}" class="btn btn-outline-danger">취소</a>
+                                            <button class="btn btn-primary" type="submit">정시 입시 영어 정보 수정</button>
+                                            <a href="/admin/admissions/${regularAdmissionEnglish.admissionId}#regularAdmissionEnglish" class="btn btn-outline-danger">취소</a>
                                         </div>
                                     </div>
                                 </form>

@@ -17,11 +17,10 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <form id="updateForm" action="/admin/earlyAdmissions/update?admissionId=${admissionId}" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="earlyAdmissionId" value="${earlyAdmission.earlyAdmissionId}" />
+                                <form id="createForm" action="/admin/earlyAdmissions/create?admissionId=${admissionId}" method="post" enctype="multipart/form-data">
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            ${admission.admissionYear}년 ${admission.admissionType}군 ${admission.schoolName} ${admission.departmentName} 수시 입시 정보 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                            ${admission.admissionYear}년 ${admission.admissionType}군 ${admission.schoolName} ${admission.departmentName} 수시 입시 실기 정보 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
                                         </div>
                                         <div class="card-body">                                        
                                             <div class="mb-3">
@@ -70,15 +69,15 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="acceptedCount" class="form-label">모집 인원</label>
-                                                <input type="text" class="form-control" id="acceptedCount" name="acceptedCount" placeholder="모집 인원" value="$earlyAdmission.acceptedCount">
+                                                <input type="text" class="form-control" id="acceptedCount" name="acceptedCount" placeholder="모집 인원" value="${earlyAdmission.acceptedCount}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="earlyAdmissionMemo" class="form-label">메모</label>
-                                                <textarea class="form-control" id="earlyAdmissionMemo" name="earlyAdmissionMemo" placeholder="메모" value="$earlyAdmission.earlyAdmissionMemo"></textarea>
+                                                <textarea class="form-control" id="earlyAdmissionMemo" name="earlyAdmissionMemo" placeholder="메모" value="${earlyAdmission.earlyAdmissionMemo}"></textarea>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button class="btn btn-primary" type="submit">수시 입시 정보 수정</button>
+                                            <button class="btn btn-primary" type="submit">수시 입시 정보 등록</button>
                                             <a href="/admin/admissions/${admissionId}#earlyAdmission" class="btn btn-outline-danger">취소</a>
                                         </div>
                                     </div>
@@ -129,8 +128,8 @@
                     }
                 });
 
-                // 수시(입시) 정보 저장
-                $('#updateForm').validate({
+                // 수시(입시) 정보 등록
+                $('#createForm').validate({
                     rules: {
                         acceptedCount: {
                             required: true

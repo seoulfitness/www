@@ -57,7 +57,7 @@ public class EarlyAdmissionHistoryController {
         EarlyAdmissionHistoryDto createdEarlyAdmissionHistory = earlyAdmissionHistoryService.create(earlyAdmissionHistory);
         if (createdEarlyAdmissionHistory != null) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionHistory/" + createdEarlyAdmissionHistory.getEarlyAdmissionHistoryId();
+            return "redirect:/admin/admissions/" + admissionId + "#earlyAdmissionHistory";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
@@ -115,7 +115,7 @@ public class EarlyAdmissionHistoryController {
         earlyAdmissionHistory.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionHistoryService.update(earlyAdmissionHistory)) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 한국사 점수 정보 수정이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionHistory/" + earlyAdmissionHistoryId;
+            return "redirect:/admin/admissions/" + earlyAdmissionHistory.getAdmissionId() + "#earlyAdmissionHistory";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 한국사 점수 정보 수정에 실패했습니다.");

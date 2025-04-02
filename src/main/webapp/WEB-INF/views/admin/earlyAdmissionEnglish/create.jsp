@@ -65,8 +65,8 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button class="btn btn-primary" type="submit">수시 입시 정보 등록</button>
-                                            <a href="/admin/admissions/${admissionId}" class="btn btn-outline-danger">취소</a>
+                                            <button class="btn btn-primary" type="submit">수시 입시 영어 정보 등록</button>
+                                            <a href="/admin/admissions/${admissionId}#earlyAdmissionEnglish" class="btn btn-outline-danger">취소</a>
                                         </div>
                                     </div>
                                 </form>

@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <button class="btn btn-primary" type="submit">입시 요강 수정</button>
-                                            <a href="/admin/admissions" class="btn btn-outline-danger">수정 취소</a>
+                                            <a href="/admin/admissions/${admission.admissionId}#admission" class="btn btn-outline-danger">수정 취소</a>
                                         </div>
                                     </div>
                                 </form>

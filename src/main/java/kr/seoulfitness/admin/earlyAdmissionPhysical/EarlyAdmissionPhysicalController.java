@@ -57,7 +57,7 @@ public class EarlyAdmissionPhysicalController {
         EarlyAdmissionPhysicalDto createdEarlyAdmissionPhysical = earlyAdmissionPhysicalService.create(earlyAdmissionPhysical);
         if (createdEarlyAdmissionPhysical != null) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 실기 점수 정보 등록이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionPhysical/" + createdEarlyAdmissionPhysical.getEarlyAdmissionPhysicalId();
+            return "redirect:/admin/admissions/" + admissionId + "#earlyAdmissionPhysical";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 실기 점수 정보 등록에 실패했습니다.");
@@ -115,7 +115,7 @@ public class EarlyAdmissionPhysicalController {
         earlyAdmissionPhysical.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionPhysicalService.update(earlyAdmissionPhysical)) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 실기 점수 정보 수정이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionPhysical/" + earlyAdmissionPhysicalId;
+            return "redirect:/admin/admissions/" + earlyAdmissionPhysical.getAdmissionId() + "#earlyAdmissionPhysical";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 실기 점수 정보 수정에 실패했습니다.");

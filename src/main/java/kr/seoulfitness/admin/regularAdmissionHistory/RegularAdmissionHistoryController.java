@@ -57,7 +57,7 @@ public class RegularAdmissionHistoryController {
         RegularAdmissionHistoryDto createdRegularAdmissionHistory = regularAdmissionHistoryService.create(regularAdmissionHistory);
         if (createdRegularAdmissionHistory != null) {
             redirectAttributes.addFlashAttribute("successMessage", "정시 한국사 점수 정보 등록이 완료되었습니다.");
-            return "redirect:/admin/regularAdmissionHistory/" + createdRegularAdmissionHistory.getRegularAdmissionHistoryId();
+            return "redirect:/admin/admissions/" + admissionId + "#regularAdmissionHistory";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "정시 한국사 점수 정보 등록에 실패했습니다.");
@@ -115,7 +115,7 @@ public class RegularAdmissionHistoryController {
         regularAdmissionHistory.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionHistoryService.update(regularAdmissionHistory)) {
             redirectAttributes.addFlashAttribute("successMessage", "정시 한국사 점수 정보 수정이 완료되었습니다.");
-            return "redirect:/admin/regularAdmissionHistory/" + regularAdmissionHistoryId;
+            return "redirect:/admin/admissions/" + regularAdmissionHistory.getAdmissionId() + "#regularAdmissionHistory";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "정시 한국사 점수 정보 수정에 실패했습니다.");

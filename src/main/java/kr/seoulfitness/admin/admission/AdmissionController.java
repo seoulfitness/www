@@ -25,6 +25,9 @@ import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto;
 import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishService;
 import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto;
 import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryService;
+import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto;
+import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalService;
+import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionService;
 import kr.seoulfitness.admin.regularAdmissionCsat.RegularAdmissionCsatDto;
@@ -33,6 +36,8 @@ import kr.seoulfitness.admin.regularAdmissionEnglish.RegularAdmissionEnglishDto;
 import kr.seoulfitness.admin.regularAdmissionEnglish.RegularAdmissionEnglishService;
 import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryDto;
 import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryService;
+import kr.seoulfitness.admin.regularAdmissionPhysical.RegularAdmissionPhysicalDto;
+import kr.seoulfitness.admin.regularAdmissionPhysical.RegularAdmissionPhysicalService;
 import kr.seoulfitness.admin.school.SchoolService;
 
 @Controller
@@ -61,6 +66,9 @@ public class AdmissionController {
     private EarlyAdmissionHistoryService earlyAdmissionHistoryService;
 
     @Autowired
+    private EarlyAdmissionPhysicalService earlyAdmissionPhysicalService;
+
+    @Autowired
     private RegularAdmissionService regularAdmissionService;
 
     @Autowired
@@ -71,6 +79,12 @@ public class AdmissionController {
 
     @Autowired
     private RegularAdmissionHistoryService regularAdmissionHistoryService;
+
+    @Autowired
+    private RegularAdmissionPhysicalService regularAdmissionPhysicalService;
+
+    @Autowired
+    private PhysicalSubjectService physicalSubjectService;
     
     // 입시 요강 존재 여부 확인
     public boolean isAdmissionExists(int admissionId) {
@@ -200,6 +214,12 @@ public class AdmissionController {
             earlyAdmissionHistoryParams.put("admissionId", admission.getAdmissionId());
             EarlyAdmissionHistoryDto earlyAdmissionHistory = earlyAdmissionHistoryService.read(earlyAdmissionHistoryParams);
             model.addAttribute("earlyAdmissionHistory", earlyAdmissionHistory);
+
+            // 수시 실기 정보 상세보기
+            Map<String, Object> earlyAdmissionPhysicalParams = new HashMap<>();
+            earlyAdmissionPhysicalParams.put("admissionId", admission.getAdmissionId());
+            EarlyAdmissionPhysicalDto earlyAdmissionPhysical = earlyAdmissionPhysicalService.read(earlyAdmissionPhysicalParams);
+            model.addAttribute("earlyAdmissionPhysical", earlyAdmissionPhysical);
         }
 
         // 정시 모집 여부 확인
@@ -227,7 +247,23 @@ public class AdmissionController {
             regularAdmissionHistoryParams.put("admissionId", admission.getAdmissionId());
             RegularAdmissionHistoryDto regularAdmissionHistory = regularAdmissionHistoryService.read(regularAdmissionHistoryParams);
             model.addAttribute("regularAdmissionHistory", regularAdmissionHistory);
+
+            // 정시 실기 정보 상세보기
+            Map<String, Object> regularAdmissionPhysicalParams = new HashMap<>();
+            regularAdmissionPhysicalParams.put("admissionId", admission.getAdmissionId());
+            RegularAdmissionPhysicalDto regularAdmissionPhysical = regularAdmissionPhysicalService.read(regularAdmissionPhysicalParams);
+            model.addAttribute("regularAdmissionPhysical", regularAdmissionPhysical);
         }
+
+        // 실기 교과목 파라미터 생성
+        Map<String, Object> physicalSubjectParams = new HashMap<>();
+        physicalSubjectParams.put("currentPage", 1);
+        physicalSubjectParams.put("listCountPerPage", 1000);
+        physicalSubjectParams.put("pageCountPerPage", 1000);
+
+        // 실기 교과목 목록 조회
+        Map<String, Object> physicalSubjectResult = physicalSubjectService.list(physicalSubjectParams);
+        model.addAttribute("physicalSubjects", physicalSubjectResult.get("physicalSubjects"));
 
         model.addAttribute("admission", admission);
         model.addAttribute("pageTitle", "입시 요강 관리");
@@ -279,14 +315,14 @@ public class AdmissionController {
         admission.setAdmissionId(admissionId);
         admission.setUpdatedBy((String) session.getAttribute("userId"));
         boolean result = admissionService.update(admission);
-        if (!result) {
-            model.addAttribute("admission", admission);
-            redirectAttributes.addFlashAttribute("errorMessage", "입시 요강 수정에 실패했습니다.");
-            return "redirect:/admin/admissions/" + admissionId + "/update";
+        if (result) {
+            redirectAttributes.addFlashAttribute("successMessage", "입시 요강 수정이 완료되었습니다.");
+            return "redirect:/admin/admissions/" + admissionId + "#admission";
         }
 
-        redirectAttributes.addFlashAttribute("successMessage", "입시 요강 수정이 완료되었습니다.");
-        return "redirect:/admin/admissions/" + admissionId;
+        model.addAttribute("admission", admission);
+        redirectAttributes.addFlashAttribute("errorMessage", "입시 요강 수정에 실패했습니다.");
+        return "redirect:/admin/admissions/" + admissionId + "/update";        
     }
 
     // 입시 요강 삭제
@@ -301,7 +337,7 @@ public class AdmissionController {
         boolean result = admissionService.delete(admissionId);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "입시 요강 삭제가 완료되었습니다.");
-            return "redirect:/admin/admissions";
+            return "redirect:/admin/admissions#admission";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "입시 요강 삭제에 실패했습니다.");

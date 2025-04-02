@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <button class="btn btn-primary" type="submit">정시 입시 수능 정보 수정</button>
-                                            <a href="/admin/regularAdmissionCsat/${regularAdmissionCsat.regularAdmissionCsatId}" class="btn btn-outline-danger">취소</a>
+                                            <a href="/admin/admissions/${regularAdmissionCsat.admissionId}#regularAdmissionCsat" class="btn btn-outline-danger">취소</a>
                                         </div>
                                     </div>
                                 </form>

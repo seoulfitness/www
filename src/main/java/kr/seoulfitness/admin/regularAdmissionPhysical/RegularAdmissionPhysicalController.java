@@ -57,7 +57,7 @@ public class RegularAdmissionPhysicalController {
         RegularAdmissionPhysicalDto createdRegularAdmissionPhysical = regularAdmissionPhysicalService.create(regularAdmissionPhysical);
         if (createdRegularAdmissionPhysical != null) {
             redirectAttributes.addFlashAttribute("successMessage", "정시 실기 점수 정보 등록이 완료되었습니다.");
-            return "redirect:/admin/regularAdmissionPhysical/" + createdRegularAdmissionPhysical.getRegularAdmissionPhysicalId();
+            return "redirect:/admin/admissions/" + admissionId + "#regularAdmissionPhysical";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "정시 실기 점수 정보 등록에 실패했습니다.");
@@ -115,7 +115,7 @@ public class RegularAdmissionPhysicalController {
         regularAdmissionPhysical.setUpdatedBy((String) session.getAttribute("userId"));
         if (regularAdmissionPhysicalService.update(regularAdmissionPhysical)) {
             redirectAttributes.addFlashAttribute("successMessage", "정시 실기 점수 정보 수정이 완료되었습니다.");
-            return "redirect:/admin/regularAdmissionPhysical/" + regularAdmissionPhysicalId;
+            return "redirect:/admin/admissions/" + regularAdmissionPhysical.getAdmissionId() + "#regularAdmissionPhysical";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "정시 실기 점수 정보 수정에 실패했습니다.");

@@ -19,46 +19,53 @@
                         <%--// 메시지 --%>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        ${admission.admissionYear}년 ${admission.admissionType}군 ${admission.schoolName} ${admission.departmentName} 입시 요강 정보
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <%-- 입시 요강 정보 --%>
-                                            <%@ include file="admission.jsp" %>
-                                            <%--// 입시 요강 정보 --%>
+                                <%-- 입시 요강 정보 --%>
+                                <%@ include file="admission.jsp" %>
+                                <%--// 입시 요강 정보 --%>
 
-                                            <%-- 수시 입시 정보 --%>
-                                            <%@ include file="earlyAdmission.jsp" %>
-                                            <%--// 수시 입시 --%>
+                                <c:if test="${admission.earlyAdmission == 'Y'}">
+                                    <%-- 수시 입시 정보 --%>
+                                    <%@ include file="earlyAdmission.jsp" %>
+                                    <%--// 수시 입시 정보 --%>
 
-                                            <%-- 수시 수능 정보 --%>
-                                            <%@ include file="earlyAdmissionCsat.jsp" %>
-                                            <%--// 수시 수능 정보 --%>
+                                    <%-- 수시 입시 수능 정보 --%>
+                                    <%@ include file="earlyAdmissionCsat.jsp" %>
+                                    <%--// 수시 입시 수능 정보 --%>
 
-                                            <%-- 수시 영어 정보 --%>
-                                            <%@ include file="earlyAdmissionEnglish.jsp" %>
-                                            <%--// 수시 영어 정보 --%>
+                                    <%-- 수시 입시 영어 정보 --%>
+                                    <%@ include file="earlyAdmissionEnglish.jsp" %>
+                                    <%--// 수시 입시 영어 정보 --%>
 
-                                            <%-- 수시 한국사 정보 --%>
-                                            <%@ include file="earlyAdmissionHistory.jsp" %>
-                                            <%--// 수시 한국사 정보 --%>
+                                    <%-- 수시 입시 한국사 정보 --%>
+                                    <%@ include file="earlyAdmissionHistory.jsp" %>
+                                    <%--// 수시 입시 한국사 정보 --%>
 
-                                            <%-- 정시 입시 정보 --%>
-                                            <%@ include file="regularAdmission.jsp" %>
-                                            <%--// 정시 입시 정보 --%>
+                                    <%-- 수시 입시 실기 정보 --%>
+                                    <%@ include file="earlyAdmissionPhysical.jsp" %>
+                                    <%--// 수시 입시 실기 정보 --%>
+                                </c:if>
 
-                                            <%-- 정시 영어 정보 --%>
-                                            <%@ include file="regularAdmissionEnglish.jsp" %>
-                                            <%--// 정시 영어 정보 --%>
+                                <c:if test="${admission.regularAdmission == 'Y'}">
+                                    <%-- 정시 입시 정보 --%>
+                                    <%@ include file="regularAdmission.jsp" %>
+                                    <%--// 정시 입시 정보 --%>
 
-                                            <%-- 정시 한국사 정보 --%>
-                                            <%@ include file="regularAdmissionHistory.jsp" %>
-                                            <%--// 정시 한국사 정보 --%>
-                                        </div>                                        
-                                    </div>
-                                </div>
+                                    <%-- 정시 입시 수능 정보 --%>
+                                    <%@ include file="regularAdmissionCsat.jsp" %>
+                                    <%--// 정시 입시 수능 정보 --%>
+
+                                    <%-- 정시 입시 영어 정보 --%>
+                                    <%@ include file="regularAdmissionEnglish.jsp" %>
+                                    <%--// 정시 입시 영어 정보 --%>
+
+                                    <%-- 정시 입시 한국사 정보 --%>
+                                    <%@ include file="regularAdmissionHistory.jsp" %>
+                                    <%--// 정시 입시 한국사 정보 --%>
+
+                                    <%-- 정시 입시 실기 정보 --%>
+                                    <%@ include file="regularAdmissionPhysical.jsp" %>
+                                    <%--// 정시 입시 실기 정보 --%>
+                                </c:if>
                             </div>
                         </div>
                     </div>

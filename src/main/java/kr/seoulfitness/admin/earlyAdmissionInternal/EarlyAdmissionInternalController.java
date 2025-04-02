@@ -57,7 +57,7 @@ public class EarlyAdmissionInternalController {
         EarlyAdmissionInternalDto createdEarlyAdmissionInternal = earlyAdmissionInternalService.create(earlyAdmissionInternal);
         if (createdEarlyAdmissionInternal != null) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 내신 점수 정보 등록이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionInternal/" + createdEarlyAdmissionInternal.getEarlyAdmissionInternalId();
+            return "redirect:/admin/admissions/" + admissionId + "#earlyAdmissionInternal";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 내신 점수 정보 등록에 실패했습니다.");
@@ -115,7 +115,7 @@ public class EarlyAdmissionInternalController {
         earlyAdmissionInternal.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionInternalService.update(earlyAdmissionInternal)) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 내신 점수 정보 수정이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionInternal/" + earlyAdmissionInternalId;
+            return "redirect:/admin/admissions/" + earlyAdmissionInternal.getAdmissionId() + "#earlyAdmissionInternal";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 내신 점수 정보 수정에 실패했습니다.");

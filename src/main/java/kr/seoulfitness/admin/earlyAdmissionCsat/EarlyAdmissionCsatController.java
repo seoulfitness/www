@@ -57,7 +57,7 @@ public class EarlyAdmissionCsatController {
         EarlyAdmissionCsatDto createdEarlyAdmissionCsat = earlyAdmissionCsatService.create(earlyAdmissionCsat);
         if (createdEarlyAdmissionCsat != null) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 정보 등록이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionCsat/" + createdEarlyAdmissionCsat.getEarlyAdmissionCsatId();
+            return "redirect:/admin/admissions/" + admissionId + "#earlyAdmissionCsat";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 등록에 실패했습니다.");
@@ -115,7 +115,7 @@ public class EarlyAdmissionCsatController {
         earlyAdmissionCsat.setUpdatedBy((String) session.getAttribute("userId"));
         if (earlyAdmissionCsatService.update(earlyAdmissionCsat)) {
             redirectAttributes.addFlashAttribute("successMessage", "수시 정보 수정이 완료되었습니다.");
-            return "redirect:/admin/earlyAdmissionCsat/" + earlyAdmissionCsatId;
+            return "redirect:/admin/admissions/" + earlyAdmissionCsat.getAdmissionId() + "#earlyAdmissionCsat";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수시 정보 수정에 실패했습니다.");
