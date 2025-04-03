@@ -35,14 +35,16 @@
                             <tr>
                                 <th class="align-middle col-2">교과목</th>
                                 <th class="align-middle col-4">교과목명</th>
-                                <th class="align-middle col-6">평가 방법</th>
+                                <th class="align-middle col-2">평가 방법</th>
+                                <th class="align-middle col-2">배점(남)</th>
+                                <th class="align-middle col-2">배점(여)</th>
                             </tr>
                             <c:forEach var="i" begin="1" end="10">
                                 <c:if test="${regualrAdmissionPhysical['useSubject'.concat(i)] == 'Y'}">
                                     <tr>
                                         <th class="align-middle col-2">교과목 ${i}</th>
                                         <td class="align-middle col-4">${regualrAdmissionPhysical['subject'.concat(i).concat('Name')]}</td>
-                                        <td class="align-middle col-6">
+                                        <td class="align-middle col-2">
                                             <c:if test="${regualrAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
                                                 절대평가
                                             </c:if>
@@ -50,11 +52,17 @@
                                                 상대평가
                                             </c:if>
                                         </td>
+                                        <td class="align-middle col-2">
+                                            <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#regualrAdmissionPhysicalManScoreModal${i}">점수 입력 필요</a>
+                                        </td>
+                                        <td class="align-middle col-2">
+                                            <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#regualrAdmissionPhysicalWomanScoreModal${i}">점수 입력 필요</a>
+                                        </td>
                                     </tr>
                                 </c:if>
                             </c:forEach>      
                             <tr>
-                                <th class="align-middle col-2" colspan="2">메모</th>
+                                <th class="align-middle col-2" colspan="4">메모</th>
                                 <td class="align-middle col-10">
                                     <c:if test="${not empty regualrAdmissionPhysical.regualrAdmissionPhysicalMemo}">
                                         ${regualrAdmissionPhysical.regualrAdmissionPhysicalMemo}
