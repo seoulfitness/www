@@ -95,7 +95,6 @@
         <%@ include file="../../base/script.jsp" %>
         <script>
             $(document).ready(function() {
-                /*
                 function init() {   
                     // 교과목 2부터 10까지 사용 여부를 모두 사용안함으로 설정
                     for (let i=2; i<11; i++) {
@@ -110,10 +109,29 @@
                     $('#useSubject2').prop('disabled', false);
                     $('#subject2Id').prop('disabled', true);
                     $('#subject2EvaluationMethod').prop('disabled', true);
+
+                    // 교과목 2부터 10까지 설정 불러오기
+                    <c:forEach var="i" begin="2" end="10">
+                        $('#useSubject${i}').val('${earlyAdmissionPhysical['useSubject'.concat(i)]}');
+                        $('#subject${i}Id').val('${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}');
+                        $('#subject${i}EvaluationMethod').val('${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')]}');
+
+                        // 교과목 사용 여부 변경 시 교과목 선택 여부 변경
+                        if ($('#useSubject${i}').val() == 'Y') {
+                            $('#subject${i}Id').prop('disabled', false);
+                            $('#subject${i}EvaluationMethod').prop('disabled', false);
+                            $('#useSubject${i+1}').prop('disabled', false); // 교과목 (i+1) 사용 여부 disabled 해제
+                        } else {
+                            $('#useSubject${i}').val('N');
+                            $('#subject${i}Id').prop('disabled', true);
+                            $('#subject${i}Id').val($('#subject${i}Id').find('option:first').val()); // 첫번째 선택
+                            $('#subject${i}EvaluationMethod').prop('disabled', true);
+                            $('#subject${i}EvaluationMethod').val($('#subject${i}EvaluationMethod').find('option:first').val()); // 첫번째 선택
+                        }
+                    </c:forEach>
                 }
         
                 init();
-                */
 
                 // 교과목 i 사용 여부 변경 시 교과목 (i+1) 선택 여부 변경
                 for (let i=2; i<11; i++) {
