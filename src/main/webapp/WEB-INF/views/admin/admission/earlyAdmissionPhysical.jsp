@@ -54,18 +54,18 @@
                                         </td>
                                         <td class="align-middle col-2">
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#earlyAdmissionPhysicalManAbsoluteScoreModal${i}">점수 입력 필요</a>
+                                                <a href="#" class="btn btn-outline-danger btn-sm btn-absolute-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
                                             </c:if>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#earlyAdmissionPhysicalManRelativeScoreModal${i}">점수 입력 필요</a>
+                                                <a href="#" class="btn btn-outline-danger btn-sm btn-relative-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
                                             </c:if>
                                         </td>
                                         <td class="align-middle col-2">
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#earlyAdmissionPhysicalWomanAbsoluteScoreModal${i}">점수 입력 필요</a>
+                                                <a href="#" class="btn btn-outline-danger btn-sm btn-absolute-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
                                             </c:if>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#earlyAdmissionPhysicalWomanRelativeScoreModal${i}">점수 입력 필요</a>
+                                                <a href="#" class="btn btn-outline-danger btn-sm btn-relative-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
                                             </c:if>
                                         </td>
                                     </tr>
@@ -115,53 +115,49 @@
 </c:choose>
 
 <%-- 절대평가 점수 입력 모달 --%>
-<c:forEach var="i" begin="1" end="10">
-    <c:if test="${earlyAdmissionPhysical['useSubject'.concat(i)] == 'Y'}">
-        <div class="modal fade modal-lg" id="earlyAdmissionPhysicalManAbsoluteScoreModal${i}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]} 절대평가 점수 입력</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- 안내 -->
-                        <div class="mb-3">
-                            <div class="alert alert-info">
-                                <div class="mb-1">등급별 점수 및 기록은 등급 사용인 경우에만 입력 가능합니다.</div>
-                                <div class="mb-1">범위가 없는 단일 기록일 경우 최소 기록과 최대 기록을 동일하게 입력합니다.</div>
-                            </div>
-                        </div>
-                        <!--// 안내 -->
-                        <form id="earlyAdmissionPhysicalManAbsoluteScoreForm${i}">
-                            <c:forEach var="j" begin="1" end="40">
-                                <div class="mb-3 row">    
-                                    <div class="col-md-3">
-                                        <label class="small mb-1" for="useGrade${j}">${j}등급 사용 여부 <span class="text-danger">*</span></label>
-                                        <select class="form-control" id="useGrade${j}" name="useGrade${j}">
-                                            <option value="Y" selected>사용</option>
-                                            <option value="N">사용안함</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="small mb-1" for="grade${j}Score">${j}등급 점수 <span class="text-danger">*</span></label>
-                                        <input class="form-control" id="grade${j}Score" name="grade${j}Score" type="text" value="" />
-                                    </div>  
-                                    <div class="col-md-6">
-                                        <label class="small mb-1" for="grade${j}RecordMin">${j}등급 기록<span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <input class="form-control col-auto" id="grade${j}RecordMin" name="grade${j}RecordMin" type="text" value="" />
-                                            <span class="input-group-text">~</span>
-                                            <input class="form-control col-auto" id="grade${j}RecordMax" name="grade${j}RecordMax" type="text" value="" />
-                                        </div>
-                                    </div>        
-                                </div>  
-                        </c:forEach>
-                        </form>
+<div class="modal fade modal-lg" id="earlyAdmissionPhysicalAbsoluteScoreModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">절대평가 점수 입력</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 안내 -->
+                <div class="mb-3">
+                    <div class="alert alert-info">
+                        <div class="mb-1">등급별 점수 및 기록은 등급 사용인 경우에만 입력 가능합니다.</div>
+                        <div class="mb-1">범위가 없는 단일 기록일 경우 최소 기록과 최대 기록을 동일하게 입력합니다.</div>
                     </div>
                 </div>
+                <!--// 안내 -->
+                <form id="earlyAdmissionPhysicalAbsoluteScoreForm">
+                    <c:forEach var="j" begin="1" end="40">
+                        <div class="mb-3 row">    
+                            <div class="col-md-3">
+                                <label class="small mb-1" for="useGrade${j}">${j}등급 사용 여부 <span class="text-danger">*</span></label>
+                                <select class="form-control" id="useGrade${j}" name="useGrade${j}">
+                                    <option value="Y" selected>사용</option>
+                                    <option value="N">사용안함</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="small mb-1" for="grade${j}Score">${j}등급 점수 <span class="text-danger">*</span></label>
+                                <input class="form-control" id="grade${j}Score" name="grade${j}Score" type="text" value="" />
+                            </div>  
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="grade${j}RecordMin">${j}등급 기록<span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input class="form-control col-auto" id="grade${j}RecordMin" name="grade${j}RecordMin" type="text" value="" />
+                                    <span class="input-group-text">~</span>
+                                    <input class="form-control col-auto" id="grade${j}RecordMax" name="grade${j}RecordMax" type="text" value="" />
+                                </div>
+                            </div>        
+                        </div>  
+                </c:forEach>
+                </form>
             </div>
         </div>
-    </c:if>
-</c:forEach>
+    </div>
+</div>
 <%--// 절대평가 점수 입력 모달 --%>
