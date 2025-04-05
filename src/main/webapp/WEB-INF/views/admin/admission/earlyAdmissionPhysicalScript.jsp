@@ -13,7 +13,7 @@
         let admissionId = '';
         let earlyAdmissionPhysicalId = '';
         let earlyAdmissionPhysicalSubjectId = '';
-        let earlyAdmissionPhysicalManAbsoluteId = '';
+        let earlyAdmissionPhysicalAbsoluteId = '';
         let earlyAdmissionPhysicalWomanAbsoluteId = '';
         let subjectName = '';
         let gender = '';
@@ -42,8 +42,8 @@
 
             // action이 create가 아닐 때만 ID 값을 포함
             if (action != 'create') {
-                additionalData[gender == 'man' ? 'earlyAdmissionPhysicalManAbsoluteId' : 'earlyAdmissionPhysicalWomanAbsoluteId'] = 
-                    gender == 'man' ? earlyAdmissionPhysicalManAbsoluteId : earlyAdmissionPhysicalWomanAbsoluteId;
+                additionalData[gender == 'man' ? 'earlyAdmissionPhysicalAbsoluteId' : 'earlyAdmissionPhysicalWomanAbsoluteId'] = 
+                    gender == 'man' ? earlyAdmissionPhysicalAbsoluteId : earlyAdmissionPhysicalWomanAbsoluteId;
             }
 
             return {
@@ -68,8 +68,7 @@
             admissionId = $(this).data('admission-id');
             earlyAdmissionPhysicalId = $(this).data('early-admission-physical-id');
             earlyAdmissionPhysicalSubjectId = $(this).data('subject-id');
-            earlyAdmissionPhysicalManAbsoluteId = $(this).data('early-admission-physical-man-absolute-id');
-            earlyAdmissionPhysicalWomanAbsoluteId = $(this).data('early-admission-physical-woman-absolute-id');
+            earlyAdmissionPhysicalAbsoluteId = $(this).data('early-admission-physical-absolute-id');
             subjectName = $(this).data('subject-name');
             gender = $(this).data('gender');
             action = $(this).data('action');
@@ -92,6 +91,49 @@
 
                 // 2등급 사용 여부 설정
                 $('#useGrade2').val('N').prop('disabled', false);
+            } else {
+                // 점수 불러오기
+                $.ajax({
+                    url: '/admin/earlyAdmissionPhysicalManAbsolute/' + earlyAdmissionPhysicalAbsoluteId,
+                    type: 'GET',
+                    success: (response) => {
+                        const data = response.earlyAdmissionPhysicalManAbsolute;
+                        console.log(data);
+
+                        // 1등급 ~ 40등급 사용 여부 설정
+                        for (let i = 1; i <= 40; i++) {
+                            $('#useGrade' + i).val(data['useGrade' + i] || 'N').prop('disabled', !data['useGrade' + i]);
+                        }
+
+                        // 1등급 ~ 40등급 점수 불러오기
+                        for (let i = 1; i <= 40; i++) {
+                            $('#grade' + i + 'Score').val(data['grade' + i + 'Score'] || '0.0000');
+                            $('#grade' + i + 'RecordMin').val(data['grade' + i + 'RecordMin'] || '0.0000');
+                            $('#grade' + i + 'RecordMax').val(data['grade' + i + 'RecordMax'] || '0.0000');
+                        }
+
+                        // 1등급부터 40등급까지 사용여부 확인한 후 사용 여부 설정
+                        for (let i = 1; i <= 40; i++) {
+                            if (data['useGrade' + i] == 'Y') {
+                                $('#grade' + i + 'Score').val(data['grade' + i + 'Score'] || '0.0000').prop('disabled', false);
+                                $('#grade' + i + 'RecordMin').val(data['grade' + i + 'RecordMin'] || '0.0000').prop('disabled', false);
+                                $('#grade' + i + 'RecordMax').val(data['grade' + i + 'RecordMax'] || '0.0000').prop('disabled', false);
+                                $('#useGrade' + (i + 1)).prop('disabled', false);
+                            } else {
+                                $('#grade' + i + 'Score').val('0.0000').prop('disabled', true);
+                                $('#grade' + i + 'RecordMin').val('0.0000').prop('disabled', true);
+                                $('#grade' + i + 'RecordMax').val('0.0000').prop('disabled', true);
+                                $('#useGrade' + (i + 1)).prop('disabled', true);
+                            }
+                        }
+
+                        // 메모 불러오기
+                        $('#earlyAdmissionPhysicalManAbsoluteMemo').val(data.earlyAdmissionPhysicalManAbsoluteMemo || '');
+                    },
+                    error: (xhr, status, error) => {
+                        console.error('Error:', error);
+                    }
+                });
             }
 
             // 모달 제목 설정

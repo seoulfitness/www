@@ -70,8 +70,8 @@
                     </c:forEach>
                     <%--// 2등급 ~ 40등급 --%>    
                     <div class="mb-3">
-                        <label for="earlyAdmissionPhysicalManAbsoluteMemo" class="form-label">메모</label>
-                        <textarea class="form-control" id="earlyAdmissionPhysicalManAbsoluteMemo" name="earlyAdmissionPhysicalManAbsoluteMemo" placeholder="메모"></textarea>
+                        <label for="earlyAdmissionPhysicalAbsoluteMemo" class="form-label">메모</label>
+                        <textarea class="form-control" id="earlyAdmissionPhysicalAbsoluteMemo" name="earlyAdmissionPhysicalAbsoluteMemo" placeholder="메모"></textarea>
                     </div>      
                 </div>
                 <div class="modal-footer">

@@ -48,11 +48,11 @@ public class EarlyAdmissionPhysicalManAbsoluteController {
     }
 
     // 수시 실기 남자 절대평가 점수 정보 조회
-    @GetMapping("/{earlyAdmissionPhysicalManAbsoluteId}")
+    @GetMapping("/{earlyAdmissionPhysicalAbsoluteId}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> read(@PathVariable int earlyAdmissionPhysicalManAbsoluteId) {
+    public ResponseEntity<Map<String, Object>> read(@PathVariable int earlyAdmissionPhysicalAbsoluteId) {
         Map<String, Object> params = new HashMap<>();
-        params.put("earlyAdmissionPhysicalManAbsoluteId", earlyAdmissionPhysicalManAbsoluteId);
+        params.put("earlyAdmissionPhysicalAbsoluteId", earlyAdmissionPhysicalAbsoluteId);
         EarlyAdmissionPhysicalManAbsoluteDto earlyAdmissionPhysicalManAbsolute = earlyAdmissionPhysicalManAbsoluteService.read(params);
 
         // 수시 실기 남자 절대평가 점수 정보

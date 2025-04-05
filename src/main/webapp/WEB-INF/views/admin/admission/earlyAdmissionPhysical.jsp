@@ -53,7 +53,6 @@
                                             </c:if>
                                         </td>
                                         <td class="align-middle col-2">
-                                            ${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}
                                             <%-- 남자 절대평가 --%>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
                                                 <%-- 공통 버튼 속성 설정 --%>
@@ -67,24 +66,24 @@
                                                 </c:set>
                                                 
                                                 <%-- 절대평가 데이터 존재 여부 확인 --%>
-                                                <c:set var="hasAbsoluteScore" value="false"/>
-                                                <c:set var="absoluteScoreId" value=""/>
+                                                <c:set var="earlyAdmissionPhysicalAbsoluteExists" value="false"/>
+                                                <c:set var="earlyAdmissionPhysicalAbsoluteId" value=""/>
                                                 
-                                                <c:forEach var="manAbsolute" items="${earlyAdmissionPhysicalManAbsoluteList}">
-                                                    <c:if test="${not hasAbsoluteScore}">
-                                                        <c:if test="${manAbsolute.earlyAdmissionPhysicalSubjectId == earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">
-                                                            <c:set var="hasAbsoluteScore" value="true"/>
-                                                            <c:set var="absoluteScoreId" value="${manAbsolute.earlyAdmissionPhysicalManAbsoluteId}"/>
+                                                <c:forEach var="earlyAdmissionPhysicalManAbsolute" items="${earlyAdmissionPhysicalManAbsoluteList}">
+                                                    <c:if test="${not earlyAdmissionPhysicalAbsoluteExists}">
+                                                        <c:if test="${earlyAdmissionPhysicalManAbsolute.earlyAdmissionPhysicalSubjectId == earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">
+                                                            <c:set var="earlyAdmissionPhysicalAbsoluteExists" value="true"/>
+                                                            <c:set var="earlyAdmissionPhysicalAbsoluteId" value="${earlyAdmissionPhysicalManAbsolute.earlyAdmissionPhysicalAbsoluteId}"/>
                                                         </c:if>
                                                     </c:if>
                                                 </c:forEach>
                                                 
                                                 <%-- 버튼 렌더링 --%>
-                                                <button class="btn btn-sm btn-absolute-score btn-man-absolute-score ${hasAbsoluteScore ? 'btn-primary' : 'btn-outline-danger'}"
+                                                <button class="btn btn-sm btn-absolute-score btn-man-absolute-score ${earlyAdmissionPhysicalAbsoluteExists ? 'btn-primary' : 'btn-outline-danger'}"
                                                     ${buttonData}
-                                                    data-early-admission-physical-man-absolute-id="${absoluteScoreId}"
-                                                    data-action="${hasAbsoluteScore ? 'update' : 'create'}">
-                                                    ${hasAbsoluteScore ? '배점 보기' : '점수 입력 필요'}
+                                                    data-early-admission-physical-absolute-id="${earlyAdmissionPhysicalAbsoluteId}"
+                                                    data-action="${earlyAdmissionPhysicalAbsoluteExists ? 'update' : 'create'}">
+                                                    ${earlyAdmissionPhysicalAbsoluteExists ? '배점 보기' : '점수 입력 필요'}
                                                 </button>
                                             </c:if>
                                             <%--// 남자 절대평가 --%>

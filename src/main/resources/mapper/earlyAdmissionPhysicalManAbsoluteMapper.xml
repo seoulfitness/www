@@ -5,7 +5,7 @@
 
     <resultMap id="earlyAdmissionPhysicalManAbsoluteResultMap" type="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto">
         <!-- 수시 모집 실기 남자 절대평가 점수 정보 -->
-        <result property="earlyAdmissionPhysicalManAbsoluteId" column="EARLY_ADMISSION_PHYSICAL_ABSOLUTE_ID" />
+        <result property="earlyAdmissionPhysicalAbsoluteId" column="EARLY_ADMISSION_PHYSICAL_ABSOLUTE_ID" />
         <result property="earlyAdmissionPhysicalSubjectId" column="EARLY_ADMISSION_PHYSICAL_SUBJECT_ID" />
         <result property="earlyAdmissionPhysicalId" column="EARLY_ADMISSION_PHYSICAL_ID" />
         <result property="admissionId" column="ADMISSION_ID" />
@@ -194,10 +194,9 @@
 
     <!-- 공통 WHERE 조건 SQL 조각 -->
     <sql id="commonWhereConditions">
-        <![CDATA[WHERE 1=1]]>
-        <if test="earlyAdmissionPhysicalManAbsoluteId != null and earlyAdmissionPhysicalManAbsoluteId != 0">
+        <if test="earlyAdmissionPhysicalAbsoluteId != null and earlyAdmissionPhysicalAbsoluteId != 0">
             <![CDATA[
-            AND EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE_ID = #{earlyAdmissionPhysicalManAbsoluteId}
+            AND EARLY_ADMISSION_PHYSICAL_ABSOLUTE_ID = #{earlyAdmissionPhysicalAbsoluteId}
             ]]>
         </if>
         <if test="earlyAdmissionPhysicalSubjectId != null and earlyAdmissionPhysicalSubjectId != 0">
@@ -218,7 +217,7 @@
     </sql>
 
     <!-- 수시 모집 실기 남자 절대평가 점수 정보 등록 -->
-    <insert id="insertEarlyAdmissionPhysicalManAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto" useGeneratedKeys="true" keyProperty="earlyAdmissionPhysicalManAbsoluteId">
+    <insert id="insertEarlyAdmissionPhysicalManAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto" useGeneratedKeys="true" keyProperty="earlyAdmissionPhysicalAbsoluteId">
         <![CDATA[
         INSERT INTO EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE (
             EARLY_ADMISSION_PHYSICAL_SUBJECT_ID,
@@ -323,6 +322,7 @@
             EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE A
             LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
             LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY        
+        WHERE 1=1
         ]]>
         <include refid="commonWhereConditions" />
     </select>
@@ -340,6 +340,7 @@
             EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE A
             LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
             LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
         ]]>
         <include refid="commonWhereConditions" />
         <![CDATA[
@@ -351,12 +352,9 @@
     <update id="updateEarlyAdmissionPhysicalManAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto">
         <![CDATA[
         UPDATE EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE
-        SET
-            EARLY_ADMISSION_PHYSICAL_SUBJECT_ID = #{earlyAdmissionPhysicalSubjectId},
-            EARLY_ADMISSION_PHYSICAL_ID = #{earlyAdmissionPhysicalId},
-            ADMISSION_ID = #{admissionId},
-            UPDATED_BY = #{updatedBy},
-            EARLY_ADMISSION_PHYSICAL_ABSOLUTE_MEMO = #{earlyAdmissionPhysicalAbsoluteMemo}
+        SET UPDATED_BY = #{updatedBy}, EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE_MEMO = #{earlyAdmissionPhysicalManAbsoluteMemo}
+        ]]>
+        <if test="useGrades != null and useGrades.size() > 0">
             <trim prefix="," suffixOverrides=",">
                 <foreach collection="useGrades" index="index" item="grade">
                     <if test="grade != null and grade != ''">
@@ -365,21 +363,33 @@
                 </foreach>
                 <foreach collection="gradeScores" index="index" item="score">
                     <if test="score != null">
+                        <![CDATA[
                         GRADE${index + 1}_SCORE = #{score},
+                        ]]>
                     </if>
                 </foreach>
                 <foreach collection="gradeRecordMins" index="index" item="min">
                     <if test="min != null">
+                        <![CDATA[
                         GRADE${index + 1}_RECORD_MIN = #{min},
+                        ]]>
                     </if>
                 </foreach>
                 <foreach collection="gradeRecordMaxs" index="index" item="max">
                     <if test="max != null">
+                        <![CDATA[
                         GRADE${index + 1}_RECORD_MAX = #{max},
+                        ]]>
                     </if>
                 </foreach>
             </trim>
+        </if>
+        <![CDATA[
+        WHERE 1=1
+        ]]>
         <include refid="commonWhereConditions" />
+        <![CDATA[
+        LIMIT 1
         ]]>
     </update>
 

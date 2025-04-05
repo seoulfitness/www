@@ -1,13 +1,14 @@
 package kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class EarlyAdmissionPhysicalManAbsoluteDto {
     // 수시 모집 실기 남자 절대평가 점수 정보
-    private int earlyAdmissionPhysicalManAbsoluteId;       // 수시 모집 실기 남자 절대평가 점수 아이디
+    private int earlyAdmissionPhysicalAbsoluteId;       // 수시 모집 실기 남자 절대평가 점수 아이디
     private int earlyAdmissionPhysicalSubjectId;        // 수시 모집 실기 교과목 아이디
     private int earlyAdmissionPhysicalId;               // 수시 모집 실기 점수 아이디
     private int admissionId;                            // 입시 요강 아이디
@@ -192,4 +193,9 @@ public class EarlyAdmissionPhysicalManAbsoluteDto {
     private String updatedUserName;     // 수정한 사람 이름
     private String createdUserPhone;    // 등록한 사람 전화번호
     private String updatedUserPhone;    // 수정한 사람 전화번호
+
+    private List<String> useGrades;
+    private List<Double> gradeScores;
+    private List<Double> gradeRecordMins;
+    private List<Double> gradeRecordMaxs;
 }
