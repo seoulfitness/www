@@ -98,7 +98,6 @@
                     type: 'GET',
                     success: (response) => {
                         const data = response.earlyAdmissionPhysicalManAbsolute;
-                        console.log(data);
 
                         // 1등급 ~ 40등급 사용 여부 설정
                         for (let i = 1; i <= 40; i++) {
@@ -131,6 +130,7 @@
                         $('#earlyAdmissionPhysicalManAbsoluteMemo').val(data.earlyAdmissionPhysicalManAbsoluteMemo || '');
                     },
                     error: (xhr, status, error) => {
+                        alert('점수 정보를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.');
                         console.error('Error:', error);
                     }
                 });
