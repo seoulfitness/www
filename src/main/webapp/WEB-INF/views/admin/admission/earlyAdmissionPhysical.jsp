@@ -54,18 +54,25 @@
                                         </td>
                                         <td class="align-middle col-2">
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm btn-absolute-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
+                                                <button class="btn btn-outline-danger btn-sm btn-absolute-score" 
+                                                    data-id="${i}" 
+                                                    data-admission-id="${admission.admissionId}" 
+                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" 
+                                                    data-early-admission-physical-id="${earlyAdmissionPhysical.earlyAdmissionPhysicalId}" 
+                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" 
+                                                    data-gender="man" 
+                                                    data-action="create">점수 입력 필요</button>
                                             </c:if>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm btn-relative-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
+                                                <button class="btn btn-outline-danger btn-sm btn-relative-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" data-gender="man" data-action="create">점수 입력 필요</button>
                                             </c:if>
                                         </td>
                                         <td class="align-middle col-2">
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm btn-absolute-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
+                                                <button class="btn btn-outline-danger btn-sm btn-absolute-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" data-gender="여" data-action="create">점수 입력 필요</button>
                                             </c:if>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
-                                                <a href="#" class="btn btn-outline-danger btn-sm btn-relative-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">점수 입력 필요</a>
+                                                <button class="btn btn-outline-danger btn-sm btn-relative-score" data-id="${i}" data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" data-gender="여" data-action="create">점수 입력 필요</button>
                                             </c:if>
                                         </td>
                                     </tr>
@@ -132,29 +139,54 @@
                 </div>
                 <!--// 안내 -->
                 <form id="earlyAdmissionPhysicalAbsoluteScoreForm">
-                    <c:forEach var="j" begin="1" end="40">
+                    <%-- 1등급 --%>
+                    <div class="mb-3 row">    
+                        <div class="col-md-3">
+                            <label class="small mb-1" for="useGrade1">1등급 사용 여부 <span class="text-danger">*</span></label>
+                            <select class="form-control" id="useGrade1" name="useGrade1">
+                                <option value="Y" selected>사용</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="small mb-1" for="grade1Score">1등급 점수 <span class="text-danger">*</span></label>
+                            <input class="form-control" id="grade1Score" name="grade1Score" type="text" value="" />
+                        </div>  
+                        <div class="col-md-6">
+                            <label class="small mb-1" for="grade1RecordMin">1등급 기록<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input class="form-control col-auto" id="grade1RecordMin" name="grade1RecordMin" type="text" value="" />
+                                <span class="input-group-text">~</span>
+                                <input class="form-control col-auto" id="grade1RecordMax" name="grade1RecordMax" type="text" value="" />
+                            </div>
+                        </div>        
+                    </div>
+                    <%--// 1등급 --%>
+
+                    <%-- 2등급 ~ 40등급 --%>
+                    <c:forEach var="i" begin="2" end="40">
                         <div class="mb-3 row">    
                             <div class="col-md-3">
-                                <label class="small mb-1" for="useGrade${j}">${j}등급 사용 여부 <span class="text-danger">*</span></label>
-                                <select class="form-control" id="useGrade${j}" name="useGrade${j}">
+                                <label class="small mb-1" for="useGrade${i}">${i}등급 사용 여부 <span class="text-danger">*</span></label>
+                                <select class="form-control" id="useGrade${i}" name="useGrade${i}">
                                     <option value="Y" selected>사용</option>
                                     <option value="N">사용안함</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label class="small mb-1" for="grade${j}Score">${j}등급 점수 <span class="text-danger">*</span></label>
-                                <input class="form-control" id="grade${j}Score" name="grade${j}Score" type="text" value="" />
+                                <label class="small mb-1" for="grade${i}Score">${i}등급 점수 <span class="text-danger">*</span></label>
+                                <input class="form-control" id="grade${i}Score" name="grade${i}Score" type="text" value="" />
                             </div>  
                             <div class="col-md-6">
-                                <label class="small mb-1" for="grade${j}RecordMin">${j}등급 기록<span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="grade${i}RecordMin">${i}등급 기록<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input class="form-control col-auto" id="grade${j}RecordMin" name="grade${j}RecordMin" type="text" value="" />
+                                    <input class="form-control col-auto" id="grade${i}RecordMin" name="grade${i}RecordMin" type="text" value="" />
                                     <span class="input-group-text">~</span>
-                                    <input class="form-control col-auto" id="grade${j}RecordMax" name="grade${j}RecordMax" type="text" value="" />
+                                    <input class="form-control col-auto" id="grade${i}RecordMax" name="grade${i}RecordMax" type="text" value="" />
                                 </div>
                             </div>        
                         </div>  
-                </c:forEach>
+                    </c:forEach>
+                    <%--// 2등급 ~ 40등급 --%>
                 </form>
             </div>
         </div>

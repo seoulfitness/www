@@ -75,9 +75,9 @@
                 </a>
                 <div class="collapse ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'show' : ''}" id="collapseSubject" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link ${activePage == 'admissions' ? 'active' : ''}" href="/admin/admissions">입시 요강</a>
                         <a class="nav-link ${activePage == 'csatSubjects' ? 'active' : ''}" href="/admin/csatSubjects">수능 교과목</a>
                         <a class="nav-link ${activePage == 'physicalSubjects' ? 'active' : ''}" href="/admin/physicalSubjects">실기 교과목</a>
-                        <a class="nav-link ${activePage == 'admissions' ? 'active' : ''}" href="/admin/admissions">입시 요강</a>
                     </nav>
                 </div>
                 <%--// 입시 정보 --%>

@@ -95,23 +95,19 @@
         <%@ include file="../../base/script.jsp" %>
         <script>
             $(document).ready(function() {
-                function init() {   
-                    // 교과목 2부터 10까지 사용 여부를 모두 사용안함으로 설정
-                    for (let i=2; i<11; i++) {
-                        $('#useSubject'+i).val('N');
-                        $('#useSubject'+i).prop('disabled', true);
-                        $('#subject'+i+'Id').prop('disabled', true);                        
-                        $('#subject'+i+'EvaluationMethod').prop('disabled', true);
-                    }
-
-                    // 교과목 2 사용여부 disabled 해제
-                    $('#useSubject2').val('N');
-                    $('#useSubject2').prop('disabled', false);
-                    $('#subject2Id').prop('disabled', true);
-                    $('#subject2EvaluationMethod').prop('disabled', true);
+                // 교과목 2부터 10까지 사용 여부를 모두 사용안함으로 설정
+                for (let i=2; i<11; i++) {
+                    $('#useSubject'+i).val('N');
+                    $('#useSubject'+i).prop('disabled', true);
+                    $('#subject'+i+'Id').prop('disabled', true);                        
+                    $('#subject'+i+'EvaluationMethod').prop('disabled', true);
                 }
-        
-                init();
+
+                // 교과목 2 사용여부 disabled 해제
+                $('#useSubject2').val('N');
+                $('#useSubject2').prop('disabled', false);
+                $('#subject2Id').prop('disabled', true);
+                $('#subject2EvaluationMethod').prop('disabled', true);
 
                 // 교과목 i 사용 여부 변경 시 교과목 (i+1) 선택 여부 변경
                 for (let i=2; i<11; i++) {

@@ -110,5 +110,6 @@
         <%-- 삭제 모달 --%>
 
         <%@ include file="../../base/script.jsp" %>
+        <%@ include file="earlyAdmissionPhysicalScript.jsp" %>
     </body>
 </html>
