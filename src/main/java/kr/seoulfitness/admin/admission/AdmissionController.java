@@ -27,6 +27,8 @@ import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryDto;
 import kr.seoulfitness.admin.earlyAdmissionHistory.EarlyAdmissionHistoryService;
 import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto;
 import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalService;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteService;
 import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionService;
@@ -68,6 +70,9 @@ public class AdmissionController {
     @Autowired
     private EarlyAdmissionPhysicalService earlyAdmissionPhysicalService;
 
+    @Autowired
+    private EarlyAdmissionPhysicalManAbsoluteService earlyAdmissionPhysicalManAbsoluteService;
+    
     @Autowired
     private RegularAdmissionService regularAdmissionService;
 
@@ -220,6 +225,12 @@ public class AdmissionController {
             earlyAdmissionPhysicalParams.put("admissionId", admission.getAdmissionId());
             EarlyAdmissionPhysicalDto earlyAdmissionPhysical = earlyAdmissionPhysicalService.read(earlyAdmissionPhysicalParams);
             model.addAttribute("earlyAdmissionPhysical", earlyAdmissionPhysical);
+
+            // 수시 모집 실기 남자 절대평가 점수 목록
+            Map<String, Object> earlyAdmissionPhysicalManAbsoluteParams = new HashMap<>();
+            earlyAdmissionPhysicalManAbsoluteParams.put("admissionId", admission.getAdmissionId());
+            List<EarlyAdmissionPhysicalManAbsoluteDto> earlyAdmissionPhysicalManAbsoluteList = earlyAdmissionPhysicalManAbsoluteService.getEarlyAdmissionPhysicalManAbsoluteList(earlyAdmissionPhysicalManAbsoluteParams);
+            model.addAttribute("earlyAdmissionPhysicalManAbsoluteList", earlyAdmissionPhysicalManAbsoluteList);
         }
 
         // 정시 모집 여부 확인

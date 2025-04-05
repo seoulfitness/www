@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.seoulfitness.admin.admission.AdmissionDto;
 import kr.seoulfitness.admin.admission.AdmissionService;
 import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
+
 @Controller
 @RequestMapping("/admin/earlyAdmissionPhysical")
 public class EarlyAdmissionPhysicalController {

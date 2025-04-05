@@ -109,6 +109,10 @@
         </div>
         <%-- 삭제 모달 --%>
 
+        <%-- 절대평가 점수 입력 모달 --%>
+        <%@ include file="earlyAdmissionPhysicalModal.jsp" %>
+        <%--// 절대평가 점수 입력 모달 --%>
+
         <%@ include file="../../base/script.jsp" %>
         <%@ include file="earlyAdmissionPhysicalScript.jsp" %>
     </body>

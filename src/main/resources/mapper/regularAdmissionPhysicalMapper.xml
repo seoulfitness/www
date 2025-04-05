@@ -7,7 +7,6 @@
         <!-- 정시 모집 실기 점수 정보 -->
         <result property="regularAdmissionPhysicalId" column="REGULAR_ADMISSION_PHYSICAL_ID" />
         <result property="admissionId" column="ADMISSION_ID" />
-        <result property="useType" column="USE_TYPE" />
         
         <!-- 실기 교과목 사용 여부 -->
         <result property="useSubject1" column="USE_SUBJECT1" />
@@ -73,7 +72,6 @@
         <![CDATA[
         INSERT INTO REGULAR_ADMISSION_PHYSICAL (
             ADMISSION_ID,
-            USE_TYPE,
             USE_SUBJECT1, USE_SUBJECT2, USE_SUBJECT3, USE_SUBJECT4, USE_SUBJECT5,
             USE_SUBJECT6, USE_SUBJECT7, USE_SUBJECT8, USE_SUBJECT9, USE_SUBJECT10,
             SUBJECT1_ID, SUBJECT2_ID, SUBJECT3_ID, SUBJECT4_ID, SUBJECT5_ID,
@@ -86,7 +84,6 @@
             UPDATED_BY
         ) VALUES (
             #{admissionId},
-            #{useType},
             #{useSubject1}, #{useSubject2}, #{useSubject3}, #{useSubject4}, #{useSubject5},
             #{useSubject6}, #{useSubject7}, #{useSubject8}, #{useSubject9}, #{useSubject10},
             #{subject1Id}, #{subject2Id}, #{subject3Id}, #{subject4Id}, #{subject5Id},
@@ -108,7 +105,6 @@
             -- 정시 모집 실기 점수 정보
             A.REGULAR_ADMISSION_PHYSICAL_ID,
             A.ADMISSION_ID,
-            A.USE_TYPE,
             A.USE_SUBJECT1, A.USE_SUBJECT2, A.USE_SUBJECT3, A.USE_SUBJECT4, A.USE_SUBJECT5,
             A.USE_SUBJECT6, A.USE_SUBJECT7, A.USE_SUBJECT8, A.USE_SUBJECT9, A.USE_SUBJECT10,
             A.SUBJECT1_ID, A.SUBJECT2_ID, A.SUBJECT3_ID, A.SUBJECT4_ID, A.SUBJECT5_ID,
@@ -164,7 +160,7 @@
     <!-- 정시 모집 실기 점수 정보 수정 -->
     <update id="updateRegularAdmissionPhysical" parameterType="kr.seoulfitness.admin.regularAdmissionPhysical.RegularAdmissionPhysicalDto">
         <![CDATA[
-        UPDATE REGULAR_ADMISSION_PHYSICAL SET ADMISSION_ID = #{admissionId}, USE_TYPE = #{useType}, UPDATED_BY = #{updatedBy}
+        UPDATE REGULAR_ADMISSION_PHYSICAL SET ADMISSION_ID = #{admissionId}, UPDATED_BY = #{updatedBy}
         ]]>
         <if test="useSubject1 != null and useSubject1 != ''">
             <![CDATA[

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="earlyAdmissionPhysicalManAbsoluteMapper">
+
+    <resultMap id="earlyAdmissionPhysicalManAbsoluteResultMap" type="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto">
+        <!-- 수시 모집 실기 남자 절대평가 점수 정보 -->
+        <result property="earlyAdmissionPhysicalManAbsoluteId" column="EARLY_ADMISSION_PHYSICAL_ABSOLUTE_ID" />
+        <result property="earlyAdmissionPhysicalSubjectId" column="EARLY_ADMISSION_PHYSICAL_SUBJECT_ID" />
+        <result property="earlyAdmissionPhysicalId" column="EARLY_ADMISSION_PHYSICAL_ID" />
+        <result property="admissionId" column="ADMISSION_ID" />
+        
+        <!-- 실기 교과목 등급 사용 여부 (1등급 ~ 40등급) -->
+        <result property="useGrade1" column="USE_GRADE1" />
+        <result property="useGrade2" column="USE_GRADE2" />
+        <result property="useGrade3" column="USE_GRADE3" />
+        <result property="useGrade4" column="USE_GRADE4" />
+        <result property="useGrade5" column="USE_GRADE5" />
+        <result property="useGrade6" column="USE_GRADE6" />
+        <result property="useGrade7" column="USE_GRADE7" />
+        <result property="useGrade8" column="USE_GRADE8" />
+        <result property="useGrade9" column="USE_GRADE9" />
+        <result property="useGrade10" column="USE_GRADE10" />
+        <result property="useGrade11" column="USE_GRADE11" />
+        <result property="useGrade12" column="USE_GRADE12" />
+        <result property="useGrade13" column="USE_GRADE13" />
+        <result property="useGrade14" column="USE_GRADE14" />
+        <result property="useGrade15" column="USE_GRADE15" />
+        <result property="useGrade16" column="USE_GRADE16" />
+        <result property="useGrade17" column="USE_GRADE17" />
+        <result property="useGrade18" column="USE_GRADE18" />
+        <result property="useGrade19" column="USE_GRADE19" />
+        <result property="useGrade20" column="USE_GRADE20" />
+        <result property="useGrade21" column="USE_GRADE21" />
+        <result property="useGrade22" column="USE_GRADE22" />
+        <result property="useGrade23" column="USE_GRADE23" />
+        <result property="useGrade24" column="USE_GRADE24" />
+        <result property="useGrade25" column="USE_GRADE25" />
+        <result property="useGrade26" column="USE_GRADE26" />
+        <result property="useGrade27" column="USE_GRADE27" />
+        <result property="useGrade28" column="USE_GRADE28" />
+        <result property="useGrade29" column="USE_GRADE29" />
+        <result property="useGrade30" column="USE_GRADE30" />
+        <result property="useGrade31" column="USE_GRADE31" />
+        <result property="useGrade32" column="USE_GRADE32" />
+        <result property="useGrade33" column="USE_GRADE33" />
+        <result property="useGrade34" column="USE_GRADE34" />
+        <result property="useGrade35" column="USE_GRADE35" />
+        <result property="useGrade36" column="USE_GRADE36" />
+        <result property="useGrade37" column="USE_GRADE37" />
+        <result property="useGrade38" column="USE_GRADE38" />
+        <result property="useGrade39" column="USE_GRADE39" />
+        <result property="useGrade40" column="USE_GRADE40" />
+
+        <!-- 실기 교과목 등급별 점수 -->
+        <result property="grade1Score" column="GRADE1_SCORE" />
+        <result property="grade2Score" column="GRADE2_SCORE" />
+        <result property="grade3Score" column="GRADE3_SCORE" />
+        <result property="grade4Score" column="GRADE4_SCORE" />
+        <result property="grade5Score" column="GRADE5_SCORE" />
+        <result property="grade6Score" column="GRADE6_SCORE" />
+        <result property="grade7Score" column="GRADE7_SCORE" />
+        <result property="grade8Score" column="GRADE8_SCORE" />
+        <result property="grade9Score" column="GRADE9_SCORE" />
+        <result property="grade10Score" column="GRADE10_SCORE" />
+        <result property="grade11Score" column="GRADE11_SCORE" />
+        <result property="grade12Score" column="GRADE12_SCORE" />
+        <result property="grade13Score" column="GRADE13_SCORE" />
+        <result property="grade14Score" column="GRADE14_SCORE" />
+        <result property="grade15Score" column="GRADE15_SCORE" />
+        <result property="grade16Score" column="GRADE16_SCORE" />
+        <result property="grade17Score" column="GRADE17_SCORE" />
+        <result property="grade18Score" column="GRADE18_SCORE" />
+        <result property="grade19Score" column="GRADE19_SCORE" />
+        <result property="grade20Score" column="GRADE20_SCORE" />
+        <result property="grade21Score" column="GRADE21_SCORE" />
+        <result property="grade22Score" column="GRADE22_SCORE" />
+        <result property="grade23Score" column="GRADE23_SCORE" />
+        <result property="grade24Score" column="GRADE24_SCORE" />
+        <result property="grade25Score" column="GRADE25_SCORE" />
+        <result property="grade26Score" column="GRADE26_SCORE" />
+        <result property="grade27Score" column="GRADE27_SCORE" />
+        <result property="grade28Score" column="GRADE28_SCORE" />
+        <result property="grade29Score" column="GRADE29_SCORE" />
+        <result property="grade30Score" column="GRADE30_SCORE" />
+        <result property="grade31Score" column="GRADE31_SCORE" />
+        <result property="grade32Score" column="GRADE32_SCORE" />
+        <result property="grade33Score" column="GRADE33_SCORE" />
+        <result property="grade34Score" column="GRADE34_SCORE" />
+        <result property="grade35Score" column="GRADE35_SCORE" />
+        <result property="grade36Score" column="GRADE36_SCORE" />
+        <result property="grade37Score" column="GRADE37_SCORE" />
+        <result property="grade38Score" column="GRADE38_SCORE" />
+        <result property="grade39Score" column="GRADE39_SCORE" />
+        <result property="grade40Score" column="GRADE40_SCORE" />
+        
+        <!-- 실기 교과목 기록 최소, 최대 -->
+        <result property="grade1RecordMin" column="GRADE1_RECORD_MIN" />
+        <result property="grade1RecordMax" column="GRADE1_RECORD_MAX" />
+        <result property="grade2RecordMin" column="GRADE2_RECORD_MIN" />
+        <result property="grade2RecordMax" column="GRADE2_RECORD_MAX" />
+        <result property="grade3RecordMin" column="GRADE3_RECORD_MIN" />
+        <result property="grade3RecordMax" column="GRADE3_RECORD_MAX" />
+        <result property="grade4RecordMin" column="GRADE4_RECORD_MIN" />
+        <result property="grade4RecordMax" column="GRADE4_RECORD_MAX" />
+        <result property="grade5RecordMin" column="GRADE5_RECORD_MIN" />
+        <result property="grade5RecordMax" column="GRADE5_RECORD_MAX" />
+        <result property="grade6RecordMin" column="GRADE6_RECORD_MIN" />
+        <result property="grade6RecordMax" column="GRADE6_RECORD_MAX" />
+        <result property="grade7RecordMin" column="GRADE7_RECORD_MIN" />
+        <result property="grade7RecordMax" column="GRADE7_RECORD_MAX" />
+        <result property="grade8RecordMin" column="GRADE8_RECORD_MIN" />
+        <result property="grade8RecordMax" column="GRADE8_RECORD_MAX" />
+        <result property="grade9RecordMin" column="GRADE9_RECORD_MIN" />
+        <result property="grade9RecordMax" column="GRADE9_RECORD_MAX" />
+        <result property="grade10RecordMin" column="GRADE10_RECORD_MIN" />
+        <result property="grade10RecordMax" column="GRADE10_RECORD_MAX" />
+        <result property="grade11RecordMin" column="GRADE11_RECORD_MIN" />
+        <result property="grade11RecordMax" column="GRADE11_RECORD_MAX" />
+        <result property="grade12RecordMin" column="GRADE12_RECORD_MIN" />
+        <result property="grade12RecordMax" column="GRADE12_RECORD_MAX" />
+        <result property="grade13RecordMin" column="GRADE13_RECORD_MIN" />
+        <result property="grade13RecordMax" column="GRADE13_RECORD_MAX" />
+        <result property="grade14RecordMin" column="GRADE14_RECORD_MIN" />
+        <result property="grade14RecordMax" column="GRADE14_RECORD_MAX" />
+        <result property="grade15RecordMin" column="GRADE15_RECORD_MIN" />
+        <result property="grade15RecordMax" column="GRADE15_RECORD_MAX" />
+        <result property="grade16RecordMin" column="GRADE16_RECORD_MIN" />
+        <result property="grade16RecordMax" column="GRADE16_RECORD_MAX" />
+        <result property="grade17RecordMin" column="GRADE17_RECORD_MIN" />
+        <result property="grade17RecordMax" column="GRADE17_RECORD_MAX" />
+        <result property="grade18RecordMin" column="GRADE18_RECORD_MIN" />
+        <result property="grade18RecordMax" column="GRADE18_RECORD_MAX" />
+        <result property="grade19RecordMin" column="GRADE19_RECORD_MIN" />
+        <result property="grade19RecordMax" column="GRADE19_RECORD_MAX" />
+        <result property="grade20RecordMin" column="GRADE20_RECORD_MIN" />
+        <result property="grade20RecordMax" column="GRADE20_RECORD_MAX" />
+        <result property="grade21RecordMin" column="GRADE21_RECORD_MIN" />
+        <result property="grade21RecordMax" column="GRADE21_RECORD_MAX" />
+        <result property="grade22RecordMin" column="GRADE22_RECORD_MIN" />
+        <result property="grade22RecordMax" column="GRADE22_RECORD_MAX" />
+        <result property="grade23RecordMin" column="GRADE23_RECORD_MIN" />
+        <result property="grade23RecordMax" column="GRADE23_RECORD_MAX" />
+        <result property="grade24RecordMin" column="GRADE24_RECORD_MIN" />
+        <result property="grade24RecordMax" column="GRADE24_RECORD_MAX" />
+        <result property="grade25RecordMin" column="GRADE25_RECORD_MIN" />
+        <result property="grade25RecordMax" column="GRADE25_RECORD_MAX" />
+        <result property="grade26RecordMin" column="GRADE26_RECORD_MIN" />
+        <result property="grade26RecordMax" column="GRADE26_RECORD_MAX" />
+        <result property="grade27RecordMin" column="GRADE27_RECORD_MIN" />
+        <result property="grade27RecordMax" column="GRADE27_RECORD_MAX" />
+        <result property="grade28RecordMin" column="GRADE28_RECORD_MIN" />
+        <result property="grade28RecordMax" column="GRADE28_RECORD_MAX" />
+        <result property="grade29RecordMin" column="GRADE29_RECORD_MIN" />
+        <result property="grade29RecordMax" column="GRADE29_RECORD_MAX" />
+        <result property="grade30RecordMin" column="GRADE30_RECORD_MIN" />
+        <result property="grade30RecordMax" column="GRADE30_RECORD_MAX" />
+        <result property="grade31RecordMin" column="GRADE31_RECORD_MIN" />
+        <result property="grade31RecordMax" column="GRADE31_RECORD_MAX" />
+        <result property="grade32RecordMin" column="GRADE32_RECORD_MIN" />
+        <result property="grade32RecordMax" column="GRADE32_RECORD_MAX" />
+        <result property="grade33RecordMin" column="GRADE33_RECORD_MIN" />
+        <result property="grade33RecordMax" column="GRADE33_RECORD_MAX" />
+        <result property="grade34RecordMin" column="GRADE34_RECORD_MIN" />
+        <result property="grade34RecordMax" column="GRADE34_RECORD_MAX" />
+        <result property="grade35RecordMin" column="GRADE35_RECORD_MIN" />
+        <result property="grade35RecordMax" column="GRADE35_RECORD_MAX" />
+        <result property="grade36RecordMin" column="GRADE36_RECORD_MIN" />
+        <result property="grade36RecordMax" column="GRADE36_RECORD_MAX" />
+        <result property="grade37RecordMin" column="GRADE37_RECORD_MIN" />
+        <result property="grade37RecordMax" column="GRADE37_RECORD_MAX" />
+        <result property="grade38RecordMin" column="GRADE38_RECORD_MIN" />
+        <result property="grade38RecordMax" column="GRADE38_RECORD_MAX" />
+        <result property="grade39RecordMin" column="GRADE39_RECORD_MIN" />
+        <result property="grade39RecordMax" column="GRADE39_RECORD_MAX" />
+        <result property="grade40RecordMin" column="GRADE40_RECORD_MIN" />
+        <result property="grade40RecordMax" column="GRADE40_RECORD_MAX" />
+
+        <!-- 메모 -->
+        <result property="earlyAdmissionPhysicalManAbsoluteMemo" column="EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE_MEMO" />
+        
+        <!-- 등록일시, 수정일시, 등록자, 수정자 -->
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />
+        
+        <!-- 등록한 사람, 수정한 사람 정보 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 공통 WHERE 조건 SQL 조각 -->
+    <sql id="commonWhereConditions">
+        <![CDATA[WHERE 1=1]]>
+        <if test="earlyAdmissionPhysicalManAbsoluteId != null and earlyAdmissionPhysicalManAbsoluteId != 0">
+            <![CDATA[
+            AND EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE_ID = #{earlyAdmissionPhysicalManAbsoluteId}
+            ]]>
+        </if>
+        <if test="earlyAdmissionPhysicalSubjectId != null and earlyAdmissionPhysicalSubjectId != 0">
+            <![CDATA[
+            AND EARLY_ADMISSION_PHYSICAL_SUBJECT_ID = #{earlyAdmissionPhysicalSubjectId}
+            ]]>
+        </if>
+        <if test="earlyAdmissionPhysicalId != null and earlyAdmissionPhysicalId != 0">
+            <![CDATA[
+            AND EARLY_ADMISSION_PHYSICAL_ID = #{earlyAdmissionPhysicalId}
+            ]]>
+        </if>
+        <if test="admissionId != null and admissionId != 0">
+            <![CDATA[
+            AND ADMISSION_ID = #{admissionId}
+            ]]>
+        </if>
+    </sql>
+
+    <!-- 수시 모집 실기 남자 절대평가 점수 정보 등록 -->
+    <insert id="insertEarlyAdmissionPhysicalManAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto" useGeneratedKeys="true" keyProperty="earlyAdmissionPhysicalManAbsoluteId">
+        <![CDATA[
+        INSERT INTO EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE (
+            EARLY_ADMISSION_PHYSICAL_SUBJECT_ID,
+            EARLY_ADMISSION_PHYSICAL_ID,
+            ADMISSION_ID,
+            USE_GRADE1, USE_GRADE2, USE_GRADE3, USE_GRADE4, USE_GRADE5,
+            USE_GRADE6, USE_GRADE7, USE_GRADE8, USE_GRADE9, USE_GRADE10,
+            USE_GRADE11, USE_GRADE12, USE_GRADE13, USE_GRADE14, USE_GRADE15,
+            USE_GRADE16, USE_GRADE17, USE_GRADE18, USE_GRADE19, USE_GRADE20,
+            USE_GRADE21, USE_GRADE22, USE_GRADE23, USE_GRADE24, USE_GRADE25,
+            USE_GRADE26, USE_GRADE27, USE_GRADE28, USE_GRADE29, USE_GRADE30,
+            USE_GRADE31, USE_GRADE32, USE_GRADE33, USE_GRADE34, USE_GRADE35,
+            USE_GRADE36, USE_GRADE37, USE_GRADE38, USE_GRADE39, USE_GRADE40,
+            GRADE1_SCORE, GRADE2_SCORE, GRADE3_SCORE, GRADE4_SCORE, GRADE5_SCORE,
+            GRADE6_SCORE, GRADE7_SCORE, GRADE8_SCORE, GRADE9_SCORE, GRADE10_SCORE,
+            GRADE11_SCORE, GRADE12_SCORE, GRADE13_SCORE, GRADE14_SCORE, GRADE15_SCORE,
+            GRADE16_SCORE, GRADE17_SCORE, GRADE18_SCORE, GRADE19_SCORE, GRADE20_SCORE,
+            GRADE21_SCORE, GRADE22_SCORE, GRADE23_SCORE, GRADE24_SCORE, GRADE25_SCORE,
+            GRADE26_SCORE, GRADE27_SCORE, GRADE28_SCORE, GRADE29_SCORE, GRADE30_SCORE,
+            GRADE31_SCORE, GRADE32_SCORE, GRADE33_SCORE, GRADE34_SCORE, GRADE35_SCORE,
+            GRADE36_SCORE, GRADE37_SCORE, GRADE38_SCORE, GRADE39_SCORE, GRADE40_SCORE,
+            GRADE1_RECORD_MIN, GRADE1_RECORD_MAX, GRADE2_RECORD_MIN, GRADE2_RECORD_MAX,
+            GRADE3_RECORD_MIN, GRADE3_RECORD_MAX, GRADE4_RECORD_MIN, GRADE4_RECORD_MAX,
+            GRADE5_RECORD_MIN, GRADE5_RECORD_MAX, GRADE6_RECORD_MIN, GRADE6_RECORD_MAX,
+            GRADE7_RECORD_MIN, GRADE7_RECORD_MAX, GRADE8_RECORD_MIN, GRADE8_RECORD_MAX,
+            GRADE9_RECORD_MIN, GRADE9_RECORD_MAX, GRADE10_RECORD_MIN, GRADE10_RECORD_MAX,
+            GRADE11_RECORD_MIN, GRADE11_RECORD_MAX, GRADE12_RECORD_MIN, GRADE12_RECORD_MAX,
+            GRADE13_RECORD_MIN, GRADE13_RECORD_MAX, GRADE14_RECORD_MIN, GRADE14_RECORD_MAX,
+            GRADE15_RECORD_MIN, GRADE15_RECORD_MAX, GRADE16_RECORD_MIN, GRADE16_RECORD_MAX,
+            GRADE17_RECORD_MIN, GRADE17_RECORD_MAX, GRADE18_RECORD_MIN, GRADE18_RECORD_MAX,
+            GRADE19_RECORD_MIN, GRADE19_RECORD_MAX, GRADE20_RECORD_MIN, GRADE20_RECORD_MAX,
+            GRADE21_RECORD_MIN, GRADE21_RECORD_MAX, GRADE22_RECORD_MIN, GRADE22_RECORD_MAX,
+            GRADE23_RECORD_MIN, GRADE23_RECORD_MAX, GRADE24_RECORD_MIN, GRADE24_RECORD_MAX,
+            GRADE25_RECORD_MIN, GRADE25_RECORD_MAX, GRADE26_RECORD_MIN, GRADE26_RECORD_MAX,
+            GRADE27_RECORD_MIN, GRADE27_RECORD_MAX, GRADE28_RECORD_MIN, GRADE28_RECORD_MAX,
+            GRADE29_RECORD_MIN, GRADE29_RECORD_MAX, GRADE30_RECORD_MIN, GRADE30_RECORD_MAX,
+            GRADE31_RECORD_MIN, GRADE31_RECORD_MAX, GRADE32_RECORD_MIN, GRADE32_RECORD_MAX,
+            GRADE33_RECORD_MIN, GRADE33_RECORD_MAX, GRADE34_RECORD_MIN, GRADE34_RECORD_MAX,
+            GRADE35_RECORD_MIN, GRADE35_RECORD_MAX, GRADE36_RECORD_MIN, GRADE36_RECORD_MAX,
+            GRADE37_RECORD_MIN, GRADE37_RECORD_MAX, GRADE38_RECORD_MIN, GRADE38_RECORD_MAX,
+            GRADE39_RECORD_MIN, GRADE39_RECORD_MAX, GRADE40_RECORD_MIN, GRADE40_RECORD_MAX,
+            EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{earlyAdmissionPhysicalSubjectId},
+            #{earlyAdmissionPhysicalId},
+            #{admissionId},
+            #{useGrade1}, #{useGrade2}, #{useGrade3}, #{useGrade4}, #{useGrade5},
+            #{useGrade6}, #{useGrade7}, #{useGrade8}, #{useGrade9}, #{useGrade10},
+            #{useGrade11}, #{useGrade12}, #{useGrade13}, #{useGrade14}, #{useGrade15},
+            #{useGrade16}, #{useGrade17}, #{useGrade18}, #{useGrade19}, #{useGrade20},
+            #{useGrade21}, #{useGrade22}, #{useGrade23}, #{useGrade24}, #{useGrade25},
+            #{useGrade26}, #{useGrade27}, #{useGrade28}, #{useGrade29}, #{useGrade30},
+            #{useGrade31}, #{useGrade32}, #{useGrade33}, #{useGrade34}, #{useGrade35},
+            #{useGrade36}, #{useGrade37}, #{useGrade38}, #{useGrade39}, #{useGrade40},
+            #{grade1Score}, #{grade2Score}, #{grade3Score}, #{grade4Score}, #{grade5Score},
+            #{grade6Score}, #{grade7Score}, #{grade8Score}, #{grade9Score}, #{grade10Score},
+            #{grade11Score}, #{grade12Score}, #{grade13Score}, #{grade14Score}, #{grade15Score},
+            #{grade16Score}, #{grade17Score}, #{grade18Score}, #{grade19Score}, #{grade20Score},
+            #{grade21Score}, #{grade22Score}, #{grade23Score}, #{grade24Score}, #{grade25Score},
+            #{grade26Score}, #{grade27Score}, #{grade28Score}, #{grade29Score}, #{grade30Score},
+            #{grade31Score}, #{grade32Score}, #{grade33Score}, #{grade34Score}, #{grade35Score},
+            #{grade36Score}, #{grade37Score}, #{grade38Score}, #{grade39Score}, #{grade40Score},
+            #{grade1RecordMin}, #{grade1RecordMax}, #{grade2RecordMin}, #{grade2RecordMax},
+            #{grade3RecordMin}, #{grade3RecordMax}, #{grade4RecordMin}, #{grade4RecordMax},
+            #{grade5RecordMin}, #{grade5RecordMax}, #{grade6RecordMin}, #{grade6RecordMax},
+            #{grade7RecordMin}, #{grade7RecordMax}, #{grade8RecordMin}, #{grade8RecordMax},
+            #{grade9RecordMin}, #{grade9RecordMax}, #{grade10RecordMin}, #{grade10RecordMax},
+            #{grade11RecordMin}, #{grade11RecordMax}, #{grade12RecordMin}, #{grade12RecordMax},
+            #{grade13RecordMin}, #{grade13RecordMax}, #{grade14RecordMin}, #{grade14RecordMax},
+            #{grade15RecordMin}, #{grade15RecordMax}, #{grade16RecordMin}, #{grade16RecordMax},
+            #{grade17RecordMin}, #{grade17RecordMax}, #{grade18RecordMin}, #{grade18RecordMax},
+            #{grade19RecordMin}, #{grade19RecordMax}, #{grade20RecordMin}, #{grade20RecordMax},
+            #{grade21RecordMin}, #{grade21RecordMax}, #{grade22RecordMin}, #{grade22RecordMax},
+            #{grade23RecordMin}, #{grade23RecordMax}, #{grade24RecordMin}, #{grade24RecordMax},
+            #{grade25RecordMin}, #{grade25RecordMax}, #{grade26RecordMin}, #{grade26RecordMax},
+            #{grade27RecordMin}, #{grade27RecordMax}, #{grade28RecordMin}, #{grade28RecordMax},
+            #{grade29RecordMin}, #{grade29RecordMax}, #{grade30RecordMin}, #{grade30RecordMax},
+            #{grade31RecordMin}, #{grade31RecordMax}, #{grade32RecordMin}, #{grade32RecordMax},
+            #{grade33RecordMin}, #{grade33RecordMax}, #{grade34RecordMin}, #{grade34RecordMax},
+            #{grade35RecordMin}, #{grade35RecordMax}, #{grade36RecordMin}, #{grade36RecordMax},
+            #{grade37RecordMin}, #{grade37RecordMax}, #{grade38RecordMin}, #{grade38RecordMax},
+            #{grade39RecordMin}, #{grade39RecordMax}, #{grade40RecordMin}, #{grade40RecordMax},
+            #{earlyAdmissionPhysicalManAbsoluteMemo},
+            #{createdBy},
+            #{updatedBy}
+        )
+        ]]>  
+    </insert>
+
+    <!-- 수시 모집 실기 남자 절대평가 점수 목록 -->
+    <select id="getEarlyAdmissionPhysicalManAbsoluteList" resultMap="earlyAdmissionPhysicalManAbsoluteResultMap">
+        <![CDATA[
+        SELECT
+            A.*,
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY        
+        ]]>
+        <include refid="commonWhereConditions" />
+    </select>
+
+    <!-- 수시 모집 실기 남자 절대평가 점수 정보 상세보기 -->
+    <select id="getEarlyAdmissionPhysicalManAbsolute" resultMap="earlyAdmissionPhysicalManAbsoluteResultMap">
+        <![CDATA[
+        SELECT
+            A.*,
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        ]]>
+        <include refid="commonWhereConditions" />
+        <![CDATA[
+        LIMIT 1
+        ]]>
+    </select>
+
+    <!-- 수시 모집 실기 남자 절대평가 점수 정보 수정 -->
+    <update id="updateEarlyAdmissionPhysicalManAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto">
+        <![CDATA[
+        UPDATE EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE
+        SET
+            EARLY_ADMISSION_PHYSICAL_SUBJECT_ID = #{earlyAdmissionPhysicalSubjectId},
+            EARLY_ADMISSION_PHYSICAL_ID = #{earlyAdmissionPhysicalId},
+            ADMISSION_ID = #{admissionId},
+            UPDATED_BY = #{updatedBy},
+            EARLY_ADMISSION_PHYSICAL_ABSOLUTE_MEMO = #{earlyAdmissionPhysicalAbsoluteMemo}
+            <trim prefix="," suffixOverrides=",">
+                <foreach collection="useGrades" index="index" item="grade">
+                    <if test="grade != null and grade != ''">
+                        USE_GRADE${index + 1} = #{grade},
+                    </if>
+                </foreach>
+                <foreach collection="gradeScores" index="index" item="score">
+                    <if test="score != null">
+                        GRADE${index + 1}_SCORE = #{score},
+                    </if>
+                </foreach>
+                <foreach collection="gradeRecordMins" index="index" item="min">
+                    <if test="min != null">
+                        GRADE${index + 1}_RECORD_MIN = #{min},
+                    </if>
+                </foreach>
+                <foreach collection="gradeRecordMaxs" index="index" item="max">
+                    <if test="max != null">
+                        GRADE${index + 1}_RECORD_MAX = #{max},
+                    </if>
+                </foreach>
+            </trim>
+        <include refid="commonWhereConditions" />
+        ]]>
+    </update>
+
+    <!-- 수시 모집 실기 남자 절대평가 점수 정보 삭제 -->
+    <delete id="deleteEarlyAdmissionPhysicalManAbsolute">
+        <![CDATA[
+        DELETE FROM EARLY_ADMISSION_PHYSICAL_MAN_ABSOLUTE
+        ]]>
+        <include refid="commonWhereConditions" />
+    </delete>
+
+</mapper>
