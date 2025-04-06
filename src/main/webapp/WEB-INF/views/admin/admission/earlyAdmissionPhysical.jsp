@@ -101,12 +101,36 @@
                                         <td class="align-middle col-2">
                                             <%-- 여자 절대평가 --%>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 1}">
-                                                <button class="btn btn-outline-danger btn-sm btn-absolute-score btn-woman-absolute-score" 
-                                                    data-id="${i}" 
-                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" 
-                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" 
-                                                    data-gender="woman" 
-                                                    data-action="create">점수 입력 필요</button>
+                                                <%-- 공통 버튼 속성 설정 --%>
+                                                <c:set var="buttonData">
+                                                    data-id="${i}"
+                                                    data-admission-id="${admission.admissionId}"
+                                                    data-early-admission-physical-id="${earlyAdmissionPhysical.earlyAdmissionPhysicalId}"
+                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}"
+                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}"
+                                                    data-gender="woman"
+                                                </c:set>
+                                                
+                                                <%-- 절대평가 데이터 존재 여부 확인 --%>
+                                                <c:set var="earlyAdmissionPhysicalAbsoluteExists" value="false"/>
+                                                <c:set var="earlyAdmissionPhysicalAbsoluteId" value=""/>
+                                                
+                                                <c:forEach var="earlyAdmissionPhysicalWomanAbsolute" items="${earlyAdmissionPhysicalWomanAbsoluteList}">
+                                                    <c:if test="${not earlyAdmissionPhysicalAbsoluteExists}">
+                                                        <c:if test="${earlyAdmissionPhysicalWomanAbsolute.earlyAdmissionPhysicalSubjectId == earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">
+                                                            <c:set var="earlyAdmissionPhysicalAbsoluteExists" value="true"/>
+                                                            <c:set var="earlyAdmissionPhysicalAbsoluteId" value="${earlyAdmissionPhysicalWomanAbsolute.earlyAdmissionPhysicalAbsoluteId}"/>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:forEach>
+                                                
+                                                <%-- 버튼 렌더링 --%>
+                                                <button class="btn btn-sm btn-absolute-score btn-woman-absolute-score ${earlyAdmissionPhysicalAbsoluteExists ? 'btn-primary' : 'btn-outline-danger'}"
+                                                    ${buttonData}
+                                                    data-early-admission-physical-absolute-id="${earlyAdmissionPhysicalAbsoluteId}"
+                                                    data-action="${earlyAdmissionPhysicalAbsoluteExists ? 'update' : 'create'}">
+                                                    ${earlyAdmissionPhysicalAbsoluteExists ? '배점 보기' : '점수 입력 필요'}
+                                                </button>
                                             </c:if>
                                             <%--// 여자 절대평가 --%>
                                             <%-- 여자 상대평가 --%>

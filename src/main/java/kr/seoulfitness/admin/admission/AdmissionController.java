@@ -29,6 +29,8 @@ import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto;
 import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalService;
 import kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto;
 import kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteService;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteDto;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteService;
 import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionService;
@@ -72,6 +74,9 @@ public class AdmissionController {
 
     @Autowired
     private EarlyAdmissionPhysicalManAbsoluteService earlyAdmissionPhysicalManAbsoluteService;
+
+    @Autowired
+    private EarlyAdmissionPhysicalWomanAbsoluteService earlyAdmissionPhysicalWomanAbsoluteService;
     
     @Autowired
     private RegularAdmissionService regularAdmissionService;
@@ -231,6 +236,12 @@ public class AdmissionController {
             earlyAdmissionPhysicalManAbsoluteParams.put("admissionId", admission.getAdmissionId());
             List<EarlyAdmissionPhysicalManAbsoluteDto> earlyAdmissionPhysicalManAbsoluteList = earlyAdmissionPhysicalManAbsoluteService.getEarlyAdmissionPhysicalManAbsoluteList(earlyAdmissionPhysicalManAbsoluteParams);
             model.addAttribute("earlyAdmissionPhysicalManAbsoluteList", earlyAdmissionPhysicalManAbsoluteList);
+
+            // 수시 모집 여자 절대평가 점수 목록
+            Map<String, Object> earlyAdmissionPhysicalWomanAbsoluteParams = new HashMap<>();
+            earlyAdmissionPhysicalWomanAbsoluteParams.put("admissionId", admission.getAdmissionId());
+            List<EarlyAdmissionPhysicalWomanAbsoluteDto> earlyAdmissionPhysicalWomanAbsoluteList = earlyAdmissionPhysicalWomanAbsoluteService.getEarlyAdmissionPhysicalWomanAbsoluteList(earlyAdmissionPhysicalWomanAbsoluteParams);
+            model.addAttribute("earlyAdmissionPhysicalWomanAbsoluteList", earlyAdmissionPhysicalWomanAbsoluteList);
         }
 
         // 정시 모집 여부 확인

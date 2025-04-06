@@ -92,12 +92,13 @@
                 // 2등급 사용 여부 설정
                 $('#useGrade2').val('N').prop('disabled', false);
             } else {
+                let url = '/admin/earlyAdmissionPhysical' + (gender == 'man' ? 'Man' : 'Woman') + 'Absolute/' + earlyAdmissionPhysicalAbsoluteId;
                 // 점수 불러오기
                 $.ajax({
-                    url: '/admin/earlyAdmissionPhysicalManAbsolute/' + earlyAdmissionPhysicalAbsoluteId,
+                    url: url,
                     type: 'GET',
                     success: (response) => {
-                        const data = response.earlyAdmissionPhysicalManAbsolute;
+                        const data = response.earlyAdmissionPhysicalAbsolute;
 
                         // 1등급 ~ 40등급 사용 여부 설정
                         for (let i = 1; i <= 40; i++) {
@@ -127,7 +128,7 @@
                         }
 
                         // 메모 불러오기
-                        $('#earlyAdmissionPhysicalManAbsoluteMemo').val(data.earlyAdmissionPhysicalManAbsoluteMemo || '');
+                        $('#earlyAdmissionPhysicalAbsoluteMemo').val(data.earlyAdmissionPhysicalAbsoluteMemo || '');
                     },
                     error: (xhr, status, error) => {
                         alert('점수 정보를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -981,7 +982,7 @@
                     min: '40등급 기록 최대값은 0 이상이어야 합니다.',
                     max: '40등급 기록 최대값은 1000.0000 이하여야 합니다.'
                 },
-                earlyAdmissionPhysicalManAbsoluteMemo: {
+                earlyAdmissionPhysicalAbsoluteMemo: {
                     maxlength: 500
                 },
             },
@@ -1706,7 +1707,7 @@
                     min: '40등급 기록 최대값은 0 이상이어야 합니다.',
                     max: '40등급 기록 최대값은 1000.0000 이하여야 합니다.'
                 },
-                earlyAdmissionPhysicalManAbsoluteMemo: {
+                earlyAdmissionPhysicalAbsoluteMemo: {
                     maxlength: '메모는 최대 500자 이하여야 합니다.'
                 },
             },

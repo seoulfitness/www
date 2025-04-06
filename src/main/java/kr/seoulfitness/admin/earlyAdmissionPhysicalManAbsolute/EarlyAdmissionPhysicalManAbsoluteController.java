@@ -57,7 +57,7 @@ public class EarlyAdmissionPhysicalManAbsoluteController {
 
         // 수시 실기 남자 절대평가 점수 정보
         Map<String, Object> result = new HashMap<>();
-        result.put("earlyAdmissionPhysicalManAbsolute", earlyAdmissionPhysicalManAbsolute);
+        result.put("earlyAdmissionPhysicalAbsolute", earlyAdmissionPhysicalManAbsolute);
 
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(result);
     }
