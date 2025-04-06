@@ -84,7 +84,7 @@ public class DepartmentDao {
 
     // 전체 학과 수
     public int getTotalCount(Map<String, Object> params) {
-        int totalCount = -1;
+        int totalCount = 0;
 
         try {
             totalCount = sqlSession.selectOne("departmentMapper.getTotalCount", params);

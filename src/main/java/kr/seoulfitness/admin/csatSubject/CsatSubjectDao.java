@@ -84,7 +84,7 @@ public class CsatSubjectDao {
 
     // 전체 수능 교과목 수
     public int getTotalCount(Map<String, Object> params) {
-        int totalCount = -1;
+        int totalCount = 0;
 
         try {
             totalCount = sqlSession.selectOne("csatSubjectMapper.getTotalCount", params);

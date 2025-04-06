@@ -84,7 +84,7 @@ public class ProvinceDao {
 
     // 전체 시/도 수
     public int getTotalCount(Map<String, Object> params) {
-        int totalCount = -1;
+        int totalCount = 0;
 
         try {
             totalCount = sqlSession.selectOne("provinceMapper.getTotalCount", params);

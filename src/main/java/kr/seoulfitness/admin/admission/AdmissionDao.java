@@ -84,7 +84,7 @@ public class AdmissionDao {
 
     // 전체 입시 요강 수
     public int getTotalCount(Map<String, Object> params) {
-        int totalCount = -1;
+        int totalCount = 0;
 
         try {
             totalCount = sqlSession.selectOne("admissionMapper.getTotalCount", params);

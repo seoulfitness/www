@@ -25,7 +25,7 @@
                 <div class="sidenav-menu-heading">메뉴</div>
 
                 <%-- 지점 --%>
-                <a class="nav-link collapsed ${activePage == 'branches' or activePage == 'branchManagers' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranch" aria-expanded="false" aria-controls="collapseBranches">
+                <a class="nav-link collapsed ${activePage == 'branches' or activePage == 'branchManagers' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranch" aria-expanded="false" aria-controls="collapseBranch">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     지점 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -39,7 +39,7 @@
                 <%--// 지점 --%>
 
                 <%-- 대학교 --%>
-                <a class="nav-link collapsed ${activePage == 'schools' or activePage == 'departments' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSchool" aria-expanded="false" aria-controls="collapseBranches">
+                <a class="nav-link collapsed ${activePage == 'schools' or activePage == 'departments' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSchool" aria-expanded="false" aria-controls="collapseSchool">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     대학교 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -53,7 +53,7 @@
                 <%--// 대학교 --%>
 
                 <%-- 고등학교 --%>
-                <a class="nav-link collapsed ${activePage == 'districts' or activePage == 'provinces' or activePage == 'highSchools' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseHighSchool" aria-expanded="false" aria-controls="collapseBranches">
+                <a class="nav-link collapsed ${activePage == 'districts' or activePage == 'provinces' or activePage == 'highSchools' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseHighSchool" aria-expanded="false" aria-controls="collapseHighSchool">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     고등학교 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -68,12 +68,12 @@
                 <%-- 고등학교 --%>
 
                 <%-- 입시 정보 --%>
-                <a class="nav-link collapsed ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSubject" aria-expanded="false" aria-controls="collapseBranches">
+                <a class="nav-link collapsed ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseAdmission" aria-expanded="false" aria-controls="collapseAdmission">
                     <div class="nav-link-icon"><i data-feather="activity"></i></div>
                     입시 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'show' : ''}" id="collapseSubject" data-bs-parent="#accordionSidenav">
+                <div class="collapse ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'show' : ''}" id="collapseAdmission" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                         <a class="nav-link ${activePage == 'admissions' ? 'active' : ''}" href="/admin/admissions">입시 요강</a>
                         <a class="nav-link ${activePage == 'csatSubjects' ? 'active' : ''}" href="/admin/csatSubjects">수능 교과목</a>
@@ -81,6 +81,21 @@
                     </nav>
                 </div>
                 <%--// 입시 정보 --%>
+
+                <%-- 기록 등록 정보 --%>
+                <a class="nav-link collapsed ${activePage == 'csatRecordPeriods' or activePage == 'physicalRecordPeriods' or activePage == 'internalRecordPeriods' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePeriods" aria-expanded="false" aria-controls="collapsePeriods">
+                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    기록 등록 정보
+                    <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse ${activePage == 'csatRecordPeriods' or activePage == 'physicalRecordPeriods' or activePage == 'internalRecordPeriods' ? 'show' : ''}" id="collapsePeriods" data-bs-parent="#accordionSidenav">
+                    <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
+                        <a class="nav-link ${activePage == 'csatRecordPeriods' ? 'active' : ''}" href="/admin/csatRecordPeriods">수능 기록 등록 기간</a>
+                        <a class="nav-link ${activePage == 'physicalRecordPeriods' ? 'active' : ''}" href="/admin/physicalRecordPeriods">실기 기록 등록 기간</a>
+                        <a class="nav-link ${activePage == 'internalRecordPeriods' ? 'active' : ''}" href="/admin/internalRecordPeriods">내신 기록 등록 기간</a>
+                    </nav>
+                </div>
+                <%--// 기록 등록 정보 --%>
 
                 <%-- Sidenav Heading (Custom)--%>
                 <div class="sidenav-menu-heading">Custom</div>
