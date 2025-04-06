@@ -4,27 +4,12 @@
 
 <script>
     $(document).ready(function() {
-        // 상수 정의
-        const FORM_ID = '#earlyAdmissionPhysicalAbsoluteScoreForm';
-        const MODAL_ID = '#earlyAdmissionPhysicalAbsoluteScoreModal';
-        const SAVE_BUTTON_ID = '#saveAbsoluteScore';
-        
-        let id = '';
-        let admissionId = '';
-        let earlyAdmissionPhysicalId = '';
-        let earlyAdmissionPhysicalSubjectId = '';
-        let earlyAdmissionPhysicalAbsoluteId = '';
-        let earlyAdmissionPhysicalWomanAbsoluteId = '';
-        let subjectName = '';
-        let gender = '';
-        let action = '';
-
         // 유틸리티 함수
-        const getFormData = ($form) => {
+        const getAbsoluteFormData = ($absoluteForm) => {
             const formData = {};
             
             // form 데이터를 객체로 변환
-            const formArray = $form.serializeArray();
+            const formArray = $absoluteForm.serializeArray();
             formArray.forEach(item => {
                 formData[item.name] = item.value;
             });
@@ -42,8 +27,7 @@
 
             // action이 create가 아닐 때만 ID 값을 포함
             if (action != 'create') {
-                additionalData[gender == 'man' ? 'earlyAdmissionPhysicalAbsoluteId' : 'earlyAdmissionPhysicalWomanAbsoluteId'] = 
-                    gender == 'man' ? earlyAdmissionPhysicalAbsoluteId : earlyAdmissionPhysicalWomanAbsoluteId;
+                additionalData['earlyAdmissionPhysicalAbsoluteId'] = earlyAdmissionPhysicalAbsoluteId;
             }
 
             return {
@@ -52,7 +36,7 @@
             };
         };       
 
-        const updateButtonState = (id, action, gender) => {
+        const updateAbsoluteButtonState = (id, action, gender) => {
             $('.btn-' + gender + '-absolute-score[data-id="' + id + '"]')
                 .removeClass('btn-outline-danger')
                 .addClass('btn-primary')
@@ -64,7 +48,7 @@
             e.preventDefault();
             
             // 데이터 초기화
-            id = $(this).data('id');
+            btnId = $(this).data('id');
             admissionId = $(this).data('admission-id');
             earlyAdmissionPhysicalId = $(this).data('early-admission-physical-id');
             earlyAdmissionPhysicalSubjectId = $(this).data('subject-id');
@@ -143,12 +127,12 @@
             $('.early-admission-physical-absolute-score-modal-title').text(modalTitle);
 
             // 모달 표시
-            $(MODAL_ID).modal('show');
+            $(ABSOLUTE_MODAL_ID).modal('show');
         });
 
         // 폼 유효성 검사 설정
-        const $form = $(FORM_ID);
-        const validator = $form.validate({
+        const $absoluteForm = $(ABSOLUTE_FORM_ID);
+        const validator = $absoluteForm.validate({
             rules: {
                 grade1Score: {
                     required: true,
@@ -1720,12 +1704,12 @@
         });
 
         // 저장 버튼 이벤트 핸들러
-        $(SAVE_BUTTON_ID).click(function(e) {
+        $(ABSOLUTE_SAVE_BUTTON_ID).click(function(e) {
             e.preventDefault();
             
-            if (!$form.valid()) return;
+            if (!$absoluteForm.valid()) return;
 
-            const data = getFormData($form);
+            const data = getAbsoluteFormData($absoluteForm);
             const url = '/admin/earlyAdmissionPhysical' + (gender == 'man' ? 'Man' : 'Woman') + 'Absolute/' + action;
             
             $.ajax({
@@ -1735,8 +1719,8 @@
                 success: (response) => {
                     if (response.success) {
                         alert('수시 입시 실기 ' + (gender == 'man' ? '남자' : '여자') + ' 절대평가 점수가 저장되었습니다.');
-                        $(MODAL_ID).modal('hide');
-                        updateButtonState(id, 'update', gender);
+                        $(ABSOLUTE_MODAL_ID).modal('hide');
+                        updateAbsoluteButtonState(btnId, 'update', gender);
                     } else {
                         alert('수시 입시 실기 ' + (gender == 'man' ? '남자' : '여자') + ' 절대평가 점수 저장에 실패했습니다.');
                     }

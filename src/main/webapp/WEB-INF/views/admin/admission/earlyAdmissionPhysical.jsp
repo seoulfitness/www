@@ -87,15 +87,40 @@
                                                 </button>
                                             </c:if>
                                             <%--// 남자 절대평가 --%>
+
                                             <%-- 남자 상대평가 --%>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
-                                                <button class="btn btn-outline-danger btn-sm btn-relative-score btn-man-relative-score" 
-                                                    data-id="${i}" 
-                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" 
-                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" 
-                                                    data-gender="man" 
-                                                    data-action="create">점수 입력 필요</button>
-                                                </c:if>
+                                                <%-- 공통 버튼 속성 설정 --%>
+                                                <c:set var="buttonData">
+                                                    data-id="${i}"
+                                                    data-admission-id="${admission.admissionId}"
+                                                    data-early-admission-physical-id="${earlyAdmissionPhysical.earlyAdmissionPhysicalId}"
+                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}"
+                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}"
+                                                    data-gender="man"
+                                                </c:set>
+                                                
+                                                <%-- 상대평가 데이터 존재 여부 확인 --%>
+                                                <c:set var="earlyAdmissionPhysicalRelativeExists" value="false"/>
+                                                <c:set var="earlyAdmissionPhysicalRelativeId" value=""/>
+                                                
+                                                <c:forEach var="earlyAdmissionPhysicalManRelative" items="${earlyAdmissionPhysicalManRelativeList}">
+                                                    <c:if test="${not earlyAdmissionPhysicalRelativeExists}">
+                                                        <c:if test="${earlyAdmissionPhysicalManRelative.earlyAdmissionPhysicalSubjectId == earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">
+                                                            <c:set var="earlyAdmissionPhysicalRelativeExists" value="true"/>
+                                                            <c:set var="earlyAdmissionPhysicalRelativeId" value="${earlyAdmissionPhysicalManRelative.earlyAdmissionPhysicalRelativeId}"/>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:forEach>
+                                                
+                                                <%-- 버튼 렌더링 --%>
+                                                <button class="btn btn-sm btn-relative-score btn-man-relative-score ${earlyAdmissionPhysicalRelativeExists ? 'btn-primary' : 'btn-outline-danger'}"
+                                                    ${buttonData}
+                                                    data-early-admission-physical-relative-id="${earlyAdmissionPhysicalRelativeId}"
+                                                    data-action="${earlyAdmissionPhysicalRelativeExists ? 'update' : 'create'}">
+                                                    ${earlyAdmissionPhysicalRelativeExists ? '배점 보기' : '점수 입력 필요'}
+                                                </button>
+                                            </c:if>
                                             <%--// 남자 상대평가 --%>
                                         </td>
                                         <td class="align-middle col-2">
@@ -133,15 +158,40 @@
                                                 </button>
                                             </c:if>
                                             <%--// 여자 절대평가 --%>
+
                                             <%-- 여자 상대평가 --%>
                                             <c:if test="${earlyAdmissionPhysical['subject'.concat(i).concat('EvaluationMethod')] == 2}">
-                                                <button class="btn btn-outline-danger btn-sm btn-relative-score btn-woman-relative-score" 
-                                                    data-id="${i}" 
-                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}" 
-                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}" 
-                                                    data-gender="woman" 
-                                                    data-action="create">점수 입력 필요</button>
-                                            </c:if> 
+                                                <%-- 공통 버튼 속성 설정 --%>
+                                                <c:set var="buttonData">
+                                                    data-id="${i}"
+                                                    data-admission-id="${admission.admissionId}"
+                                                    data-early-admission-physical-id="${earlyAdmissionPhysical.earlyAdmissionPhysicalId}"
+                                                    data-subject-id="${earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}"
+                                                    data-subject-name="${earlyAdmissionPhysical['subject'.concat(i).concat('Name')]}"
+                                                    data-gender="woman"
+                                                </c:set>
+                                                
+                                                <%-- 상대평가 데이터 존재 여부 확인 --%>
+                                                <c:set var="earlyAdmissionPhysicalRelativeExists" value="false"/>
+                                                <c:set var="earlyAdmissionPhysicalRelativeId" value=""/>
+                                                
+                                                <c:forEach var="earlyAdmissionPhysicalWomanRelative" items="${earlyAdmissionPhysicalWomanRelativeList}">
+                                                    <c:if test="${not earlyAdmissionPhysicalRelativeExists}">
+                                                        <c:if test="${earlyAdmissionPhysicalWomanRelative.earlyAdmissionPhysicalSubjectId == earlyAdmissionPhysical['subject'.concat(i).concat('Id')]}">
+                                                            <c:set var="earlyAdmissionPhysicalRelativeExists" value="true"/>
+                                                            <c:set var="earlyAdmissionPhysicalRelativeId" value="${earlyAdmissionPhysicalWomanRelative.earlyAdmissionPhysicalRelativeId}"/>
+                                                        </c:if>
+                                                    </c:if>
+                                                </c:forEach>
+                                                
+                                                <%-- 버튼 렌더링 --%>
+                                                <button class="btn btn-sm btn-relative-score btn-woman-relative-score ${earlyAdmissionPhysicalRelativeExists ? 'btn-primary' : 'btn-outline-danger'}"
+                                                    ${buttonData}
+                                                    data-early-admission-physical-relative-id="${earlyAdmissionPhysicalRelativeId}"
+                                                    data-action="${earlyAdmissionPhysicalRelativeExists ? 'update' : 'create'}">
+                                                    ${earlyAdmissionPhysicalRelativeExists ? '배점 보기' : '점수 입력 필요'}
+                                                </button>
+                                            </c:if>
                                             <%--// 여자 상대평가 --%>
                                         </td>
                                     </tr>

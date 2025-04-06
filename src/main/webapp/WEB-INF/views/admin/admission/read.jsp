@@ -110,10 +110,43 @@
         <%-- 삭제 모달 --%>
 
         <%-- 절대평가 점수 입력 모달 --%>
-        <%@ include file="earlyAdmissionPhysicalModal.jsp" %>
+        <%@ include file="earlyAdmissionPhysicalAbsoluteModal.jsp" %>
         <%--// 절대평가 점수 입력 모달 --%>
 
+        <%-- 상대평가 점수 입력 모달 --%>
+        <%@ include file="earlyAdmissionPhysicalRelativeModal.jsp" %>
+        <%--// 상대평가 점수 입력 모달 --%>
+
         <%@ include file="../../base/script.jsp" %>
-        <%@ include file="earlyAdmissionPhysicalScript.jsp" %>
+
+        <%-- 절대평가 점수 입력 스크립트 --%>
+        <script>
+            $(document).ready(function() {
+                // 절대평가 점수 입력 상수 정의
+                const ABSOLUTE_FORM_ID = '#earlyAdmissionPhysicalAbsoluteScoreForm';
+                const ABSOLUTE_MODAL_ID = '#earlyAdmissionPhysicalAbsoluteScoreModal';
+                const ABSOLUTE_SAVE_BUTTON_ID = '#saveAbsoluteScore';
+
+                // 상대평가 점수 입력 상수 정의
+                const RELATIVE_FORM_ID = '#earlyAdmissionPhysicalRelativeScoreForm';
+                const RELATIVE_MODAL_ID = '#earlyAdmissionPhysicalRelativeScoreModal';
+                const RELATIVE_SAVE_BUTTON_ID = '#saveRelativeScore';
+                
+                // 변수 선언
+                let btnId = '';
+                let admissionId = '';
+                let earlyAdmissionPhysicalId = '';
+                let earlyAdmissionPhysicalSubjectId = '';
+                let earlyAdmissionPhysicalAbsoluteId = '';
+                let earlyAdmissionPhysicalWomanAbsoluteId = '';
+                let subjectName = '';
+                let gender = '';
+                let action = '';                
+            });
+        </script>
+
+        <%@ include file="earlyAdmissionPhysicalAbsoluteScript.jsp" %>
+        <%@ include file="earlyAdmissionPhysicalRelativeScript.jsp" %>
+
     </body>
 </html>

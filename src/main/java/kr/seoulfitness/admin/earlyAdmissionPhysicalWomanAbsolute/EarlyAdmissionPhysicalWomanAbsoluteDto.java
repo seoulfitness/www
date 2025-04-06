@@ -180,7 +180,7 @@ public class EarlyAdmissionPhysicalWomanAbsoluteDto {
     private double grade40RecordMax;         // 40등급 기록 최대 (0.0000 ~ 100.0000)
 
     // 메모
-    private String earlyAdmissionPhysicalWomanAbsoluteMemo; // 메모
+    private String earlyAdmissionPhysicalAbsoluteMemo; // 메모
 
     // 등록일시, 수정일시, 등록자, 수정자
     private Date createdAt;                 // 생성일시

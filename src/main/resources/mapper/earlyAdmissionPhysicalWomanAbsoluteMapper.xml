@@ -177,7 +177,7 @@
         <result property="grade40RecordMax" column="GRADE40_RECORD_MAX" />
 
         <!-- 메모 -->
-        <result property="earlyAdmissionPhysicalWomanAbsoluteMemo" column="EARLY_ADMISSION_PHYSICAL_WOMAN_ABSOLUTE_MEMO" />
+        <result property="earlyAdmissionPhysicalAbsoluteMemo" column="EARLY_ADMISSION_PHYSICAL_ABSOLUTE_MEMO" />
         
         <!-- 등록일시, 수정일시, 등록자, 수정자 -->
         <result property="createdAt" column="CREATED_AT" />
@@ -217,92 +217,84 @@
     </sql>
 
     <!-- 수시 모집 실기 여자 절대평가 점수 정보 등록 -->
-    <insert id="insertEarlyAdmissionPhysicalWomanAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteDto" useGeneratedKeys="true" keyProperty="earlyAdmissionPhysicalAbsoluteId">
+    <insert id="insertEarlyAdmissionPhysicalWomanAbsolute" 
+            parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteDto" 
+            useGeneratedKeys="true" 
+            keyProperty="earlyAdmissionPhysicalAbsoluteId">
+
         <![CDATA[
         INSERT INTO EARLY_ADMISSION_PHYSICAL_WOMAN_ABSOLUTE (
             EARLY_ADMISSION_PHYSICAL_SUBJECT_ID,
             EARLY_ADMISSION_PHYSICAL_ID,
             ADMISSION_ID,
-            USE_GRADE1, USE_GRADE2, USE_GRADE3, USE_GRADE4, USE_GRADE5,
-            USE_GRADE6, USE_GRADE7, USE_GRADE8, USE_GRADE9, USE_GRADE10,
-            USE_GRADE11, USE_GRADE12, USE_GRADE13, USE_GRADE14, USE_GRADE15,
-            USE_GRADE16, USE_GRADE17, USE_GRADE18, USE_GRADE19, USE_GRADE20,
-            USE_GRADE21, USE_GRADE22, USE_GRADE23, USE_GRADE24, USE_GRADE25,
-            USE_GRADE26, USE_GRADE27, USE_GRADE28, USE_GRADE29, USE_GRADE30,
-            USE_GRADE31, USE_GRADE32, USE_GRADE33, USE_GRADE34, USE_GRADE35,
-            USE_GRADE36, USE_GRADE37, USE_GRADE38, USE_GRADE39, USE_GRADE40,
-            GRADE1_SCORE, GRADE2_SCORE, GRADE3_SCORE, GRADE4_SCORE, GRADE5_SCORE,
-            GRADE6_SCORE, GRADE7_SCORE, GRADE8_SCORE, GRADE9_SCORE, GRADE10_SCORE,
-            GRADE11_SCORE, GRADE12_SCORE, GRADE13_SCORE, GRADE14_SCORE, GRADE15_SCORE,
-            GRADE16_SCORE, GRADE17_SCORE, GRADE18_SCORE, GRADE19_SCORE, GRADE20_SCORE,
-            GRADE21_SCORE, GRADE22_SCORE, GRADE23_SCORE, GRADE24_SCORE, GRADE25_SCORE,
-            GRADE26_SCORE, GRADE27_SCORE, GRADE28_SCORE, GRADE29_SCORE, GRADE30_SCORE,
-            GRADE31_SCORE, GRADE32_SCORE, GRADE33_SCORE, GRADE34_SCORE, GRADE35_SCORE,
-            GRADE36_SCORE, GRADE37_SCORE, GRADE38_SCORE, GRADE39_SCORE, GRADE40_SCORE,
-            GRADE1_RECORD_MIN, GRADE1_RECORD_MAX, GRADE2_RECORD_MIN, GRADE2_RECORD_MAX,
-            GRADE3_RECORD_MIN, GRADE3_RECORD_MAX, GRADE4_RECORD_MIN, GRADE4_RECORD_MAX,
-            GRADE5_RECORD_MIN, GRADE5_RECORD_MAX, GRADE6_RECORD_MIN, GRADE6_RECORD_MAX,
-            GRADE7_RECORD_MIN, GRADE7_RECORD_MAX, GRADE8_RECORD_MIN, GRADE8_RECORD_MAX,
-            GRADE9_RECORD_MIN, GRADE9_RECORD_MAX, GRADE10_RECORD_MIN, GRADE10_RECORD_MAX,
-            GRADE11_RECORD_MIN, GRADE11_RECORD_MAX, GRADE12_RECORD_MIN, GRADE12_RECORD_MAX,
-            GRADE13_RECORD_MIN, GRADE13_RECORD_MAX, GRADE14_RECORD_MIN, GRADE14_RECORD_MAX,
-            GRADE15_RECORD_MIN, GRADE15_RECORD_MAX, GRADE16_RECORD_MIN, GRADE16_RECORD_MAX,
-            GRADE17_RECORD_MIN, GRADE17_RECORD_MAX, GRADE18_RECORD_MIN, GRADE18_RECORD_MAX,
-            GRADE19_RECORD_MIN, GRADE19_RECORD_MAX, GRADE20_RECORD_MIN, GRADE20_RECORD_MAX,
-            GRADE21_RECORD_MIN, GRADE21_RECORD_MAX, GRADE22_RECORD_MIN, GRADE22_RECORD_MAX,
-            GRADE23_RECORD_MIN, GRADE23_RECORD_MAX, GRADE24_RECORD_MIN, GRADE24_RECORD_MAX,
-            GRADE25_RECORD_MIN, GRADE25_RECORD_MAX, GRADE26_RECORD_MIN, GRADE26_RECORD_MAX,
-            GRADE27_RECORD_MIN, GRADE27_RECORD_MAX, GRADE28_RECORD_MIN, GRADE28_RECORD_MAX,
-            GRADE29_RECORD_MIN, GRADE29_RECORD_MAX, GRADE30_RECORD_MIN, GRADE30_RECORD_MAX,
-            GRADE31_RECORD_MIN, GRADE31_RECORD_MAX, GRADE32_RECORD_MIN, GRADE32_RECORD_MAX,
-            GRADE33_RECORD_MIN, GRADE33_RECORD_MAX, GRADE34_RECORD_MIN, GRADE34_RECORD_MAX,
-            GRADE35_RECORD_MIN, GRADE35_RECORD_MAX, GRADE36_RECORD_MIN, GRADE36_RECORD_MAX,
-            GRADE37_RECORD_MIN, GRADE37_RECORD_MAX, GRADE38_RECORD_MIN, GRADE38_RECORD_MAX,
-            GRADE39_RECORD_MIN, GRADE39_RECORD_MAX, GRADE40_RECORD_MIN, GRADE40_RECORD_MAX,
-            EARLY_ADMISSION_PHYSICAL_WOMAN_ABSOLUTE_MEMO,
+            ]]>
+
+            <!-- 등급 사용 여부 컬럼 -->
+            <foreach collection="(1..40).toList()" item="i" separator=",">
+                <![CDATA[
+                USE_GRADE${i}
+                ]]>
+            </foreach>
+            
+            <![CDATA[,]]>
+
+            <!-- 등급별 점수 컬럼 -->
+            <foreach collection="(1..40).toList()" item="i" separator=",">
+                <![CDATA[
+                GRADE${i}_SCORE
+                ]]>
+            </foreach>
+            
+            <![CDATA[,]]>
+
+            <!-- 기록별 범위 컬럼 -->
+            <foreach collection="(1..40).toList()" item="i" separator=",">
+                <![CDATA[
+                GRADE${i}_RECORD_MIN, GRADE${i}_RECORD_MAX
+                ]]>
+            </foreach>
+            
+            <![CDATA[,]]>
+
+            <![CDATA[
+            EARLY_ADMISSION_PHYSICAL_ABSOLUTE_MEMO,
             CREATED_BY,
             UPDATED_BY
         ) VALUES (
             #{earlyAdmissionPhysicalSubjectId},
             #{earlyAdmissionPhysicalId},
             #{admissionId},
-            #{useGrade1}, #{useGrade2}, #{useGrade3}, #{useGrade4}, #{useGrade5},
-            #{useGrade6}, #{useGrade7}, #{useGrade8}, #{useGrade9}, #{useGrade10},
-            #{useGrade11}, #{useGrade12}, #{useGrade13}, #{useGrade14}, #{useGrade15},
-            #{useGrade16}, #{useGrade17}, #{useGrade18}, #{useGrade19}, #{useGrade20},
-            #{useGrade21}, #{useGrade22}, #{useGrade23}, #{useGrade24}, #{useGrade25},
-            #{useGrade26}, #{useGrade27}, #{useGrade28}, #{useGrade29}, #{useGrade30},
-            #{useGrade31}, #{useGrade32}, #{useGrade33}, #{useGrade34}, #{useGrade35},
-            #{useGrade36}, #{useGrade37}, #{useGrade38}, #{useGrade39}, #{useGrade40},
-            #{grade1Score}, #{grade2Score}, #{grade3Score}, #{grade4Score}, #{grade5Score},
-            #{grade6Score}, #{grade7Score}, #{grade8Score}, #{grade9Score}, #{grade10Score},
-            #{grade11Score}, #{grade12Score}, #{grade13Score}, #{grade14Score}, #{grade15Score},
-            #{grade16Score}, #{grade17Score}, #{grade18Score}, #{grade19Score}, #{grade20Score},
-            #{grade21Score}, #{grade22Score}, #{grade23Score}, #{grade24Score}, #{grade25Score},
-            #{grade26Score}, #{grade27Score}, #{grade28Score}, #{grade29Score}, #{grade30Score},
-            #{grade31Score}, #{grade32Score}, #{grade33Score}, #{grade34Score}, #{grade35Score},
-            #{grade36Score}, #{grade37Score}, #{grade38Score}, #{grade39Score}, #{grade40Score},
-            #{grade1RecordMin}, #{grade1RecordMax}, #{grade2RecordMin}, #{grade2RecordMax},
-            #{grade3RecordMin}, #{grade3RecordMax}, #{grade4RecordMin}, #{grade4RecordMax},
-            #{grade5RecordMin}, #{grade5RecordMax}, #{grade6RecordMin}, #{grade6RecordMax},
-            #{grade7RecordMin}, #{grade7RecordMax}, #{grade8RecordMin}, #{grade8RecordMax},
-            #{grade9RecordMin}, #{grade9RecordMax}, #{grade10RecordMin}, #{grade10RecordMax},
-            #{grade11RecordMin}, #{grade11RecordMax}, #{grade12RecordMin}, #{grade12RecordMax},
-            #{grade13RecordMin}, #{grade13RecordMax}, #{grade14RecordMin}, #{grade14RecordMax},
-            #{grade15RecordMin}, #{grade15RecordMax}, #{grade16RecordMin}, #{grade16RecordMax},
-            #{grade17RecordMin}, #{grade17RecordMax}, #{grade18RecordMin}, #{grade18RecordMax},
-            #{grade19RecordMin}, #{grade19RecordMax}, #{grade20RecordMin}, #{grade20RecordMax},
-            #{grade21RecordMin}, #{grade21RecordMax}, #{grade22RecordMin}, #{grade22RecordMax},
-            #{grade23RecordMin}, #{grade23RecordMax}, #{grade24RecordMin}, #{grade24RecordMax},
-            #{grade25RecordMin}, #{grade25RecordMax}, #{grade26RecordMin}, #{grade26RecordMax},
-            #{grade27RecordMin}, #{grade27RecordMax}, #{grade28RecordMin}, #{grade28RecordMax},
-            #{grade29RecordMin}, #{grade29RecordMax}, #{grade30RecordMin}, #{grade30RecordMax},
-            #{grade31RecordMin}, #{grade31RecordMax}, #{grade32RecordMin}, #{grade32RecordMax},
-            #{grade33RecordMin}, #{grade33RecordMax}, #{grade34RecordMin}, #{grade34RecordMax},
-            #{grade35RecordMin}, #{grade35RecordMax}, #{grade36RecordMin}, #{grade36RecordMax},
-            #{grade37RecordMin}, #{grade37RecordMax}, #{grade38RecordMin}, #{grade38RecordMax},
-            #{grade39RecordMin}, #{grade39RecordMax}, #{grade40RecordMin}, #{grade40RecordMax},
-            #{earlyAdmissionPhysicalWomanAbsoluteMemo},
+            ]]>
+
+            <!-- 등급 사용 여부 값 -->
+            <foreach collection="(1..40).toList()" item="i" separator=",">
+                <![CDATA[
+                #{useGrade${i}}
+                ]]>
+            </foreach>
+            
+            <![CDATA[,]]>
+            
+            <!-- 등급별 점수 값 -->
+            <foreach collection="(1..40).toList()" item="i" separator=",">
+                <![CDATA[
+                #{grade${i}Score}
+                ]]>
+            </foreach>
+            
+            <![CDATA[,]]>
+            
+            <!-- 기록별 범위 값 -->
+            <foreach collection="(1..40).toList()" item="i" separator=",">
+                <![CDATA[
+                #{grade${i}RecordMin}, #{grade${i}RecordMax}
+                ]]>
+            </foreach>
+            
+            <![CDATA[,]]>
+            
+            <![CDATA[
+            #{earlyAdmissionPhysicalAbsoluteMemo},
             #{createdBy},
             #{updatedBy}
         )
@@ -352,7 +344,7 @@
     <update id="updateEarlyAdmissionPhysicalWomanAbsolute" parameterType="kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteDto">
         <![CDATA[
         UPDATE EARLY_ADMISSION_PHYSICAL_WOMAN_ABSOLUTE
-        SET UPDATED_BY = #{updatedBy}, EARLY_ADMISSION_PHYSICAL_WOMAN_ABSOLUTE_MEMO = #{earlyAdmissionPhysicalWomanAbsoluteMemo}
+        SET UPDATED_BY = #{updatedBy}, EARLY_ADMISSION_PHYSICAL_ABSOLUTE_MEMO = #{earlyAdmissionPhysicalAbsoluteMemo}
         ]]>
         <if test="useGrades != null and useGrades.size() > 0">
             <trim prefix="," suffixOverrides=",">

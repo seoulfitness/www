@@ -1,4 +1,4 @@
-package kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute;
+package kr.seoulfitness.admin.regularAdmissionPhysicalWomanAbsolute;
 
 import java.util.Date;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class EarlyAdmissionPhysicalManAbsoluteDto {
-    // 수시 모집 실기 남자 절대평가 점수 정보
-    private int earlyAdmissionPhysicalAbsoluteId;       // 수시 모집 실기 남자 절대평가 점수 아이디
-    private int earlyAdmissionPhysicalSubjectId;        // 수시 모집 실기 교과목 아이디
-    private int earlyAdmissionPhysicalId;               // 수시 모집 실기 점수 아이디
+public class RegularAdmissionPhysicalWomanAbsoluteDto {
+    // 정시 모집 실기 여자 절대평가 점수 정보
+    private int regularAdmissionPhysicalAbsoluteId;       // 정시 모집 실기 여자 절대평가 점수 아이디
+    private int regularAdmissionPhysicalSubjectId;        // 정시 모집 실기 교과목 아이디
+    private int regularAdmissionPhysicalId;               // 정시 모집 실기 점수 아이디
     private int admissionId;                            // 입시 요강 아이디
 
     // 실기 교과목 등급 사용 여부 (1등급 ~ 40등급)
@@ -180,7 +180,7 @@ public class EarlyAdmissionPhysicalManAbsoluteDto {
     private double grade40RecordMax;         // 40등급 기록 최대 (0.0000 ~ 100.0000)
 
     // 메모
-    private String earlyAdmissionPhysicalAbsoluteMemo; // 메모
+    private String regularAdmissionPhysicalAbsoluteMemo; // 메모
 
     // 등록일시, 수정일시, 등록자, 수정자
     private Date createdAt;                 // 생성일시

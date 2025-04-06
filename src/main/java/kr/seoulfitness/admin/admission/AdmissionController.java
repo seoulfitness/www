@@ -29,8 +29,12 @@ import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalDto;
 import kr.seoulfitness.admin.earlyAdmissionPhysical.EarlyAdmissionPhysicalService;
 import kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteDto;
 import kr.seoulfitness.admin.earlyAdmissionPhysicalManAbsolute.EarlyAdmissionPhysicalManAbsoluteService;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalManRelative.EarlyAdmissionPhysicalManRelativeDto;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalManRelative.EarlyAdmissionPhysicalManRelativeService;
 import kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteDto;
 import kr.seoulfitness.admin.earlyAdmissionPhysicalWomanAbsolute.EarlyAdmissionPhysicalWomanAbsoluteService;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalWomanRelative.EarlyAdmissionPhysicalWomanRelativeDto;
+import kr.seoulfitness.admin.earlyAdmissionPhysicalWomanRelative.EarlyAdmissionPhysicalWomanRelativeService;
 import kr.seoulfitness.admin.physicalSubject.PhysicalSubjectService;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionDto;
 import kr.seoulfitness.admin.regularAdmission.RegularAdmissionService;
@@ -42,6 +46,14 @@ import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryDto;
 import kr.seoulfitness.admin.regularAdmissionHistory.RegularAdmissionHistoryService;
 import kr.seoulfitness.admin.regularAdmissionPhysical.RegularAdmissionPhysicalDto;
 import kr.seoulfitness.admin.regularAdmissionPhysical.RegularAdmissionPhysicalService;
+import kr.seoulfitness.admin.regularAdmissionPhysicalManAbsolute.RegularAdmissionPhysicalManAbsoluteDto;
+import kr.seoulfitness.admin.regularAdmissionPhysicalManAbsolute.RegularAdmissionPhysicalManAbsoluteService;
+import kr.seoulfitness.admin.regularAdmissionPhysicalManRelative.RegularAdmissionPhysicalManRelativeDto;
+import kr.seoulfitness.admin.regularAdmissionPhysicalManRelative.RegularAdmissionPhysicalManRelativeService;
+import kr.seoulfitness.admin.regularAdmissionPhysicalWomanAbsolute.RegularAdmissionPhysicalWomanAbsoluteDto;
+import kr.seoulfitness.admin.regularAdmissionPhysicalWomanAbsolute.RegularAdmissionPhysicalWomanAbsoluteService;
+import kr.seoulfitness.admin.regularAdmissionPhysicalWomanRelative.RegularAdmissionPhysicalWomanRelativeDto;
+import kr.seoulfitness.admin.regularAdmissionPhysicalWomanRelative.RegularAdmissionPhysicalWomanRelativeService;
 import kr.seoulfitness.admin.school.SchoolService;
 
 @Controller
@@ -76,7 +88,13 @@ public class AdmissionController {
     private EarlyAdmissionPhysicalManAbsoluteService earlyAdmissionPhysicalManAbsoluteService;
 
     @Autowired
+    private EarlyAdmissionPhysicalManRelativeService earlyAdmissionPhysicalManRelativeService;
+
+    @Autowired
     private EarlyAdmissionPhysicalWomanAbsoluteService earlyAdmissionPhysicalWomanAbsoluteService;
+
+    @Autowired
+    private EarlyAdmissionPhysicalWomanRelativeService earlyAdmissionPhysicalWomanRelativeService;
     
     @Autowired
     private RegularAdmissionService regularAdmissionService;
@@ -92,6 +110,18 @@ public class AdmissionController {
 
     @Autowired
     private RegularAdmissionPhysicalService regularAdmissionPhysicalService;
+
+    @Autowired
+    private RegularAdmissionPhysicalManAbsoluteService regularAdmissionPhysicalManAbsoluteService;
+
+    @Autowired
+    private RegularAdmissionPhysicalManRelativeService regularAdmissionPhysicalManRelativeService;
+
+    @Autowired
+    private RegularAdmissionPhysicalWomanAbsoluteService regularAdmissionPhysicalWomanAbsoluteService;
+
+    @Autowired
+    private RegularAdmissionPhysicalWomanRelativeService regularAdmissionPhysicalWomanRelativeService;
 
     @Autowired
     private PhysicalSubjectService physicalSubjectService;
@@ -242,6 +272,18 @@ public class AdmissionController {
             earlyAdmissionPhysicalWomanAbsoluteParams.put("admissionId", admission.getAdmissionId());
             List<EarlyAdmissionPhysicalWomanAbsoluteDto> earlyAdmissionPhysicalWomanAbsoluteList = earlyAdmissionPhysicalWomanAbsoluteService.getEarlyAdmissionPhysicalWomanAbsoluteList(earlyAdmissionPhysicalWomanAbsoluteParams);
             model.addAttribute("earlyAdmissionPhysicalWomanAbsoluteList", earlyAdmissionPhysicalWomanAbsoluteList);
+
+            // 수시 모집 실기 남자 상대평가 점수 목록
+            Map<String, Object> earlyAdmissionPhysicalManRelativeParams = new HashMap<>();
+            earlyAdmissionPhysicalManRelativeParams.put("admissionId", admission.getAdmissionId());
+            List<EarlyAdmissionPhysicalManRelativeDto> earlyAdmissionPhysicalManRelativeList = earlyAdmissionPhysicalManRelativeService.getEarlyAdmissionPhysicalManRelativeList(earlyAdmissionPhysicalManRelativeParams);
+            model.addAttribute("earlyAdmissionPhysicalManRelativeList", earlyAdmissionPhysicalManRelativeList);
+
+            // 수시 모집 실기 여자 상대평가 점수 목록
+            Map<String, Object> earlyAdmissionPhysicalWomanRelativeParams = new HashMap<>();
+            earlyAdmissionPhysicalWomanRelativeParams.put("admissionId", admission.getAdmissionId());
+            List<EarlyAdmissionPhysicalWomanRelativeDto> earlyAdmissionPhysicalWomanRelativeList = earlyAdmissionPhysicalWomanRelativeService.getEarlyAdmissionPhysicalWomanRelativeList(earlyAdmissionPhysicalWomanRelativeParams);
+            model.addAttribute("earlyAdmissionPhysicalWomanRelativeList", earlyAdmissionPhysicalWomanRelativeList);
         }
 
         // 정시 모집 여부 확인
@@ -275,6 +317,30 @@ public class AdmissionController {
             regularAdmissionPhysicalParams.put("admissionId", admission.getAdmissionId());
             RegularAdmissionPhysicalDto regularAdmissionPhysical = regularAdmissionPhysicalService.read(regularAdmissionPhysicalParams);
             model.addAttribute("regularAdmissionPhysical", regularAdmissionPhysical);
+
+            // 정시 모집 실기 남자 절대평가 점수 목록
+            Map<String, Object> regularAdmissionPhysicalManAbsoluteParams = new HashMap<>();
+            regularAdmissionPhysicalManAbsoluteParams.put("admissionId", admission.getAdmissionId());
+            List<RegularAdmissionPhysicalManAbsoluteDto> regularAdmissionPhysicalManAbsoluteList = regularAdmissionPhysicalManAbsoluteService.getRegularAdmissionPhysicalManAbsoluteList(regularAdmissionPhysicalManAbsoluteParams);
+            model.addAttribute("regularAdmissionPhysicalManAbsoluteList", regularAdmissionPhysicalManAbsoluteList);
+            
+            // 정시 모집 실기 여자 절대평가 점수 목록
+            Map<String, Object> regularAdmissionPhysicalWomanAbsoluteParams = new HashMap<>();
+            regularAdmissionPhysicalWomanAbsoluteParams.put("admissionId", admission.getAdmissionId());
+            List<RegularAdmissionPhysicalWomanAbsoluteDto> regularAdmissionPhysicalWomanAbsoluteList = regularAdmissionPhysicalWomanAbsoluteService.getRegularAdmissionPhysicalWomanAbsoluteList(regularAdmissionPhysicalWomanAbsoluteParams);
+            model.addAttribute("regularAdmissionPhysicalWomanAbsoluteList", regularAdmissionPhysicalWomanAbsoluteList);
+            
+            // 정시 모집 실기 남자 상대평가 점수 목록
+            Map<String, Object> regularAdmissionPhysicalManRelativeParams = new HashMap<>();
+            regularAdmissionPhysicalManRelativeParams.put("admissionId", admission.getAdmissionId());
+            List<RegularAdmissionPhysicalManRelativeDto> regularAdmissionPhysicalManRelativeList = regularAdmissionPhysicalManRelativeService.getRegularAdmissionPhysicalManRelativeList(regularAdmissionPhysicalManRelativeParams);
+            model.addAttribute("regularAdmissionPhysicalManRelativeList", regularAdmissionPhysicalManRelativeList);
+            
+            // 정시 모집 실기 여자 상대평가 점수 목록
+            Map<String, Object> regularAdmissionPhysicalWomanRelativeParams = new HashMap<>();
+            regularAdmissionPhysicalWomanRelativeParams.put("admissionId", admission.getAdmissionId());
+            List<RegularAdmissionPhysicalWomanRelativeDto> regularAdmissionPhysicalWomanRelativeList = regularAdmissionPhysicalWomanRelativeService.getRegularAdmissionPhysicalWomanRelativeList(regularAdmissionPhysicalWomanRelativeParams);
+            model.addAttribute("regularAdmissionPhysicalWomanRelativeList", regularAdmissionPhysicalWomanRelativeList);
         }
 
         // 실기 교과목 파라미터 생성
