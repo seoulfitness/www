@@ -108,7 +108,7 @@ public class DistrictController {
 
     // 구/군 수정
     @GetMapping("/{districtId}/update")
-    public String editForm(@PathVariable int districtId, Model model) {   
+    public String updateGet(@PathVariable int districtId, Model model) {   
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";
@@ -134,7 +134,7 @@ public class DistrictController {
 
     // 구/군 수정 처리
     @PostMapping("/{districtId}/update")
-    public String update(@PathVariable int districtId, DistrictDto district, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int districtId, DistrictDto district, HttpSession session, RedirectAttributes redirectAttributes) {
         // 구/군 존재 여부 확인
         if (!isDistrictExists(districtId)) {
             return "redirect:/admin/districts";

@@ -93,7 +93,7 @@ public class InternalRecordPeriodController {
 
     // 내신 기록 등록 기간 수정
     @GetMapping("/{internalRecordPeriodId}/update")
-    public String editForm(@PathVariable int internalRecordPeriodId, Model model) {   
+    public String updateGet(@PathVariable int internalRecordPeriodId, Model model) {   
         // 내신 기록 등록 기간 존재 여부 확인
         if (!isInternalRecordPeriodExists(internalRecordPeriodId)) {
             return "redirect:/admin/internalRecordPeriod";
@@ -108,7 +108,7 @@ public class InternalRecordPeriodController {
 
     // 내신 기록 등록 기간 수정 처리
     @PostMapping("/{internalRecordPeriodId}/update")
-    public String update(@PathVariable int internalRecordPeriodId, InternalRecordPeriodDto internalRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int internalRecordPeriodId, InternalRecordPeriodDto internalRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
         // 내신 기록 등록 기간 존재 여부 확인
         if (!isInternalRecordPeriodExists(internalRecordPeriodId)) {
             return "redirect:/admin/internalRecordPeriod";

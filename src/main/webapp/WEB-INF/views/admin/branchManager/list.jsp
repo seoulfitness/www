@@ -40,24 +40,22 @@
                                             <table class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th class="col-2 text-center">지점</th>
-                                                        <th class="col-1 text-center">이름</th>
-                                                        <th class="col-1 text-center">아이디</th>                                                        
-                                                        <th class="col-2 text-center">전화번호</th>
-                                                        <th class="col-2 text-center">이메일</th>                                                        
-                                                        <th class="col-1 text-center">관리</th>
+                                                        <th class="col-2 text-center">이름</th>
+                                                        <th class="col-2 text-center">아이디</th>                                       
+                                                        <th class="col-3 text-center">전화번호</th>
+                                                        <th class="col-3 text-center">이메일</th>                                                        
+                                                        <th class="col-2 text-center">관리</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${branchManagers}" var="branchManager">
+                                                    <c:forEach items="${users}" var="user">
                                                         <tr>
-                                                            <td class="align-middle text-center">${branchManager.branchName}</td>
-                                                            <td class="align-middle text-center">${branchManager.userName}</td>
-                                                            <td class="align-middle text-center">${branchManager.userId}</td>
-                                                            <td class="align-middle text-center">${branchManager.userPhone}</td>
-                                                            <td class="align-middle text-center">${branchManager.userEmail}</td>                                                            
+                                                            <td class="align-middle text-center">${user.userName}</td>
+                                                            <td class="align-middle text-center">${user.userId}</td>
+                                                            <td class="align-middle text-center">${user.userPhone}</td>
+                                                            <td class="align-middle text-center">${user.userEmail}</td>                                                            
                                                             <td class="align-middle text-center">
-                                                                <a href="/admin/branchManagers/${branchManager.branchManagerId}" class="btn btn-primary btn-sm">보기</a>
+                                                                <a href="/admin/branchManagers/${user.userId}" class="btn btn-outline-primary btn-sm">보기</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

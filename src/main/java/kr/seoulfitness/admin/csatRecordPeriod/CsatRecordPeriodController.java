@@ -93,7 +93,7 @@ public class CsatRecordPeriodController {
 
     // 수능 기록 등록 기간 수정
     @GetMapping("/{csatRecordPeriodId}/update")
-    public String editForm(@PathVariable int csatRecordPeriodId, Model model) {   
+    public String updateGet(@PathVariable int csatRecordPeriodId, Model model) {   
         // 수능 기록 등록 기간 존재 여부 확인
         if (!isCsatRecordPeriodExists(csatRecordPeriodId)) {
             return "redirect:/admin/csatRecordPeriod";
@@ -108,7 +108,7 @@ public class CsatRecordPeriodController {
 
     // 수능 기록 등록 기간 수정 처리
     @PostMapping("/{csatRecordPeriodId}/update")
-    public String update(@PathVariable int csatRecordPeriodId, CsatRecordPeriodDto csatRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int csatRecordPeriodId, CsatRecordPeriodDto csatRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
         // 수능 기록 등록 기간 존재 여부 확인
         if (!isCsatRecordPeriodExists(csatRecordPeriodId)) {
             return "redirect:/admin/csatRecordPeriod";

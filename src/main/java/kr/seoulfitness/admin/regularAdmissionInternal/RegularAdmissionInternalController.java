@@ -34,7 +34,7 @@ public class RegularAdmissionInternalController {
 
     // 정시 내신 점수 정보 등록
     @GetMapping("/create")
-    public String create(@RequestParam("admissionId") int admissionId, Model model) {
+    public String createGet(@RequestParam("admissionId") int admissionId, Model model) {
         // 입시 요강 정보
         AdmissionDto admission = admissionService.read(admissionId);
         model.addAttribute("admission", admission);
@@ -46,7 +46,7 @@ public class RegularAdmissionInternalController {
 
     // 정시 내신 점수 정보 등록 처리
     @PostMapping("/create")
-    public String create(
+    public String createPost(
         @RequestParam("admissionId") int admissionId, 
         RegularAdmissionInternalDto regularAdmissionInternal, 
         HttpSession session, 
@@ -83,7 +83,7 @@ public class RegularAdmissionInternalController {
 
     // 정시 내신 점수 정보 수정
     @GetMapping("/{regularAdmissionInternalId}/update")
-    public String update(@PathVariable int regularAdmissionInternalId, Model model) {
+    public String updateGet(@PathVariable int regularAdmissionInternalId, Model model) {
         Map<String, Object> params = new HashMap<>();
         params.put("regularAdmissionInternalId", regularAdmissionInternalId);
         RegularAdmissionInternalDto regularAdmissionInternal = regularAdmissionInternalService.read(params);
@@ -99,7 +99,7 @@ public class RegularAdmissionInternalController {
     
     // 정시 내신 점수 정보 수정 처리
     @PostMapping("/{regularAdmissionInternalId}/update")
-    public String update(
+    public String updatePost(
         @PathVariable int regularAdmissionInternalId,
         RegularAdmissionInternalDto regularAdmissionInternal,
         HttpSession session,

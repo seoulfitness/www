@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.seoulfitness.admin.user.UserDto;
 import kr.seoulfitness.admin.user.UserService;
@@ -40,7 +44,7 @@ public class AuthController {
             admin.setUserEmail("admin@seoulfitness.kr");
             admin.setUserPhone("010-1234-5678");
             admin.setStatus("Y");
-            admin.setRole("관리자");
+            admin.setRole("admin");
             admin.setCreatedBy("sung2ne");
             admin.setUpdatedBy("sung2ne");
             userService.create(admin);
@@ -63,9 +67,9 @@ public class AuthController {
             session.setAttribute("role", loggedInUser.getRole());
 
             switch (loggedInUser.getRole()) {
-                case "관리자":
+                case "admin":
                     return ("redirect:/admin/branches");
-                case "지점 관리자":
+                case "branchManager":
                     return ("redirect:/branchManager/schools");
                 default:
                     return ("redirect:/auth/login");
@@ -84,4 +88,83 @@ public class AuthController {
         }
         return ("redirect:/auth/login");
     }
+
+    // 아이디 중복 체크
+    @PostMapping("/check-user-id")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> checkUserIdPost(@RequestParam String userId) {
+        // 사용자 정보 조회
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        UserDto user = userService.read(params);
+
+        // 반환 정보
+        Map<String, Object> response = new HashMap<>();
+
+        // 사용자 아이디가 존재하는 경우
+        if (user != null) {
+            response.put("exists", true);
+        } 
+        // 사용자가 존재하지 않는 경우
+        else {
+            response.put("exists", false);
+        }
+
+        return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
+    }
+
+    // 이메일 중복 체크
+    @PostMapping("/check-email")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> checkEmailPost(@RequestParam String email) {
+        // 사용자 정보 조회
+        Map<String, Object> params = new HashMap<>();
+        params.put("userEmail", email);
+        UserDto user = userService.read(params);
+
+        // 반환 정보
+        Map<String, Object> response = new HashMap<>();
+        
+        // 사용자가 존재하는 경우
+        if (user != null) {
+            response.put("exists", true);
+        } 
+        // 사용자 아이디가 존재하지 않는 경우
+        else {
+            response.put("exists", false);
+        }
+
+        return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
+    }
+
+    // 전화번호 중복 체크
+    @PostMapping("/check-phone")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> checkPhonePost(@RequestParam String phone) {
+        // 사용자 정보 조회
+        Map<String, Object> params = new HashMap<>();
+        params.put("userPhone", phone);
+        UserDto user = userService.read(params);
+        
+        // 반환 정보
+        Map<String, Object> response = new HashMap<>();
+        
+        // 사용자가 존재하는 경우
+        if (user != null) {
+            response.put("exists", true);
+        } 
+        // 사용자 아이디가 존재하지 않는 경우
+        else {
+            response.put("exists", false);
+        }
+
+        return ResponseEntity.ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(response);
+    }
+    
 }

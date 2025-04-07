@@ -70,7 +70,7 @@ public class UserDao {
     }
 
     // 사용자 삭제
-    public int deleteUser(int userId) {
+    public int deleteUser(String userId) {
         int result = -1;
 
         try {

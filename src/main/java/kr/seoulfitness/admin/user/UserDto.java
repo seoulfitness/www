@@ -12,7 +12,7 @@ public class UserDto {
     private String userEmail;           // 이메일
     private String userPhone;           // 전화번호
     private String profileImage;        // 프로필 이미지
-    private String role;                // 역할
+    private String role;                // 역할 ('admin', 'branchManager', 'branchUser', 'normalUser')
     private String status;              // 상태
     private String deleteRequest;       // 삭제 요청
     private String deleteRequestedAt;   // 삭제 요청일시
@@ -21,7 +21,7 @@ public class UserDto {
     private String createdBy;           // 생성자
     private String updatedBy;           // 수정한 사람
 
-    // 지점 관리자 정보
+    // 지점 정보
     private String branchId;            // 지점 아이디
     private String branchName;          // 지점 이름
     private String branchAddress;       // 지점 주소

@@ -55,7 +55,7 @@
                                                             <td class="align-middle text-center">${branch.branchPhone}</td>
                                                             <td class="align-middle text-center"></td>
                                                             <td class="align-middle text-center">
-                                                                <a href="/admin/branches/${branch.branchId}" class="btn btn-primary btn-sm">보기</a>
+                                                                <a href="/admin/branches/${branch.branchId}" class="btn btn-outline-primary btn-sm">보기</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

@@ -93,7 +93,7 @@ public class DepartmentController {
 
     // 학과 수정
     @GetMapping("/{departmentId}/update")
-    public String editForm(@PathVariable int departmentId, Model model) {   
+    public String updateGet(@PathVariable int departmentId, Model model) {   
         // 학과 존재 여부 확인
         if (!isDepartmentExists(departmentId)) {
             return "redirect:/admin/departments";
@@ -108,7 +108,7 @@ public class DepartmentController {
 
     // 학과 수정 처리
     @PostMapping("/{departmentId}/update")
-    public String update(@PathVariable int departmentId, DepartmentDto department, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int departmentId, DepartmentDto department, HttpSession session, RedirectAttributes redirectAttributes) {
         // 학과 존재 여부 확인
         if (!isDepartmentExists(departmentId)) {
             return "redirect:/admin/departments";

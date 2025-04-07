@@ -145,7 +145,7 @@ public class SchoolController {
 
     // 대학교 수정
     @GetMapping("/{schoolId}/update")
-    public String editForm(@PathVariable int schoolId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {   
+    public String updateGet(@PathVariable int schoolId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {   
         // 대학교 존재 여부 확인
         if (!isSchoolExists(schoolId)) {
             return "redirect:/admin/schools";
@@ -161,7 +161,7 @@ public class SchoolController {
 
     // 대학교 수정 처리
     @PostMapping("/{schoolId}/update")
-    public String update(@PathVariable int schoolId, SchoolDto school, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
+    public String updatePost(@PathVariable int schoolId, SchoolDto school, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         // 대학교 존재 여부 확인
         if (!isSchoolExists(schoolId)) {
             return "redirect:/admin/schools";

@@ -93,7 +93,7 @@ public class ProvinceController {
 
     // 시/도 수정
     @GetMapping("/{provinceId}/update")
-    public String editForm(@PathVariable int provinceId, Model model) {   
+    public String updateGet(@PathVariable int provinceId, Model model) {   
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";
@@ -109,7 +109,7 @@ public class ProvinceController {
 
     // 시/도 수정 처리
     @PostMapping("/{provinceId}/update")
-    public String update(@PathVariable int provinceId, ProvinceDto province, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int provinceId, ProvinceDto province, HttpSession session, RedirectAttributes redirectAttributes) {
         // 시/도 존재 여부 확인
         if (!isProvinceExists(provinceId)) {
             return "redirect:/admin/provinces";

@@ -361,7 +361,7 @@ public class AdmissionController {
 
     // 입시 요강 수정
     @GetMapping("/{admissionId}/update")
-    public String editForm(@PathVariable int admissionId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {   
+    public String updateGet(@PathVariable int admissionId, Model model, HttpSession session, RedirectAttributes redirectAttributes) {   
         // 입시 요강 존재 여부 확인
         if (!isAdmissionExists(admissionId)) {
             return "redirect:/admin/admissions";
@@ -393,7 +393,7 @@ public class AdmissionController {
 
     // 입시 요강 수정 처리
     @PostMapping("/{admissionId}/update")
-    public String update(@PathVariable int admissionId, AdmissionDto admission, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
+    public String updatePost(@PathVariable int admissionId, AdmissionDto admission, HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         // 입시 요강 존재 여부 확인
         if (!isAdmissionExists(admissionId)) {
             return "redirect:/admin/admissions";

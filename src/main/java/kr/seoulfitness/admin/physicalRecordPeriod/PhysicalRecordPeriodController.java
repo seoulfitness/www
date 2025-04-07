@@ -93,7 +93,7 @@ public class PhysicalRecordPeriodController {
 
     // 실기 기록 등록 기간 수정
     @GetMapping("/{physicalRecordPeriodId}/update")
-    public String editForm(@PathVariable int physicalRecordPeriodId, Model model) {   
+    public String updateGet(@PathVariable int physicalRecordPeriodId, Model model) {   
         // 실기 기록 등록 기간 존재 여부 확인
         if (!isPhysicalRecordPeriodExists(physicalRecordPeriodId)) {
             return "redirect:/admin/physicalRecordPeriod";
@@ -108,7 +108,7 @@ public class PhysicalRecordPeriodController {
 
     // 실기 기록 등록 기간 수정 처리
     @PostMapping("/{physicalRecordPeriodId}/update")
-    public String update(@PathVariable int physicalRecordPeriodId, PhysicalRecordPeriodDto physicalRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int physicalRecordPeriodId, PhysicalRecordPeriodDto physicalRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
         // 실기 기록 등록 기간 존재 여부 확인
         if (!isPhysicalRecordPeriodExists(physicalRecordPeriodId)) {
             return "redirect:/admin/physicalRecordPeriod";

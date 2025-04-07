@@ -39,7 +39,7 @@ public class EarlyAdmissionPhysicalController {
 
     // 수시 실기 점수 정보 등록
     @GetMapping("/create")
-    public String create(@RequestParam("admissionId") int admissionId, Model model) {
+    public String createGet(@RequestParam("admissionId") int admissionId, Model model) {
         // 입시 요강 정보
         AdmissionDto admission = admissionService.read(admissionId);
         model.addAttribute("admission", admission);        
@@ -61,7 +61,7 @@ public class EarlyAdmissionPhysicalController {
 
     // 수시 실기 점수 정보 등록 처리
     @PostMapping("/create")
-    public String create(
+    public String createPost(
         @RequestParam("admissionId") int admissionId, 
         EarlyAdmissionPhysicalDto earlyAdmissionPhysical, 
         HttpSession session, 
@@ -98,7 +98,7 @@ public class EarlyAdmissionPhysicalController {
 
     // 수시 실기 점수 정보 수정
     @GetMapping("/{earlyAdmissionPhysicalId}/update")
-    public String update(@PathVariable int earlyAdmissionPhysicalId, Model model) {
+    public String updateGet(@PathVariable int earlyAdmissionPhysicalId, Model model) {
         Map<String, Object> params = new HashMap<>();
         params.put("earlyAdmissionPhysicalId", earlyAdmissionPhysicalId);
         EarlyAdmissionPhysicalDto earlyAdmissionPhysical = earlyAdmissionPhysicalService.read(params);
@@ -124,7 +124,7 @@ public class EarlyAdmissionPhysicalController {
     
     // 수시 실기 점수 정보 수정 처리
     @PostMapping("/{earlyAdmissionPhysicalId}/update")
-    public String update(
+    public String updatePost(
         @PathVariable int earlyAdmissionPhysicalId,
         EarlyAdmissionPhysicalDto earlyAdmissionPhysical,
         HttpSession session,

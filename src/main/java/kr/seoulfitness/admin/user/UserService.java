@@ -54,11 +54,18 @@ public class UserService {
 
     // 사용자 수정
     public boolean update(UserDto user) {
+        // 비밀번호가 있으면 암호화
+        if (user.getPassword() != null && !user.getPassword().equals("")) {
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+        }
+
+        // 사용자 수정
         return userDao.updateUser(user) > 0;
     }
 
     // 사용자 삭제
-    public boolean delete(int userId) {
+    public boolean delete(String userId) {
         return userDao.deleteUser(userId) > 0;
     }
 }

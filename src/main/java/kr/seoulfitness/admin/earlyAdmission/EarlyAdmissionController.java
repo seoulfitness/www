@@ -35,7 +35,7 @@ public class EarlyAdmissionController {
 
     // 수시 정보 등록
     @GetMapping("/create")
-    public String create(@RequestParam("admissionId") int admissionId, Model model) {
+    public String createGet(@RequestParam("admissionId") int admissionId, Model model) {
         // 입시 요강 정보
         AdmissionDto admission = admissionService.read(admissionId);
         model.addAttribute("admission", admission);
@@ -47,7 +47,7 @@ public class EarlyAdmissionController {
 
     // 수시 정보 등록 처리
     @PostMapping("/create")
-    public String create(
+    public String createPost(
         @RequestParam("admissionId") int admissionId, 
         EarlyAdmissionDto earlyAdmission, 
         HttpSession session, 
@@ -85,7 +85,7 @@ public class EarlyAdmissionController {
 
     // 수시 정보 수정
     @GetMapping("/{earlyAdmissionId}/update")
-    public String update(@PathVariable int earlyAdmissionId, Model model) {
+    public String updatePost(@PathVariable int earlyAdmissionId, Model model) {
         // 수시 정보
         Map<String, Object> params = new HashMap<>();
         params.put("earlyAdmissionId", earlyAdmissionId);
@@ -101,7 +101,7 @@ public class EarlyAdmissionController {
     
     // 수시 정보 수정 처리
     @PostMapping("/{earlyAdmissionId}/update")
-    public String update(
+    public String updatePost(
         @PathVariable int earlyAdmissionId,
         EarlyAdmissionDto earlyAdmission,
         HttpSession session,

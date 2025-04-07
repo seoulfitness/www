@@ -93,7 +93,7 @@ public class PhysicalSubjectController {
 
     // 실기 교과목 수정
     @GetMapping("/{physicalSubjectId}/update")
-    public String editForm(@PathVariable int physicalSubjectId, Model model) {   
+    public String updateGet(@PathVariable int physicalSubjectId, Model model) {   
         // 실기 교과목 존재 여부 확인
         if (!isPhysicalSubjectExists(physicalSubjectId)) {
             return "redirect:/admin/physicalSubjects";
@@ -108,7 +108,7 @@ public class PhysicalSubjectController {
 
     // 실기 교과목 수정 처리
     @PostMapping("/{physicalSubjectId}/update")
-    public String update(@PathVariable int physicalSubjectId, PhysicalSubjectDto physicalSubject, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int physicalSubjectId, PhysicalSubjectDto physicalSubject, HttpSession session, RedirectAttributes redirectAttributes) {
         // 실기 교과목 존재 여부 확인
         if (!isPhysicalSubjectExists(physicalSubjectId)) {
             return "redirect:/admin/physicalSubjects";

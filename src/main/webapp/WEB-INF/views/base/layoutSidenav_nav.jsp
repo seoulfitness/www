@@ -26,7 +26,7 @@
 
                 <%-- 지점 --%>
                 <a class="nav-link collapsed ${activePage == 'branches' or activePage == 'branchManagers' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseBranch" aria-expanded="false" aria-controls="collapseBranch">
-                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
                     지점 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -40,7 +40,7 @@
 
                 <%-- 대학교 --%>
                 <a class="nav-link collapsed ${activePage == 'schools' or activePage == 'departments' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseSchool" aria-expanded="false" aria-controls="collapseSchool">
-                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
                     대학교 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -54,7 +54,7 @@
 
                 <%-- 고등학교 --%>
                 <a class="nav-link collapsed ${activePage == 'districts' or activePage == 'provinces' or activePage == 'highSchools' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseHighSchool" aria-expanded="false" aria-controls="collapseHighSchool">
-                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
                     고등학교 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -69,7 +69,7 @@
 
                 <%-- 입시 정보 --%>
                 <a class="nav-link collapsed ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseAdmission" aria-expanded="false" aria-controls="collapseAdmission">
-                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
                     입시 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
@@ -84,7 +84,7 @@
 
                 <%-- 기록 등록 정보 --%>
                 <a class="nav-link collapsed ${activePage == 'csatRecordPeriods' or activePage == 'physicalRecordPeriods' or activePage == 'internalRecordPeriods' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePeriods" aria-expanded="false" aria-controls="collapsePeriods">
-                    <div class="nav-link-icon"><i data-feather="activity"></i></div>
+                    <div class="nav-link-icon"><i data-feather="grid"></i></div>
                     기록 등록 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>

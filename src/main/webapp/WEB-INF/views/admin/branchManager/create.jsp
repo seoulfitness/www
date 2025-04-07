@@ -23,16 +23,7 @@
                                         <div class="card-header">
                                             지점 관리자 등록 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
                                         </div>
-                                        <div class="card-body">                                        
-                                            <div class="mb-3">
-                                                <label class="small mb-1" for="branchId">지점<span class="text-danger small">*</span></label>
-                                                <select class="form-control" name="branchId" id="branchId">
-                                                    <option value="">지점을 선택하세요.</option>
-                                                    <c:forEach var="branch" items="${branches}">
-                                                        <option value="${branch.branchId}">${branch.branchName}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
+                                        <div class="card-body">
                                             <div class="mb-3">
                                                 <label class="small mb-1" for="userName">이름<span class="text-danger small">*</span></label>
                                                 <input class="form-control" name="userName" id="userName" type="text" placeholder="이름을 입력하세요." value="${branchManager.userName}" />
@@ -76,9 +67,6 @@
             $(document).ready(function() {
                 $("#createForm").validate({
                     rules: {
-                        branchId: {
-                            required: true,
-                        },
                         userName: {
                             required: true,
                             minlength: 2,
@@ -86,17 +74,59 @@
                         },
                         userEmail: {
                             email: true,
-                            maxlength: 100
+                            maxlength: 100,
+                            remote: {
+                                url: '/auth/check-email',
+                                type: 'post',
+                                data: {
+                                    email: function() {
+                                        return $('#userEmail').val();
+                                    },
+                                },
+                                dataFilter: function(response) {
+                                    const data = JSON.parse(response);
+                                    return !data.exists;
+                                },
+                                depends: function() {
+                                    return $('#userEmail').val().length > 0;
+                                }
+                            }
                         },
                         userPhone: {
                             required: true,
                             minlength: 11,
-                            maxlength: 20
+                            maxlength: 20,
+                            remote: {
+                                url: '/auth/check-phone',
+                                type: 'post',
+                                data: {
+                                    phone: function() {
+                                        return $('#userPhone').val();
+                                    },
+                                },
+                                dataFilter: function(response) {
+                                    const data = JSON.parse(response);
+                                    return !data.exists;
+                                }
+                            }
                         },
                         userId: {
                             required: true,
                             minlength: 6,
-                            maxlength: 20
+                            maxlength: 20,
+                            remote: {
+                                url: '/auth/check-user-id',
+                                type: 'post',
+                                data: {
+                                    userId: function() {
+                                        return $('#userId').val();
+                                    },
+                                },
+                                dataFilter: function(response) {
+                                    const data = JSON.parse(response);
+                                    return !data.exists;
+                                }
+                            }
                         },
                         password: {
                             required: true,
@@ -111,9 +141,6 @@
                         }
                     },
                     messages: {
-                        branchId: {
-                            required: "지점을 선택해주세요.",
-                        },
                         userName: {
                             required: "이름을 입력해주세요.",
                             minlength: "이름은 최소 2자 이상이어야 합니다.",
@@ -121,17 +148,20 @@
                         },
                         userEmail: {
                             email: "이메일 형식이 올바르지 않습니다.",
-                            maxlength: "이메일은 최대 100자 이하여야 합니다."
+                            maxlength: "이메일은 최대 100자 이하여야 합니다.",
+                            remote: "이미 사용 중인 이메일입니다."
                         },
                         userPhone: {
                             required: "전화번호를 입력해주세요.",
                             minlength: "전화번호는 최소 11자 이상이어야 합니다.",
-                            maxlength: "전화번호는 최대 20자 이하여야 합니다."
+                            maxlength: "전화번호는 최대 20자 이하여야 합니다.",
+                            remote: "이미 사용 중인 전화번호입니다."
                         },
                         userId: {
                             required: "아이디를 입력해주세요.",
                             minlength: "아이디는 최소 6자 이상이어야 합니다.",
-                            maxlength: "아이디는 최대 20자 이하여야 합니다."
+                            maxlength: "아이디는 최대 20자 이하여야 합니다.",
+                            remote: "이미 사용 중인 아이디입니다."
                         },
                         password: {
                             required: "비밀번호를 입력해주세요.",

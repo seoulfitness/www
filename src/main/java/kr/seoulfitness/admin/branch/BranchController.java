@@ -1,6 +1,8 @@
 package kr.seoulfitness.admin.branch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.seoulfitness.admin.branchManager.BranchManagerDto;
 import kr.seoulfitness.admin.branchManager.BranchManagerService;
+import kr.seoulfitness.admin.user.UserService;
+import kr.seoulfitness.admin.user.UserDto;
 
 @Controller
 @RequestMapping("/admin/branches")
@@ -27,6 +32,9 @@ public class BranchController {
     @Autowired
     private BranchManagerService branchManagerService;
 
+    @Autowired
+    private UserService userService;
+
     // 지점 존재 여부 확인
     public boolean isBranchExists(int branchId) {
         return branchService.read(branchId) != null;
@@ -34,7 +42,7 @@ public class BranchController {
 
     // 지점 등록
     @GetMapping("/create")
-    public String createForm(Model model) {
+    public String createGet(Model model) {
         model.addAttribute("pageTitle", "지점 관리");
         model.addAttribute("activePage", "branches");
         return "admin/branch/create";
@@ -42,7 +50,7 @@ public class BranchController {
 
     // 지점 등록 처리
     @PostMapping("/create")
-    public String create(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String createPost(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
         // 지점 등록
         branch.setCreatedBy((String) session.getAttribute("userId"));
         branch.setUpdatedBy((String) session.getAttribute("userId"));
@@ -113,8 +121,31 @@ public class BranchController {
 
         // 지점 조회
         BranchDto branch = branchService.read(branchId);
+        model.addAttribute("branch", branch);        
 
-        model.addAttribute("branch", branch);
+        // 지점에 속하는 지점 관리자 조회
+        Map<String, Object> branchManagerParams = new HashMap<>();
+        branchManagerParams.put("branchId", branchId);
+        Map<String, Object> branchManagersInBranch = branchManagerService.list(branchManagerParams);
+        model.addAttribute("branchManagersInBranch", branchManagersInBranch.get("branchManagers"));
+
+        // 모든 지점 관리자 조회
+        Map<String, Object> params = new HashMap<>();
+        params.put("role", "branchManager");
+        Map<String, Object> branchManagers = userService.list(params);
+        List<UserDto> branchManagersList = (List<UserDto>) branchManagers.get("users");
+
+        // 지점에 속하지 않는 지점 관리자 조회
+        List<UserDto> branchManagersNotInBranch = new ArrayList<>();
+        List<UserDto> branchManagersInBranchList = (List<UserDto>) branchManagersInBranch.get("branchManagers");
+        for (UserDto branchManager : branchManagersList) {
+            if (!branchManagersInBranchList.contains(branchManager)) {
+                branchManagersNotInBranch.add(branchManager);
+            }
+        }
+        model.addAttribute("branchManagersNotInBranch", branchManagersNotInBranch);
+        
+        // 추가 페이지 설정
         model.addAttribute("pageTitle", "지점 관리");
         model.addAttribute("activePage", "branches");
         return "admin/branch/read";
@@ -122,7 +153,7 @@ public class BranchController {
 
     // 지점 수정
     @GetMapping("/{branchId}/update")
-    public String editForm(@PathVariable int branchId, Model model) {   
+    public String updateGet(@PathVariable int branchId, Model model) {   
         // 지점 존재 여부 확인
         if (!isBranchExists(branchId)) {
             return "redirect:/admin/branches";
@@ -140,7 +171,7 @@ public class BranchController {
 
     // 지점 수정 처리
     @PostMapping("/{branchId}/update")
-    public String update(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(BranchDto branch, HttpSession session, RedirectAttributes redirectAttributes) {
         // 지점 존재 여부 확인
         if (!isBranchExists(branch.getBranchId())) {
             return "redirect:/admin/branches";
@@ -185,6 +216,25 @@ public class BranchController {
 
         redirectAttributes.addFlashAttribute("errorMessage", "지점 삭제에 실패했습니다.");
         return "redirect:/admin/branches/" + branchId;
+    }
+
+    // 지점 관리자 추가
+    @PostMapping("/{branchId}/addManager")
+    public String addManager(BranchManagerDto branchManager, HttpSession session, RedirectAttributes redirectAttributes) {
+        // 사용자를 지점 관리자로 등록
+        branchManager.setCreatedBy((String) session.getAttribute("userId"));
+        branchManager.setUpdatedBy((String) session.getAttribute("userId"));
+        boolean resultBranchManagerCreate = branchManagerService.create(branchManager);
+
+        // 지점 관리자 등록 성공
+        if (resultBranchManagerCreate) {
+            redirectAttributes.addFlashAttribute("successMessage", "지점 관리자 등록이 완료되었습니다.");
+            return "redirect:/admin/branches/" + branchManager.getBranchId();
+        }
+
+        // 지점 관리자 등록 실패
+        redirectAttributes.addFlashAttribute("errorMessage", "지점 관리자 등록에 실패했습니다.");
+        return "redirect:/admin/branches/" + branchManager.getBranchId();
     }
 }
 

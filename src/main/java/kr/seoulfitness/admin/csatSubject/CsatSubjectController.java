@@ -93,7 +93,7 @@ public class CsatSubjectController {
 
     // 학과 수정
     @GetMapping("/{csatSubjectId}/update")
-    public String editForm(@PathVariable int csatSubjectId, Model model) {   
+    public String updateGet(@PathVariable int csatSubjectId, Model model) {   
         // 학과 존재 여부 확인
         if (!isCsatSubjectExists(csatSubjectId)) {
             return "redirect:/admin/csatSubjects";
@@ -108,7 +108,7 @@ public class CsatSubjectController {
 
     // 학과 수정 처리
     @PostMapping("/{csatSubjectId}/update")
-    public String update(@PathVariable int csatSubjectId, CsatSubjectDto csatSubject, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String updatePost(@PathVariable int csatSubjectId, CsatSubjectDto csatSubject, HttpSession session, RedirectAttributes redirectAttributes) {
         // 학과 존재 여부 확인
         if (!isCsatSubjectExists(csatSubjectId)) {
             return "redirect:/admin/csatSubjects";
