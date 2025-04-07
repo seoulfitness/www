@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class CsatRecordPeriodDto {
     private int csatRecordPeriodId;   // 수능 기록 등록 기간 아이디
-    private String startDate;             // 기록 등록 시작일
-    private String endDate;               // 기록 등록 종료일
+    private Date startDate;             // 기록 등록 시작일
+    private Date endDate;               // 기록 등록 종료일
     private String title;                 // 기록 등록 제목
     private String memo;                  // 기록 등록 메모
     private String grantBranchUser;       // 지점 회원의 기록 등록 권한 ('Y' : 있음, 'N' : 없음)

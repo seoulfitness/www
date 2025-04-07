@@ -43,12 +43,12 @@ public class CsatRecordPeriodController {
         boolean result = csatRecordPeriodService.create(csatRecordPeriod);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "수능 기록 등록 기간 등록이 완료되었습니다.");
-            return "redirect:/admin/csatRecordPeriod";
+            return "redirect:/admin/csatRecordPeriods";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수능 기록 등록 기간 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("csatRecordPeriod", csatRecordPeriod);
-        return "redirect:/admin/csatRecordPeriod/create";
+        return "redirect:/admin/csatRecordPeriods/create";
     }
 
     // 수능 기록 등록 기간 목록
@@ -81,7 +81,7 @@ public class CsatRecordPeriodController {
     public String read(@PathVariable int csatRecordPeriodId, Model model) {
         // 수능 기록 등록 기간 존재 여부 확인
         if (!isCsatRecordPeriodExists(csatRecordPeriodId)) {
-            return "redirect:/admin/csatRecordPeriod";
+            return "redirect:/admin/csatRecordPeriods";
         }
 
         CsatRecordPeriodDto csatRecordPeriod = csatRecordPeriodService.read(csatRecordPeriodId);
@@ -96,7 +96,7 @@ public class CsatRecordPeriodController {
     public String updateGet(@PathVariable int csatRecordPeriodId, Model model) {   
         // 수능 기록 등록 기간 존재 여부 확인
         if (!isCsatRecordPeriodExists(csatRecordPeriodId)) {
-            return "redirect:/admin/csatRecordPeriod";
+            return "redirect:/admin/csatRecordPeriods";
         }
 
         CsatRecordPeriodDto csatRecordPeriod = csatRecordPeriodService.read(csatRecordPeriodId);
@@ -111,7 +111,7 @@ public class CsatRecordPeriodController {
     public String updatePost(@PathVariable int csatRecordPeriodId, CsatRecordPeriodDto csatRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
         // 수능 기록 등록 기간 존재 여부 확인
         if (!isCsatRecordPeriodExists(csatRecordPeriodId)) {
-            return "redirect:/admin/csatRecordPeriod";
+            return "redirect:/admin/csatRecordPeriods";
         }
 
         csatRecordPeriod.setCsatRecordPeriodId(csatRecordPeriodId);
@@ -119,11 +119,11 @@ public class CsatRecordPeriodController {
         boolean result = csatRecordPeriodService.update(csatRecordPeriod);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "수능 기록 등록 기간 수정이 완료되었습니다.");
-            return "redirect:/admin/csatRecordPeriod/" + csatRecordPeriodId;
+            return "redirect:/admin/csatRecordPeriods/" + csatRecordPeriodId;
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수능 기록 등록 기간 수정에 실패했습니다.");
-        return "redirect:/admin/csatRecordPeriod/" + csatRecordPeriodId + "/update";
+        return "redirect:/admin/csatRecordPeriods/" + csatRecordPeriodId + "/update";
     }
 
     // 수능 기록 등록 기간 삭제
@@ -131,16 +131,16 @@ public class CsatRecordPeriodController {
     public String delete(@PathVariable int csatRecordPeriodId, RedirectAttributes redirectAttributes) {
         // 수능 기록 등록 기간 존재 여부 확인
         if (!isCsatRecordPeriodExists(csatRecordPeriodId)) {
-            return "redirect:/admin/csatRecordPeriod";
+            return "redirect:/admin/csatRecordPeriods";
         }
 
         boolean result = csatRecordPeriodService.delete(csatRecordPeriodId);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "수능 기록 등록 기간 삭제가 완료되었습니다.");
-            return "redirect:/admin/csatRecordPeriod";
+            return "redirect:/admin/csatRecordPeriods";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "수능 기록 등록 기간 삭제에 실패했습니다.");
-        return "redirect:/admin/csatRecordPeriod/" + csatRecordPeriodId;
+        return "redirect:/admin/csatRecordPeriods/" + csatRecordPeriodId;
     }
 }

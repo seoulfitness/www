@@ -43,12 +43,12 @@ public class PhysicalRecordPeriodController {
         boolean result = physicalRecordPeriodService.create(physicalRecordPeriod);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "실기 기록 등록 기간 등록이 완료되었습니다.");
-            return "redirect:/admin/physicalRecordPeriod";
+            return "redirect:/admin/physicalRecordPeriods";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "실기 기록 등록 기간 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("physicalRecordPeriod", physicalRecordPeriod);
-        return "redirect:/admin/physicalRecordPeriod/create";
+        return "redirect:/admin/physicalRecordPeriods/create";
     }
 
     // 실기 기록 등록 기간 목록
@@ -81,7 +81,7 @@ public class PhysicalRecordPeriodController {
     public String read(@PathVariable int physicalRecordPeriodId, Model model) {
         // 실기 기록 등록 기간 존재 여부 확인
         if (!isPhysicalRecordPeriodExists(physicalRecordPeriodId)) {
-            return "redirect:/admin/physicalRecordPeriod";
+            return "redirect:/admin/physicalRecordPeriods";
         }
 
         PhysicalRecordPeriodDto physicalRecordPeriod = physicalRecordPeriodService.read(physicalRecordPeriodId);
@@ -96,7 +96,7 @@ public class PhysicalRecordPeriodController {
     public String updateGet(@PathVariable int physicalRecordPeriodId, Model model) {   
         // 실기 기록 등록 기간 존재 여부 확인
         if (!isPhysicalRecordPeriodExists(physicalRecordPeriodId)) {
-            return "redirect:/admin/physicalRecordPeriod";
+            return "redirect:/admin/physicalRecordPeriods";
         }
 
         PhysicalRecordPeriodDto physicalRecordPeriod = physicalRecordPeriodService.read(physicalRecordPeriodId);
@@ -111,7 +111,7 @@ public class PhysicalRecordPeriodController {
     public String updatePost(@PathVariable int physicalRecordPeriodId, PhysicalRecordPeriodDto physicalRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
         // 실기 기록 등록 기간 존재 여부 확인
         if (!isPhysicalRecordPeriodExists(physicalRecordPeriodId)) {
-            return "redirect:/admin/physicalRecordPeriod";
+            return "redirect:/admin/physicalRecordPeriods";
         }
 
         physicalRecordPeriod.setPhysicalRecordPeriodId(physicalRecordPeriodId);
@@ -119,11 +119,11 @@ public class PhysicalRecordPeriodController {
         boolean result = physicalRecordPeriodService.update(physicalRecordPeriod);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "실기 기록 등록 기간 수정이 완료되었습니다.");
-            return "redirect:/admin/physicalRecordPeriod/" + physicalRecordPeriodId;
+            return "redirect:/admin/physicalRecordPeriods/" + physicalRecordPeriodId;
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "실기 기록 등록 기간 수정에 실패했습니다.");
-        return "redirect:/admin/physicalRecordPeriod/" + physicalRecordPeriodId + "/update";
+        return "redirect:/admin/physicalRecordPeriods/" + physicalRecordPeriodId + "/update";
     }
 
     // 실기 기록 등록 기간 삭제
@@ -131,16 +131,16 @@ public class PhysicalRecordPeriodController {
     public String delete(@PathVariable int physicalRecordPeriodId, RedirectAttributes redirectAttributes) {
         // 실기 기록 등록 기간 존재 여부 확인
         if (!isPhysicalRecordPeriodExists(physicalRecordPeriodId)) {
-            return "redirect:/admin/physicalRecordPeriod";
+            return "redirect:/admin/physicalRecordPeriods";
         }
 
         boolean result = physicalRecordPeriodService.delete(physicalRecordPeriodId);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "실기 기록 등록 기간 삭제가 완료되었습니다.");
-            return "redirect:/admin/physicalRecordPeriod";
+            return "redirect:/admin/physicalRecordPeriods";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "실기 기록 등록 기간 삭제에 실패했습니다.");
-        return "redirect:/admin/physicalRecordPeriod/" + physicalRecordPeriodId;
+        return "redirect:/admin/physicalRecordPeriods/" + physicalRecordPeriodId;
     }
 }

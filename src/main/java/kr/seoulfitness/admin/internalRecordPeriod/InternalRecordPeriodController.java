@@ -43,12 +43,12 @@ public class InternalRecordPeriodController {
         boolean result = internalRecordPeriodService.create(internalRecordPeriod);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "내신 기록 등록 기간 등록이 완료되었습니다.");
-            return "redirect:/admin/internalRecordPeriod";
+            return "redirect:/admin/internalRecordPeriods";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "내신 기록 등록 기간 등록에 실패했습니다.");
         redirectAttributes.addFlashAttribute("internalRecordPeriod", internalRecordPeriod);
-        return "redirect:/admin/internalRecordPeriod/create";
+        return "redirect:/admin/internalRecordPeriods/create";
     }
 
     // 내신 기록 등록 기간 목록
@@ -81,7 +81,7 @@ public class InternalRecordPeriodController {
     public String read(@PathVariable int internalRecordPeriodId, Model model) {
         // 내신 기록 등록 기간 존재 여부 확인
         if (!isInternalRecordPeriodExists(internalRecordPeriodId)) {
-            return "redirect:/admin/internalRecordPeriod";
+            return "redirect:/admin/internalRecordPeriods";
         }
 
         InternalRecordPeriodDto internalRecordPeriod = internalRecordPeriodService.read(internalRecordPeriodId);
@@ -96,7 +96,7 @@ public class InternalRecordPeriodController {
     public String updateGet(@PathVariable int internalRecordPeriodId, Model model) {   
         // 내신 기록 등록 기간 존재 여부 확인
         if (!isInternalRecordPeriodExists(internalRecordPeriodId)) {
-            return "redirect:/admin/internalRecordPeriod";
+            return "redirect:/admin/internalRecordPeriods";
         }
 
         InternalRecordPeriodDto internalRecordPeriod = internalRecordPeriodService.read(internalRecordPeriodId);
@@ -111,7 +111,7 @@ public class InternalRecordPeriodController {
     public String updatePost(@PathVariable int internalRecordPeriodId, InternalRecordPeriodDto internalRecordPeriod, HttpSession session, RedirectAttributes redirectAttributes) {
         // 내신 기록 등록 기간 존재 여부 확인
         if (!isInternalRecordPeriodExists(internalRecordPeriodId)) {
-            return "redirect:/admin/internalRecordPeriod";
+            return "redirect:/admin/internalRecordPeriods";
         }
 
         internalRecordPeriod.setInternalRecordPeriodId(internalRecordPeriodId);
@@ -119,11 +119,11 @@ public class InternalRecordPeriodController {
         boolean result = internalRecordPeriodService.update(internalRecordPeriod);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "내신 기록 등록 기간 수정이 완료되었습니다.");
-            return "redirect:/admin/internalRecordPeriod/" + internalRecordPeriodId;
+            return "redirect:/admin/internalRecordPeriods/" + internalRecordPeriodId;
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "내신 기록 등록 기간 수정에 실패했습니다.");
-        return "redirect:/admin/internalRecordPeriod/" + internalRecordPeriodId + "/update";
+        return "redirect:/admin/internalRecordPeriods/" + internalRecordPeriodId + "/update";
     }
 
     // 내신 기록 등록 기간 삭제
@@ -131,16 +131,16 @@ public class InternalRecordPeriodController {
     public String delete(@PathVariable int internalRecordPeriodId, RedirectAttributes redirectAttributes) {
         // 내신 기록 등록 기간 존재 여부 확인
         if (!isInternalRecordPeriodExists(internalRecordPeriodId)) {
-            return "redirect:/admin/internalRecordPeriod";
+            return "redirect:/admin/internalRecordPeriods";
         }
 
         boolean result = internalRecordPeriodService.delete(internalRecordPeriodId);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "내신 기록 등록 기간 삭제가 완료되었습니다.");
-            return "redirect:/admin/internalRecordPeriod";
+            return "redirect:/admin/internalRecordPeriods";
         }
 
         redirectAttributes.addFlashAttribute("errorMessage", "내신 기록 등록 기간 삭제에 실패했습니다.");
-        return "redirect:/admin/internalRecordPeriod/" + internalRecordPeriodId;
+        return "redirect:/admin/internalRecordPeriods/" + internalRecordPeriodId;
     }
 }
