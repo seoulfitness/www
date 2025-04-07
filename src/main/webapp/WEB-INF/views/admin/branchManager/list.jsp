@@ -63,6 +63,39 @@
                                             </table>
                                         </div>
                                         <%--// 지점 관리자 목록 --%>
+
+                                        <%-- 페이지네이션 --%>
+                                        <c:if test="${pagination.totalCount > 0}">
+                                            <nav aria-label="Page navigation" class="mt-4">
+                                                <ul class="pagination justify-content-center">
+                                                    <%-- 이전 페이지 --%>
+                                                    <c:if test="${pagination.currentPage > 1}">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="/admin/branchManagers?page=${pagination.currentPage - 1}&keyword=${keyword}" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </c:if>
+
+                                                    <%-- 페이지 번호 --%>
+                                                    <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="page">
+                                                        <li class="page-item ${page == pagination.currentPage ? 'active' : ''}">
+                                                            <a class="page-link" href="/admin/branchManagers?page=${page}&keyword=${keyword}">${page}</a>
+                                                        </li>
+                                                    </c:forEach>
+
+                                                    <%-- 다음 페이지 --%>
+                                                    <c:if test="${pagination.currentPage < pagination.totalPages}">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="/admin/branchManagers?page=${pagination.currentPage + 1}&keyword=${keyword}" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </c:if>
+                                                </ul>
+                                            </nav>
+                                        </c:if>
+                                        <%--// 페이지네이션 --%>
                                     </div>
                                 </div>
                             </div>
