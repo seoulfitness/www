@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class BranchManagerDto {
     // 지점 관리자 정보
-    private int branchManagerId;    // 지점 관리자 아이디
+    private int branchManagerId;    // 구분자
     private int branchId;           // 지점 아이디
     private String userId;          // 사용자 아이디
     private Date createdAt;       // 생성일시

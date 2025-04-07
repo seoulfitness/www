@@ -41,9 +41,9 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="col-2 text-center">지점명</th>
-                                                        <th class="col-5 text-center">주소</th>
+                                                        <th class="col-4 text-center">주소</th>
                                                         <th class="col-2 text-center">전화번호</th>
-                                                        <th class="col-2 text-center">지점 관리자</th>
+                                                        <th class="col-3 text-center">지점 관리자</th>
                                                         <th class="col-1 text-center">관리</th>
                                                     </tr>
                                                 </thead>
@@ -51,9 +51,13 @@
                                                     <c:forEach items="${branches}" var="branch">
                                                         <tr>
                                                             <td class="align-middle text-center">${branch.branchName}</td>
-                                                            <td class="align-middle text-center">${branch.branchAddress}</td>
+                                                            <td class="align-middle">${branch.branchAddress}</td>
                                                             <td class="align-middle text-center">${branch.branchPhone}</td>
-                                                            <td class="align-middle text-center"></td>
+                                                            <td class="align-middle">
+                                                                <c:forEach items="${branch.branchManagers}" var="branchManager">
+                                                                    <div class="mb-2">${branchManager.userName} (${branchManager.userId}, ${branchManager.userPhone})</div>
+                                                                </c:forEach>
+                                                            </td>
                                                             <td class="align-middle text-center">
                                                                 <a href="/admin/branches/${branch.branchId}" class="btn btn-outline-primary btn-sm">보기</a>
                                                             </td>

@@ -3,7 +3,7 @@ package kr.seoulfitness.admin.branch;
 import java.util.Date;
 import java.util.List;
 
-import kr.seoulfitness.admin.user.UserDto;
+import kr.seoulfitness.admin.branchManager.BranchManagerDto;
 import lombok.Data;
 
 @Data
@@ -24,6 +24,6 @@ public class BranchDto {
     private String createdUserPhone; // 등록한 사람 전화번호
     private String updatedUserPhone; // 수정한 사람 전화번호
 
-    // 지점 관리자
-    private List<UserDto> branchManagers;
+    // 지점 관리자 정보
+    private List<BranchManagerDto> branchManagers;
 }

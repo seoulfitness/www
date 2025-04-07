@@ -4,7 +4,7 @@
 <mapper namespace="branchManagerMapper">
 
     <resultMap id="branchManagerResultMap" type="kr.seoulfitness.admin.branchManager.BranchManagerDto">
-        <!-- 지점 관리자 정보 -->
+        <!-- 지점에 속하는 지점 관리자 정보 -->
         <result property="branchManagerId" column="BRANCH_MANAGER_ID" />
         <result property="branchId" column="BRANCH_ID" />
         <result property="userId" column="USER_ID" />
@@ -79,18 +79,19 @@
             LEFT JOIN USERS E ON E.USER_ID = A.UPDATED_BY
         WHERE 1=1
         ]]>
-        <if test="keyword != null">
+        <if test="userId != null">
             <![CDATA[
-            AND (
-                -- 사용자 정보
-                OR B.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
-                OR B.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
-                OR B.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
-                -- 지점 정보
-                OR C.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
-                OR C.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
-                OR C.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
-            )
+            AND A.USER_ID = #{userId}
+            ]]>
+        </if>
+        <if test="branchId != null and branchId != 0">
+            <![CDATA[
+            AND A.BRANCH_ID = #{branchId}
+            ]]>
+        </if>
+        <if test="excludeBranchId != null and excludeBranchId != 0">
+            <![CDATA[
+            AND A.BRANCH_ID != #{excludeBranchId}
             ]]>
         </if>
         <![CDATA[
@@ -163,7 +164,7 @@
     </update>
 
     <!-- 지점 관리자 삭제 -->
-    <delete id="deleteBranchManager" parameterType="int">
+    <delete id="deleteBranchManager" parameterType="map">
         <![CDATA[
         DELETE FROM BRANCH_MANAGERS WHERE 1=1
         ]]>
@@ -177,7 +178,15 @@
             AND BRANCH_ID = #{branchId}
             ]]>
         </if>
-    </delete>
+        <if test="userId != null">
+            <![CDATA[
+            AND USER_ID = #{userId}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>
+    </delete>   
 
     <!-- 지점 관리자 수 -->
     <select id="getTotalCount" resultType="int">
@@ -189,18 +198,14 @@
             LEFT JOIN BRANCHES AS C ON A.BRANCH_ID = C.BRANCH_ID
         WHERE 1=1
         ]]>
-        <if test="keyword != null">
+        <if test="userId != null">
             <![CDATA[
-            AND (
-                -- 사용자 정보
-                OR B.USER_NAME LIKE CONCAT('%', #{keyword}, '%')
-                OR B.USER_EMAIL LIKE CONCAT('%', #{keyword}, '%')
-                OR B.USER_PHONE LIKE CONCAT('%', #{keyword}, '%')
-                -- 지점 정보
-                OR C.BRANCH_NAME LIKE CONCAT('%', #{keyword}, '%') 
-                OR C.BRANCH_ADDRESS LIKE CONCAT('%', #{keyword}, '%') 
-                OR C.BRANCH_PHONE LIKE CONCAT('%', #{keyword}, '%')
-            )
+            AND A.USER_ID = #{userId}
+            ]]>
+        </if>
+        <if test="branchId != null and branchId != 0">
+            <![CDATA[
+            AND A.BRANCH_ID = #{branchId}
             ]]>
         </if>
     </select>

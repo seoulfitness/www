@@ -80,33 +80,28 @@ public class BranchController {
         params.put("keyword", keyword);
 
         // 지점 목록 조회
-        Map<String, Object> result = branchService.list(params);
-
-        // 목록 페이지 설정
-        model.addAttribute("branches", result.get("branches"));
+        Map<String, Object> result = branchService.list(params);        
         model.addAttribute("pagination", result.get("pagination"));
         model.addAttribute("keyword", result.get("keyword"));
+
+        // 지점에 속하는 지점 관리자 조회
+        List<BranchDto> branchList = (List<BranchDto>) result.get("branches");
+        for (BranchDto branch : branchList) {
+            Map<String, Object> branchManagersParams = new HashMap<>();
+            branchManagersParams.put("branchId", branch.getBranchId());
+            branchManagersParams.put("currentPage", 1);
+            branchManagersParams.put("listCountPerPage", 10);
+            branchManagersParams.put("pageCountPerPage", 5);
+            branchManagersParams.put("keyword", "");
+            Map<String, Object> branchManagers = branchManagerService.list(branchManagersParams);
+            List<BranchManagerDto> branchManagersList = (List<BranchManagerDto>) branchManagers.get("branchManagers");
+            branch.setBranchManagers(branchManagersList);
+        }
+        model.addAttribute("branches", branchList);
+
+        // 목록 페이지 설정        
         model.addAttribute("pageTitle", "지점 관리");
         model.addAttribute("activePage", "branches");
-
-        /*
-        // 지점 관리자 정보 조회
-        Map<String, Object> branchManagers = userService.list(1, 100, 100, "", "branchManager");
-
-        // 지점 목록에 지점 관리자 정보 추가
-        List<BranchDto> branches = (List<BranchDto>) result.get("branches");
-        List<UserDto> managers = (List<UserDto>) branchManagers.get("users");
-        
-        for (BranchDto branch : branches) {
-            List<UserDto> branchManagersInBranch = new ArrayList<>();
-            for (UserDto manager : managers) {
-                if (manager.getBranchId() != null && manager.getBranchId().equals(branch.getBranchId())) {
-                    branchManagersInBranch.add(manager);
-                }
-            }
-            branch.setBranchManagers(branchManagersInBranch);
-        }
-        */
 
         return "admin/branch/list";
     }
@@ -123,27 +118,42 @@ public class BranchController {
         BranchDto branch = branchService.read(branchId);
         model.addAttribute("branch", branch);        
 
-        // 지점에 속하는 지점 관리자 조회
-        Map<String, Object> branchManagerParams = new HashMap<>();
-        branchManagerParams.put("branchId", branchId);
-        Map<String, Object> branchManagersInBranch = branchManagerService.list(branchManagerParams);
-        model.addAttribute("branchManagersInBranch", branchManagersInBranch.get("branchManagers"));
-
         // 모든 지점 관리자 조회
-        Map<String, Object> params = new HashMap<>();
-        params.put("role", "branchManager");
-        Map<String, Object> branchManagers = userService.list(params);
+        Map<String, Object> branchManagersParams = new HashMap<>();
+        branchManagersParams.put("role", "branchManager");
+        branchManagersParams.put("currentPage", 1);
+        branchManagersParams.put("listCountPerPage", 10);
+        branchManagersParams.put("pageCountPerPage", 5);
+        branchManagersParams.put("keyword", "");
+        Map<String, Object> branchManagers = userService.list(branchManagersParams);
         List<UserDto> branchManagersList = (List<UserDto>) branchManagers.get("users");
 
-        // 지점에 속하지 않는 지점 관리자 조회
-        List<UserDto> branchManagersNotInBranch = new ArrayList<>();
-        List<UserDto> branchManagersInBranchList = (List<UserDto>) branchManagersInBranch.get("branchManagers");
+        // 지점에 속하는 지점 관리자 조회
+        Map<String, Object> branchManagersInBranchParams = new HashMap<>();
+        branchManagersInBranchParams.put("branchId", branchId);
+        branchManagersInBranchParams.put("currentPage", 1);
+        branchManagersInBranchParams.put("listCountPerPage", 10);
+        branchManagersInBranchParams.put("pageCountPerPage", 5);
+        branchManagersInBranchParams.put("keyword", "");
+        Map<String, Object> branchManagersInBranch = branchManagerService.list(branchManagersInBranchParams);
+        List<BranchManagerDto> branchManagersInBranchList = (List<BranchManagerDto>) branchManagersInBranch.get("branchManagers");
+        model.addAttribute("branchManagersInBranch", branchManagersInBranchList);
+
+        // 지점에 속하지 않는 지점 관리자 조회 = 모든 지점 관리자 조회 - 지점에 속하는 지점 관리자 조회
+        List<UserDto> branchManagersNotInBranchList = new ArrayList<>();
         for (UserDto branchManager : branchManagersList) {
-            if (!branchManagersInBranchList.contains(branchManager)) {
-                branchManagersNotInBranch.add(branchManager);
+            boolean isInBranch = false;
+            for (BranchManagerDto branchManagerInBranch : branchManagersInBranchList) {
+                if (branchManager.getUserId().equals(branchManagerInBranch.getUserId())) {
+                    isInBranch = true;
+                    break;
+                }
+            }
+            if (!isInBranch) {
+                branchManagersNotInBranchList.add(branchManager);
             }
         }
-        model.addAttribute("branchManagersNotInBranch", branchManagersNotInBranch);
+        model.addAttribute("branchManagersNotInBranch", branchManagersNotInBranchList);
         
         // 추가 페이지 설정
         model.addAttribute("pageTitle", "지점 관리");
@@ -220,8 +230,9 @@ public class BranchController {
 
     // 지점 관리자 추가
     @PostMapping("/{branchId}/addManager")
-    public String addManager(BranchManagerDto branchManager, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String addManager(@PathVariable int branchId, BranchManagerDto branchManager, HttpSession session, RedirectAttributes redirectAttributes) {
         // 사용자를 지점 관리자로 등록
+        branchManager.setBranchId(branchId);
         branchManager.setCreatedBy((String) session.getAttribute("userId"));
         branchManager.setUpdatedBy((String) session.getAttribute("userId"));
         boolean resultBranchManagerCreate = branchManagerService.create(branchManager);
@@ -229,12 +240,29 @@ public class BranchController {
         // 지점 관리자 등록 성공
         if (resultBranchManagerCreate) {
             redirectAttributes.addFlashAttribute("successMessage", "지점 관리자 등록이 완료되었습니다.");
-            return "redirect:/admin/branches/" + branchManager.getBranchId();
+            return "redirect:/admin/branches/" + branchId;
         }
 
         // 지점 관리자 등록 실패
         redirectAttributes.addFlashAttribute("errorMessage", "지점 관리자 등록에 실패했습니다.");
-        return "redirect:/admin/branches/" + branchManager.getBranchId();
+        return "redirect:/admin/branches/" + branchId;
+    }
+
+    // 지점 관리자 삭제
+    @PostMapping("/{branchId}/deleteManager")
+    public String deleteManager(@PathVariable int branchId, @RequestParam String userId, RedirectAttributes redirectAttributes) {
+        // 지점 관리자 삭제
+        Map<String, Object> params = new HashMap<>();
+        params.put("branchId", branchId);
+        params.put("userId", userId);
+        boolean resultBranchManagerDelete = branchManagerService.delete(params);
+        if (resultBranchManagerDelete) {
+            redirectAttributes.addFlashAttribute("successMessage", "지점 관리자 삭제가 완료되었습니다.");
+            return "redirect:/admin/branches/" + branchId;
+        }
+
+        redirectAttributes.addFlashAttribute("errorMessage", "지점 관리자 삭제에 실패했습니다.");
+        return "redirect:/admin/branches/" + branchId;
     }
 }
 

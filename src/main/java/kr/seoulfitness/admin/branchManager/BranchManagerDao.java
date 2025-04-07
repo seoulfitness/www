@@ -17,7 +17,7 @@ public class BranchManagerDao {
     
     private static final Logger logger = LoggerFactory.getLogger(BranchManagerDao.class);
 
-    // 지점 관리자 등록
+    // 지점에 지점관리자 등록
     public int insertBranchManager(BranchManagerDto branchManager) {
         int result = -1;
 
