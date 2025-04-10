@@ -21,7 +21,7 @@
                                     <input type="hidden" name="physicalRecordPeriodId" value="${physicalRecordPeriod.physicalRecordPeriodId}" />
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            실기 기록 기간 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
+                                            실기 기록 등록 기간 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
                                         </div>
                                         <div class="card-body">                                     
                                             <div class="mb-3">
@@ -29,22 +29,22 @@
                                                 <input class="form-control" name="title" id="title" type="text" placeholder="제목을 입력하세요." value="${not empty physicalRecordPeriod.title ? physicalRecordPeriod.title : ''}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="startDate">기록 등록 시작일<span class="text-danger small">*</span></label>
-                                                <input class="form-control" name="startDate" id="startDate" type="date" placeholder="기록 등록 시작일을 입력하세요." value="${not empty physicalRecordPeriod.startDate ? physicalRecordPeriod.startDate : ''}" />
+                                                <label class="small mb-1" for="startDate">등록 시작일<span class="text-danger small">*</span></label>
+                                                <input class="form-control" name="startDate" id="startDate" type="date" placeholder="등록 시작일을 입력하세요." value="${not empty physicalRecordPeriod.startDate ? physicalRecordPeriod.startDate : ''}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="endDate">기록 등록 종료일<span class="text-danger small">*</span></label>
-                                                <input class="form-control" name="endDate" id="endDate" type="date" placeholder="기록 등록 종료일을 입력하세요." value="${not empty physicalRecordPeriod.endDate ? physicalRecordPeriod.endDate : ''}" />
+                                                <label class="small mb-1" for="endDate">등록 종료일<span class="text-danger small">*</span></label>
+                                                <input class="form-control" name="endDate" id="endDate" type="date" placeholder="등록 종료일을 입력하세요." value="${not empty physicalRecordPeriod.endDate ? physicalRecordPeriod.endDate : ''}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="grantBranchUser">지점 회원의 기록 등록 권한<span class="text-danger small">*</span></label>
+                                                <label class="small mb-1" for="grantBranchUser">지점 회원의 등록 권한<span class="text-danger small">*</span></label>
                                                 <select class="form-select" id="grantBranchUser" name="grantBranchUser"> 
                                                     <option value="Y" <c:if test="${physicalRecordPeriod.grantBranchUser == 'Y'}">selected</c:if>>있음</option>
                                                     <option value="N" <c:if test="${physicalRecordPeriod.grantBranchUser == 'N'}">selected</c:if>>없음</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="grantNormalUser">일반 회원의 기록 등록 권한<span class="text-danger small">*</span></label>
+                                                <label class="small mb-1" for="grantNormalUser">일반 회원의 등록 권한<span class="text-danger small">*</span></label>
                                                 <select class="form-select" id="grantNormalUser" name="grantNormalUser"> 
                                                     <option value="Y" <c:if test="${physicalRecordPeriod.grantNormalUser == 'Y'}">selected</c:if>>있음</option>
                                                     <option value="N" <c:if test="${physicalRecordPeriod.grantNormalUser == 'N'}">selected</c:if>>없음</option>
@@ -56,7 +56,7 @@
                                             </div>                                                                                 
                                         </div>
                                         <div class="card-footer">
-                                            <button class="btn btn-primary" type="submit">실기 기록 기간 수정</button>
+                                            <button class="btn btn-primary" type="submit">실기 기록 등록 기간 수정</button>
                                             <a href="/admin/physicalRecordPeriods/${physicalRecordPeriod.physicalRecordPeriodId}" class="btn btn-outline-danger">수정 취소</a>
                                         </div>  
                                     </div>

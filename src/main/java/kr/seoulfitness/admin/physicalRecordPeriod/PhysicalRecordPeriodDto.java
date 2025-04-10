@@ -2,12 +2,18 @@ package kr.seoulfitness.admin.physicalRecordPeriod;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
 public class PhysicalRecordPeriodDto {
     private int physicalRecordPeriodId;   // 실기 기록 등록 기간 아이디
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;             // 기록 등록 시작일
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;               // 기록 등록 종료일
     private String title;                 // 기록 등록 제목
     private String memo;                  // 기록 등록 메모

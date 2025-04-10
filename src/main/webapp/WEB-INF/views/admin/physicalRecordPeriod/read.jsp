@@ -29,37 +29,37 @@
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">제목</th>
+                                                        <th class="align-middle col-2">제목</th>
                                                         <td class="align-middle col-10">${physicalRecordPeriod.title}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">기록 등록 시작일</th>
+                                                        <th class="align-middle col-2">등록 시작일</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${physicalRecordPeriod.startDate}" pattern="yyyy-MM-dd"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">기록 등록 종료일</th>
+                                                        <th class="align-middle col-2">등록 종료일</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${physicalRecordPeriod.endDate}" pattern="yyyy-MM-dd"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">지점 회원 권한</th>
+                                                        <th class="align-middle col-2">지점 회원 권한</th>
                                                         <td class="align-middle col-10">
                                                             <c:choose>
-                                                                <c:when test="${physicalRecordPeriod.grantBranchUser == 'Y'}"><span class="btn btn-outline-success btn-sm">있음</span></c:when>
+                                                                <c:when test="${physicalRecordPeriod.grantBranchUser == 'Y'}"><span class="btn btn-success btn-sm">있음</span></c:when>
                                                                 <c:otherwise><span class="btn btn-outline-danger btn-sm">없음</span></c:otherwise>
                                                             </c:choose>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">일반 회원 권한</th>
+                                                        <th class="align-middle col-2">일반 회원 권한</th>
                                                         <td class="align-middle col-10">
                                                             <c:choose>
-                                                                <c:when test="${physicalRecordPeriod.grantNormalUser == 'Y'}"><span class="btn btn-outline-success btn-sm">있음</span></c:when>
+                                                                <c:when test="${physicalRecordPeriod.grantNormalUser == 'Y'}"><span class="btn btn-success btn-sm">있음</span></c:when>
                                                                 <c:otherwise><span class="btn btn-outline-danger btn-sm">없음</span></c:otherwise>
                                                             </c:choose>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">메모</th>
+                                                        <th class="align-middle col-2">메모</th>
                                                         <td class="align-middle col-10">${physicalRecordPeriod.memo}</td>
                                                     </tr>
                                                 </tbody>
@@ -70,19 +70,19 @@
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">등록일시</th>
+                                                        <th class="align-middle col-2">등록일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${physicalRecordPeriod.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">등록한 사람</th>
+                                                        <th class="align-middle col-2">등록한 사람</th>
                                                         <td class="align-middle col-10">${physicalRecordPeriod.createdUserName} (${physicalRecordPeriod.createdBy}, ${physicalRecordPeriod.createdUserPhone})</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">수정일시</th>
+                                                        <th class="align-middle col-2">수정일시</th>
                                                         <td class="align-middle col-10"><fmt:formatDate value="${physicalRecordPeriod.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle text-center col-2">수정한 사람</th>
+                                                        <th class="align-middle col-2">수정한 사람</th>
                                                         <td class="align-middle col-10">${physicalRecordPeriod.updatedUserName} (${physicalRecordPeriod.updatedBy}, ${physicalRecordPeriod.updatedUserPhone})</td>
                                                     </tr>
                                                 </tbody>

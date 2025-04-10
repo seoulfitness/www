@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,22 +29,22 @@
                                                 <input class="form-control" name="title" id="title" type="text" placeholder="제목을 입력하세요." value="${not empty csatRecordPeriod.title ? csatRecordPeriod.title : ''}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="startDate">기록 등록 시작일<span class="text-danger small">*</span></label>
-                                                <input class="form-control" name="startDate" id="startDate" type="date" placeholder="기록 등록 시작일을 입력하세요." value="${not empty csatRecordPeriod.startDate ? csatRecordPeriod.startDate : ''}" />
+                                                <label class="small mb-1" for="startDate">등록 시작일<span class="text-danger small">*</span></label>
+                                                <input class="form-control" name="startDate" id="startDate" type="date" placeholder="등록 시작일을 입력하세요." value="<fmt:formatDate value='${csatRecordPeriod.startDate}' pattern='yyyy-MM-dd'/>" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="endDate">기록 등록 종료일<span class="text-danger small">*</span></label>
-                                                <input class="form-control" name="endDate" id="endDate" type="date" placeholder="기록 등록 종료일을 입력하세요." value="${not empty csatRecordPeriod.endDate ? csatRecordPeriod.endDate : ''}" />
+                                                <label class="small mb-1" for="endDate">등록 종료일<span class="text-danger small">*</span></label>
+                                                <input class="form-control" name="endDate" id="endDate" type="date" placeholder="등록 종료일을 입력하세요." value="<fmt:formatDate value='${csatRecordPeriod.endDate}' pattern='yyyy-MM-dd'/>" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="grantBranchUser">지점 회원의 기록 등록 권한<span class="text-danger small">*</span></label>
+                                                <label class="small mb-1" for="grantBranchUser">지점 회원의 등록 권한<span class="text-danger small">*</span></label>
                                                 <select class="form-select" id="grantBranchUser" name="grantBranchUser"> 
                                                     <option value="Y" <c:if test="${csatRecordPeriod.grantBranchUser == 'Y'}">selected</c:if>>있음</option>
                                                     <option value="N" <c:if test="${csatRecordPeriod.grantBranchUser == 'N'}">selected</c:if>>없음</option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="grantNormalUser">일반 회원의 기록 등록 권한<span class="text-danger small">*</span></label>
+                                                <label class="small mb-1" for="grantNormalUser">일반 회원의 등록 권한<span class="text-danger small">*</span></label>
                                                 <select class="form-select" id="grantNormalUser" name="grantNormalUser"> 
                                                     <option value="Y" <c:if test="${csatRecordPeriod.grantNormalUser == 'Y'}">selected</c:if>>있음</option>
                                                     <option value="N" <c:if test="${csatRecordPeriod.grantNormalUser == 'N'}">selected</c:if>>없음</option>

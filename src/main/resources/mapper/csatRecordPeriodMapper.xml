@@ -119,8 +119,7 @@
     <!-- 수능 기록 등록 기간 수정 -->
     <update id="updateCsatRecordPeriod" parameterType="kr.seoulfitness.admin.csatRecordPeriod.CsatRecordPeriodDto">
         <![CDATA[
-        UPDATE CSAT_RECORD_PERIODS 
-        SET CSAT_RECORD_PERIOD_ID = #{csatRecordPeriodId}
+        UPDATE CSAT_RECORD_PERIODS SET CSAT_RECORD_PERIOD_ID = #{csatRecordPeriodId}
         ]]>
         <if test="startDate != null">
             <![CDATA[

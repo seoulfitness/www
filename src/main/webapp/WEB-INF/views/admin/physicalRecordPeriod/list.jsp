@@ -63,7 +63,7 @@
                                                             </td>
                                                             <td class="align-middle text-center">
                                                                 <c:choose>
-                                                                    <c:when test="${physicalRecordPeriod.grantNormalUser == 'Y'}"><span class="btn btn-outline-success btn-sm"></span>있음</span></c:when>
+                                                                    <c:when test="${physicalRecordPeriod.grantNormalUser == 'Y'}"><span class="btn btn-outline-success btn-sm"></span>있음</c:when>
                                                                     <c:otherwise><span class="btn btn-outline-danger btn-sm">없음</span></c:otherwise>
                                                                 </c:choose>
                                                             </td>
