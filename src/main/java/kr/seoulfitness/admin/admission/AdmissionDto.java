@@ -2,6 +2,8 @@ package kr.seoulfitness.admin.admission;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.seoulfitness.admin.earlyAdmission.EarlyAdmissionDto;
 import kr.seoulfitness.admin.earlyAdmissionCsat.EarlyAdmissionCsatDto;
 import kr.seoulfitness.admin.earlyAdmissionEnglish.EarlyAdmissionEnglishDto;
@@ -32,6 +34,15 @@ public class AdmissionDto {
 
     // 학교 정보
     private String schoolName;          // 학교 이름
+    private String schoolAddress;       // 학교 주소
+    private String schoolPhone;         // 학교 전화번호
+    private String schoolUrl;           // 학교 웹사이트
+    private String admissionInfoUrl;    // 학교 입학안내
+    private String schoolLogo;          // 학교 로고 선택 (none, url, file)
+    private String schoolLogoUrl;       // 학교 로고 이미지 경로
+    private MultipartFile schoolLogoFile; // 학교 로고 이미지 파일
+    private String schoolLogoFileName;  // 학교 로고 이미지 파일명
+    private String schoolLogoOriginalFileName; // 학교 로고 이미지 원본 파일명
 
     // 학과 정보
     private String departmentName;      // 학과 이름

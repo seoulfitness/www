@@ -24,6 +24,14 @@
         <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
         <!-- 학교 정보 -->
         <result property="schoolName" column="SCHOOL_NAME" />
+        <result property="schoolAddress" column="SCHOOL_ADDRESS" />
+        <result property="schoolPhone" column="SCHOOL_PHONE" />
+        <result property="schoolUrl" column="SCHOOL_URL" />
+        <result property="admissionInfoUrl" column="ADMISSION_INFO_URL" />
+        <result property="schoolLogoUrl" column="SCHOOL_LOGO_URL" />
+        <result property="schoolLogoFileName" column="SCHOOL_LOGO_FILENAME" />
+        <result property="schoolLogoOriginalFileName" column="SCHOOL_LOGO_ORIGINAL_FILENAME" />
+        <result property="schoolLogo" column="SCHOOL_LOGO" />
         <!-- 학과 정보 -->
         <result property="departmentName" column="DEPARTMENT_NAME" />
     </resultMap>
@@ -74,6 +82,14 @@
             A.UPDATED_BY,
             -- 학교 정보
             B.SCHOOL_NAME,
+            B.SCHOOL_ADDRESS,
+            B.SCHOOL_PHONE,
+            B.SCHOOL_URL,
+            B.ADMISSION_INFO_URL,
+            B.SCHOOL_LOGO_URL,
+            B.SCHOOL_LOGO_FILENAME,
+            B.SCHOOL_LOGO_ORIGINAL_FILENAME,
+            B.SCHOOL_LOGO,
             -- 학과 정보
             C.DEPARTMENT_NAME,
             -- 등록한 사람, 수정한 사람
@@ -141,6 +157,14 @@
             A.UPDATED_BY,
             -- 학교 정보
             B.SCHOOL_NAME,
+            B.SCHOOL_ADDRESS,
+            B.SCHOOL_PHONE,
+            B.SCHOOL_URL,
+            B.ADMISSION_INFO_URL,
+            B.SCHOOL_LOGO_URL,
+            B.SCHOOL_LOGO_FILENAME,
+            B.SCHOOL_LOGO_ORIGINAL_FILENAME,
+            B.SCHOOL_LOGO,
             -- 학과 정보
             C.DEPARTMENT_NAME,
             -- 등록한 사람, 수정한 사람
