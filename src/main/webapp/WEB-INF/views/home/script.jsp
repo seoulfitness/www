@@ -9,4 +9,6 @@
         duration: 600,
         once: true,
     });
+
+    feather.replace();
 </script>
