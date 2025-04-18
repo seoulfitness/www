@@ -34,14 +34,14 @@ public class InternalSubSubjectController {
     @GetMapping("/create")
     public String createGet(Model model) {
         // 내신 교과목 목록 조회 파라미터
-        Map<String, Object> params = new HashMap<>();
-        params.put("currentPage", 1);
-        params.put("listCountPerPage", 100);
-        params.put("pageCountPerPage", 10);
-        params.put("keyword", "");
+        Map<String, Object> internalSubjectParams = new HashMap<>();
+        internalSubjectParams.put("currentPage", 1);
+        internalSubjectParams.put("listCountPerPage", 100);
+        internalSubjectParams.put("pageCountPerPage", 10);
+        internalSubjectParams.put("keyword", "");
 
         // 내신 교과목 목록 조회
-        Map<String, Object> result = internalSubjectService.list(params);
+        Map<String, Object> result = internalSubjectService.list(internalSubjectParams);
         model.addAttribute("internalSubjects", result.get("internalSubjects"));
 
         // 페이지 정보
@@ -129,6 +129,17 @@ public class InternalSubSubjectController {
         if (existsInternalSubSubject == null) {
             return "redirect:/admin/internalSubSubjects";
         }
+
+        // 내신 교과목 목록 조회 파라미터
+        Map<String, Object> internalSubjectParams = new HashMap<>();
+        internalSubjectParams.put("currentPage", 1);
+        internalSubjectParams.put("listCountPerPage", 100);
+        internalSubjectParams.put("pageCountPerPage", 10);
+        internalSubjectParams.put("keyword", "");
+
+        // 내신 교과목 목록 조회
+        Map<String, Object> result = internalSubjectService.list(internalSubjectParams);
+        model.addAttribute("internalSubjects", result.get("internalSubjects"));
 
         // 페이지 정보
         model.addAttribute("internalSubSubject", existsInternalSubSubject);

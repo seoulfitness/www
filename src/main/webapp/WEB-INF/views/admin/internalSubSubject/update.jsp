@@ -16,9 +16,9 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-12">
-                                <form id="updateForm" action="/admin/internalSubSubjects/${internalSubSubjects.internalSubSubjectsId}/update" method="post">
-                                    <input type="hidden" name="internalSubSubjectsId" value="${internalSubSubjects.internalSubSubjectsId}" />
+                            <div class="col-lg-6">
+                                <form id="updateForm" action="/admin/internalSubSubjects/${internalSubSubject.internalSubSubjectId}/update" method="post">
+                                    <input type="hidden" name="internalSubSubjectId" value="${internalSubSubject.internalSubSubjectId}" />
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             내신 세부 교과목 수정 (<span class="text-danger small">*</span> 표시는 필수 입력 항목입니다.)
@@ -34,17 +34,17 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="internalSubSubjectsName">내신 세부 교과목명<span class="text-danger small">*</span></label>
-                                                <input class="form-control" name="internalSubSubjectsName" id="internalSubSubjectsName" type="text" placeholder="내신 세부 교과목명을 입력하세요." value="${internalSubSubjects.internalSubSubjectsName}" />
+                                                <label class="small mb-1" for="internalSubSubjectName">내신 세부 교과목명<span class="text-danger small">*</span></label>
+                                                <input class="form-control" name="internalSubSubjectName" id="internalSubSubjectName" type="text" placeholder="내신 세부 교과목명을 입력하세요." value="${internalSubSubject.internalSubSubjectName}" />
                                             </div>
                                             <div class="mb-3">
-                                                <label class="small mb-1" for="internalSubSubjectsMemo">메모</label>
-                                                <textarea class="form-control" name="internalSubSubjectsMemo" id="internalSubSubjectsMemo" rows="3" placeholder="메모를 입력하세요.">${internalSubSubjects.internalSubSubjectsMemo}</textarea>
+                                                <label class="small mb-1" for="internalSubSubjectMemo">메모</label>
+                                                <textarea class="form-control" name="internalSubSubjectMemo" id="internalSubSubjectMemo" rows="3" placeholder="메모를 입력하세요.">${internalSubSubject.internalSubSubjectMemo}</textarea>
                                             </div>                                            
                                         </div>
                                         <div class="card-footer">
                                             <button class="btn btn-primary" type="submit">내신 세부 교과목 수정</button>
-                                            <a href="/admin/internalSubSubjects" class="btn btn-outline-danger">수정 취소</a>
+                                            <a href="/admin/internalSubSubjects/${internalSubSubject.internalSubSubjectId}" class="btn btn-outline-danger">수정 취소</a>
                                         </div>
                                     </div>
                                 </form>
@@ -65,7 +65,7 @@
                         internalSubjectId: {
                             required: true
                         },
-                        internalSubSubjectsName: {
+                        internalSubSubjectName: {
                             required: true,
                             minlength: 2,
                             maxlength: 50,
@@ -73,8 +73,8 @@
                                 url: "/admin/internalSubSubjects/existsInternalSubSubjectName",
                                 type: "post",
                                 data: {
-                                    internalSubSubjectsName: function() {
-                                        return $("#internalSubSubjectsName").val();
+                                    internalSubSubjectName: function() {
+                                        return $("#internalSubSubjectName").val();
                                     },
                                     internalSubjectId: function() {
                                         return $("#internalSubjectId").val();
@@ -83,11 +83,14 @@
                                 dataFilter: function(response) {
                                     const data = JSON.parse(response);
         
+                                    // 사용자의 원래 내신 교과목
+                                    let originalInternalSubjectId = '${internalSubSubject.internalSubjectId}';
+
                                     // 사용자의 원래 내신 세부 교과목명
-                                    let originalInternalSubSubjectName = '${internalSubSubjects.internalSubSubjectsName}';
+                                    let originalInternalSubSubjectName = '${internalSubSubject.internalSubSubjectName}';
         
                                     // 사용자가 내신 교과목, 내신 세부 교과목명을 변경했는지 확인
-                                    if (originalInternalSubjectId !== $('#internalSubjectId').val() || originalInternalSubSubjectName !== $('#internalSubSubjectsName').val()) {
+                                    if (originalInternalSubjectId !== $('#internalSubjectId').val() || originalInternalSubSubjectName !== $('#internalSubSubjectName').val()) {
                                         // 사용자가 내신 교과목, 내신 세부 교과목명을 변경했으면 중복 체크
                                         return !data.exists;
                                     } else {
@@ -97,7 +100,7 @@
                                 }
                             }
                         },
-                        internalSubSubjectsMemo: {
+                        internalSubSubjectMemo: {
                             maxlength: 500
                         }
                     },
@@ -105,13 +108,13 @@
                         internalSubjectId: {
                             required: "내신 교과목을 선택해주세요."
                         },
-                        internalSubSubjectsName: {
+                        internalSubSubjectName: {
                             required: "내신 세부 교과목명을 입력해주세요.",
                             minlength: "내신 세부 교과목명은 최소 2자 이상이어야 합니다.",
                             maxlength: "내신 세부 교과목명은 최대 50자 이하여야 합니다.",
                             remote: "이미 존재하는 내신 세부 교과목명입니다."
                         },
-                        internalSubSubjectsMemo: {
+                        internalSubSubjectMemo: {
                             maxlength: "메모는 최대 500자 이하여야 합니다."
                         }
                     },

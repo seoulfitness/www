@@ -16,7 +16,7 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <form id="updateForm" action="/admin/internalSubjects/${internalSubject.internalSubjectId}/update" method="post">
                                     <input type="hidden" name="internalSubjectId" value="${internalSubject.internalSubjectId}" />
                                     <div class="card mb-4">

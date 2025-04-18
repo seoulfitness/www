@@ -85,7 +85,7 @@
             ]]>
         </if>
         <![CDATA[
-        ORDER BY INTERNAL_SUB_SUBJECT_NAME ASC
+        ORDER BY D.INTERNAL_SUBJECT_NAME ASC, A.INTERNAL_SUB_SUBJECT_NAME ASC
         LIMIT #{offset}, #{listCountPerPage}
         ]]>
     </select>

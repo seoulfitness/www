@@ -16,7 +16,7 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <form id="createForm" action="/admin/internalSubSubjects/create" method="post">
                                     <div class="card mb-4">
                                         <div class="card-header">

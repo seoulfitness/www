@@ -18,7 +18,7 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         내신 세부 교과목 목록 (${pagination.totalCount}개)
@@ -40,19 +40,19 @@
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover">
                                                 <thead>
-                                                    <tr class="border-top">
-                                                        <th class="col-5 text-center">내신 교과목명</th>
-                                                        <th class="col-5 text-center">내신 세부 교과목명</th>
-                                                        <th class="col-2 text-center">관리</th>
+                                                    <tr class="border-top text-center">
+                                                        <th class="col-5">내신 교과목명</th>
+                                                        <th class="col-5">내신 세부 교과목명</th>
+                                                        <th class="col-2">관리</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <c:forEach items="${internalSubSubjects}" var="internalSubject" varStatus="status">
-                                                        <tr>
+                                                        <tr class="text-center">
                                                             <td>${internalSubject.internalSubjectName}</td>
                                                             <td>${internalSubject.internalSubSubjectName}</td>
                                                             <td>
-                                                                <a href="/admin/internalSubSubjects/${internalSubject.internalSubjectId}" class="btn btn-sm btn-outline-primary">보기</a>
+                                                                <a href="/admin/internalSubSubjects/${internalSubject.internalSubSubjectId}" class="btn btn-sm btn-outline-primary">보기</a>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>

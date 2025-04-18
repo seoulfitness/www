@@ -18,7 +18,7 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         내신 교과목 정보
@@ -29,12 +29,12 @@
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr class="border-top">
-                                                        <th class="align-middle col-2">내신 교과목명</th>
-                                                        <td class="align-middle col-10">${internalSubject.internalSubjectName}</td>
+                                                        <th class="align-middle col-4">내신 교과목명</th>
+                                                        <td class="align-middle col-8">${internalSubject.internalSubjectName}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">메모</th>
-                                                        <td class="align-middle col-10">${internalSubject.internalSubjectMemo}</td>
+                                                        <th class="align-middle">메모</th>
+                                                        <td class="align-middle">${internalSubject.internalSubjectMemo}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -44,20 +44,20 @@
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr class="border-top">
-                                                        <th class="align-middle col-2">등록일시</th>
-                                                        <td class="align-middle col-10"><fmt:formatDate value="${internalSubject.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        <th class="align-middle col-4">등록일시</th>
+                                                        <td class="align-middle col-8"><fmt:formatDate value="${internalSubject.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">등록한 사람</th>
-                                                        <td class="align-middle col-10">${internalSubject.createdUserName} (${internalSubject.createdBy}, ${internalSubject.createdUserPhone})</td>
+                                                        <th class="align-middle">등록한 사람</th>
+                                                        <td class="align-middle">${internalSubject.createdUserName} (${internalSubject.createdBy}, ${internalSubject.createdUserPhone})</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">수정일시</th>
-                                                        <td class="align-middle col-10"><fmt:formatDate value="${internalSubject.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        <th class="align-middle">수정일시</th>
+                                                        <td class="align-middle"><fmt:formatDate value="${internalSubject.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">수정한 사람</th>
-                                                        <td class="align-middle col-10">${internalSubject.updatedUserName} (${internalSubject.updatedBy}, ${internalSubject.updatedUserPhone})</td>
+                                                        <th class="align-middle">수정한 사람</th>
+                                                        <td class="align-middle">${internalSubject.updatedUserName} (${internalSubject.updatedBy}, ${internalSubject.updatedUserPhone})</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

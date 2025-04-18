@@ -18,7 +18,7 @@
                         <%@ include file="../../base/message.jsp" %>
                         <%--// 메시지 --%>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         내신 세부 교과목 정보
@@ -29,16 +29,16 @@
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr class="border-top">
-                                                        <th class="align-middle col-2">내신 교과목명</th>
-                                                        <td class="align-middle col-10">${internalSubSubjects.internalSubjectsName}</td>
+                                                        <th class="align-middle col-4">내신 교과목명</th>
+                                                        <td class="align-middle col-8">${internalSubSubject.internalSubjectName}</td>
                                                     </tr>
                                                     <tr class="border-top">
-                                                        <th class="align-middle col-2">내신 세부 교과목명</th>
-                                                        <td class="align-middle col-10">${internalSubSubjects.internalSubSubjectsName}</td>
+                                                        <th class="align-middle">내신 세부 교과목명</th>
+                                                        <td class="align-middle">${internalSubSubject.internalSubSubjectName}</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">메모</th>
-                                                        <td class="align-middle col-10">${internalSubSubjects.internalSubSubjectsMemo}</td>
+                                                        <th class="align-middle">메모</th>
+                                                        <td class="align-middle">${internalSubSubject.internalSubSubjectMemo}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -48,20 +48,20 @@
                                             <table class="table table-bordered table-hover mb-3">
                                                 <tbody>
                                                     <tr class="border-top">
-                                                        <th class="align-middle col-2">등록일시</th>
-                                                        <td class="align-middle col-10"><fmt:formatDate value="${internalSubSubjects.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        <th class="align-middle col-4">등록일시</th>
+                                                        <td class="align-middle col-8"><fmt:formatDate value="${internalSubSubject.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">등록한 사람</th>
-                                                        <td class="align-middle col-10">${internalSubSubjects.createdUserName} (${internalSubSubjects.createdBy}, ${internalSubSubjects.createdUserPhone})</td>
+                                                        <th class="align-middle">등록한 사람</th>
+                                                        <td class="align-middle">${internalSubSubject.createdUserName} (${internalSubSubject.createdBy}, ${internalSubSubject.createdUserPhone})</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">수정일시</th>
-                                                        <td class="align-middle col-10"><fmt:formatDate value="${internalSubSubjects.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                        <th class="align-middle">수정일시</th>
+                                                        <td class="align-middle"><fmt:formatDate value="${internalSubSubject.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="align-middle col-2">수정한 사람</th>
-                                                        <td class="align-middle col-10">${internalSubSubjects.updatedUserName} (${internalSubSubjects.updatedBy}, ${internalSubSubjects.updatedUserPhone})</td>
+                                                        <th class="align-middle">수정한 사람</th>
+                                                        <td class="align-middle">${internalSubSubject.updatedUserName} (${internalSubSubject.updatedBy}, ${internalSubSubject.updatedUserPhone})</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <a href="/admin/internalSubSubjects" class="btn btn-primary">내신 세부 교과목 목록</a>
-                                        <a href="/admin/internalSubSubjects/${internalSubSubjects.internalSubSubjectsId}/update" class="btn btn-outline-warning">내신 세부 교과목 수정</a>
+                                        <a href="/admin/internalSubSubjects/${internalSubSubject.internalSubSubjectId}/update" class="btn btn-outline-warning">내신 세부 교과목 수정</a>
                                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">내신 세부 교과목 삭제</button>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form id="deleteForm" action="/admin/internalSubSubjects/${internalSubSubjects.internalSubSubjectsId}/delete" method="POST">
+                    <form id="deleteForm" action="/admin/internalSubSubjects/${internalSubSubject.internalSubSubjectId}/delete" method="POST">
                         <%-- modal-header --%>
                         <div class="modal-header">
                             <h1 class="modal-title fs-5 text-danger" id="deleteModalModalLabel">
