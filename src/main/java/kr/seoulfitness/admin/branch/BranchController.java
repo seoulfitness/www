@@ -66,6 +66,7 @@ public class BranchController {
     }
 
     // 지점 목록
+    @SuppressWarnings("unchecked")
     @GetMapping("")
     public String list(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 
@@ -107,6 +108,7 @@ public class BranchController {
     }
 
     // 지점 상세
+    @SuppressWarnings("unchecked")
     @GetMapping("/{branchId}")
     public String read(@PathVariable int branchId, Model model) {
         // 지점 존재 여부 확인

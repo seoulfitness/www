@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="internalSubjectMapper">
+
+    <resultMap id="internalSubjectResultMap" type="kr.seoulfitness.admin.internalSubject.InternalSubjectDto">
+        <!-- 내신 교과목 정보 -->
+        <result property="internalSubjectId" column="INTERNAL_SUBJECT_ID" />
+        <result property="internalSubjectName" column="INTERNAL_SUBJECT_NAME" />
+        <result property="internalSubjectMemo" column="INTERNAL_SUBJECT_MEMO" />
+        <result property="createdAt" column="CREATED_AT" />
+        <result property="updatedAt" column="UPDATED_AT" />
+        <result property="createdBy" column="CREATED_BY" />
+        <result property="updatedBy" column="UPDATED_BY" />    
+        <!-- 등록한 사람, 수정한 사람 -->
+        <result property="createdUserName" column="CREATED_USER_NAME" />
+        <result property="updatedUserName" column="UPDATED_USER_NAME" />
+        <result property="createdUserPhone" column="CREATED_USER_PHONE" />
+        <result property="updatedUserPhone" column="UPDATED_USER_PHONE" />
+    </resultMap>
+
+    <!-- 내신 교과목 등록 -->
+    <insert id="create" parameterType="kr.seoulfitness.admin.internalSubject.InternalSubjectDto">
+        <![CDATA[
+        INSERT INTO INTERNAL_SUBJECTS (
+            INTERNAL_SUBJECT_NAME, 
+            INTERNAL_SUBJECT_MEMO,
+            CREATED_BY,
+            UPDATED_BY
+        ) VALUES (
+            #{internalSubjectName}, 
+            #{internalSubjectMemo},
+            #{createdBy}, 
+            #{updatedBy}
+        )
+        ]]>
+    </insert>
+
+    <!-- 내신 교과목 목록 -->
+    <select id="list" resultMap="internalSubjectResultMap">
+        <![CDATA[
+        SELECT
+            -- 내신 교과목 정보
+            A.INTERNAL_SUBJECT_ID,
+            A.INTERNAL_SUBJECT_NAME, 
+            A.INTERNAL_SUBJECT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM    
+            INTERNAL_SUBJECTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                A.INTERNAL_SUBJECT_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR A.INTERNAL_SUBJECT_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+        <![CDATA[
+        ORDER BY INTERNAL_SUBJECT_NAME ASC
+        LIMIT #{offset}, #{listCountPerPage}
+        ]]>
+    </select>
+
+    <!-- 내신 교과목 상세보기 -->
+    <select id="read" resultMap="internalSubjectResultMap">
+        <![CDATA[
+        SELECT
+            -- 내신 교과목 정보
+            A.INTERNAL_SUBJECT_ID,
+            A.INTERNAL_SUBJECT_NAME, 
+            A.INTERNAL_SUBJECT_MEMO,
+            A.CREATED_AT,
+            A.UPDATED_AT,
+            A.CREATED_BY,
+            A.UPDATED_BY,
+            -- 등록한 사람, 수정한 사람
+            B.USER_NAME AS CREATED_USER_NAME,
+            B.USER_PHONE AS CREATED_USER_PHONE,
+            C.USER_NAME AS UPDATED_USER_NAME,
+            C.USER_PHONE AS UPDATED_USER_PHONE
+        FROM
+            INTERNAL_SUBJECTS A
+            LEFT JOIN USERS B ON B.USER_ID = A.CREATED_BY
+            LEFT JOIN USERS C ON C.USER_ID = A.UPDATED_BY
+        WHERE 1=1
+        ]]>
+        <if test="internalSubjectId != null and internalSubjectId != 0">
+            <![CDATA[
+            AND A.INTERNAL_SUBJECT_ID = #{internalSubjectId}
+            ]]>
+        </if>
+        <if test="internalSubjectName != null">
+            <![CDATA[
+            AND A.INTERNAL_SUBJECT_NAME = #{internalSubjectName}
+            ]]>
+        </if>
+        <![CDATA[
+        LIMIT 1
+        ]]>  
+    </select>
+
+    <!-- 내신 교과목 수정 -->
+    <update id="update" parameterType="kr.seoulfitness.admin.internalSubject.InternalSubjectDto">
+        <![CDATA[
+        UPDATE INTERNAL_SUBJECTS SET INTERNAL_SUBJECT_ID = #{internalSubjectId}
+        ]]>
+        <if test="internalSubjectName != null">
+            <![CDATA[
+            , INTERNAL_SUBJECT_NAME = #{internalSubjectName}
+            ]]>
+        </if>
+        <if test="internalSubjectMemo != null">
+            <![CDATA[
+            , INTERNAL_SUBJECT_MEMO = #{internalSubjectMemo}
+            ]]>
+        </if>
+        <if test="updatedBy != null">
+            <![CDATA[
+            , UPDATED_BY = #{updatedBy}
+            ]]>
+        </if>
+        <![CDATA[
+        WHERE INTERNAL_SUBJECT_ID = #{internalSubjectId} LIMIT 1
+        ]]>
+    </update>
+
+    <!-- 내신 교과목 삭제 -->
+    <delete id="delete" parameterType="int">
+        <![CDATA[
+        DELETE FROM INTERNAL_SUBJECTS WHERE INTERNAL_SUBJECT_ID = #{internalSubjectId} LIMIT 1
+        ]]>
+    </delete>
+
+    <!-- 전체 내신 교과목 수 -->
+    <select id="totalCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*) FROM INTERNAL_SUBJECTS WHERE 1=1
+        ]]>
+        <if test="keyword != null">
+            <![CDATA[
+            AND (
+                INTERNAL_SUBJECT_NAME LIKE CONCAT('%', #{keyword}, '%')
+                OR INTERNAL_SUBJECT_MEMO LIKE CONCAT('%', #{keyword}, '%')
+            )
+            ]]>
+        </if>
+    </select>
+
+</mapper>

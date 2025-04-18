@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -21,11 +24,6 @@ public class InternalSubjectController {
 
     @Autowired
     private InternalSubjectService internalSubjectService;
-
-    // 내신 교과목 존재 여부 확인
-    public boolean isInternalSubjectExists(int internalSubjectId) {
-        return internalSubjectService.read(internalSubjectId) != null;
-    }
 
     // 내신 교과목 등록
     @GetMapping("/create")
@@ -80,12 +78,14 @@ public class InternalSubjectController {
     @GetMapping("/{internalSubjectId}")
     public String read(@PathVariable int internalSubjectId, Model model) {
         // 내신 교과목 존재 여부 확인
-        if (!isInternalSubjectExists(internalSubjectId)) {
+        InternalSubjectDto existsInternalSubject = new InternalSubjectDto();
+        existsInternalSubject.setInternalSubjectId(internalSubjectId);
+        existsInternalSubject = internalSubjectService.read(existsInternalSubject);
+        if (existsInternalSubject == null) {
             return "redirect:/admin/internalSubjects";
         }
 
-        InternalSubjectDto internalSubject = internalSubjectService.read(internalSubjectId);
-        model.addAttribute("internalSubject", internalSubject);
+        model.addAttribute("internalSubject", existsInternalSubject);
         model.addAttribute("pageTitle", "내신 교과목 관리");
         model.addAttribute("activePage", "internalSubjects");
         return "admin/internalSubject/read";
@@ -95,12 +95,14 @@ public class InternalSubjectController {
     @GetMapping("/{internalSubjectId}/update")
     public String updateGet(@PathVariable int internalSubjectId, Model model) {   
         // 내신 교과목 존재 여부 확인
-        if (!isInternalSubjectExists(internalSubjectId)) {
+        InternalSubjectDto existsInternalSubject = new InternalSubjectDto();
+        existsInternalSubject.setInternalSubjectId(internalSubjectId);
+        existsInternalSubject = internalSubjectService.read(existsInternalSubject);
+        if (existsInternalSubject == null) {
             return "redirect:/admin/internalSubjects";
         }
 
-        InternalSubjectDto internalSubject = internalSubjectService.read(internalSubjectId);
-        model.addAttribute("internalSubject", internalSubject);
+        model.addAttribute("internalSubject", existsInternalSubject);
         model.addAttribute("pageTitle", "내신 교과목 관리");
         model.addAttribute("activePage", "internalSubjects");
         return "admin/internalSubject/update";
@@ -110,10 +112,14 @@ public class InternalSubjectController {
     @PostMapping("/{internalSubjectId}/update")
     public String updatePost(@PathVariable int internalSubjectId, InternalSubjectDto internalSubject, HttpSession session, RedirectAttributes redirectAttributes) {
         // 내신 교과목 존재 여부 확인
-        if (!isInternalSubjectExists(internalSubjectId)) {
+        InternalSubjectDto existsInternalSubject = new InternalSubjectDto();
+        existsInternalSubject.setInternalSubjectId(internalSubjectId);
+        existsInternalSubject = internalSubjectService.read(existsInternalSubject);
+        if (existsInternalSubject == null) {
             return "redirect:/admin/internalSubjects";
         }
 
+        // 내신 교과목 수정
         internalSubject.setInternalSubjectId(internalSubjectId);
         internalSubject.setUpdatedBy((String) session.getAttribute("userId"));
         boolean result = internalSubjectService.update(internalSubject);
@@ -122,6 +128,7 @@ public class InternalSubjectController {
             return "redirect:/admin/internalSubjects/" + internalSubjectId;
         }
 
+        // 내신 교과목 수정 실패
         redirectAttributes.addFlashAttribute("errorMessage", "내신 교과목 수정에 실패했습니다.");
         return "redirect:/admin/internalSubjects/" + internalSubjectId + "/update";
     }
@@ -130,17 +137,47 @@ public class InternalSubjectController {
     @PostMapping("/{internalSubjectId}/delete")
     public String delete(@PathVariable int internalSubjectId, RedirectAttributes redirectAttributes) {
         // 내신 교과목 존재 여부 확인
-        if (!isInternalSubjectExists(internalSubjectId)) {
+        InternalSubjectDto existsInternalSubject = new InternalSubjectDto();
+        existsInternalSubject.setInternalSubjectId(internalSubjectId);
+        existsInternalSubject = internalSubjectService.read(existsInternalSubject);
+        if (existsInternalSubject == null) {
             return "redirect:/admin/internalSubjects";
         }
 
+        // 내신 교과목 삭제
         boolean result = internalSubjectService.delete(internalSubjectId);
         if (result) {
             redirectAttributes.addFlashAttribute("successMessage", "내신 교과목 삭제가 완료되었습니다.");
             return "redirect:/admin/internalSubjects";
         }
 
+        // 내신 교과목 삭제 실패
         redirectAttributes.addFlashAttribute("errorMessage", "내신 교과목 삭제에 실패했습니다.");
         return "redirect:/admin/internalSubjects/" + internalSubjectId;
+    }
+
+    // 내신 교과목 이름 중복 확인
+    @PostMapping("/existsInternalSubjectName")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> existsInternalSubjectName(@RequestParam String internalSubjectName) {
+        // 내신 교과목 존재 여부 확인
+        InternalSubjectDto internalSubject = new InternalSubjectDto();
+        internalSubject.setInternalSubjectName(internalSubjectName);
+        InternalSubjectDto existsInternalSubject = internalSubjectService.read(internalSubject);
+
+        Map<String, Object> response = new HashMap<>();
+
+        // 내신 교과목이 존재하는 경우
+        if (existsInternalSubject != null) {
+            response.put("exists", true);
+        } 
+        // 내신 교과목이 존재하지 않는 경우
+        else {
+            response.put("exists", false);
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
     }
 }

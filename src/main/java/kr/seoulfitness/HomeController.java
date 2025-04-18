@@ -34,6 +34,7 @@ public class HomeController {
     @Autowired
     private RegularAdmissionService regularAdmissionService;
 
+    @SuppressWarnings("unchecked")
     @GetMapping("")
     public String home(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 

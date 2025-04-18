@@ -68,16 +68,18 @@
                 <%-- 고등학교 --%>
 
                 <%-- 입시 정보 --%>
-                <a class="nav-link collapsed ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseAdmission" aria-expanded="false" aria-controls="collapseAdmission">
+                <a class="nav-link collapsed ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' or activePage == 'internalSubjects' or activePage == 'internalSubSubjects' ? 'active' : ''}" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseAdmission" aria-expanded="false" aria-controls="collapseAdmission">
                     <div class="nav-link-icon"><i data-feather="grid"></i></div>
                     입시 정보
                     <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' ? 'show' : ''}" id="collapseAdmission" data-bs-parent="#accordionSidenav">
+                <div class="collapse ${activePage == 'csatSubjects' or activePage == 'physicalSubjects' or activePage == 'admissions' or activePage == 'internalSubjects' or activePage == 'internalSubSubjects' ? 'show' : ''}" id="collapseAdmission" data-bs-parent="#accordionSidenav">
                     <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPages">
                         <a class="nav-link ${activePage == 'admissions' ? 'active' : ''}" href="/admin/admissions">입시 요강</a>
                         <a class="nav-link ${activePage == 'csatSubjects' ? 'active' : ''}" href="/admin/csatSubjects">수능 교과목</a>
                         <a class="nav-link ${activePage == 'physicalSubjects' ? 'active' : ''}" href="/admin/physicalSubjects">실기 교과목</a>
+                        <a class="nav-link ${activePage == 'internalSubjects' ? 'active' : ''}" href="/admin/internalSubjects">내신 교과목</a>
+                        <a class="nav-link ${activePage == 'internalSubSubjects' ? 'active' : ''}" href="/admin/internalSubSubjects">내신 세부 교과목</a>
                     </nav>
                 </div>
                 <%--// 입시 정보 --%>

@@ -173,6 +173,7 @@ public class AdmissionController {
     }
 
     // 입시 요강 목록
+    @SuppressWarnings("unchecked")
     @GetMapping("")
     public String list(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 

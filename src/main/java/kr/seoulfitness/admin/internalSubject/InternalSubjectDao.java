@@ -18,11 +18,11 @@ public class InternalSubjectDao {
     private static final Logger logger = LoggerFactory.getLogger(InternalSubjectDao.class);
 
     // 내신 교과목 등록
-    public int insertInternalSubject(InternalSubjectDto internalSubject) {
+    public int create(InternalSubjectDto internalSubject) {
         int result = -1;
 
         try {
-            result = sqlSession.insert("internalSubjectMapper.insertInternalSubject", internalSubject);
+            result = sqlSession.insert("internalSubjectMapper.create", internalSubject);
         } catch (DataAccessException e) {
             logger.error("내신 교과목 등록 오류 : {}", e.getMessage(), e);
         }
@@ -31,11 +31,11 @@ public class InternalSubjectDao {
     }
 
     // 내신 교과목 목록
-    public List<InternalSubjectDto> getInternalSubjects(Map<String, Object> params) {
+    public List<InternalSubjectDto> list(Map<String, Object> params) {
         List<InternalSubjectDto> internalSubjects = null;
 
         try {
-            internalSubjects = sqlSession.selectList("internalSubjectMapper.getInternalSubjects", params);
+            internalSubjects = sqlSession.selectList("internalSubjectMapper.list", params);
         } catch (DataAccessException e) {
             logger.error("내신 교과목 목록 오류 : {}", e.getMessage(), e);
         }
@@ -44,24 +44,24 @@ public class InternalSubjectDao {
     }
 
     // 내신 교과목 상세보기
-    public InternalSubjectDto getInternalSubject(int internalSubjectId) {
-        InternalSubjectDto internalSubject = null;
-        
+    public InternalSubjectDto read(InternalSubjectDto internalSubject) {
+        InternalSubjectDto result = null;
+
         try {
-            internalSubject = sqlSession.selectOne("internalSubjectMapper.getInternalSubject", internalSubjectId);
+            result = sqlSession.selectOne("internalSubjectMapper.read", internalSubject);
         } catch (DataAccessException e) {
             logger.error("내신 교과목 상세 오류 : {}", e.getMessage(), e);
         }
 
-        return internalSubject;
+        return result;
     }
 
     // 내신 교과목 수정
-    public int updateInternalSubject(InternalSubjectDto internalSubject) {
+    public int update(InternalSubjectDto internalSubject) {
         int result = -1;
 
         try {
-            result = sqlSession.update("internalSubjectMapper.updateInternalSubject", internalSubject);
+            result = sqlSession.update("internalSubjectMapper.update", internalSubject);
         } catch (DataAccessException e) {
             logger.error("내신 교과목 수정 오류 : {}", e.getMessage(), e);
         }
@@ -70,11 +70,11 @@ public class InternalSubjectDao {
     }
 
     // 내신 교과목 삭제
-    public int deleteInternalSubject(int internalSubjectId) {
+    public int delete(int internalSubjectId) {
         int result = -1;
 
         try {
-            result = sqlSession.delete("internalSubjectMapper.deleteInternalSubject", internalSubjectId);
+            result = sqlSession.delete("internalSubjectMapper.delete", internalSubjectId);
         } catch (DataAccessException e) {
             logger.error("내신 교과목 삭제 오류 : {}", e.getMessage(), e);
         }
@@ -83,11 +83,11 @@ public class InternalSubjectDao {
     }
 
     // 전체 내신 교과목 수
-    public int getTotalCount(Map<String, Object> params) {
+    public int totalCount(Map<String, Object> params) {
         int totalCount = 0;
 
         try {
-            totalCount = sqlSession.selectOne("internalSubjectMapper.getTotalCount", params);
+            totalCount = sqlSession.selectOne("internalSubjectMapper.totalCount", params);
         } catch (DataAccessException e) {
             logger.error("전체 내신 교과목 수 오류 : {}", e.getMessage(), e);
         }
