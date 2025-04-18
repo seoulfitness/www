@@ -29,6 +29,32 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    // 일반 회원 가입(화면, GET)
+    @GetMapping("/normal-register")
+    public String normalRegisterGet() {
+        return ("auth/normal-register");
+    }
+    
+    // 일반 회원 가입(처리, POST)
+    @PostMapping("/normal-register")
+    public String normalRegisterPost(UserDto user) {
+        userService.create(user);
+        return ("redirect:/auth/login");
+    }
+
+    // 지점 회원 가입(화면, GET)
+    @GetMapping("/branch-register")
+    public String branchRegisterGet() {
+        return ("auth/branch-register");
+    }
+    
+    // 지점 회원 가입(처리, POST)
+    @PostMapping("/branch-register")
+    public String branchRegisterPost(UserDto user) {
+        userService.create(user);
+        return ("redirect:/auth/login");
+    }
+
     // 로그인(화면, GET)
     @GetMapping("/login")
     public String loginGet() {
