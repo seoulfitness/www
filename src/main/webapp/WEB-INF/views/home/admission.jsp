@@ -7,11 +7,29 @@
         <div class="row">
             <div class="col-lg-12">
                 <%-- 검색 폼, 등록 버튼 --%>
-                <div class="d-flex justify-content-between mb-3">                
-                    <form id="searchForm" method="get" class="d-flex">
+                <div class="d-flex align-items-center gap-2 mb-3">       
+                    <div class="d-flex gap-1">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" value="" placeholder="검색어를 입력하세요">                        
-                            <button class="btn btn-secondary" type="submit" >검색</button>
+                            <button type="button" class="btn ${not empty searchScope && searchScope == 'ga' ? 'btn-primary' : 'btn-outline-primary'}" id="searchGaButton">가군</button>
+                            <button type="button" class="btn ${not empty searchScope && searchScope == 'na' ? 'btn-success' : 'btn-outline-success'}" id="searchNaButton">나군</button>
+                            <button type="button" class="btn ${not empty searchScope && searchScope == 'da' ? 'btn-orange' : 'btn-outline-orange'}" id="searchDaButton">다군</button>
+                            <button type="button" class="btn ${empty searchScope ? 'btn-danger' : 'btn-outline-danger'}" id="showAllScopeButton">전체</button>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-1">
+                        <div class="input-group">
+                            <button type="button" class="btn ${not empty searchAdmission && searchAdmission == 'early' ? 'btn-primary' : 'btn-outline-primary'}" id="searchEarlyAdmissionBtton">정시</button>
+                            <button type="button" class="btn ${not empty searchAdmission && searchAdmission == 'regular' ? 'btn-success' : 'btn-outline-success'}" id="searchRegularAdmissionButton">수시</button>
+                            <button type="button" class="btn ${empty searchAdmission ? 'btn-danger' : 'btn-outline-danger'}" id="showAllAdmissionButton">전체</button>
+                        </div>
+                    </div>         
+                    <form class="d-flex" id="searchForm" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keyword" value="${keyword}" placeholder="검색어를 입력하세요">                        
+                            <button class="btn btn-secondary" type="submit">검색</button>
+                            <c:if test="${not empty keyword}">
+                                <button class="btn btn-danger" type="button" id="cancelSearchButton">취소</button>
+                            </c:if>
                         </div>
                     </form>
                 </div>
@@ -21,15 +39,15 @@
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
-                            <tr class="border-top text-center">
-                                <th>구분</th>
+                            <tr class="border-top">
+                                <th class="text-center">구분</th>
                                 <th>학교</th>
                                 <th>학과</th>
-                                <th>수시</th>
-                                <th>정시</th>
-                                <th>홈페이지</th>
-                                <th>입학안내</th>
-                                <th>전화번호</th>
+                                <th class="text-center">수시</th>
+                                <th class="text-center">정시</th>
+                                <th class="text-center">홈페이지</th>
+                                <th class="text-center">입학안내</th>
+                                <th class="text-center">전화번호</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,45 +102,14 @@
                                             </a>
                                         </c:if>
                                     </td>
-                                    <td class="text-middle">${admission.schoolPhone}<td>                                                                
+                                    <td class="text-center text-middle">${admission.schoolPhone}<td>                                                                
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                 </div>
+                <%-- 목록 --%>
 
-                <%-- 페이지네이션 --%>
-                <c:if test="${pagination.totalCount > 0}">
-                    <nav aria-label="Page navigation" class="mt-4">
-                        <ul class="pagination justify-content-center">
-                            <%-- 이전 페이지 --%>
-                            <c:if test="${pagination.currentPage > 1}">
-                                <li class="page-item">
-                                    <a class="page-link" href="/?page=${pagination.currentPage - 1}&keyword=${keyword}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            </c:if>
-
-                            <%-- 페이지 번호 --%>
-                            <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="page">
-                                <li class="page-item ${page == pagination.currentPage ? 'active' : ''}">
-                                    <a class="page-link" href="/?page=${page}&keyword=${keyword}">${page}</a>
-                                </li>
-                            </c:forEach>
-
-                            <%-- 다음 페이지 --%>
-                            <c:if test="${pagination.currentPage < pagination.totalPages}">
-                                <li class="page-item">
-                                    <a class="page-link" href="/?page=${pagination.currentPage + 1}&keyword=${keyword}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </nav>
-                </c:if>
-                <%--// 페이지네이션 --%>
             </div>
         </div>
     </div>

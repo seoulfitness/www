@@ -39,14 +39,18 @@ public class HomeController {
     public String home(
         @RequestParam(value = "page", defaultValue = "1") int currentPage, 
         @RequestParam(required = false) String keyword,
+        @RequestParam(required = false) String searchAdmission,
+        @RequestParam(required = false) String searchScope,
         Model model
     ) {
         Map<String, Object> params = new HashMap<>();
         params.put("currentPage", currentPage);
-        params.put("listCountPerPage", 10);
-        params.put("pageCountPerPage", 5);
+        params.put("listCountPerPage", 1000);
+        params.put("pageCountPerPage", 1000);
         params.put("keyword", keyword);
-
+        params.put("searchAdmission", searchAdmission);
+        params.put("searchScope", searchScope);
+        
         // 입시 요강 목록
         Map<String, Object> result = admissionService.list(params);
         List<AdmissionDto> admissions = (List<AdmissionDto>) result.get("admissions");
@@ -73,7 +77,9 @@ public class HomeController {
         // 페이지 정보
         model.addAttribute("admissions", result.get("admissions"));
         model.addAttribute("pagination", result.get("pagination"));
-        model.addAttribute("keyword", result.get("keyword"));
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchScope", searchScope);
+        model.addAttribute("searchAdmission", searchAdmission);
         model.addAttribute("activePage", "home");
 
         return "home";

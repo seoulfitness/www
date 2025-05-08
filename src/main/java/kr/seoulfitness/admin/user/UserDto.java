@@ -21,6 +21,16 @@ public class UserDto {
     private String createdBy;           // 생성자
     private String updatedBy;           // 수정한 사람
 
+    // 학교 정보
+    private int provinceId;          // 시/도 아이디
+    private String provinceName;        // 시/도 이름
+    private int districtId;          // 구/군 아이디
+    private String districtName;        // 구/군 이름
+    private int highSchoolId;        // 고등학교 아이디
+    private String highSchoolName;      // 고등학교 이름
+    private int grade;               // 학년
+    private int studentParent;       // 학생/학부모 구분
+
     // 지점 정보
     private String branchId;            // 지점 아이디
     private String branchName;          // 지점 이름

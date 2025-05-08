@@ -64,7 +64,7 @@
                             email: true,
                             maxlength: 100,
                             remote: {
-                                url: '/auth/check-email',
+                                url: '/auth/check-user-email',
                                 type: 'post',
                                 data: {
                                     email: function() {
@@ -96,7 +96,7 @@
                             minlength: 11,
                             maxlength: 20,
                             remote: {
-                                url: '/auth/check-phone',
+                                url: '/auth/check-user-phone',
                                 type: 'post',
                                 data: {
                                     phone: function() {

@@ -21,7 +21,8 @@
                     Messages
                     <span class="badge bg-success-soft text-success ms-auto">2 New!</span>
                 </a>
-                <%-- Sidenav Menu Heading (Core)--%>
+                
+                <%-- 메뉴 --%>
                 <div class="sidenav-menu-heading">메뉴</div>
 
                 <%-- 지점 --%>
@@ -99,8 +100,26 @@
                 </div>
                 <%--// 기록 등록 정보 --%>
 
+                <%-- 사용자 --%>
+                <div class="sidenav-menu-heading">사용자</div>
+
+                <%-- 일반 회원 --%>
+                <a class="nav-link ${activePage == 'normalUsers' ? 'active' : ''}" href="/admin/normal-users">
+                    <div class="nav-link-icon"><i data-feather="user"></i></div>
+                    일반 회원
+                </a>
+                <%--// 일반 회원 --%>
+
+                <%-- 지점 회원 --%>
+                <a class="nav-link ${activePage == 'branchUsers' ? 'active' : ''}" href="/admin/branch-users">
+                    <div class="nav-link-icon"><i data-feather="user"></i></div>
+                    지점 회원
+                </a>
+                <%--// 지점 회원 --%>
+
+
                 <%-- Sidenav Heading (Custom)--%>
-                <div class="sidenav-menu-heading">Custom</div>
+                <div class="sidenav-menu-heading">사용자</div>
                 <%-- Sidenav Accordion (Pages)--%>
                 <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                     <div class="nav-link-icon"><i data-feather="grid"></i></div>

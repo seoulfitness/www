@@ -40,10 +40,10 @@
                                     <div class="card-footer text-center">
                                         <div class="small row">
                                             <div class="col">
-                                                <a href="/auth/register-branch/">학원(지점) 회원가입</a>
+                                                <a href="/auth/branch-register/">학원(지점) 회원가입</a>
                                             </div>
                                             <div class="col">
-                                                <a href="/auth/register-normal/">일반(개인) 회원가입</a>
+                                                <a href="/auth/normal-register/">일반(개인) 회원가입</a>
                                             </div>
                                         </div>
                                     </div>

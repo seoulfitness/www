@@ -173,6 +173,7 @@ public class HighSchoolController {
             return "redirect:/admin/highSchools";
         }
 
+        // 고등학교 삭제 실패
         redirectAttributes.addFlashAttribute("errorMessage", "고등학교 삭제에 실패했습니다.");
         return "redirect:/admin/highSchools/" + highSchoolId;
     }

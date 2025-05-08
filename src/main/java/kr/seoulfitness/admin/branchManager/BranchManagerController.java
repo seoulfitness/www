@@ -45,7 +45,7 @@ public class BranchManagerController {
     @PostMapping("/create")
     public String createPost(UserDto user, BranchManagerDto branchManager, HttpSession session, RedirectAttributes redirectAttributes) {
         // 지점 관리자 등록
-        user.setRole("branchManager");
+        user.setRole("BRANCH_MANAGER");
         user.setCreatedBy((String) session.getAttribute("userId"));
         user.setUpdatedBy((String) session.getAttribute("userId"));
         boolean resultUserCreate = userService.create(user);
@@ -74,7 +74,7 @@ public class BranchManagerController {
         params.put("listCountPerPage", 10);
         params.put("pageCountPerPage", 5);
         params.put("keyword", keyword);
-        params.put("role", "branchManager");
+        params.put("role", "BRANCH_MANAGER");
 
         // 지점 관리자 목록 조회
         Map<String, Object> result = userService.list(params);

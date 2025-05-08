@@ -8,9 +8,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto me-lg-5">
                 <li class="nav-item"><a class="nav-link" href="/" ${activePage == 'home' ? 'active' : ''}>입시정보</a></li>
-                <li class="nav-item"><a class="nav-link" href="/auth/login">로그인</a></li>
-                <li class="nav-item"><a class="nav-link" href="/auth/normal-register">일반회원가입</a></li>
-                <li class="nav-item"><a class="nav-link" href="/auth/branch-register">지점회원가입</a></li>
+                <li class="nav-item"><a class="nav-link me-2" href="/auth/login">로그인</a></li>
+                <li class="nav-item"><a class="nav-link me-2" href="/auth/normal-register">일반(개인) 회원가입</a></li>
+                <li class="nav-item"><a class="nav-link me-2" href="/auth/branch-register">학원(지점) 회원가입</a></li>
             </ul>
         </div>
     </div>

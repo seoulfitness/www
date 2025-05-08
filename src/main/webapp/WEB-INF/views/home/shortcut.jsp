@@ -39,7 +39,7 @@
                 <c:if test="${not empty sessionScope.user}">
                     <a href="/user/consults" style="text-decoration: none;">
                 </c:if>
-                    <div><i data-feather="file-text" class="text-info" style="width:60px;height:60px;"></i></div>
+                    <div><i data-feather="file-text" class="text-orange" style="width:60px;height:60px;"></i></div>
                     <div><span class="text-muted">상담 관리</span></div>
                 </a>
             </div>

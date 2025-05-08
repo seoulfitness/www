@@ -19,6 +19,15 @@
         <result property="updatedAt" column="UPDATED_AT" />
         <result property="createdBy" column="CREATED_BY" />
         <result property="updatedBy" column="UPDATED_BY" />        
+        <!-- 학교 정보 -->
+        <result property="provinceId" column="PROVINCE_ID" />
+        <result property="provinceName" column="PROVINCE_NAME" />
+        <result property="districtId" column="DISTRICT_ID" />
+        <result property="districtName" column="DISTRICT_NAME" />
+        <result property="highSchoolId" column="HIGH_SCHOOL_ID" />
+        <result property="highSchoolName" column="HIGH_SCHOOL_NAME" />
+        <result property="grade" column="GRADE" />
+        <result property="studentParent" column="STUDENT_PARENT" />
         <!-- 등록한 사람, 수정한 사람 -->
         <result property="createdUserName" column="CREATED_USER_NAME" />
         <result property="updatedUserName" column="UPDATED_USER_NAME" />
@@ -37,6 +46,11 @@
             USER_PHONE, 
             PROFILE_IMAGE, 
             ROLE, 
+            PROVINCE_ID,
+            DISTRICT_ID,
+            HIGH_SCHOOL_ID,
+            GRADE,
+            STUDENT_PARENT,
             STATUS,
             CREATED_BY,
             UPDATED_BY
@@ -48,6 +62,11 @@
             #{userPhone}, 
             #{profileImage}, 
             #{role}, 
+            #{provinceId},
+            #{districtId},
+            #{highSchoolId},
+            #{grade},
+            #{studentParent},
             #{status},
             #{createdBy},
             #{updatedBy}
@@ -67,6 +86,11 @@
             A.USER_PHONE, 
             A.PROFILE_IMAGE, 
             A.ROLE, 
+            A.PROVINCE_ID,
+            A.DISTRICT_ID,
+            A.HIGH_SCHOOL_ID,
+            A.GRADE,
+            A.STUDENT_PARENT,
             A.STATUS,
             A.DELETE_REQUEST,
             A.DELETE_REQUESTED_AT,
@@ -119,6 +143,11 @@
             A.USER_PHONE, 
             A.PROFILE_IMAGE, 
             A.ROLE, 
+            A.PROVINCE_ID,
+            A.DISTRICT_ID,
+            A.HIGH_SCHOOL_ID,
+            A.GRADE,
+            A.STUDENT_PARENT,
             A.STATUS,
             A.DELETE_REQUEST,
             A.DELETE_REQUESTED_AT,
@@ -193,6 +222,31 @@
         <if test="role != null">
             <![CDATA[
             , ROLE = #{role}
+            ]]>
+        </if>
+        <if test="provinceId != null and provinceId != 0">
+            <![CDATA[
+            , PROVINCE_ID = #{provinceId}
+            ]]>
+        </if>
+        <if test="districtId != null and districtId != 0">
+            <![CDATA[
+            , DISTRICT_ID = #{districtId}
+            ]]>
+        </if>
+        <if test="highSchoolId != null and highSchoolId != 0">
+            <![CDATA[
+            , HIGH_SCHOOL_ID = #{highSchoolId}
+            ]]>
+        </if>
+        <if test="grade != null and grade != 0">
+            <![CDATA[
+            , GRADE = #{grade}
+            ]]>
+        </if>
+        <if test="studentParent != null and studentParent != 0">
+            <![CDATA[
+            , STUDENT_PARENT = #{studentParent}
             ]]>
         </if>
         <if test="status != null">

@@ -1,74 +1,73 @@
+# 서울피트니스 웹 애플리케이션
 
-## Tomcat 8.5
+서울피트니스 웹 애플리케이션은 입시 요강 및 모집 정보를 관리하고 제공하는 웹 서비스입니다.
 
-### tomcat@8 설치
+## 기술 스택
 
-```shell
-brew install tomcat@8
-```
+- **백엔드**: Spring MVC 5.3.x
+- **프론트엔드**: JSP, JSTL
+- **데이터베이스**: MariaDB
+- **ORM**: MyBatis
+- **빌드 도구**: Maven
+- **서버**: Tomcat (내장)
+- **기타 라이브러리**:
+  - HikariCP (커넥션 풀)
+  - Lombok
+  - Jackson (JSON 처리)
+  - Spring Security Crypto
+  - Log4j 2
 
-### tomcat@8 실행
+## 주요 기능
 
-```shell
-brew services start tomcat@8
-```
+- 입시 요강 관리 및 조회
+- 수시 모집 정보 관리
+- 정시 모집 정보 관리
+- 관리자 기능
+- 사용자 인증
 
-### tomcat@8 중지
-
-```shell
-brew services stop tomcat@8
-```
-
-### tomcat@8 재실행
-
-```shell
-brew services restart tomcat@8
-```
-
-## 설정 파일 위치
-
-```
-/opt/homebrew/etc/tomcat@8
-```
-
-### 주요 설정 파일
-
-- /opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/conf/server.xml
-- /opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/conf/web.xml
-- /opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/conf/context.xml
-- /opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/conf/tomcat-users.xml
-
-## 웹 애플리케이션(webapp) 디렉토리 위치
+## 프로젝트 구조
 
 ```
-/opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/webapps
+src/main/
+├── java/kr/seoulfitness/
+│   ├── HomeController.java (메인 컨트롤러)
+│   ├── admin/ (관리자 기능)
+│   ├── auth/ (인증 관련)
+│   ├── interceptor/ (인터셉터)
+│   ├── api/ (API 관련)
+│   ├── libs/ (유틸리티)
+│   └── user/ (사용자 관련)
+├── resources/ (설정 파일)
+└── webapp/
+    ├── static/ (정적 자원)
+    └── WEB-INF/
+        ├── views/ (JSP 뷰)
+        ├── spring/ (스프링 설정)
+        └── web.xml (웹 설정)
 ```
 
-Tomcat 8의 실행 스크립트는 `/usr/local/opt/tomcat@8/bin/` 디렉토리에 있습니다.
+## 빌드 및 실행 방법
 
-Homebrew 설치 경로는 시스템에 따라 약간 다를 수 있으니, 정확한 위치를 확인하려면 다음 명령어를 사용해 보세요:
+### 필수 요구사항
+- Java 8 이상
+- Maven
+- MariaDB
+
+### 빌드 방법
 ```bash
-brew info tomcat@8
+# 프로젝트 빌드
+mvn clean package
 ```
 
-이 명령어는 설치 경로와 함께 유용한 정보를 제공합니다.
-
-
-확인해 주셔서 감사합니다. 이제 Tomcat 8의 정확한 위치를 확인했습니다:
-
-웹 애플리케이션(webapp) 디렉토리 위치:
-```
-/opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/webapps
+### 실행 방법
+```bash
+# 내장 Tomcat으로 실행
+mvn tomcat7:run
 ```
 
-설정 파일 위치:
-```
-/opt/homebrew/etc/tomcat@8/
-```
+## 관리자 접속
+- URL: `/admin`
+- 초기 계정은 관리자에게 문의하세요.
 
-Homebrew로 설치한 Tomcat 8은 다음과 같은 구조로 되어 있습니다:
-1. 설정 파일은 `/opt/homebrew/etc/tomcat@8/`에 위치
-2. 웹 애플리케이션은 `/opt/homebrew/Cellar/tomcat@8/8.5.100/libexec/webapps/`에 위치
-3. Context 설정은 `/opt/homebrew/etc/tomcat@8/Catalina/localhost/`에 위치
-
-웹 애플리케이션을 배포하려면 위에서 찾은 webapps 디렉토리에 WAR 파일을 복사하거나 해당 디렉토리에 애플리케이션 폴더를 생성하면 됩니다.
+## 라이선스
+이 프로젝트는 독점 소프트웨어로, 저작권은 서울피트니스에 있습니다.

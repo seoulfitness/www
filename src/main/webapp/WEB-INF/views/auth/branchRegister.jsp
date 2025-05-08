@@ -14,17 +14,28 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-body p-5 text-center">
                                         <div class="icons-org-join align-items-center mx-auto">
-                                            <i class="icon-user" data-feather="user"></i>
-                                            <i class="icon-arrow fas fa-long-arrow-alt-right"></i>
                                             <i class="icon-users" data-feather="users"></i>
+                                            <i class="icon-plus fas fa-plus"></i>
                                         </div>
-                                        <div class="h3 text-secondary mb-0">일반(개인) 회원가입</div>
+                                        <div class="h3 text-secondary mb-0">학원(지점) 회원가입</div>
                                     </div>
                                     <hr class="m-0" />
                                     <div class="card-body p-5">
-                                        <%-- 일반 회원 가입 폼 --%>
-                                        <form id="registerForm" action="/auth/normal-register" method="post">
-                                            <input type="hidden" name="role" value="NORMAL_USER" />
+                                        <%-- 학원(지점) 회원 가입 폼 --%>
+                                        <form id="registerForm" action="/auth/branch-register" method="post">
+                                            <input type="hidden" name="role" value="BRANCH_USER" />
+                                            <input type="hidden" name="studentParent" value="1" />
+                                            <!-- 학원(지점) 이름 -->
+                                            <div class="mb-3">
+                                                <select class="form-select form-select-solid" name="branchId" id="branchId" aria-label="학원(지점) 이름 선택">
+                                                    <option value="">학원(지점) 이름 선택</option>
+                                                    <c:forEach var="branch" items="${branches}">
+                                                        <option value="${branch.branchId}">${branch.branchName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <!-- 학원(지점) 위치 -->
+
                                             <!-- 학교가 위치한 시/도 -->
                                             <div class="mb-3">    
                                                 <select class="form-select form-select-solid" name="provinceId" id="provinceId" aria-label="학교가 위치한 시/도 선택">
@@ -54,14 +65,6 @@
                                                     <option value="2">2학년</option>
                                                     <option value="3">3학년</option>
                                                     <option value="4">N수생</option>
-                                                </select>
-                                            </div>
-                                            <!-- 학생/학부모 구분 -->
-                                            <div class="mb-3">
-                                                <select class="form-select form-select-solid" name="studentParent" id="studentParent" aria-label="학생/학부모 구분">
-                                                    <option value="">학생/학부모 선택</option>
-                                                    <option value="1">학생</option>
-                                                    <option value="2">학부모</option>
                                                 </select>
                                             </div>
                                             <!-- 이름 -->
@@ -209,6 +212,9 @@
                 // 일반 회원 가입 폼 유효성 검사
                 $("#registerForm").validate({
                     rules: {
+                        branchId: {
+                            required: true
+                        },
                         provinceId: {
                             required: true
                         },
@@ -219,9 +225,6 @@
                             required: true
                         },
                         grade: {
-                            required: true
-                        },
-                        studentParent: {
                             required: true
                         },
                         userName: {
@@ -271,6 +274,9 @@
                         }
                     },
                     messages: {
+                        branchId: {
+                            required: "학원(지점)을 선택해주세요."
+                        },
                         provinceId: {
                             required: "학교가 위치한 시/도를 선택해주세요."
                         },
@@ -282,9 +288,6 @@
                         },
                         grade: {
                             required: "학년을 선택해주세요."
-                        },
-                        studentParent: {
-                            required: "학생/학부모를 선택해주세요."
                         },
                         userName: {
                             required: "이름을 입력해주세요."

@@ -18,8 +18,8 @@
             <exclude-mapping path="/auth/find-user-id" />
             <exclude-mapping path="/auth/reset-password" />
             <exclude-mapping path="/auth/check-user-id" />
-            <exclude-mapping path="/auth/check-email" />
-            <exclude-mapping path="/auth/check-phone" />
+            <exclude-mapping path="/auth/check-user-email" />
+            <exclude-mapping path="/auth/check-user-phone" />
 			<beans:bean class="kr.seoulfitness.interceptor.AuthInterceptor" />
 		</interceptor>
 	</interceptors>

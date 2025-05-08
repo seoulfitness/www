@@ -19,7 +19,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
 
             // /admin 경로에 대한 접근 제한
-            if (request.getRequestURI().startsWith("/admin/") && !"admin".equals(request.getSession().getAttribute("role"))) {
+            if (request.getRequestURI().startsWith("/admin/") && !"ADMIN".equals(request.getSession().getAttribute("role"))) {
                 response.sendRedirect("/auth/logout");
                 return false;
             }
